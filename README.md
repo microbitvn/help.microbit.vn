@@ -16,7 +16,7 @@ Nếu bạn chưa từng làm về git và github vui lòng xem qua mô hình gi
 - Cập nhật Upstream: 
 Sử dụng lệnh này trước khi làm theo các bước tiếp theo từ trang https://help.github.com/articles/syncing-a-fork/
 ```
-git remote add upstream https://github.com/microbitvn/microbit.vn.git
+git remote add upstream https://github.com/microbitvn/help.microbit.vn.git
 ```
 
 
