@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>MicroBitImage - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/highlight.css">
+  <link href="../../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "MicroBitImage";
+    var mkdocs_page_input_path = "lancaster-mbed/data-types/image.md";
+    var mkdocs_page_url = "/lancaster-mbed/data-types/image/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../../js/highlight.pack.js"></script>
+  <script src="../../../js/theme.js"></script>
+  <script src="../../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../../js/nav.js"></script> 
+  <script src="../../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../advanced/" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/io/" id="io">io </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/radio/" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../string/" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/temperature-service/" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/radioevent/" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+        
+          <li>Data Types &raquo;</li>
+        
+      
+    
+    <li>MicroBitImage</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="microbitimage">MicroBitImage<a class="headerlink" href="#microbitimage" title="Permanent link">#</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p><code>MicroBitImage</code> represents a bitmap picture.</p>
+<p>Images can be of any size, and each pixel on the image has an individual brightness value in the range 0 - 255.</p>
+<p>Once created, this class also provides functions to undertake graphical operations on that image, including setting pixels, clearing the image, pasting one
+image onto another at a given position, shifting the content of an image and comparing and copying images.</p>
+<p>It is designed to work with the <a href="../../ubit/display/"><code>MicroBitDisplay</code></a> class to allow the creation of animations and visual effects.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>managed type</strong>. This means that it will automatically use and release memory as needed. There is no need for you to explicitly free or release memory when your done - the memory will be freed as soon as the last piece of code stops using the data.</p>
+</div>
+<h2 id="creating-images">Creating Images<a class="headerlink" href="#creating-images" title="Permanent link">#</a></h2>
+<p>Images are easy to create - just create them like a variable, but provide the details requested in one of the constructor function shown below. This may sound complex, but is quite simple when you get used to it. For example, to create
+a blank, 2x2 image:</p>
+<pre class="code"><code class="language-cpp">MicroBitImage image(2,2);</code></pre>
+
+
+<p>You can also create one from a text string that represents the pixel values that you want. This is a really easy way to create icons and emojis in your code.</p>
+<p>The string constructor for a <code>MicroBitImage</code> takes the form of a series of comma separate values. Each value is the brightness of a pixel, starting at the top left of your image and working
+to the right. Whenever you put a newline character <code>\n</code> in your string, this moves onto a new line of pixels.</p>
+<p>So to create a 3x3 image that is a picture of a cross, you might write:</p>
+<pre class="code"><code class="language-cpp">MicroBitImage cross(&quot;0,255,0\n255,255,255\n0,255,0\n&quot;);</code></pre>
+
+
+<h2 id="manipulating-images">Manipulating Images<a class="headerlink" href="#manipulating-images" title="Permanent link">#</a></h2>
+<p>Once you have created an image, you can use any of the functions listed in the API below to change that image. For example, you can use <code>setPixelValue</code> to change an individual pixel.</p>
+<p>In the example below, you can see how to change the centre pixel in our cross image
+created earlier:</p>
+<pre class="code"><code class="language-cpp">cross.setPixelValue(1,1,0);</code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Co-ordinates are indexed from zero, with the origin (0,0) being at the top left of the image.</p>
+</div>
+<p>You can print characters onto an image&hellip;</p>
+<pre class="code"><code class="language-cpp">MicroBitImage image(5,5);
+image.print('J');</code></pre>
+
+
+<p>You can also paste the content of one image onto another - either at the origin, or somewhere else:</p>
+<pre class="code"><code class="language-cpp">MicroBitImage image(5,5);
+image.paste(cross);</code></pre>
+
+
+<pre class="code"><code class="language-cpp">MicroBitImage image(5,5);
+image.paste(cross, 1, 1);</code></pre>
+
+
+<p>and of course, you can display your image on the LEDs using the <a href="../../ubit/display/"><code>MicroBitDisplay</code></a> class:</p>
+<pre class="code"><code class="language-cpp">MicroBitImage image(5,5);
+image.paste(cross);
+uBit.display.print(image);</code></pre>
+
+
+<h2 id="comparing-and-assigning-images">Comparing and Assigning Images<a class="headerlink" href="#comparing-and-assigning-images" title="Permanent link">#</a></h2>
+<p>MicroBitImage is a <strong>managed type</strong>, so you can pass images as parameters to functions, store then and assign them to other variables without having to worry about memory leaks.</p>
+<p>The type will count the number of times it is used, and will delete itself as soon as your image is not used anymore.</p>
+<p>You can assign images just like any other variable. So this is perfectly permitted, and memory safe:</p>
+<pre class="code"><code class="language-cpp">MicroBitImage cross(&quot;0,255,0\n255,255,255\n0,255,0\n&quot;);
+MicroBitImage img;
+
+img = cross;
+uBit.display.print(img);</code></pre>
+
+
+<p>As is this:</p>
+<pre class="code"><code class="language-cpp">void doSomething(MicroBitImage i)
+{
+    uBit.display.print(img);
+}
+
+int main()
+{
+    MicroBitImage cross(&quot;0,255,0\n255,255,255\n0,255,0\n&quot;);
+
+    doSomething(cross);
+}</code></pre>
+
+
+<p>You can also compare images:</p>
+<pre class="code"><code class="language-cpp">MicroBitImage cross(&quot;0,255,0\n255,255,255\n0,255,0\n&quot;);
+MicroBitImage img;
+
+img = cross;
+
+if (img == cross)
+    uBit.display.scroll(&quot;SAME!&quot;);</code></pre>
+
+
+<h2 id="storing-images-in-flash-memory">Storing Images in Flash Memory<a class="headerlink" href="#storing-images-in-flash-memory" title="Permanent link">#</a></h2>
+<p>The micro:bit is a <strong>very</strong> constrained device in terms of Random Access Memory (RAM). Unlike modern PCs that typically have over 4 Gigabytes of RAM (around four thousand million bytes!), the micro:bit has only 16 Kilobytes (16 thousand bytes!), and if you take a look at the memory map, you will see most of this is already committed to running the Bluetooth stack.</p>
+<p>By default, any <code>MicroBitImage</code> you create will be stored in this precious RAM, so that you have the ability to change it. However, it is not uncommon to have read-only images. in this case, we can store the image in FLASH memory (the same place as your program), of which the micro:bit has 256 Kilobytes.  </p>
+<p>Should you want to create an store a constant image in flash, you can do so using the following constructor, it is a little more complicated, but can save you memory:</p>
+<ul>
+<li>The array of bytes should always start with 0xff, 0xff - which tell the runtime that this image is stored in FLASH memory.</li>
+<li>The next number should be the width in pixels, followed by a zero.</li>
+<li>The next number should be the height in pixels, followed by a zero.</li>
+<li>The following bytes are then individual pixel brightness values, starting at the top left, then working left to right, top to bottom until the bottom right corner is reached.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you create an image this way, none of the functions to change the content will work on that image (e.g. <code>setPixelValue</code>, <code>paste</code>, etc).</p>
+</div>
+<pre class="code"><code class="language-cpp">    const uint8_t heart[] __attribute__ ((aligned (4))) = { 0xff, 0xff, 10, 0, 5, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0};
+
+    MicroBitImage i((ImageData*)heart);
+    uBit.display.animate(i,5);
+}</code></pre>
+
+
+<h1 id="api">API<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<h2 id="leakdata">leakData<a class="headerlink" href="#leakdata" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="imagedata-leakdata"><div style='color:#a71d5d; display:inline-block'>ImageData</div> <div style='color:#795da3; display:inline-block'>leakData</div>()<a class="headerlink" href="#imagedata-leakdata" title="Permanent link">#</a></h4>
+<h5 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h5>
+<p>Get current ptr, do not decr() it, and set the current instance to empty image.  </p>
+<p>This is to be used by specialized runtimes which pass  ImageData  around.           </p>
+<h2 id="getbitmap">getBitmap<a class="headerlink" href="#getbitmap" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="uint8_t-42-getbitmap"><div style='color:#a71d5d; display:inline-block'>uint8_t *</div> <div style='color:#795da3; display:inline-block'>getBitmap</div>()<a class="headerlink" href="#uint8_t-42-getbitmap" title="Permanent link">#</a></h4>
+<h5 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">#</a></h5>
+<p>Return a 2D array representing the bitmap image.           </p>
+<h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbitimage-imagedata-42-ptr">MicroBitImage( <div style='color:#a71d5d; display:inline-block'>ImageData  *</div> ptr)<a class="headerlink" href="#microbitimage-imagedata-42-ptr" title="Permanent link">#</a></h4>
+<h5 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">#</a></h5>
+<p>Constructor. Create an image from a specially prepared constant array, with no copying. Will call ptr-&gt;incr().  </p>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>ImageData  *</div> ptr - The literal - first two bytes should be 0xff, then width, 0, height, 0, and the bitmap. Width and height are 16 bit. The literal has to be 4-byte aligned.</p>
+</blockquote>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> static const uint8_t heart[] __attribute__ ((aligned (4))) = { 0xff, 0xff, 10, 0, 5, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i((ImageData*)(void*)heart); </code></pre>
+
+
+<p><br/></p>
+<h4 id="microbitimage_1">MicroBitImage()<a class="headerlink" href="#microbitimage_1" title="Permanent link">#</a></h4>
+<h5 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">#</a></h5>
+<p>Default Constructor. Creates a new reference to the empty  MicroBitImage  bitmap  </p>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(); //an empty image instance </code></pre>
+
+
+<p><br/></p>
+<h4 id="microbitimage-const-microbitimage-image">MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image)<a class="headerlink" href="#microbitimage-const-microbitimage-image" title="Permanent link">#</a></h4>
+<h5 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">#</a></h5>
+<p>Copy Constructor. Add ourselves as a reference to an existing  MicroBitImage .  </p>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image - The  MicroBitImage  to reference.</p>
+</blockquote>
+<h5 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(&quot;0,1,0,1,0\n&quot;); 
+ MicroBitImage i2(i); //points to i </code></pre>
+
+
+<p><br/></p>
+<h4 id="microbitimage-const-char-42-s">MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const char *</div> s)<a class="headerlink" href="#microbitimage-const-char-42-s" title="Permanent link">#</a></h4>
+<h5 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">#</a></h5>
+<p>Constructor. Create a blank bitmap representation of a given size.  </p>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const char *</div> s - A text based representation of the image given whitespace delimited numeric values.</p>
+</blockquote>
+<h5 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(&quot;0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n&quot;); // 5x5 image </code></pre>
+
+
+<p><br/></p>
+<h4 id="microbitimage-const-int16_t-x-const-int16_t-y">MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> y)<a class="headerlink" href="#microbitimage-const-int16_t-x-const-int16_t-y" title="Permanent link">#</a></h4>
+<h5 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">#</a></h5>
+<p>Constructor. Create a blank bitmap representation of a given size.  </p>
+<p>x </p>
+<p>the width of the image.  </p>
+<p>y </p>
+<p>the height of the image.  </p>
+<p>Bitmap buffer is linear, with 8 bits per pixel, row by row, top to bottom with no word alignment. Stride is therefore the image width in pixels. in where w and h are width and height respectively, the layout is therefore:  </p>
+<p>|[0,0]&hellip;[w,o][1,0]&hellip;[w,1] &hellip; [[w,h]  </p>
+<p>A copy of the image is made in RAM, as images are mutable.           </p>
+<h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const int16_t</div> x - the width of the image.</p>
+<p><div style='color:#a71d5d; display:inline-block'>const int16_t</div> y - the height of the image.
+<br/></p>
+</blockquote>
+<h4 id="microbitimage-const-int16_t-x-const-int16_t-y-const-uint8_t-42-bitmap">MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>const uint8_t *</div> bitmap)<a class="headerlink" href="#microbitimage-const-int16_t-x-const-int16_t-y-const-uint8_t-42-bitmap" title="Permanent link">#</a></h4>
+<h5 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">#</a></h5>
+<p>Constructor. Create a bitmap representation of a given size, based on a given buffer.  </p>
+<h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const int16_t</div> x - the width of the image.</p>
+<p><div style='color:#a71d5d; display:inline-block'>const int16_t</div> y - the height of the image.</p>
+<p><div style='color:#a71d5d; display:inline-block'>const uint8_t *</div> bitmap - a 2D array representing the image.</p>
+</blockquote>
+<h5 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); </code></pre>
+
+
+<h2 id="operator">operator=<a class="headerlink" href="#operator" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbitimage-operator-const-microbitimage-i"><div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>operator=</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> i)<a class="headerlink" href="#microbitimage-operator-const-microbitimage-i" title="Permanent link">#</a></h4>
+<h5 id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">#</a></h5>
+<p>Copy assign operation.  </p>
+<p>Called when one  MicroBitImage  is assigned the value of another using the &lsquo;=&rsquo; operator.  </p>
+<p>Decrement our reference count and free up the buffer as necessary.  </p>
+<p>Then, update our buffer to refer to that of the supplied  MicroBitImage , and increase its reference count.  </p>
+<h5 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> i</p>
+</blockquote>
+<h5 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ MicroBitImage i1(); 
+ i1 = i; // i1 now references i </code></pre>
+
+
+<h2 id="operator_1">operator==<a class="headerlink" href="#operator_1" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="bool-operator-const-microbitimage-i"><div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator==</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> i)<a class="headerlink" href="#bool-operator-const-microbitimage-i" title="Permanent link">#</a></h4>
+<h5 id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">#</a></h5>
+<p>Equality operation.  </p>
+<p>Called when one  MicroBitImage  is tested to be equal to another using the &lsquo;==&rsquo; operator.  </p>
+<h5 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> i - The  MicroBitImage  to test ourselves against.</p>
+</blockquote>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">#</a></h5>
+<p>true if this  MicroBitImage  is identical to the one supplied, false otherwise.</p>
+<h5 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ MicroBitImage i(); 
+ MicroBitImage i1(); 
+
+ if(i == i1) //will be true 
+ display.scroll(&quot;true&quot;); </code></pre>
+
+
+<h2 id="clear">clear<a class="headerlink" href="#clear" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-clear"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>clear</div>()<a class="headerlink" href="#void-clear" title="Permanent link">#</a></h4>
+<h5 id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">#</a></h5>
+<p>Resets all pixels in this image to 0.  </p>
+<h5 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(&quot;0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n&quot;); // 5x5 image 
+ i.clear(); </code></pre>
+
+
+<h2 id="setpixelvalue">setPixelValue<a class="headerlink" href="#setpixelvalue" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-setpixelvalue-int16_t-x-int16_t-y-uint8_t-value"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setPixelValue</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>uint8_t</div> value)<a class="headerlink" href="#int-setpixelvalue-int16_t-x-int16_t-y-uint8_t-value" title="Permanent link">#</a></h4>
+<h5 id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">#</a></h5>
+<p>Sets the pixel at the given co-ordinates to a given value.  </p>
+<h5 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The co-ordinate of the pixel to change.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The co-ordinate of the pixel to change.</p>
+<p><div style='color:#a71d5d; display:inline-block'>uint8_t</div> value - The new value of the pixel (the brightness level 0-255)</p>
+</blockquote>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(&quot;0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n&quot;); // 5x5 image 
+ i.setPixelValue(0,0,255); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>all coordinates originate from the top left of an image. </p>
+</div>
+<h2 id="getpixelvalue">getPixelValue<a class="headerlink" href="#getpixelvalue" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-getpixelvalue-int16_t-x-int16_t-y"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getPixelValue</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y)<a class="headerlink" href="#int-getpixelvalue-int16_t-x-int16_t-y" title="Permanent link">#</a></h4>
+<h5 id="description_12">Description<a class="headerlink" href="#description_12" title="Permanent link">#</a></h5>
+<p>Retrieves the value of a given pixel.  </p>
+<h5 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The x co-ordinate of the pixel to read. Must be within the dimensions of the image.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The y co-ordinate of the pixel to read. Must be within the dimensions of the image.</p>
+</blockquote>
+<h5 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">#</a></h5>
+<p>The value assigned to the given pixel location (the brightness level 0-255), or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(&quot;0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n1,0,1,0,1\n0,1,0,1,0\n&quot;); // 5x5 image 
+ i.getPixelValue(0,0); //should be 0; </code></pre>
+
+
+<h2 id="printimage">printImage<a class="headerlink" href="#printimage" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-printimage-int16_t-x-int16_t-y-const-uint8_t-42-bitmap"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printImage</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>const uint8_t *</div> bitmap)<a class="headerlink" href="#int-printimage-int16_t-x-int16_t-y-const-uint8_t-42-bitmap" title="Permanent link">#</a></h4>
+<h5 id="description_13">Description<a class="headerlink" href="#description_13" title="Permanent link">#</a></h5>
+<p>Replaces the content of this image with that of a given 2D array representing the image.  </p>
+<h5 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - the width of the image. Must be within the dimensions of the image.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> y - the width of the image. Must be within the dimensions of the image.</p>
+<p><div style='color:#a71d5d; display:inline-block'>const uint8_t *</div> bitmap - a 2D array representing the image.</p>
+</blockquote>
+<h5 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(); 
+ i.printImage(0,0,heart); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>all coordinates originate from the top left of an image. </p>
+</div>
+<h2 id="paste">paste<a class="headerlink" href="#paste" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-paste-const-microbitimage-image"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image)<a class="headerlink" href="#int-paste-const-microbitimage-image" title="Permanent link">#</a></h4>
+<h5 id="description_14">Description<a class="headerlink" href="#description_14" title="Permanent link">#</a></h5>
+<p>Pastes a given bitmap at the given co-ordinates.  </p>
+<p>Any pixels in the relevant area of this image are replaced.  </p>
+<h5 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image - The  MicroBitImage  to paste.</p>
+</blockquote>
+<h5 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">#</a></h5>
+<p>The number of pixels written.</p>
+<h5 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); // a big heart 
+ i.paste(i, -5, 0); // a small heart </code></pre>
+
+
+<p><br/></p>
+<h4 id="int-paste-const-microbitimage-image-int16_t-x"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x)<a class="headerlink" href="#int-paste-const-microbitimage-image-int16_t-x" title="Permanent link">#</a></h4>
+<h5 id="description_15">Description<a class="headerlink" href="#description_15" title="Permanent link">#</a></h5>
+<p>Pastes a given bitmap at the given co-ordinates.  </p>
+<p>Any pixels in the relevant area of this image are replaced.  </p>
+<h5 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image - The  MicroBitImage  to paste.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The leftmost X co-ordinate in this image where the given image should be pasted. Defaults to 0.</p>
+</blockquote>
+<h5 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">#</a></h5>
+<p>The number of pixels written.</p>
+<h5 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); // a big heart 
+ i.paste(i, -5, 0); // a small heart </code></pre>
+
+
+<p><br/></p>
+<h4 id="int-paste-const-microbitimage-image-int16_t-x-int16_t-y"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y)<a class="headerlink" href="#int-paste-const-microbitimage-image-int16_t-x-int16_t-y" title="Permanent link">#</a></h4>
+<h5 id="description_16">Description<a class="headerlink" href="#description_16" title="Permanent link">#</a></h5>
+<p>Pastes a given bitmap at the given co-ordinates.  </p>
+<p>Any pixels in the relevant area of this image are replaced.  </p>
+<h5 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image - The  MicroBitImage  to paste.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The leftmost X co-ordinate in this image where the given image should be pasted. Defaults to 0.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The uppermost Y co-ordinate in this image where the given image should be pasted. Defaults to 0.</p>
+</blockquote>
+<h5 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">#</a></h5>
+<p>The number of pixels written.</p>
+<h5 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); // a big heart 
+ i.paste(i, -5, 0); // a small heart </code></pre>
+
+
+<p><br/></p>
+<h4 id="int-paste-const-microbitimage-image-int16_t-x-int16_t-y-uint8_t-alpha"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>uint8_t</div> alpha)<a class="headerlink" href="#int-paste-const-microbitimage-image-int16_t-x-int16_t-y-uint8_t-alpha" title="Permanent link">#</a></h4>
+<h5 id="description_17">Description<a class="headerlink" href="#description_17" title="Permanent link">#</a></h5>
+<p>Pastes a given bitmap at the given co-ordinates.  </p>
+<p>Any pixels in the relevant area of this image are replaced.  </p>
+<h5 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image - The  MicroBitImage  to paste.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The leftmost X co-ordinate in this image where the given image should be pasted. Defaults to 0.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The uppermost Y co-ordinate in this image where the given image should be pasted. Defaults to 0.</p>
+<p><div style='color:#a71d5d; display:inline-block'>uint8_t</div> alpha - set to 1 if transparency clear pixels in given image should be treated as transparent. Set to 0 otherwise. Defaults to 0.</p>
+</blockquote>
+<h5 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">#</a></h5>
+<p>The number of pixels written.</p>
+<h5 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); // a big heart 
+ i.paste(i, -5, 0); // a small heart </code></pre>
+
+
+<h2 id="print">print<a class="headerlink" href="#print" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-print-char-c"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c)<a class="headerlink" href="#int-print-char-c" title="Permanent link">#</a></h4>
+<h5 id="description_18">Description<a class="headerlink" href="#description_18" title="Permanent link">#</a></h5>
+<p>Prints a character to the display at the given location  </p>
+<h5 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</p>
+</blockquote>
+<h5 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(5,5); 
+ i.print('a'); </code></pre>
+
+
+<p><br/></p>
+<h4 id="int-print-char-c-int16_t-x"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x)<a class="headerlink" href="#int-print-char-c-int16_t-x" title="Permanent link">#</a></h4>
+<h5 id="description_19">Description<a class="headerlink" href="#description_19" title="Permanent link">#</a></h5>
+<p>Prints a character to the display at the given location  </p>
+<h5 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The x co-ordinate of on the image to place the top left of the character. Defaults to 0.</p>
+</blockquote>
+<h5 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(5,5); 
+ i.print('a'); </code></pre>
+
+
+<p><br/></p>
+<h4 id="int-print-char-c-int16_t-x-int16_t-y"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y)<a class="headerlink" href="#int-print-char-c-int16_t-x-int16_t-y" title="Permanent link">#</a></h4>
+<h5 id="description_20">Description<a class="headerlink" href="#description_20" title="Permanent link">#</a></h5>
+<p>Prints a character to the display at the given location  </p>
+<h5 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The x co-ordinate of on the image to place the top left of the character. Defaults to 0.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The y co-ordinate of on the image to place the top left of the character. Defaults to 0.</p>
+</blockquote>
+<h5 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitImage i(5,5); 
+ i.print('a'); </code></pre>
+
+
+<h2 id="shiftleft">shiftLeft<a class="headerlink" href="#shiftleft" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-shiftleft-int16_t-n"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftLeft</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)<a class="headerlink" href="#int-shiftleft-int16_t-n" title="Permanent link">#</a></h4>
+<h5 id="description_21">Description<a class="headerlink" href="#description_21" title="Permanent link">#</a></h5>
+<p>Shifts the pixels in this Image a given number of pixels to the left.  </p>
+<h5 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</p>
+</blockquote>
+<h5 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); // a big heart 
+ i.shiftLeft(5); // a small heart </code></pre>
+
+
+<h2 id="shiftright">shiftRight<a class="headerlink" href="#shiftright" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-shiftright-int16_t-n"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftRight</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)<a class="headerlink" href="#int-shiftright-int16_t-n" title="Permanent link">#</a></h4>
+<h5 id="description_22">Description<a class="headerlink" href="#description_22" title="Permanent link">#</a></h5>
+<p>Shifts the pixels in this Image a given number of pixels to the right.  </p>
+<h5 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</p>
+</blockquote>
+<h5 id="returns_12">Returns<a class="headerlink" href="#returns_12" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); // a big heart 
+ i.shiftLeft(5); // a small heart 
+ i.shiftRight(5); // a big heart </code></pre>
+
+
+<h2 id="shiftup">shiftUp<a class="headerlink" href="#shiftup" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-shiftup-int16_t-n"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftUp</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)<a class="headerlink" href="#int-shiftup-int16_t-n" title="Permanent link">#</a></h4>
+<h5 id="description_23">Description<a class="headerlink" href="#description_23" title="Permanent link">#</a></h5>
+<p>Shifts the pixels in this Image a given number of pixels to upward.  </p>
+<h5 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</p>
+</blockquote>
+<h5 id="returns_13">Returns<a class="headerlink" href="#returns_13" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ i.shiftUp(1); </code></pre>
+
+
+<h2 id="shiftdown">shiftDown<a class="headerlink" href="#shiftdown" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-shiftdown-int16_t-n"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftDown</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)<a class="headerlink" href="#int-shiftdown-int16_t-n" title="Permanent link">#</a></h4>
+<h5 id="description_24">Description<a class="headerlink" href="#description_24" title="Permanent link">#</a></h5>
+<p>Shifts the pixels in this Image a given number of pixels to downward.  </p>
+<h5 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</p>
+</blockquote>
+<h5 id="returns_14">Returns<a class="headerlink" href="#returns_14" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.</p>
+<h5 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ i.shiftDown(1); </code></pre>
+
+
+<h2 id="getwidth">getWidth<a class="headerlink" href="#getwidth" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-getwidth"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getWidth</div>()<a class="headerlink" href="#int-getwidth" title="Permanent link">#</a></h4>
+<h5 id="description_25">Description<a class="headerlink" href="#description_25" title="Permanent link">#</a></h5>
+<p>Gets the width of this image.  </p>
+<h5 id="returns_15">Returns<a class="headerlink" href="#returns_15" title="Permanent link">#</a></h5>
+<p>The width of this image.</p>
+<h5 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ i.getWidth(); // equals 10... </code></pre>
+
+
+<h2 id="getheight">getHeight<a class="headerlink" href="#getheight" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-getheight"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getHeight</div>()<a class="headerlink" href="#int-getheight" title="Permanent link">#</a></h4>
+<h5 id="description_26">Description<a class="headerlink" href="#description_26" title="Permanent link">#</a></h5>
+<p>Gets the height of this image.  </p>
+<h5 id="returns_16">Returns<a class="headerlink" href="#returns_16" title="Permanent link">#</a></h5>
+<p>The height of this image.</p>
+<h5 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ i.getHeight(); // equals 5... </code></pre>
+
+
+<h2 id="getsize">getSize<a class="headerlink" href="#getsize" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-getsize"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getSize</div>()<a class="headerlink" href="#int-getsize" title="Permanent link">#</a></h4>
+<h5 id="description_27">Description<a class="headerlink" href="#description_27" title="Permanent link">#</a></h5>
+<p>Gets number of bytes in the bitmap, ie., width * height.  </p>
+<h5 id="returns_17">Returns<a class="headerlink" href="#returns_17" title="Permanent link">#</a></h5>
+<p>The size of the bitmap.</p>
+<h5 id="example_24">Example<a class="headerlink" href="#example_24" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ i.getSize(); // equals 50... </code></pre>
+
+
+<h2 id="tostring">toString<a class="headerlink" href="#tostring" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="managedstring-tostring"><div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>toString</div>()<a class="headerlink" href="#managedstring-tostring" title="Permanent link">#</a></h4>
+<h5 id="description_28">Description<a class="headerlink" href="#description_28" title="Permanent link">#</a></h5>
+<p>Converts the bitmap to a csv  ManagedString .  </p>
+<h5 id="example_25">Example<a class="headerlink" href="#example_25" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ uBit.serial.printString(i.toString()); // &quot;0,1,0,1,0,0,0,0,0,0\n...&quot; </code></pre>
+
+
+<h2 id="crop">crop<a class="headerlink" href="#crop" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbitimage-crop-int-startx-int-starty-int-finx-int-finy"><div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>crop</div>( <div style='color:#a71d5d; display:inline-block'>int</div> startx,  <div style='color:#a71d5d; display:inline-block'>int</div> starty,  <div style='color:#a71d5d; display:inline-block'>int</div> finx,  <div style='color:#a71d5d; display:inline-block'>int</div> finy)<a class="headerlink" href="#microbitimage-crop-int-startx-int-starty-int-finx-int-finy" title="Permanent link">#</a></h4>
+<h5 id="description_29">Description<a class="headerlink" href="#description_29" title="Permanent link">#</a></h5>
+<p>Crops the image to the given dimensions.  </p>
+<h5 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> startx - the location to start the crop in the x-axis</p>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> starty - the location to start the crop in the y-axis</p>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> finx</p>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> finy</p>
+</blockquote>
+<h5 id="example_26">Example<a class="headerlink" href="#example_26" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> const uint8_t heart[] = { 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, }; // a cute heart 
+ MicroBitImage i(10,5,heart); 
+ i.crop(0,0,2,2).toString() // &quot;0,1\n1,1\n&quot; </code></pre>
+
+
+<h2 id="isreadonly">isReadOnly<a class="headerlink" href="#isreadonly" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="bool-isreadonly"><div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>isReadOnly</div>()<a class="headerlink" href="#bool-isreadonly" title="Permanent link">#</a></h4>
+<h5 id="description_30">Description<a class="headerlink" href="#description_30" title="Permanent link">#</a></h5>
+<p>Check if image is read-only (i.e., residing in flash).           </p>
+<h2 id="clone">clone<a class="headerlink" href="#clone" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbitimage-clone"><div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>clone</div>()<a class="headerlink" href="#microbitimage-clone" title="Permanent link">#</a></h4>
+<h5 id="description_31">Description<a class="headerlink" href="#description_31" title="Permanent link">#</a></h5>
+<p>Create a copy of the image bitmap. Used particularly, when  isReadOnly()  is true.  </p>
+<h5 id="returns_18">Returns<a class="headerlink" href="#returns_18" title="Permanent link">#</a></h5>
+<p>an instance of  MicroBitImage  which can be modified independently of the current instance </p>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../event/" class="btn btn-neutral float-right" title="MicroBitEvent">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../ubit/radio/" class="btn btn-neutral" title="radio"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../../ubit/radio/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../event/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>

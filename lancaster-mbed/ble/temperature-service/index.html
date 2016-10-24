@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>TemperatureService - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/highlight.css">
+  <link href="../../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "TemperatureService";
+    var mkdocs_page_input_path = "lancaster-mbed/ble/temperature-service.md";
+    var mkdocs_page_url = "/lancaster-mbed/ble/temperature-service/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../../js/highlight.pack.js"></script>
+  <script src="../../../js/theme.js"></script>
+  <script src="../../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../../js/nav.js"></script> 
+  <script src="../../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../advanced/" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/io/" id="io">io </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/radio/" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/image/" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/string/" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/radioevent/" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+        
+          <li>Bluetooth &raquo;</li>
+        
+      
+    
+    <li>TemperatureService</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="bluetooth-temperature-service">Bluetooth Temperature Service<a class="headerlink" href="#bluetooth-temperature-service" title="Permanent link">#</a></h1>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2>
+<p>This Bluetooth service is an optional part of the standard bluetooth profile for the micro:bit. It is a passive service, that can operate transparently in the
+background as your main program is running. It provides live temperature data to a connected Bluetooth master device such as a smartphone. You do not need to explicitly address an API on the service to achieve this.
+Please note that the temperature data is inferred from the die temperature of the Nordic nrf51822 CPU. Whilst this sensor has a high precision, it is not calibrated, so will exhibit
+a linear shift (although changes in temperature will be accurate). See <a href="/ubit/thermometer.md">MicroBitThermometer</a> for information on the API to allow calibration.</p>
+<h2 id="enabling-the-service">Enabling the Service<a class="headerlink" href="#enabling-the-service" title="Permanent link">#</a></h2>
+<p>This service is disabled by default. To enable the service, simply create an instance of this class in your program, at any time after the uBit object has been initialised:</p>
+<pre class="code"><code class="language-cpp">    new MicroBitTemperatureService(*uBit.ble, uBit.thermometer);</code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using Bluetooth services is memory hungry. By default, some of the memory normally used by Nordic&rsquo;s Bluetooth protocol stack (known as a SoftDevice), is reclaimed by the micro:bit runtime as general purpose memory for your applications. if you enable more Bluetooth services, then you may need to provide more memory back to Soft Device to ensure proper operation. If after enabling this service your Bluetooth application cannot access the service reliably, you should consider increasing the value of MICROBIT_SD_GATT_TABLE_SIZE in your inc/MicroBitConfig.h. The more service you add, the larger this will need to be, up to the limit defined in MicroBitConfig.h.</p>
+</div>
+<h2 id="bluetooth-service-specification">Bluetooth Service Specification<a class="headerlink" href="#bluetooth-service-specification" title="Permanent link">#</a></h2>
+<p>Please see the <a href="../../resources/bluetooth/microbit-profile-V1.9-Level-2.pdf">micro:bit Bluetooth profile specification</a>.</p>
+<h2 id="example-applications-for-androidiosandroid">Example Applications for Android/IOS/Android<a class="headerlink" href="#example-applications-for-androidiosandroid" title="Permanent link">#</a></h2>
+<h3 id="general-procedures">General Procedures<a class="headerlink" href="#general-procedures" title="Permanent link">#</a></h3>
+<p>micro:bit can acquire a temperature reading from the surface of the nrf51822 processor and this can be shared with connected Bluetooth clients, either via Bluetooth notifications or by the client reading the current value of the Temperature characteristic. The frequency with which Temperature notifications are sent (more accurately, the frequency with which the temperature is sampled) may be configured by writing a ms value to the Temperature Period characteristic.  </p>
+<p>See the profile page and profile reference documentation for data format and UUID details.</p>
+<h3 id="android">Android<a class="headerlink" href="#android" title="Permanent link">#</a></h3>
+<p><img src="../../resources/bluetooth/temperature_demo.png" alt="Temperature Demo"></p>
+<h4 id="android-bluetooth-apis">Android Bluetooth APIs<a class="headerlink" href="#android-bluetooth-apis" title="Permanent link">#</a></h4>
+<p>Android developers should make themselves familiar with the <a href="http://developer.android.com/guide/topics/connectivity/bluetooth-le.html">Android Bluetooth low energy APIs</a></p>
+<h4 id="microbit-ble-demo-android">microbit-ble-demo-android<a class="headerlink" href="#microbit-ble-demo-android" title="Permanent link">#</a></h4>
+<p>The open source microbit-ble-demo-android application contains a full demonstration of the micro:bit Bluetooth temperature service. The main body of code for this demonstration can be found in ui.TemperatureActivity.java except for the Bluetooth operations themselves which are in bluetooth.BleAdapterService which acts as a kind of higher level Bluetooth API for activities to use without needing to directly concern themselves too closely with the Android APIs themselves. In most cases, operations are asynchronous so that the activity code initiates a Bluetooth operation by calling one of the methods in bluetooth.BleAdapterService (e.g. readCharacteristic(....) ) and later receives a message containing the result of the operation from this object via a Handler object. The message is examined in the Handler code and acted upon.</p>
+<p>Key parts of the button demonstration in this application are explained next.</p>
+<h4 id="in-bluetoothbleadapterservice">In bluetooth.BleAdapterService<a class="headerlink" href="#in-bluetoothbleadapterservice" title="Permanent link">#</a></h4>
+<pre class="code"><code class="language-java">public static String TEMPERATURESERVICE_SERVICE_UUID = &quot;E95D6100251D470AA062FA1922DFA9A8&quot;;
+public static String TEMPERATURE_CHARACTERISTIC_UUID = &quot;E95D9250251D470AA062FA1922DFA9A8&quot;;</code></pre>
+
+
+<h4 id="in-uitemperatureactivity">In ui.TemperatureActivity<a class="headerlink" href="#in-uitemperatureactivity" title="Permanent link">#</a></h4>
+<pre class="code"><code class="language-java">// enable temperature notifications
+bluetooth_le_adapter.setNotificationsState(
+                    Utility.normaliseUUID(BleAdapterService.TEMPERATURESERVICE_SERVICE_UUID), 
+                    Utility.normaliseUUID(BleAdapterService.TEMPERATURE_CHARACTERISTIC_UUID), true)</code></pre>
+
+
+<pre class="code"><code class="language-java">// receiving temperature notifications
+case BleAdapterService.NOTIFICATION_RECEIVED:
+    bundle = msg.getData();
+    service_uuid = bundle.getString(BleAdapterService.PARCEL_SERVICE_UUID);
+    characteristic_uuid = bundle.getString(BleAdapterService.PARCEL_CHARACTERISTIC_UUID);
+    b = bundle.getByteArray(BleAdapterService.PARCEL_VALUE);
+    byte temperature = b[0];
+    Log.d(Constants.TAG, &quot;Value=&quot; + Utility.byteArrayAsHexString(b));
+    if (characteristic_uuid.equalsIgnoreCase((Utility.normaliseUUID(BleAdapterService.TEMPERATURE_CHARACTERISTIC_UUID)))) {
+        Log.d(Constants.TAG, &quot;Temperature received: &quot; + temperature);
+        TextView temp = (TextView) TemperatureActivity.this.findViewById(R.id.temperature);
+        temp.setText(&quot;&quot;+temperature);
+    }
+    break;
+}</code></pre>
+
+
+<h4 id="video-demonstration-starts-at-305">Video Demonstration - starts at 3:05<a class="headerlink" href="#video-demonstration-starts-at-305" title="Permanent link">#</a></h4>
+<iframe src="https://player.vimeo.com/video/153078747" width="750" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../uart-service/" class="btn btn-neutral float-right" title="UARTService">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../magnetometer-service/" class="btn btn-neutral" title="MagnetometerService"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../magnetometer-service/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../uart-service/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>

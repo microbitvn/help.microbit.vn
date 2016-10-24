@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>radio - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/highlight.css">
+  <link href="../../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "radio";
+    var mkdocs_page_input_path = "lancaster-mbed/ubit/radio.md";
+    var mkdocs_page_url = "/lancaster-mbed/ubit/radio/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../../js/highlight.pack.js"></script>
+  <script src="../../../js/theme.js"></script>
+  <script src="../../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../../js/nav.js"></script> 
+  <script src="../../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../advanced/" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../io/" id="io">io </a>
+                </li>
+            
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/image/" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/string/" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/temperature-service/" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../radioevent/" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+        
+          <li>uBit &raquo;</li>
+        
+      
+    
+    <li>radio</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ubitradio">uBit.radio<a class="headerlink" href="#ubitradio" title="Permanent link">#</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>The central processor unit (CPU) on the micro:bit is a Nordic Semiconductor <a href="../../resources/datasheets/nRF51822.pdf">nRF51822</a>. In addition to being a general purpose
+computer processor, this chip also contains a built-in 2.4GHz radio module.  This radio can be configured in a number of
+ways, and is primarily designed to run the Bluetooth Low Energy (BLE) protocol. However, it can also be placed into a much
+simpler mode of operation based that allows simple, direct micro:bit to micro:bit communication.</p>
+<p>The <code>MicroBitRadio</code> component is made up of three classes - <code>MicroBitRadio</code>, <a href="../radioevent/"><code>MicroBitRadioEvent</code></a> and <a href="../radiodatagram/"><code>MicroBitRadioDatagram</code></a>. Together,
+these provide the ability to send general purpose data packets from one micro:bit to another, and to extend a message bus to span multiple micro:bits&hellip;
+so if you raise an event on one micro:bit, you can receive it on another using the normal <a href="messageBus.md">listen</a> mechanism!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not currently possible to run the <code>MicroBitRadio</code> component and Bluetooth Low Energy (BLE) at the same time. If you want to use the <code>MicroBitRadio</code> functionality, you need to disable the BLE stack on your micro:bit by compiling the runtime with <code>#define MICROBIT_BLE_ENABLED 0</code> in your <code>inc/MicroBitConfig.h</code> file.</p>
+</div>
+<h2 id="capabilities">Capabilities<a class="headerlink" href="#capabilities" title="Permanent link">#</a></h2>
+<p>This component provides a very easy to use, flexible, broadcast radio channel. Anything you send from one micro:bit, can be received by any other micro:bits nearby.
+It is designed to provide a powerful but simple introduction to the world of wireless communications, and can let you create a whole range of applications from
+building your own friend detectors to creating remote control cars.</p>
+<p>A key principle of this component is <strong>privacy</strong>, which is built in from the ground up. So, when you send any data, there is nothing inherent in this protocol
+which can be used to identify you or your micro:bit. All devices look identical. Therefore, if you want to be able to identify yourself, you need to add this to your own data.</p>
+<p><img alt="MicroBitRadio Principles" src="../../resources/radio1.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Brief Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frequency</td>
+<td>1MHz narrowband, typically 2.407 GHz. Use configurable in the 2.400 GHz - 2.499 GHz band.</td>
+</tr>
+<tr>
+<td>Channel Rate</td>
+<td>1Mbps.</td>
+</tr>
+<tr>
+<td>Maximum Transfer Unit</td>
+<td>Typically 32 bytes, but reconfigurable in code up to 1024 bytes.</td>
+</tr>
+<tr>
+<td>Addressing</td>
+<td>All devices share the same address to guarantee user privacy.</td>
+</tr>
+<tr>
+<td>Encryption</td>
+<td>None. User level encryption (or BLE) should be considered if secture channels are required.</td>
+</tr>
+<tr>
+<td>Meshing</td>
+<td>None. (yet!)</td>
+</tr>
+<tr>
+<td>Error Detection</td>
+<td>16 bit hardware CRC.</td>
+</tr>
+<tr>
+<td>Transmisson Power</td>
+<td>Eight user configurable settings from 0 (-30dbm) to 7 (+4dbm).</td>
+</tr>
+<tr>
+<td>Transmisson Range</td>
+<td>Approx. 20m at 0dbm.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-microbitradio">Using MicroBitRadio<a class="headerlink" href="#using-microbitradio" title="Permanent link">#</a></h2>
+<p>To write your radio enabled applications, you will likely want to use either the <a href="../radiodatagram/"><code>MicroBitRadioDatagram</code></a> class, or the <a href="../radioevent/"><code>MicroBitRadioEvent</code></a> class.</p>
+<p>Both of these are created for you as part of the standard uBit object, so this is a choice, not a compromise! :-)</p>
+<h3 id="microbitradiodatagram"><a href="../radiodatagram/">MicroBitRadioDatagram</a><a class="headerlink" href="#microbitradiodatagram" title="Permanent link">#</a></h3>
+<p>This is the most flexible way to use the radio, and lets you easily send and receive up to 32 bytes of data at a time.
+This data can be provided as array of bytes, a text string, or <a href="../../data-types/packetbuffer/"><code>PacketBuffer</code></a>.</p>
+<p>You can send a packet at any time using the <code>uBit.radio.datagram.send</code> function.</p>
+<p>Any other micro:bits in range will detect the transmitted packet, and make the packet available through the
+<code>uBit.radio.datagram.recv</code> function.</p>
+<p>Any micro:bits receiving a datagram packet will also raise a <code>MICROBIT_RADIO_EVT_DATAGRAM</code> event to indicate
+that some data is ready to be read.</p>
+<p>For example, imagine you were creating a simple remote control car with one micro:bit acting as a remote controller, and another connected to some servos on the car.</p>
+<p>You might decide that simply sending a <code>1</code> means turn left, and a <code>2</code> means turn right, so you may write a program like this for the remote control:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+int main()
+{
+    uBit.init();
+    uBit.radio.enable();
+
+    while(1)
+    {
+        if (uBit.buttonA.isPressed())
+            uBit.radio.datagram.send(&quot;1&quot;);
+
+        else if (uBit.buttonB.isPressed())
+            uBit.radio.datagram.send(&quot;2&quot;);
+
+        uBit.sleep(100);
+    }
+}</code></pre>
+
+
+<p>&hellip;and one like this for the remote control car:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+void onData(MicroBitEvent e)
+{
+    ManagedString s = uBit.radio.datagram.recv();
+
+    if (s == &quot;1&quot;)
+    {
+        uBit.io.P0.setServoValue(0);
+        uBit.display.print(&quot;A&quot;);
+    }
+
+    if (s == &quot;2&quot;)
+    {
+        uBit.io.P0.setServoValue(180);
+        uBit.display.print(&quot;B&quot;);
+    }
+}
+
+int main()
+{
+    uBit.init();
+    uBit.messageBus.listen(MICROBIT_ID_RADIO, MICROBIT_RADIO_EVT_DATAGRAM, onData);
+    uBit.radio.enable();
+
+    while(1)
+        uBit.sleep(1000);
+}</code></pre>
+
+
+<h3 id="using-packetbuffers">Using PacketBuffers<a class="headerlink" href="#using-packetbuffers" title="Permanent link">#</a></h3>
+<p>If you prefer to send a raw series of bytes rather than a text string (which is much more common in communication networks), you can use the <a href="../../data-types/packetbuffer/"><code>PacketBuffer</code></a> type.
+This gives total freedom over the data being shared. Simply create a <a href="../../data-types/packetbuffer/"><code>PacketBuffer</code></a> of the size you need, and you can read or write data using standard C
+array syntax.</p>
+<p>For example, here is an similar program using a <a href="../../data-types/packetbuffer/"><code>PacketBuffer</code></a>:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+int main()
+{
+    uBit.init();
+    uBit.radio.enable();
+
+    // Create a packet containing just a single byte.
+    PacketBuffer b(1);
+
+    while(1)
+    {
+        b[0] = 0;
+        if (uBit.buttonA.isPressed())
+            b[0] = 1;
+
+        else if (uBit.buttonB.isPressed())
+            b[0] = 2;
+
+        uBit.radio.datagram.send(b);
+        uBit.sleep(100);
+    }
+}</code></pre>
+
+
+<p>&hellip;and one like this for the remote control car:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+void onData(MicroBitEvent e)
+{
+    PacketBuffer p = uBit.radio.datagram.recv();
+
+    if (p[0] == 1)
+    {
+        uBit.io.P0.setServoValue(0);
+        uBit.display.print(&quot;A&quot;);
+    }
+
+    if (p[0] == 2)
+    {
+        uBit.io.P0.setServoValue(180);
+        uBit.display.print(&quot;B&quot;);
+    }
+}
+
+int main()
+{
+    uBit.init();
+    uBit.messageBus.listen(MICROBIT_ID_RADIO, MICROBIT_RADIO_EVT_DATAGRAM, onData);
+    uBit.radio.enable();
+
+    while(1)
+        uBit.sleep(1000);
+}</code></pre>
+
+
+<h3 id="microbitradioevent"><a href="../radioevent/">MicroBitRadioEvent</a><a class="headerlink" href="#microbitradioevent" title="Permanent link">#</a></h3>
+<p>It is also possible to transparently send and receive events over the <code>MicroBitRadio</code> channel. This can provide very simple and easy to integrate
+support for event driven applications. Once configured, an event raised on one micro:bit can be detected on another - in the just the same way as
+a local event such as a button click.</p>
+<p>To use this functionality, all that is needed is to register the event codes that you would like to be sent over the radio, then write event handlers
+for the message bus as with all other events. See the documentation for the <a href="messageBus.md"><code>MicroBitMessageBus</code></a> for details of how to write
+event handlers.</p>
+<p>For example, if you wanted to share an event SOMETHING with another micro:bit whenever ButtonA is pressed, you might write code like this on the sending micro:bit:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+#define MY_APP_ID           4000
+#define SOMETHING           1
+
+int main()
+{
+    uBit.init();
+    uBit.radio.enable();
+
+    // Ensure the radio is listening out to forward our events
+    uBit.radio.event.listen(MY_APP_ID, MICROBIT_EVT_ANY);
+
+    // Just for varierty, this time we'll periodically check to see if a button if pressed.
+    // We can, of course, use an event handler for this too.
+    while(1)
+    {
+        if (uBit.buttonA.isPressed())
+            MicroBitEvent(MY_APP_ID, SOMETHING);
+
+        uBit.sleep(100);
+    }
+}</code></pre>
+
+
+<p>&hellip;and on the micro:bits wanting to receive the event:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+#define MY_APP_ID           4000
+#define SOMETHING           1
+
+void onSomething(MicroBitEvent e)
+{
+    uBit.display.scrollAsync(&quot;Something!&quot;);
+}
+
+int main()
+{
+    uBit.init();
+    uBit.messageBus.listen(MY_APP_ID, SOMETHING, onSomething);
+    uBit.radio.enable();
+
+    while(1)
+        uBit.sleep(1000);
+}</code></pre>
+
+
+<h3 id="defining-groups">Defining Groups<a class="headerlink" href="#defining-groups" title="Permanent link">#</a></h3>
+<p>It is easy to imagine situations where you would like to have different groups of micro:bits communicating independently.</p>
+<p>For example, consider a classroom where 8 groups of four children are working on different
+projects - it would not be very useful if packets sent by one group interfered with the other groups!</p>
+<p>To address this, the <code>MicroBitRadio</code> allows users to define a <strong>group</strong> to which their micro:bit belongs.</p>
+<p>micro:bits can only ever be a member of one group at a time, and any packets sent will only be received by other micro:bits in the same group.</p>
+<p>Groups are simply numbers, and a micro:bit&rsquo;s group can be set at anytime by the programmer through the <code>setGroup</code> function. If a group is not specified, the default group of 0 will be used.</p>
+<p>For example:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBit    uBit;
+
+int main()
+{
+    uBit.init();
+    uBit.radio.setGroup(10);
+}</code></pre>
+
+
+<h2 id="message-bus-id">Message Bus ID<a class="headerlink" href="#message-bus-id" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MICROBIT_ID_RADIO</td>
+<td>29</td>
+</tr>
+<tr>
+<td>MICROBIT_ID_RADIO_DATA_READY</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+<h2 id="message-bus-events">Message Bus Events<a class="headerlink" href="#message-bus-events" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MICROBIT_RADIO_EVT_DATAGRAM</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="api">API<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbitradio">MicroBitRadio()<a class="headerlink" href="#microbitradio" title="Permanent link">#</a></h4>
+<h5 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h5>
+<p>Constructor.  </p>
+<p>Initialise the  MicroBitRadio .  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class is demand activated, as a result most resources are only committed if send/recv or event registrations calls are made. </p>
+</div>
+<p><br/></p>
+<h4 id="microbitradio-uint16_t-id">MicroBitRadio( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)<a class="headerlink" href="#microbitradio-uint16_t-id" title="Permanent link">#</a></h4>
+<h5 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">#</a></h5>
+<p>Constructor.  </p>
+<p>Initialise the  MicroBitRadio .  </p>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> id</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class is demand activated, as a result most resources are only committed if send/recv or event registrations calls are made. </p>
+</div>
+<h2 id="settransmitpower">setTransmitPower<a class="headerlink" href="#settransmitpower" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-settransmitpower-int-power"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setTransmitPower</div>( <div style='color:#a71d5d; display:inline-block'>int</div> power)<a class="headerlink" href="#int-settransmitpower-int-power" title="Permanent link">#</a></h4>
+<h5 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">#</a></h5>
+<p>Change the output power level of the transmitter to the given value.  </p>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> power - a value in the range 0..7, where 0 is the lowest power and 7 is the highest.</p>
+</blockquote>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the value is out of range. </p>
+<h2 id="setfrequencyband">setFrequencyBand<a class="headerlink" href="#setfrequencyband" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-setfrequencyband-int-band"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setFrequencyBand</div>( <div style='color:#a71d5d; display:inline-block'>int</div> band)<a class="headerlink" href="#int-setfrequencyband-int-band" title="Permanent link">#</a></h4>
+<h5 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">#</a></h5>
+<p>Change the transmission and reception band of the radio to the given channel  </p>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> band - a frequency band in the range 0 - 100. Each step is 1MHz wide, based at 2400MHz.</p>
+</blockquote>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the value is out of range, or MICROBIT_NOT_SUPPORTED if the BLE stack is running. </p>
+<h2 id="getrxbuf">getRxBuf<a class="headerlink" href="#getrxbuf" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="framebuffer-getrxbuf"><div style='color:#a71d5d; display:inline-block'>FrameBuffer</div> <div style='color:#795da3; display:inline-block'>getRxBuf</div>()<a class="headerlink" href="#framebuffer-getrxbuf" title="Permanent link">#</a></h4>
+<h5 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">#</a></h5>
+<p>Retrieve a pointer to the currently allocated receive buffer. This is the area of memory actively being used by the radio hardware to store incoming data.  </p>
+<h5 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">#</a></h5>
+<p>a pointer to the current receive buffer. </p>
+<h2 id="queuerxbuf">queueRxBuf<a class="headerlink" href="#queuerxbuf" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-queuerxbuf"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>queueRxBuf</div>()<a class="headerlink" href="#int-queuerxbuf" title="Permanent link">#</a></h4>
+<h5 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">#</a></h5>
+<p>Attempt to queue a buffer received by the radio hardware, if sufficient space is available.  </p>
+<h5 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_NO_RESOURCES if a replacement receiver buffer could not be allocated (either by policy or memory exhaustion). </p>
+<h2 id="setrssi">setRSSI<a class="headerlink" href="#setrssi" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-setrssi-uint8_t-rssi"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setRSSI</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t</div> rssi)<a class="headerlink" href="#int-setrssi-uint8_t-rssi" title="Permanent link">#</a></h4>
+<h5 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">#</a></h5>
+<p>Sets the RSSI for the most recent packet.  </p>
+<h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint8_t</div> rssi - the new rssi value.</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>should only be called from RADIO_IRQHandler&hellip; </p>
+</div>
+<h2 id="getrssi">getRSSI<a class="headerlink" href="#getrssi" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-getrssi"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getRSSI</div>()<a class="headerlink" href="#int-getrssi" title="Permanent link">#</a></h4>
+<h5 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">#</a></h5>
+<p>Retrieves the current RSSI for the most recent packet.  </p>
+<h5 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">#</a></h5>
+<p>the most recent RSSI value or MICROBIT_NOT_SUPPORTED if the BLE stack is running. </p>
+<h2 id="enable">enable<a class="headerlink" href="#enable" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-enable"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>enable</div>()<a class="headerlink" href="#int-enable" title="Permanent link">#</a></h4>
+<h5 id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">#</a></h5>
+<p>Initialises the radio for use as a multipoint sender/receiver  </p>
+<h5 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, MICROBIT_NOT_SUPPORTED if the BLE stack is running. </p>
+<h2 id="disable">disable<a class="headerlink" href="#disable" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-disable"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>disable</div>()<a class="headerlink" href="#int-disable" title="Permanent link">#</a></h4>
+<h5 id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">#</a></h5>
+<p>Disables the radio for use as a multipoint sender/receiver.  </p>
+<h5 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, MICROBIT_NOT_SUPPORTED if the BLE stack is running. </p>
+<h2 id="setgroup">setGroup<a class="headerlink" href="#setgroup" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-setgroup-uint8_t-group"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setGroup</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t</div> group)<a class="headerlink" href="#int-setgroup-uint8_t-group" title="Permanent link">#</a></h4>
+<h5 id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">#</a></h5>
+<p>Sets the radio to listen to packets sent with the given group id.  </p>
+<h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint8_t</div> group - The group to join. A micro:bit can only listen to one group ID at any time.</p>
+</blockquote>
+<h5 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_NOT_SUPPORTED if the BLE stack is running. </p>
+<h2 id="dataready">dataReady<a class="headerlink" href="#dataready" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-dataready"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>dataReady</div>()<a class="headerlink" href="#int-dataready" title="Permanent link">#</a></h4>
+<h5 id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">#</a></h5>
+<p>Determines the number of packets ready to be processed.  </p>
+<h5 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">#</a></h5>
+<p>The number of packets in the receive buffer. </p>
+<h2 id="recv">recv<a class="headerlink" href="#recv" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="framebuffer-recv"><div style='color:#a71d5d; display:inline-block'>FrameBuffer</div> <div style='color:#795da3; display:inline-block'>recv</div>()<a class="headerlink" href="#framebuffer-recv" title="Permanent link">#</a></h4>
+<h5 id="description_12">Description<a class="headerlink" href="#description_12" title="Permanent link">#</a></h5>
+<p>Retrieves the next packet from the receive buffer. If a data packet is available, then it will be returned immediately to the caller. This call will also dequeue the buffer.  </p>
+<h5 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">#</a></h5>
+<p>The buffer containing the the packet. If no data is available, NULL is returned.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Once  recv()  has been called, it is the callers responsibility to delete the buffer when appropriate. </p>
+</div>
+<h2 id="send">send<a class="headerlink" href="#send" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-send-framebuffer-42-buffer"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>send</div>( <div style='color:#a71d5d; display:inline-block'>FrameBuffer  *</div> buffer)<a class="headerlink" href="#int-send-framebuffer-42-buffer" title="Permanent link">#</a></h4>
+<h5 id="description_13">Description<a class="headerlink" href="#description_13" title="Permanent link">#</a></h5>
+<p>Transmits the given buffer onto the broadcast radio. The call will wait until the transmission of the packet has completed before returning.  </p>
+<h5 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>FrameBuffer  *</div> buffer</p>
+</blockquote>
+<h5 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_NOT_SUPPORTED if the BLE stack is running. </p>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../data-types/image/" class="btn btn-neutral float-right" title="MicroBitImage">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../io/" class="btn btn-neutral" title="io"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../io/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../data-types/image/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>

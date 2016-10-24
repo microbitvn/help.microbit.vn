@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>Advanced - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Advanced";
+    var mkdocs_page_input_path = "lancaster-mbed/advanced.md";
+    var mkdocs_page_url = "/lancaster-mbed/advanced/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../js/nav.js"></script> 
+  <script src="../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/io/" id="io">io </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ubit/radio/" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/image/" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/string/" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/temperature-service/" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../ubit/blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../ubit/multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../ubit/radioevent/" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../ubit/radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+        
+          <li>General &raquo;</li>
+        
+      
+    
+    <li>Advanced</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="advanced-features-of-the-runtime">Advanced Features of the Runtime<a class="headerlink" href="#advanced-features-of-the-runtime" title="Permanent link">#</a></h1>
+<p>Under the surface, the micro:bit runtime is a highly configurable, modular and component based piece of software.</p>
+<p>The <code>uBit</code> object is provided as a collection of the commonly used components, all gathered together in one place
+to make it easier for novice users to access the functionality of the device. However, there is no obligation to
+use the <code>uBit</code> abstraction. More advanced users may prefer to create and use only the parts of the runtime they
+need.</p>
+<p>This provides more control and often frees up more memory resource for the application program - but does so
+at the expense of the user taking more responsibility and additional complexity in their programs.</p>
+<h2 id="using-components-directly">Using Components Directly<a class="headerlink" href="#using-components-directly" title="Permanent link">#</a></h2>
+<p>Taking advantage of the modular structure of the micro:bit runtime is fairly straightforward.</p>
+<ul>
+<li>Firstly, create a program that does <strong>not</strong> create or initialise a uBit object.</li>
+<li>Include <code>MicroBit.h</code> (or if you prefer, just the header files of the components you want to use). Including <code>MicroBit.h</code> is however, simpler.</li>
+<li>Instead, create C++ object instances of the classes that you want to use <strong>as global variables</strong> in your program. Create as many components as you need. You are free to use any of the constructors in this documentation.</li>
+<li>Call functions on those instances to elicit the behaviour you need, using the name of your object instances instead of <code>uBit.*</code></li>
+</ul>
+<p>For example, if you wanted to create a program that just used the LED matrix display driver, you might write a program like this:</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBitDisplay display;
+
+int main()
+{
+    while(1)
+        display.scroll(&quot;:)&quot;);
+}</code></pre>
+
+
+<p>If you need other components, add them to your program in the same way.</p>
+<p>If a component has a dependency on another component (e.g. in the example below, the accelerometer is dependent on an I2C bus), then this will be requested as a mandatory parameter in the constructor.</p>
+<p>See the &lsquo;Constructor&rsquo; section of the each components&rsquo; API documentation for details and examples.</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBitI2C i2c = MicroBitI2C(I2C_SDA0, I2C_SCL0);
+MicroBitAccelerometer accelerometer = MicroBitAccelerometer(i2c);
+MicroBitDisplay display;
+
+int main()
+{
+    while(1)
+        display.scroll(accelerometer.getX());
+}</code></pre>
+
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>micro:bit runtime components should <strong>always</strong> be brought up as global variables. They should <strong>not</strong> be created as local variables - either in your main method or anywhere else. The reason for this is the the runtime is a multi-threaded environment, and any variables created in stack memory (like local variables) may be paged out by the scheduler, and result in instability if they utilise interrupts or are accessed by other threads. So&hellip; don&rsquo;t do it!</p>
+</div>
+<h2 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">#</a></h2>
+<p>There are also system components that provide background services. Without the <code>uBit</code> object, these will not be created by default.  Examples include the fiber scheduler, message bus and heap allocator.</p>
+<p>You are not required to initialise these components, but you should do so if you want to benefit from the functionality they provide. The following section describe how to do this.</p>
+<h2 id="initialising-the-message-bus">Initialising the Message Bus<a class="headerlink" href="#initialising-the-message-bus" title="Permanent link">#</a></h2>
+<p>The <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> allows events to be created and delivered to applications.  So if a <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> is not created, then all events in the micro:bit runtime will be quietly ignored.</p>
+<p>To enable this functionality, simply create an instance of the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> class. From that point onward in your program, you can raise and listen for events as described in the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> documentation.</p>
+<pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
+
+MicroBitMessageBus bus;
+MicroBitButton buttonA(MICROBIT_PIN_BUTTON_A, MICROBIT_ID_BUTTON_A);
+MicroBitDisplay display;
+
+void onPressed(MicroBitEvent e)
+{
+    display.print(&quot;S&quot;);    
+}
+
+int main()
+{
+    bus.listen(MICROBIT_ID_BUTTON_A, MICROBIT_BUTTON_EVT_CLICK, onPressed);
+
+    while(1)
+    {
+    }
+}</code></pre>
+
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Running a MessageBus without the Fiber Scheduler will result in all event handlers being registered as MESSAGE_BUS_LISTENER_IMMEDIATE (see <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> for details). This means that your event handler will be executed in the context of the code that raised the event. This may include interrupt context, which may not be safe for all operations. It is recommend that you always run the MessageBus with the Fiber Scheduler in order to allow the event to be decoupled from interrupt context.</p>
+</div>
+<h2 id="initialising-the-fiber-scheduler">Initialising the Fiber Scheduler<a class="headerlink" href="#initialising-the-fiber-scheduler" title="Permanent link">#</a></h2>
+<p>Often when using asynchronous events, it is also useful to run the fiber scheduler. Without a scheduler in operation, all event handlers (such as the one above) will be executed with the threading mode <code>MESSAGE_BUS_LISTENER_IMMEDIATE</code>, as
+described on the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> documentation.</p>
+<p>Also, it is not really possible to transparently enter a power efficient sleep - as illustrated in the busy loop in the above example.</p>
+<p>Initialising the fiber scheduler is simple, and is demonstrated in the following example.</p>
+<p>From the moment the fiber scheduler is initialised, it is then possible to block the processor in a power efficient way and to operate threaded event handlers:</p>
+<pre class="code"><code class="language-c++">#include &quot;MicroBit.h&quot;
+
+MicroBitMessageBus bus;
+MicroBitButton buttonA(MICROBIT_PIN_BUTTON_A, MICROBIT_ID_BUTTON_A);
+MicroBitDisplay display;
+
+void onPressed(MicroBitEvent e)
+{
+    display.print(&quot;S&quot;);    
+}
+
+int main()
+{
+    scheduler_init(bus);
+
+    bus.listen(MICROBIT_ID_BUTTON_A, MICROBIT_BUTTON_EVT_CLICK, onPressed);
+
+    while(1)
+        fiber_sleep(1000);
+}</code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Function calls to <code>uBit.sleep()</code> must be replaced with the direct, equivalent calls to the scheduler using <code>fiber_sleep()</code>.</p>
+</div>
+<h2 id="initialising-the-heap-allocator">Initialising the Heap Allocator<a class="headerlink" href="#initialising-the-heap-allocator" title="Permanent link">#</a></h2>
+<p>The micro:bit runtime provides an optional, heap memory allocator. This is primarily to permit the use of <strong>multiple</strong> regions of memory to be used as heap memory space for your variables.</p>
+<p>The <code>uBit</code> initialisation function will automatically release any memory unused by the Bluetooth stack for general purpose use in this fashion (this typically provides an additional 1K of SRAM under Bluetooth enabled builds, and another 8K if Bluetooth is disabled).</p>
+<p>Should you wish to also reclaim memory in this way, you can do so as follows:</p>
+<pre class="code"><code class="language-c++">#include &quot;MicroBit.h&quot;
+
+int main()
+{
+    microbit_create_heap(MICROBIT_SD_GATT_TABLE_START + MICROBIT_SD_GATT_TABLE_SIZE, MICROBIT_SD_LIMIT);
+}</code></pre>
+
+
+<h2 id="compile-time-configuration-options">Compile Time Configuration Options<a class="headerlink" href="#compile-time-configuration-options" title="Permanent link">#</a></h2>
+<p>In addition to the flexibility to initialise only the components that you need, the runtime also provides a central, compile time configuration file called <code>MicroBitConfig.h</code>.</p>
+<p>You can use this to reconfigure the default behaviour of the runtime.</p>
+<p>The default settings will provide a stable working environment, but advanced users may want to further tailor the behaviour.</p>
+<p>To tailor the behaviour, simply edit the <code>MicroBitConfig.h</code> file to change the settings, and then perform a clean rebuild.</p>
+<h3 id="compile-time-options-with-microbitconfigh">Compile Time Options with MicroBitConfig.h<a class="headerlink" href="#compile-time-options-with-microbitconfigh" title="Permanent link">#</a></h3>
+<p>The following options are configurable at compile time through <code>MicroBitConfig.h</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration option</th>
+<th>Brief Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MICROBIT_HEAP_ALLOCATOR</code></td>
+<td>Enables or disables the MicroBitHeapAllocator for <code>uBit</code> based builds.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_HEAP_BLOCK_SIZE</code></td>
+<td>The Block size used by the heap allocator in bytes.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_NESTED_HEAP_SIZE</code></td>
+<td>The proportion of SRAM available on the mbed heap to reserve for the micro:bit heap.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_HEAP_REUSE_SD</code></td>
+<td>If set to &lsquo;1&rsquo;, any unused areas of the Soft Device GATT table will be automatically reused as heap memory.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_SD_GATT_TABLE_SIZE</code></td>
+<td>The amount of memory (bytes) to dedicate to the SoftDevice GATT table.</td>
+</tr>
+<tr>
+<td><code>SYSTEM_TICK_PERIOD_MS</code></td>
+<td>The default scheduling quantum</td>
+</tr>
+<tr>
+<td><code>EVENT_LISTENER_DEFAUT_FLAGS</code></td>
+<td>The default threading mode used when a <code>MicroBitMessageBus</code> listener is created.</td>
+</tr>
+<tr>
+<td><code>MESSAGE_BUS_LISTENER_MAX_QUEUE_DEPTH</code></td>
+<td>Maximum event queue depth. If a queue exceeds this depth, further events will be dropped.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_SYSTEM_COMPONENTS</code></td>
+<td>The maximum size of the interrupt callback list.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_IDLE_COMPONENTS</code></td>
+<td>The maximum size of the idle callback list.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_ENABLED</code></td>
+<td>Enable/Disable Bluetooth during normal operation. If disabled, no Bluetooth communication is possible, but radio functionality is made possible, and an additional 8K of SRAM is released</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_PAIRING_MODE</code></td>
+<td>Enable/Disable Bluetooth pairing mode with A+B / reset at power up</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_PRIVATE_ADDRESSES</code></td>
+<td>Enable/Disable the use of private resolvable addresses. <strong>This is known to be a feature that suffers compatibility issues with many Bluetooth central devices.</strong></td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_OPEN</code></td>
+<td>Enable/Disable Bluetooth security entirely. Open Bluetooth links are not secure, but are highly useful during the development of Bluetooth services</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_SECURITY_LEVEL</code></td>
+<td>Define the default, global Bluetooth security requirements for MicroBit Bluetooth services</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_WHITELIST</code></td>
+<td>Enable/Disable the use of Bluetooth whitelisting.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_ADVERTISING_TIMEOUT</code></td>
+<td>Define the period of time for which the Bluetooth stack will advertise (seconds).</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_DEFAULT_TX_POWER</code></td>
+<td>Defines default power level of the Bluetooth radio transmitter.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_DFU_SERVICE</code></td>
+<td>Enable/Disable Bluetooth Service: MicroBitDFU. This allows over the air programming during normal operation.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_EVENT_SERVICE</code></td>
+<td>Enable/Disable Bluetooth Service: MicroBitEventService. This allows routing of events from the micro:bit message bus over Bluetooth.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_DEVICE_INFORMATION_SERVICE</code></td>
+<td>Enable/Disable Bluetooth Service: MicroBitDeviceInformationService. This enables the standard Bluetooth device information service.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_BLE_EDDYSTONE_URL</code></td>
+<td>Enable/Disable Eddystone URL support. Enabling this enables you to broadcast a physical web url from the microbit</td>
+</tr>
+<tr>
+<td><code>USE_ACCEL_LSB</code></td>
+<td>Enable 10 bit sampling on the accelerometer. By default, a more efficient 8 bit sampling if used.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DISPLAY_TYPE</code></td>
+<td>Selects the default matrix configuration for the display driver.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DISPLAY_MINIMUM_BRIGHTNESS</code></td>
+<td>Selects the minimum permissible brightness level for the device.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DISPLAY_MAXIMUM_BRIGHTNESS</code></td>
+<td>Selects the maximum permissible brightness level for the device.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DISPLAY_DEFAULT_BRIGHTNESS</code></td>
+<td>Selects the default brightness level for the device.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DEFAULT_SCROLL_SPEED</code></td>
+<td>Selects the time taken to scroll a single pixel, in milliseconds.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DEFAULT_SCROLL_STRIDE</code></td>
+<td>Selects the number of pixels a scroll will move in each quantum.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DEFAULT_PRINT_SPEED</code></td>
+<td>Selects the time each character will be shown on the display during print operations, in milliseconds.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DEFAULT_SERIAL_MODE</code></td>
+<td>Configures the default serial mode used by serial read and send calls.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DEFAULT_PULLMODE</code></td>
+<td>Define the default mode in which the digital input pins are configured. Valid options are PullDown, PullUp and PullNone.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_PANIC_HEAP_FULL</code></td>
+<td>Enable this to invoke a panic on out of memory conditions.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DBG</code></td>
+<td>Enable this to route debug messages through the USB serial interface.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_HEAP_DBG</code></td>
+<td>Enable this to receive detailed diagnostic messages from the heap allocator via the USB serial interface.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_DAL_VERSION</code></td>
+<td>Define the default version information of the runtime.</td>
+</tr>
+</tbody>
+</table>
+<p>There are also some constants that define the geometry of the micro:bit memory</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only change these if you really know what you are doing!</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Configuration option</th>
+<th>Brief Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MICROBIT_SRAM_BASE</code></td>
+<td>The start address of usable RAM memory.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_SRAM_END</code></td>
+<td>The end address of usable RAM memory.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_SD_LIMIT</code></td>
+<td>The end address of RAM memory reserved for Soft Device (Nordic&rsquo;s Bluetooth stack).</td>
+</tr>
+<tr>
+<td><code>MICROBIT_SD_GATT_TABLE_START</code></td>
+<td>The start address of the Bluetooth GATT table in RAM.</td>
+</tr>
+<tr>
+<td><code>CORTEX_M0_STACK_BASE</code></td>
+<td>The memory address of the top of the system stack.</td>
+</tr>
+<tr>
+<td><code>MICROBIT_STACK_SIZE</code></td>
+<td>Amount of memory reserved for the stack (in bytes).</td>
+</tr>
+<tr>
+<td><code>MICROBIT_HEAP_END</code></td>
+<td>The end address of the mbed heap space</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compile-time-options-with-yotta">Compile Time Options with Yotta<a class="headerlink" href="#compile-time-options-with-yotta" title="Permanent link">#</a></h3>
+<p>Rather than edit the <code>MicroBitConfig.h</code> file to change the default behaviour of the runtime, if you are using
+<code>yotta</code>, you can also provide a <code>config.json</code> in your project.</p>
+<p>Here&rsquo;s a <code>config.json</code>, using all available configuration options, that matches the default values specified in <code>MicroBitConfig.h</code>:</p>
+<pre class="code"><code class="language-json">{
+    &quot;microbit-dal&quot;:{
+        &quot;bluetooth&quot;:{
+            &quot;enabled&quot;: 1,
+            &quot;pairing_mode&quot;: 1,
+            &quot;private_addressing&quot;: 0,
+            &quot;open&quot;: 0,
+            &quot;whitelist&quot;: 1,
+            &quot;advertising_timeout&quot;: 0,
+            &quot;tx_power&quot;: 0,
+            &quot;dfu_service&quot;: 1,
+            &quot;event_service&quot;: 1,
+            &quot;device_info_service&quot;: 1,
+            &quot;eddystone_url&quot;: 0
+        },
+        &quot;reuse_sd&quot;: 1,
+        &quot;default_pullmode&quot;:&quot;PullDown&quot;,
+        &quot;gatt_table_size&quot;: &quot;0x300&quot;,
+        &quot;heap_allocator&quot;: 1,
+        &quot;nested_heap_proportion&quot;: 0.75,
+        &quot;system_tick_period&quot;: 6,
+        &quot;system_components&quot;: 10,
+        &quot;idle_components&quot;: 6,
+        &quot;use_accel_lsb&quot;: 0,
+        &quot;min_display_brightness&quot;: 1,
+        &quot;max_display_brightness&quot;: 255,
+        &quot;display_scroll_speed&quot;: 120,
+        &quot;display_scroll_stride&quot;: -1,
+        &quot;display_print_speed&quot;: 400,
+        &quot;panic_on_heap_full&quot;: 1,
+        &quot;debug&quot;: 0,
+        &quot;heap_debug&quot;: 0,
+        &quot;stack_size&quot;:2048,
+        &quot;sram_base&quot;:&quot;0x20000008&quot;,
+        &quot;sram_end&quot;:&quot;0x20004000&quot;,
+        &quot;sd_limit&quot;:&quot;0x20002000&quot;,
+        &quot;gatt_table_start&quot;:&quot;0x20001900&quot;
+    }
+}</code></pre>
+
+
+<p>It should be noted that <strong>all</strong> of the above options are optional, and will revert to their default values
+if not specified. This means that we can also provide a subset of these options, to configure specific
+parts of the runtime:</p>
+<pre class="code"><code class="language-json">{
+    &quot;microbit-dal&quot;:{
+        &quot;bluetooth&quot;:{
+            &quot;open&quot;: 1
+        },
+        &quot;debug&quot;:1
+    }
+}</code></pre>
+
+
+<p>Additionally, the options provided through <code>config.json</code> intuitively map onto the <code>#defines</code>
+listed in <code>MicroBitConfig.h</code></p>
+<p>An example of <code>config.json</code> in operation is available at the <a href="https://github.com/lancaster-university/microbit-samples">microbit-samples</a> GitHub repository.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../online-toolchains/" class="btn btn-neutral float-right" title="Web-based Development">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../concepts/" class="btn btn-neutral" title="Concepts"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../concepts/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../online-toolchains/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>

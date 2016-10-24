@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>Overview - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Overview";
+    var mkdocs_page_input_path = "lancaster-mbed/ubit.md";
+    var mkdocs_page_url = "/lancaster-mbed/ubit/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script>
+  <script src="../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../js/nav.js"></script> 
+  <script src="../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../advanced/" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="io/" id="io">io </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="radio/" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/image/" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/string/" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../data-types/packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/temperature-service/" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../ble/ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="radioevent/" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+        
+          <li>uBit &raquo;</li>
+        
+      
+    
+    <li>Overview</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="microbit">MicroBit<a class="headerlink" href="#microbit" title="Permanent link">#</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>Although the runtime is built from lots of small components, we also provide an easy to use pre-packaged collection of the commonly used components
+all in one place. This makes it much easier to start programming your micro:bit in C.</p>
+<p>This grouping is provided by a C++ class called <code>MicroBit</code>.  The <code>MicroBit</code> class has a number of
+member variables, that operate as device drivers to control the most commonly used features of the micro:bit.</p>
+<p>There is an instance of the <code>MicroBit</code> class created as a global variable in all the sample programs, called <code>uBit</code>:</p>
+<blockquote>
+<p>uBit {<br/>
+   &emsp;&emsp;<a href="i2c/">.i2c</a>,<br/>
+   &emsp;&emsp;<a href="storage/">.storage</a>,<br/>
+   &emsp;&emsp;<a href="serial/">.serial</a>,<br/>
+   &emsp;&emsp;<a href="ubit/messageBus.md">.MessageBus</a>,<br/>
+   &emsp;&emsp;<a href="button/">.buttonA</a>,<br/>
+   &emsp;&emsp;<a href="button/">.buttonB</a>,<br/>
+   &emsp;&emsp;<a href="button/">.buttonAB</a>,<br/>
+   &emsp;&emsp;<a href="display/">.display</a>,<br/>
+   &emsp;&emsp;<a href="accelerometer/">.accelerometer</a>,<br/>
+   &emsp;&emsp;<a href="compass/">.compass</a>,<br/>
+   &emsp;&emsp;<a href="thermometer/">.thermometer</a>,<br/>
+   &emsp;&emsp;<a href="io/">.io</a>,<br/>
+   &emsp;&emsp;<a href="radio/">.radio</a>,<br/>
+   }</p>
+</blockquote>
+<p>You can use dot operator &lsquo;.&rsquo; to any of these resources inside uBit to access any of the functions they provide. There is a complete list of the
+functions available under the <code>uBit</code> menu item in the navigation bar at the top of the page.</p>
+<p>For example, if we needed to scroll some text across the display, we simply would write the following:</p>
+<pre class="code"><code class="language-cpp">uBit.display.scroll(&quot;HELLO!&quot;);</code></pre>
+
+
+<p>Similarly, if we wanted to send some text over serial, we could write the following
+code:</p>
+<pre class="code"><code class="language-cpp">for(int i = 3; i &gt; 0; i--)
+{
+    uBit.serial.printf(&quot;%d...&quot;, i);
+    uBit.sleep(1000);
+}
+
+// or alternatively...
+uBit.serial.send(&quot;Code!&quot;);</code></pre>
+
+
+<p>The runtime also contains a scheduler, which uses lightweight threads (called fibers)
+to control the rate of execution.</p>
+<p>To place the current fiber into a power efficient <a href="#sleep">sleep</a> write the following:</p>
+<pre class="code"><code class="language-cpp">// where X is an integer in milliseconds for the amount of time you would like to sleep for.
+uBit.sleep(X);</code></pre>
+
+
+<h2 id="message-bus-id">Message Bus ID<a class="headerlink" href="#message-bus-id" title="Permanent link">#</a></h2>
+<blockquote>
+<p>None</p>
+</blockquote>
+<h2 id="message-bus-events">Message Bus Events<a class="headerlink" href="#message-bus-events" title="Permanent link">#</a></h2>
+<blockquote>
+<p>None</p>
+</blockquote>
+<h1 id="api">API<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbit_1">MicroBit()<a class="headerlink" href="#microbit_1" title="Permanent link">#</a></h4>
+<h5 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h5>
+<p>Constructor.  </p>
+<p>Create a representation of a  MicroBit  device, which includes member variables that represent various device drivers used to control aspects of the micro:bit.           </p>
+<h2 id="init">init<a class="headerlink" href="#init" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-init"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>init</div>()<a class="headerlink" href="#void-init" title="Permanent link">#</a></h4>
+<h5 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">#</a></h5>
+<p>Post constructor initialisation method.  </p>
+<p>This call will initialised the scheduler, memory allocator and Bluetooth stack.  </p>
+<p>This is required as the Bluetooth stack can&rsquo;t be brought up in a static context i.e. in a constructor.  </p>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> uBit.init(); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method must be called before user code utilises any functionality contained by uBit. </p>
+</div>
+<h2 id="reset">reset<a class="headerlink" href="#reset" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-reset"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>reset</div>()<a class="headerlink" href="#void-reset" title="Permanent link">#</a></h4>
+<h5 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">#</a></h5>
+<p>Will reset the micro:bit when called.  </p>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> uBit.reset(); </code></pre>
+
+
+<h2 id="sleep">sleep<a class="headerlink" href="#sleep" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-sleep-uint32_t-milliseconds"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>sleep</div>( <div style='color:#a71d5d; display:inline-block'>uint32_t</div> milliseconds)<a class="headerlink" href="#void-sleep-uint32_t-milliseconds" title="Permanent link">#</a></h4>
+<h5 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">#</a></h5>
+<p>Delay execution for the given amount of time.  </p>
+<p>If the scheduler is running, this will deschedule the current fiber and perform a power efficient, concurrent sleep operation.  </p>
+<p>If the scheduler is disabled or we&rsquo;re running in an interrupt context, this will revert to a busy wait.  </p>
+<p>Alternatively: wait, wait_ms, wait_us can be used which will perform a blocking sleep operation.  </p>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint32_t</div> milliseconds - the amount of time, in ms, to wait for. This number cannot be negative.</p>
+</blockquote>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, MICROBIT_INVALID_PARAMETER milliseconds is less than zero.</p>
+<h5 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> uBit.sleep(20); //sleep for 20ms </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation is currently limited by the rate of the system timer, therefore the granularity of the sleep operation is limited to 6 ms unless the rate of the system timer is modified. </p>
+</div>
+<h2 id="seedrandom">seedRandom<a class="headerlink" href="#seedrandom" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-seedrandom"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>seedRandom</div>()<a class="headerlink" href="#void-seedrandom" title="Permanent link">#</a></h4>
+<h5 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">#</a></h5>
+<p>Seed the pseudo random number generator using the hardware random number generator.  </p>
+<h5 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> uBit.seedRandom(); </code></pre>
+
+
+<p><br/></p>
+<h4 id="void-seedrandom-uint32_t-seed"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>seedRandom</div>( <div style='color:#a71d5d; display:inline-block'>uint32_t</div> seed)<a class="headerlink" href="#void-seedrandom-uint32_t-seed" title="Permanent link">#</a></h4>
+<h5 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">#</a></h5>
+<p>Seed the pseudo random number generator using the given value.  </p>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint32_t</div> seed - The 32-bit value to seed the generator with.</p>
+</blockquote>
+<h5 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> uBit.seedRandom(0xBB5EED); </code></pre>
+
+
+<h2 id="random">random<a class="headerlink" href="#random" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-random-int-max"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>random</div>( <div style='color:#a71d5d; display:inline-block'>int</div> max)<a class="headerlink" href="#int-random-int-max" title="Permanent link">#</a></h4>
+<h5 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">#</a></h5>
+<p>Generate a random number in the given range. We use a simple Galois LFSR random number generator here, as a Galois LFSR is sufficient for our applications, and much more lightweight than the hardware random number generator built int the processor, which takes a long time and uses a lot of energy.  </p>
+<p>KIDS: You shouldn&rsquo;t use this is the real world to generate cryptographic keys though&hellip; have a think why not. :-)  </p>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> max - the upper range to generate a number for. This number cannot be negative.</p>
+</blockquote>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">#</a></h5>
+<p>A random, natural number between 0 and the max-1. Or MICROBIT_INVALID_VALUE if max is &lt;= 0.</p>
+<h5 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> uBit.random(200); //a number between 0 and 199 </code></pre>
+
+
+<h2 id="systemtime">systemTime<a class="headerlink" href="#systemtime" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="unsigned-long-systemtime"><div style='color:#a71d5d; display:inline-block'>unsigned long</div> <div style='color:#795da3; display:inline-block'>systemTime</div>()<a class="headerlink" href="#unsigned-long-systemtime" title="Permanent link">#</a></h4>
+<h5 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">#</a></h5>
+<p>Determine the time since this  MicroBit  was last reset.  </p>
+<h5 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">#</a></h5>
+<p>The time since the last reset, in milliseconds.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will value overflow after 1.6 months. </p>
+</div>
+<h2 id="systemversion">systemVersion<a class="headerlink" href="#systemversion" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="const-char-42-systemversion"><div style='color:#a71d5d; display:inline-block'>const char *</div> <div style='color:#795da3; display:inline-block'>systemVersion</div>()<a class="headerlink" href="#const-char-42-systemversion" title="Permanent link">#</a></h4>
+<h5 id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">#</a></h5>
+<p>Determine the version of the micro:bit runtime currently in use.  </p>
+<h5 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">#</a></h5>
+<p>A textual description of the version of the micro:bit runtime that is currently running on this device. </p>
+<h2 id="panic">panic<a class="headerlink" href="#panic" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-panic"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>panic</div>()<a class="headerlink" href="#void-panic" title="Permanent link">#</a></h4>
+<h5 id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">#</a></h5>
+<p>Triggers a microbit panic where an loop will display a panic face and the status code, if provided.  </p>
+<p>This loop will continue for panic_timeout iterations, defaults to 0 (infinite).  </p>
+<p>panic_timeout can be configured via a call to microbit_panic_timeout.  </p>
+<h5 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> microbit_panic_timeout(4); 
+
+ // will display loop for 4 iterations. 
+ uBit.panic(10); </code></pre>
+
+
+<p><br/></p>
+<h4 id="void-panic-int-statuscode"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>panic</div>( <div style='color:#a71d5d; display:inline-block'>int</div> statusCode)<a class="headerlink" href="#void-panic-int-statuscode" title="Permanent link">#</a></h4>
+<h5 id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">#</a></h5>
+<p>Triggers a microbit panic where an loop will display a panic face and the status code, if provided.  </p>
+<p>This loop will continue for panic_timeout iterations, defaults to 0 (infinite).  </p>
+<p>panic_timeout can be configured via a call to microbit_panic_timeout.  </p>
+<h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int</div> statusCode - the status code of the associated error.</p>
+</blockquote>
+<h5 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> microbit_panic_timeout(4); 
+
+ // will display loop for 4 iterations. 
+ uBit.panic(10); </code></pre>
+
+
+<h2 id="addsystemcomponent">addSystemComponent<a class="headerlink" href="#addsystemcomponent" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-addsystemcomponent-microbitcomponent-42-component"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>addSystemComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)<a class="headerlink" href="#int-addsystemcomponent-microbitcomponent-42-component" title="Permanent link">#</a></h4>
+<h5 id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">#</a></h5>
+<p>Add a component to the array of system components. This component will then receive periodic callbacks, once every tick period in interrupt context.  </p>
+<h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component - The component to add.</p>
+</blockquote>
+<h5 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success or MICROBIT_NO_RESOURCES if the component array is full.</p>
+<h5 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> // heap allocated - otherwise it will be paged out! 
+ MicroBitDisplay* display = new MicroBitDisplay(); 
+
+ uBit.addSystemComponent(display); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This interface is now deprecated, and will be removed in the next major release. Please use  system_timer_add_component() . </p>
+</div>
+<h2 id="removesystemcomponent">removeSystemComponent<a class="headerlink" href="#removesystemcomponent" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-removesystemcomponent-microbitcomponent-42-component"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>removeSystemComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)<a class="headerlink" href="#int-removesystemcomponent-microbitcomponent-42-component" title="Permanent link">#</a></h4>
+<h5 id="description_12">Description<a class="headerlink" href="#description_12" title="Permanent link">#</a></h5>
+<p>Remove a component from the array of system components. This component will no longer receive periodic callbacks.  </p>
+<h5 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component - The component to remove.</p>
+</blockquote>
+<h5 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success or MICROBIT_INVALID_PARAMETER is returned if the given component has not been previously added.</p>
+<h5 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> // heap allocated - otherwise it will be paged out! 
+ MicroBitDisplay* display = new MicroBitDisplay(); 
+
+ uBit.addSystemComponent(display); 
+
+ uBit.removeSystemComponent(display); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This interface is now deprecated, and will be removed in the next major release. Please use  system_timer_remove_component() . </p>
+</div>
+<h2 id="addidlecomponent">addIdleComponent<a class="headerlink" href="#addidlecomponent" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-addidlecomponent-microbitcomponent-42-component"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>addIdleComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)<a class="headerlink" href="#int-addidlecomponent-microbitcomponent-42-component" title="Permanent link">#</a></h4>
+<h5 id="description_13">Description<a class="headerlink" href="#description_13" title="Permanent link">#</a></h5>
+<p>Adds a component to the array of idle thread components, which are processed when the run queue is empty.  </p>
+<p>The system timer will poll isIdleCallbackNeeded on each component to determine if the scheduler should schedule the idle_task imminently.  </p>
+<h5 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component - The component to add to the array.</p>
+</blockquote>
+<h5 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success or MICROBIT_NO_RESOURCES if the fiber components array is full.</p>
+<h5 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitI2C i2c(I2C_SDA0, I2C_SCL0); 
+
+ // heap allocated - otherwise it will be paged out! 
+ MicroBitAccelerometer* accelerometer = new MicroBitAccelerometer(i2c); 
+
+ fiber_add_idle_component(accelerometer); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This interface is now deprecated, and will be removed in the next major release. Please use  fiber_add_idle_component() . </p>
+</div>
+<h2 id="removeidlecomponent">removeIdleComponent<a class="headerlink" href="#removeidlecomponent" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-removeidlecomponent-microbitcomponent-42-component"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>removeIdleComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)<a class="headerlink" href="#int-removeidlecomponent-microbitcomponent-42-component" title="Permanent link">#</a></h4>
+<h5 id="description_14">Description<a class="headerlink" href="#description_14" title="Permanent link">#</a></h5>
+<p>Remove a component from the array of idle thread components  </p>
+<h5 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component - The component to remove from the idle component array.</p>
+</blockquote>
+<h5 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success. MICROBIT_INVALID_PARAMETER is returned if the given component has not been previously added.</p>
+<h5 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitI2C i2c(I2C_SDA0, I2C_SCL0); 
+
+ // heap allocated - otherwise it will be paged out! 
+ MicroBitAccelerometer* accelerometer = new MicroBitAccelerometer(i2c); 
+
+ uBit.addIdleComponent(accelerometer); 
+
+ uBit.removeIdleComponent(accelerometer); </code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This interface is now deprecated, and will be removed in the next major release. Please use  fiber_remove_idle_component() . </p>
+</div>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="i2c/" class="btn btn-neutral float-right" title="i2c">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../help/" class="btn btn-neutral" title="Help"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../help/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="i2c/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>

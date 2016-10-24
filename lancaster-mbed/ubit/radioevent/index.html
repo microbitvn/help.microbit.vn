@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>_radioevent - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/highlight.css">
+  <link href="../../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "_radioevent";
+    var mkdocs_page_input_path = "lancaster-mbed/ubit/radioevent.md";
+    var mkdocs_page_url = "/lancaster-mbed/ubit/radioevent/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../../js/highlight.pack.js"></script>
+  <script src="../../../js/theme.js"></script>
+  <script src="../../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../../js/nav.js"></script> 
+  <script src="../../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../advanced/" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../io/" id="io">io </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../radio/" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/image/" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/string/" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../data-types/packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/temperature-service/" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current" href="./" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Nội dung &raquo;</li>
+        
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+    
+    <li>_radioevent</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ubitradioevent">uBit.radio.event<a class="headerlink" href="#ubitradioevent" title="Permanent link">#</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>It is also possible to transparently send and receive events over the <code>MicroBitRadio</code> channel. This can provide very simple and easy to integrate
+support for event driven applications. Once configured, an event raised on one micro:bit can be detected on another - in the just the same way as
+a local event such as a button click.</p>
+<p>To use this functionality, all that is needed is to register the event codes that you would like to be sent over the radio, then write event handlers
+for the message bus as with all other events. See the documentation for the <a href="messageBus.md"><code>MicroBitMessageBus</code></a> for details of how to write
+event handlers.</p>
+<p>For example, if you wanted to share an event SOMETHING with another micro:bit whenever ButtonA is pressed, you might write code like this on the sending micro:bit:</p>
+<pre class="code"><code class="language-cpp">#define MY_APP_ID           4000
+#define SOMETHING           1
+
+int main()
+{
+    uBit.radio.enable();
+
+    // Ensure the radio is listening out to forward our events
+    uBit.radio.event.listen(MY_APP_ID, MICROBIT_EVT_ANY);
+
+    while(1)
+    {
+        if (uBit.buttonA.isPressed())
+            MicroBitEvent(MY_APP_ID, SOMETHING);
+
+        uBit.sleep(1000);
+    }
+}</code></pre>
+
+
+<p>&hellip;and on the micro:bits wanting to receive the event:</p>
+<pre class="code"><code class="language-cpp">#define MY_APP_ID           4000
+#define SOMETHING           1
+
+void onSomething(MicroBitEvent e)
+{
+    uBit.display.scrollAsync(&quot;Something!&quot;);
+}
+
+int main()
+{
+    uBit.messageBus.listen(MY_APP_ID, SOMETHING, onSomething);
+    uBit.radio.enable();
+
+    while(1)
+        uBit.sleep(1000);
+}</code></pre>
+
+
+<h2 id="message-bus-id">Message Bus ID<a class="headerlink" href="#message-bus-id" title="Permanent link">#</a></h2>
+<blockquote>
+<p>None.</p>
+</blockquote>
+<h2 id="message-bus-events">Message Bus Events<a class="headerlink" href="#message-bus-events" title="Permanent link">#</a></h2>
+<blockquote>
+<p>None.</p>
+</blockquote>
+<h1 id="api">API<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="microbitradioevent-microbitradio-r">MicroBitRadioEvent( <div style='color:#a71d5d; display:inline-block'>MicroBitRadio  &amp;</div> r)<a class="headerlink" href="#microbitradioevent-microbitradio-r" title="Permanent link">#</a></h4>
+<h5 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h5>
+<p>Constructor.  </p>
+<p>Creates an instance of  MicroBitRadioEvent  which offers the ability to extend the micro:bit&rsquo;s default  EventModel  to other micro:bits in the vicinity.  </p>
+<p>r </p>
+<p>The underlying radio module used to send and receive data.   </p>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>MicroBitRadio  &amp;</div> r - The underlying radio module used to send and receive data. </p>
+</blockquote>
+<h2 id="listen">listen<a class="headerlink" href="#listen" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-listen-uint16_t-id-uint16_t-value"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>listen</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value)<a class="headerlink" href="#int-listen-uint16_t-id-uint16_t-value" title="Permanent link">#</a></h4>
+<h5 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">#</a></h5>
+<p>Associates the given event with the radio channel.  </p>
+<p>Once registered, all events matching the given registration sent to this micro:bit&rsquo;s default  EventModel  will be automatically retransmitted on the radio.  </p>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the event to register.</p>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - the value of the event to register.</p>
+</blockquote>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_NO_RESOURCES if no default  EventModel  is available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The wildcards MICROBIT_ID_ANY and MICROBIT_EVT_ANY can also be in place of the id and value fields. </p>
+</div>
+<p><br/></p>
+<h4 id="int-listen-uint16_t-id-uint16_t-value-eventmodel-eventbus"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>listen</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value,  <div style='color:#a71d5d; display:inline-block'>EventModel  &amp;</div> eventBus)<a class="headerlink" href="#int-listen-uint16_t-id-uint16_t-value-eventmodel-eventbus" title="Permanent link">#</a></h4>
+<h5 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">#</a></h5>
+<p>Associates the given event with the radio channel.  </p>
+<p>Once registered, all events matching the given registration sent to the given  EventModel  will be automatically retransmitted on the radio.  </p>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the events to register.</p>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - the value of the event to register.</p>
+<p><div style='color:#a71d5d; display:inline-block'>EventModel  &amp;</div> eventBus - The  EventModel  to listen for events on.</p>
+</blockquote>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The wildcards MICROBIT_ID_ANY and MICROBIT_EVT_ANY can also be in place of the id and value fields. </p>
+</div>
+<h2 id="ignore">ignore<a class="headerlink" href="#ignore" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int-ignore-uint16_t-id-uint16_t-value"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>ignore</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value)<a class="headerlink" href="#int-ignore-uint16_t-id-uint16_t-value" title="Permanent link">#</a></h4>
+<h5 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">#</a></h5>
+<p>Disassociates the given event with the radio channel.  </p>
+<h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the events to deregister.</p>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - The value of the event to deregister.</p>
+</blockquote>
+<h5 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the default message bus does not exist.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>MICROBIT_EVT_ANY can be used to deregister all event values matching the given id. </p>
+</div>
+<p><br/></p>
+<h4 id="int-ignore-uint16_t-id-uint16_t-value-eventmodel-eventbus"><div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>ignore</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value,  <div style='color:#a71d5d; display:inline-block'>EventModel  &amp;</div> eventBus)<a class="headerlink" href="#int-ignore-uint16_t-id-uint16_t-value-eventmodel-eventbus" title="Permanent link">#</a></h4>
+<h5 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">#</a></h5>
+<p>Disassociates the given events with the radio channel.  </p>
+<h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the events to deregister.</p>
+<p><div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - The value of the event to deregister.</p>
+<p><div style='color:#a71d5d; display:inline-block'>EventModel  &amp;</div> eventBus - The  EventModel  to deregister on.</p>
+</blockquote>
+<h5 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">#</a></h5>
+<p>MICROBIT_OK on success.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>MICROBIT_EVT_ANY can be used to deregister all event values matching the given id. </p>
+</div>
+<h2 id="packetreceived">packetReceived<a class="headerlink" href="#packetreceived" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-packetreceived"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>packetReceived</div>()<a class="headerlink" href="#void-packetreceived" title="Permanent link">#</a></h4>
+<h5 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">#</a></h5>
+<p>Protocol handler callback. This is called when the radio receives a packet marked as using the event protocol.  </p>
+<p>This function process this packet, and fires the event contained inside onto the default  EventModel .           </p>
+<h2 id="eventreceived">eventReceived<a class="headerlink" href="#eventreceived" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="void-eventreceived-microbitevent-e"><div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>eventReceived</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> e)<a class="headerlink" href="#void-eventreceived-microbitevent-e" title="Permanent link">#</a></h4>
+<h5 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">#</a></h5>
+<p>Event handler callback. This is called whenever an event is received matching one of those registered through the registerEvent() method described above. Upon receiving such an event, it is wrapped into a radio packet and transmitted to any other micro:bits in the same group.           </p>
+<h5 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> e</p>
+</blockquote>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../radiodatagram/" class="btn btn-neutral float-right" title="_radiodatagram">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../multibutton/" class="btn btn-neutral" title="_buttonAB"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../multibutton/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../radiodatagram/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>

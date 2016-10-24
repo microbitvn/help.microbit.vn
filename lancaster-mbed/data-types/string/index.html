@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Doãn Minh Đăng">
+  
+  <title>ManagedString - Microbit Việt Nam</title>
+  
+
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../../css/highlight.css">
+  <link href="../../../lancaster-mbed/resources/bluetooth/style.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../../css/custom.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "ManagedString";
+    var mkdocs_page_input_path = "lancaster-mbed/data-types/string.md";
+    var mkdocs_page_url = "/lancaster-mbed/data-types/string/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../../js/highlight.pack.js"></script>
+  <script src="../../../js/theme.js"></script>
+  <script src="../../../js/jquery.cookie-1.4.1.min.js"></script>
+  <script src="../../../js/nav.js"></script> 
+  <script src="../../../lancaster-mbed/resources/bluetooth/functions.js"></script>
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> Microbit Việt Nam</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../.." id="Trang chủ" style="font-size:95%;font-weight:bold;">Trang chủ</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    </li>
+    
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="Microbit - Mbed - C/C++" onclick="showChildren('Microbit - Mbed - C/C++')">Microbit - Mbed - C/C++  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        </li>
+        
+        <div style="display:none" id="hidden_Microbit - Mbed - C/C++">
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="General" onclick="showChildren('Microbit - Mbed - C/C++General')">General  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++General">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../" id="Introduction">Introduction </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../concepts/" id="Concepts">Concepts </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../advanced/" id="Advanced">Advanced </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../online-toolchains/" id="Web-based Development">Web-based Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../offline-toolchains/" id="Offline Development">Offline Development </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../device/" id="Hardware">Hardware </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../help/" id="Help">Help </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="uBit" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBit')">uBit  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBit">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/" id="Overview">Overview </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/i2c/" id="i2c">i2c </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/storage/" id="storage">storage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/serial/" id="serial">serial </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/MessageBus/" id="messageBus">messageBus </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/button/" id="buttons">buttons </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/display/" id="display">display </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/accelerometer/" id="accelerometer">accelerometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/compass/" id="compass">compass </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/thermometer/" id="thermometer">thermometer </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/io/" id="io">io </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ubit/radio/" id="radio">radio </a>
+                </li>
+            
+            </div>
+        
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="Data Types" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData Types')">Data Types  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData Types">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../image/" id="MicroBitImage">MicroBitImage </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../event/" id="MicroBitEvent">MicroBitEvent </a>
+                </li>
+            
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="ManagedString">ManagedString </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../packetbuffer/" id="PacketBuffer">PacketBuffer </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Bluetooth" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth')">Bluetooth  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetooth">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/profile/" id="Profile">Profile </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/accelerometer-service/" id="AccelerometerService">AccelerometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/button-service/" id="ButtonService">ButtonService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/dfu-service/" id="DFUService">DFUService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/event-service/" id="EventService">EventService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/iopin-service/" id="IOPinService">IOPinService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/led-service/" id="LEDService">LEDService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/magnetometer-service/" id="MagnetometerService">MagnetometerService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/temperature-service/" id="TemperatureService">TemperatureService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/uart-service/" id="UARTService">UARTService </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../ble/ble-connection-events/" id="Connection Events">Connection Events </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class=""  id="Extras" onclick="showChildren('Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras')">Extras  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras">
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/light-sensing/" id="MicroBitLightSensor">MicroBitLightSensor </a>
+                </li>
+            
+                <li class="">
+                    <a style="padding-left:90px;" class="" href="../../extras/spi/" id="SPI">SPI </a>
+                </li>
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/blemanager/" id="_blemanager">_blemanager </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/multibutton/" id="_buttonAB">_buttonAB </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/radioevent/" id="_radioevent">_radioevent </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent">
+            
+            </div>
+        
+            <li class="">
+                <a style="padding-left:70px;" class="" href="../../ubit/radiodatagram/" id="_radiodatagram">_radiodatagram </a>
+            </li>
+            
+            <div style="display:none" id="hidden_Microbit - Mbed - C/C++GeneraluBitData TypesBluetoothExtras_blemanager_buttonAB_radioevent_radiodatagram">
+            
+            </div>
+        
+        </div>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../license/" id="Bản quyền" style="font-size:95%;font-weight:bold;">Bản quyền</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+            <li><ul class="subnav">
+    <li class="">
+        <a class="" href="../../../contributor/" id="Đóng góp" style="font-size:95%;font-weight:bold;">Đóng góp</a>
+    </li>
+    
+    <li class="paddingtop20"></li>
+</ul>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">Microbit Việt Nam</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Microbit - Mbed - C/C++ &raquo;</li>
+        
+      
+        
+          <li>Data Types &raquo;</li>
+        
+      
+    
+    <li>ManagedString</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="managedstring">ManagedString<a class="headerlink" href="#managedstring" title="Permanent link">#</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p><code>ManagedString</code> represents a text string in the micro:bit runtime.</p>
+<p>A string is simply a sequence of characters such as &ldquo;joe&rdquo; or &ldquo;micro:bit&rdquo;.</p>
+<p>In the C language, the end of the string is marked by a special character (a <strong>NULL</strong> character, commonly with the value zero).</p>
+<p>Simple strings are often represented as literal character arrays:</p>
+<pre class="code"><code class="language-cpp">uBit.display.scroll(&quot;HELLO&quot;);</code></pre>
+
+
+<p>Which is almost exactly the same as:</p>
+<pre class="code"><code class="language-cpp">char message[6] = {'H', 'E', 'L', 'L', 'O', 0};
+uBit.display.scroll(message);</code></pre>
+
+
+<p>Although fantastically simple, strings of this form are well known to lead to memory leaks and be sources of bugs in code (especially when the programmers are still learning!).</p>
+<p>As a result, most modern high level languages such as Java, C#, Javascript and TouchDevelop do not use strings of this format.
+Instead, they provide code that is capable of ensuring strings remain safe.</p>
+<p><code>ManagedString</code> provides this equivalent functionality for the micro:bit, as a building block for higher level languages. However, it can also makes programming the micro:bit in C easier too!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a <strong>managed type</strong>. This means that it will automatically use and release memory as needed. There is no need for you to explicitly free or release memory when your done - the memory will be freed as soon as the last piece of code stops using the data.</p>
+</div>
+<h2 id="creating-strings">Creating Strings<a class="headerlink" href="#creating-strings" title="Permanent link">#</a></h2>
+<p>Images are simple to create - just create them like a variable, and provide the text or number you would like to build the string from.</p>
+<p>For example:</p>
+<pre class="code"><code class="language-cpp">ManagedString hi(&quot;HELLO&quot;);
+ManagedString message(&quot;micro:bit&quot;);
+ManagedString n(42);</code></pre>
+
+
+<p>The runtime will also create a <code>ManagedString</code> for you from a number or quoted literal anytime a function requires a <code>ManagedString</code>.</p>
+<p>In the example below, even though the scroll function of <a href="../../ubit/display/"><code>MicroBitDisplay</code></a> expects a <code>ManagedString</code>,
+it is totally fine to pass a literal value in quotes or a number (or in fact, any parameter that is listed in the API section as a legal constructor will work):</p>
+<pre class="code"><code class="language-cpp">ManagedString hi(&quot;HELLO&quot;);
+ManagedString message(&quot;micro:bit&quot;);
+ManagedString n(42);
+
+// All these calls are legal:
+uBit.display.scroll(hi);
+uBit.display.scroll(n);
+uBit.display.scroll(&quot;THANKS!&quot;);</code></pre>
+
+
+<h2 id="manipulating-strings">Manipulating Strings<a class="headerlink" href="#manipulating-strings" title="Permanent link">#</a></h2>
+<p>ManagedStrings are <strong>immutable</strong>, meaning that once created, they cannot be changed. However, you can join them, search them, extract characters from them and create other strings!</p>
+<p>The micro:bit runtime makes use of <strong>operator overloading</strong> to keep this easy to use.</p>
+<p>In other words, we make use of the <code>=</code> <code>+</code> <code>&lt;</code> <code>&gt;</code> and <code>==</code> operators to let you easily assign and compare strings.</p>
+<p>Although this may sound complex, it is easy once you see how to do it.</p>
+<p>Here is how you would join together more than one string, and assign it to a new one:</p>
+<pre class="code"><code class="language-cpp">ManagedString hi(&quot;HELLO&quot;);
+ManagedString message(&quot;micro:bit&quot;);
+ManagedString space(&quot; &quot;);
+
+ManagedString s = hi + space + message;
+
+// This would say &quot;HELLO micro:bit&quot; on the LED display.
+uBit.display.scroll(s);</code></pre>
+
+
+<p>You can compare strings (alphabetically) in a similar way:</p>
+<pre class="code"><code class="language-cpp">ManagedString hi(&quot;HELLO&quot;);
+ManagedString message(&quot;micro:bit&quot;);
+
+if (hi == message)
+    uBit.display.scroll(&quot;SAME&quot;);
+
+if (hi &lt; message)
+    uBit.display.scroll(&quot;LESS&quot;);
+
+if (hi &gt; message)
+    uBit.display.scroll(&quot;MORE&quot;);</code></pre>
+
+
+<p>You can also determine the length of a string, extract parts of strings, retrieve individual characters at a given index or convert a ManagedString to a C-style character array using the <code>length</code>, <code>substring</code>, <code>charAt</code> and <code>toCharArray</code> functions respectively.</p>
+<p>See the API documentation below for further details.</p>
+<h1 id="api">API<a class="headerlink" href="#api" title="Permanent link">#</a></h1>
+<h2 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="managedstring-stringdata-42-ptr">ManagedString( <div style='color:#a71d5d; display:inline-block'>StringData  *</div> ptr)<a class="headerlink" href="#managedstring-stringdata-42-ptr" title="Permanent link">#</a></h4>
+<h5 id="description">Description<a class="headerlink" href="#description" title="Permanent link">#</a></h5>
+<p>Constructor. Create a managed string from a specially prepared string literal.  </p>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>StringData  *</div> ptr - The literal - first two bytes should be 0xff, then the length in little endian, then the literal. The literal has to be 4-byte aligned.</p>
+</blockquote>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> static const char hello[] __attribute__ ((aligned (4))) = &quot;\xff\xff\x05\x00&quot; &quot;Hello&quot;; 
+ ManagedString s((StringData*)(void*)hello); </code></pre>
+
+
+<h2 id="leakdata">leakData<a class="headerlink" href="#leakdata" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="stringdata-leakdata"><div style='color:#a71d5d; display:inline-block'>StringData</div> <div style='color:#795da3; display:inline-block'>leakData</div>()<a class="headerlink" href="#stringdata-leakdata" title="Permanent link">#</a></h4>
+<h5 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">#</a></h5>
+<p>Get current ptr, do not decr() it, and set the current instance to empty string.  </p>
+<p>This is to be used by specialized runtimes which pass  StringData  around.           </p>
+<h2 id="constructor_1">Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="managedstring-const-char-42-str">ManagedString( <div style='color:#a71d5d; display:inline-block'>const char *</div> str)<a class="headerlink" href="#managedstring-const-char-42-str" title="Permanent link">#</a></h4>
+<h5 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">#</a></h5>
+<p>Constructor.  </p>
+<p>Create a managed string from a pointer to an 8-bit character buffer.  </p>
+<p>The buffer is copied to ensure safe memory management (the supplied character buffer may be declared on the stack for instance).  </p>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const char *</div> str - The character array on which to base the new  ManagedString .</p>
+</blockquote>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s(&quot;abcdefg&quot;); </code></pre>
+
+
+<p><br/></p>
+<h4 id="managedstring-const-int-value">ManagedString( <div style='color:#a71d5d; display:inline-block'>const int</div> value)<a class="headerlink" href="#managedstring-const-int-value" title="Permanent link">#</a></h4>
+<h5 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">#</a></h5>
+<p>Constructor.  </p>
+<p>Create a managed string from a given integer.  </p>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const int</div> value - The integer from which to create the  ManagedString .</p>
+</blockquote>
+<h5 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s(20); </code></pre>
+
+
+<p><br/></p>
+<h4 id="managedstring-const-char-value">ManagedString( <div style='color:#a71d5d; display:inline-block'>const char</div> value)<a class="headerlink" href="#managedstring-const-char-value" title="Permanent link">#</a></h4>
+<h5 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">#</a></h5>
+<p>Constructor. Create a managed string from a given char.  </p>
+<h5 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const char</div> value - The character from which to create the  ManagedString .</p>
+</blockquote>
+<h5 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s('a'); </code></pre>
+
+
+<p><br/></p>
+<h4 id="managedstring-packetbuffer-buffer">ManagedString( <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> buffer)<a class="headerlink" href="#managedstring-packetbuffer-buffer" title="Permanent link">#</a></h4>
+<h5 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">#</a></h5>
+<p>Constructor. Create a  ManagedString  from a  PacketBuffer . All bytes in the  PacketBuffer  are added to the  ManagedString .  </p>
+<h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> buffer - The PacktBuffer from which to create the  ManagedString .</p>
+</blockquote>
+<h5 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s = radio.datagram.recv(); </code></pre>
+
+
+<p><br/></p>
+<h4 id="managedstring-const-char-42-str-const-int16_t-length">ManagedString( <div style='color:#a71d5d; display:inline-block'>const char *</div> str,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> length)<a class="headerlink" href="#managedstring-const-char-42-str-const-int16_t-length" title="Permanent link">#</a></h4>
+<h5 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">#</a></h5>
+<p>Constructor. Create a  ManagedString  from a pointer to an 8-bit character buffer of a given length.  </p>
+<p>The buffer is copied to ensure sane memory management (the supplied character buffer may be declared on the stack for instance).  </p>
+<h5 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const char *</div> str - The character array on which to base the new  ManagedString .</p>
+<p><div style='color:#a71d5d; display:inline-block'>const int16_t</div> length - The length of the character array</p>
+</blockquote>
+<h5 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s(&quot;abcdefg&quot;,7); </code></pre>
+
+
+<p><br/></p>
+<h4 id="managedstring-const-managedstring-s">ManagedString( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)<a class="headerlink" href="#managedstring-const-managedstring-s" title="Permanent link">#</a></h4>
+<h5 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">#</a></h5>
+<p>Copy constructor. Makes a new  ManagedString  identical to the one supplied.  </p>
+<p>Shares the character buffer and reference count with the supplied  ManagedString .  </p>
+<h5 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s - The  ManagedString  to copy.</p>
+</blockquote>
+<h5 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s(&quot;abcdefg&quot;); 
+ ManagedString p(s); </code></pre>
+
+
+<p><br/></p>
+<h4 id="managedstring_1">ManagedString()<a class="headerlink" href="#managedstring_1" title="Permanent link">#</a></h4>
+<h5 id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">#</a></h5>
+<p>Default constructor.  </p>
+<p>Create an empty  ManagedString .  </p>
+<h5 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s(); </code></pre>
+
+
+<h2 id="operator">operator=<a class="headerlink" href="#operator" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="managedstring-operator-const-managedstring-s"><div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>operator=</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)<a class="headerlink" href="#managedstring-operator-const-managedstring-s" title="Permanent link">#</a></h4>
+<h5 id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">#</a></h5>
+<p>Copy assign operation.  </p>
+<p>Called when one  ManagedString  is assigned the value of another.  </p>
+<p>If the  ManagedString  being assigned is already referring to a character buffer, decrement the reference count and free up the buffer as necessary.  </p>
+<p>Then, update our character buffer to refer to that of the supplied  ManagedString , and increase its reference count.  </p>
+<h5 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s - The  ManagedString  to copy.</p>
+</blockquote>
+<h5 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> ManagedString s(&quot;abcd&quot;); 
+ ManagedString p(&quot;efgh&quot;); 
+ p = s // p now points to s, s' ref is incremented </code></pre>
+
+
+<h2 id="operator_1">operator==<a class="headerlink" href="#operator_1" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="bool-operator-const-managedstring-s"><div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator==</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)<a class="headerlink" href="#bool-operator-const-managedstring-s" title="Permanent link">#</a></h4>
+<h5 id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">#</a></h5>
+<p>Equality operation.  </p>
+<p>Called when one  ManagedString  is tested to be equal to another using the &lsquo;==&rsquo; operator.  </p>
+<h5 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s - The  ManagedString  to test ourselves against.</p>
+</blockquote>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">#</a></h5>
+<p>true if this  ManagedString  is identical to the one supplied, false otherwise.</p>
+<h5 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ ManagedString s(&quot;abcd&quot;); 
+ ManagedString p(&quot;efgh&quot;); 
+
+ if(p == s) 
+ display.scroll(&quot;We are the same!&quot;); 
+ else 
+ display.scroll(&quot;We are different!&quot;); //p is not equal to s - this will be called </code></pre>
+
+
+<h2 id="operator_2">operator&lt;<a class="headerlink" href="#operator_2" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="bool-operator-const-managedstring-s_1"><div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator&lt;</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)<a class="headerlink" href="#bool-operator-const-managedstring-s_1" title="Permanent link">#</a></h4>
+<h5 id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">#</a></h5>
+<p>Inequality operation.  </p>
+<p>Called when one  ManagedString  is tested to be less than another using the &lsquo;&lt;&rsquo; operator.  </p>
+<h5 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s - The  ManagedString  to test ourselves against.</p>
+</blockquote>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">#</a></h5>
+<p>true if this  ManagedString  is alphabetically less than to the one supplied, false otherwise.</p>
+<h5 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ ManagedString s(&quot;a&quot;); 
+ ManagedString p(&quot;b&quot;); 
+
+ if(s &lt; p) 
+ display.scroll(&quot;a is before b!&quot;); //a is before b 
+ else 
+ display.scroll(&quot;b is before a!&quot;); </code></pre>
+
+
+<h2 id="operator_3">operator&gt;<a class="headerlink" href="#operator_3" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="bool-operator-const-managedstring-s_2"><div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator&gt;</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)<a class="headerlink" href="#bool-operator-const-managedstring-s_2" title="Permanent link">#</a></h4>
+<h5 id="description_12">Description<a class="headerlink" href="#description_12" title="Permanent link">#</a></h5>
+<p>Inequality operation.  </p>
+<p>Called when one  ManagedString  is tested to be greater than another using the &lsquo;&gt;&rsquo; operator.  </p>
+<h5 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s - The  ManagedString  to test ourselves against.</p>
+</blockquote>
+<h5 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">#</a></h5>
+<p>true if this  ManagedString  is alphabetically greater than to the one supplied, false otherwise.</p>
+<h5 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ ManagedString s(&quot;a&quot;); 
+ ManagedString p(&quot;b&quot;); 
+
+ if(p&gt;a) 
+ display.scroll(&quot;b is after a!&quot;); //b is after a 
+ else 
+ display.scroll(&quot;a is after b!&quot;); </code></pre>
+
+
+<h2 id="substring">substring<a class="headerlink" href="#substring" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="managedstring-substring-int16_t-start-int16_t-length"><div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>substring</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> start,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> length)<a class="headerlink" href="#managedstring-substring-int16_t-start-int16_t-length" title="Permanent link">#</a></h4>
+<h5 id="description_13">Description<a class="headerlink" href="#description_13" title="Permanent link">#</a></h5>
+<p>Extracts a  ManagedString  from this string, at the position provided.  </p>
+<h5 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> start - The index of the first character to extract, indexed from zero.</p>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> length - The number of characters to extract from the start position</p>
+</blockquote>
+<h5 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">#</a></h5>
+<p>a  ManagedString  representing the requested substring.</p>
+<h5 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ ManagedString s(&quot;abcdefg&quot;); 
+
+ display.scroll(s.substring(0,2)) // displays &quot;ab&quot; </code></pre>
+
+
+<h2 id="charat">charAt<a class="headerlink" href="#charat" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="char-charat-int16_t-index"><div style='color:#a71d5d; display:inline-block'>char</div> <div style='color:#795da3; display:inline-block'>charAt</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> index)<a class="headerlink" href="#char-charat-int16_t-index" title="Permanent link">#</a></h4>
+<h5 id="description_14">Description<a class="headerlink" href="#description_14" title="Permanent link">#</a></h5>
+<p>Provides a character value at a given position in the string, indexed from zero.  </p>
+<h5 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">#</a></h5>
+<blockquote>
+<p><div style='color:#a71d5d; display:inline-block'>int16_t</div> index - The position of the character to return.</p>
+</blockquote>
+<h5 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">#</a></h5>
+<p>the character at posisiton index, zero if index is invalid.</p>
+<h5 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ ManagedString s(&quot;abcd&quot;); 
+
+ display.scroll(s.charAt(1)) // scrolls &quot;b&quot; </code></pre>
+
+
+<h2 id="tochararray">toCharArray<a class="headerlink" href="#tochararray" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="const-char-42-tochararray"><div style='color:#a71d5d; display:inline-block'>const char *</div> <div style='color:#795da3; display:inline-block'>toCharArray</div>()<a class="headerlink" href="#const-char-42-tochararray" title="Permanent link">#</a></h4>
+<h5 id="description_15">Description<a class="headerlink" href="#description_15" title="Permanent link">#</a></h5>
+<p>Provides an immutable 8 bit wide character buffer representing this string.  </p>
+<h5 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">#</a></h5>
+<p>a pointer to the character buffer. </p>
+<h2 id="length">length<a class="headerlink" href="#length" title="Permanent link">#</a></h2>
+<p><br/></p>
+<h4 id="int16_t-length"><div style='color:#a71d5d; display:inline-block'>int16_t</div> <div style='color:#795da3; display:inline-block'>length</div>()<a class="headerlink" href="#int16_t-length" title="Permanent link">#</a></h4>
+<h5 id="description_16">Description<a class="headerlink" href="#description_16" title="Permanent link">#</a></h5>
+<p>Determines the length of this  ManagedString  in characters.  </p>
+<h5 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">#</a></h5>
+<p>the length of the string in characters.</p>
+<h5 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">#</a></h5>
+<pre class="code"><code class="language-cpp"> MicroBitDisplay display; 
+ ManagedString s(&quot;abcd&quot;); 
+
+ display.scroll(s.length()) // scrolls &quot;4&quot; </code></pre>
+
+
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../packetbuffer/" class="btn btn-neutral float-right" title="PacketBuffer">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../event/" class="btn btn-neutral" title="MicroBitEvent"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a></p>
+    
+  </div>
+
+  
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<!-- <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../event/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../packetbuffer/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div> -->
+
+<script type="text/javascript">
+  // If cookie is defined toggle the id
+  if (typeof $.cookie('docToggle') !== 'undefined') {
+      // Parse cookie which is an array
+      var _parsed_cookie = JSON.parse($.cookie('docToggle'));
+      // Loop over array and show hidden divs
+      $.each(_parsed_cookie, function(index, value) {
+          // Toggle
+          $("[id='hidden_" + value + "']").css('display','');
+      })
+  }
+</script>
+
+</body>
+</html>
