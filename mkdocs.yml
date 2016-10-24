@@ -1,5 +1,5 @@
 site_name: Microbit Việt Nam
-site_url: https://microbit.vn
+site_url: https://help.microbit.vn
 site_description: Microbit Việt Nam
 # theme: readthedocs
 site_author: Doãn Minh Đăng
@@ -12,8 +12,8 @@ markdown_extensions:
     - admonition
     - smarty
 repo_name: GitHub
-repo_url: https://github.com/microbitvn/microbit.vn
-google_analytics: ['UA-60470603-5', 'microbit.vn']
+repo_url: https://github.com/microbitvn/help.microbit.vn
+google_analytics: ['UA-60470603-6', 'help.microbit.vn']
 # Page tree
 pages:
   - Trang chủ:                      index.md
