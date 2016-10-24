@@ -1,0 +1,70 @@
+site_name: Microbit Việt Nam
+site_url: https://microbit.vn
+site_description: Microbit Việt Nam
+# theme: readthedocs
+site_author: Doãn Minh Đăng
+theme_dir: readthedocshm
+copyright: Copyright &copy; 2016 <a href="https://microbit.vn">Microbit Việt Nam</a>
+markdown_extensions:
+    - toc:
+        permalink: '#'
+    - codehilite(css_class=code)
+    - admonition
+    - smarty
+repo_name: GitHub
+repo_url: https://github.com/microbitvn/microbit.vn
+google_analytics: ['UA-60470603-5', 'microbit.vn']
+# Page tree
+pages:
+  - Trang chủ:                      index.md
+  - Nội dung:
+    - Microbit - Mbed - C/C++:
+        - General:
+          - Introduction: lancaster-mbed/index.md
+          - Concepts: lancaster-mbed/concepts.md
+          - Advanced: lancaster-mbed/advanced.md
+          - Web-based Development: lancaster-mbed/online-toolchains.md
+          - Offline Development: lancaster-mbed/offline-toolchains.md
+          - Hardware: lancaster-mbed/device.md
+          - Help: lancaster-mbed/help.md
+        - uBit:
+          - Overview: lancaster-mbed/ubit.md
+          - i2c: lancaster-mbed/ubit/i2c.md
+          - storage: lancaster-mbed/ubit/storage.md
+          - serial: lancaster-mbed/ubit/serial.md
+          - messageBus: lancaster-mbed/ubit/messageBus.md
+          - buttons: lancaster-mbed/ubit/button.md
+          - display: lancaster-mbed/ubit/display.md
+          - accelerometer: lancaster-mbed/ubit/accelerometer.md
+          - compass: lancaster-mbed/ubit/compass.md
+          - thermometer: lancaster-mbed/ubit/thermometer.md
+          - io: lancaster-mbed/ubit/io.md
+          - radio: lancaster-mbed/ubit/radio.md
+        - Data Types:
+          - MicroBitImage: lancaster-mbed/data-types/image.md
+          - MicroBitEvent: lancaster-mbed/data-types/event.md
+          - ManagedString: lancaster-mbed/data-types/string.md
+          - PacketBuffer: lancaster-mbed/data-types/packetbuffer.md
+        - Bluetooth:
+          - Profile: lancaster-mbed/ble/profile.md
+          - AccelerometerService: lancaster-mbed/ble/accelerometer-service.md
+          - ButtonService: lancaster-mbed/ble/button-service.md
+          - DFUService: lancaster-mbed/ble/dfu-service.md
+          - EventService: lancaster-mbed/ble/event-service.md
+          - IOPinService: lancaster-mbed/ble/iopin-service.md
+          - LEDService: lancaster-mbed/ble/led-service.md
+          - MagnetometerService: lancaster-mbed/ble/magnetometer-service.md
+          - TemperatureService: lancaster-mbed/ble/temperature-service.md
+          - UARTService: lancaster-mbed/ble/uart-service.md
+          - Connection Events: lancaster-mbed/ble/ble-connection-events.md
+        - Extras:
+          - MicroBitLightSensor: lancaster-mbed/extras/light-sensing.md
+          - SPI: lancaster-mbed/extras/spi.md
+        - _blemanager: lancaster-mbed/ubit/blemanager.md
+        - _buttonAB: lancaster-mbed/ubit/multibutton.md
+        - _radioevent: lancaster-mbed/ubit/radioevent.md
+        - _radiodatagram: lancaster-mbed/ubit/radiodatagram.md
+  - Các dự án:                      projects/projects.md
+  - Bản quyền:                      license.md
+  - Đóng góp:                       contributor.md
+

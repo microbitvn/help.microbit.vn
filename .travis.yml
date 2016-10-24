@@ -1,0 +1,14 @@
+
+sudo: false
+language: python
+python: '3.5'
+env:
+  global:
+    secure: Sjmwkeb+Ec1HM7T4+bLX1qv6ZmmNXptfm2Xvj4DRGELR+Pem6W29UFKs5Q+GCHb/5OWJ2yJ9tyxV+uRX8dIuzvfvLrcpA4aT1qwbUaNS5B+clT3kTt/OjTpI3Gb2fOIUUsLFB11hE7lpdlEesWIABJgjJt+ixMqD4sk95IzVO7MsnfM7A2rMxjVvqO1t502Ys5/tQG1mV6Iwycc8F94ysUALIy4zpcGxoCBT6PbAH88IJMUn6mIPhfWA3ZvrF2nUXjIPt0IdCvlog8x+/2bJzXxuctFGiRAd25Bb+0w4Ty2RvQFTs22nglfiku1ZCldi/4IGLHmo8BXbAqAlZmc9biJYbJMUG+h+ID6jRq6gj1ZZm+Q1IKT/t5jM6NQQcSh3glIxkOsbeKzmkgJ9ixs8LME0eCwcxOG5LySATZ4rsi1LygMcLDhBU15NhDe6+Pxha1Bk1O5+1n5RCllrav08Nd53hC67n9Xl9YtWqHPOcSboN3Bb20epsz4TMdpAyd+Ye0IVmxKoNKGLH4TlDs0tAwRMog7PPpQILb4kZsDkzhSERftMa3txZfSS9jRbnSUwgHitE9DFctM1avJVOkv9B7fi26YCSrAh9kjByPRYmyV/IShxam0R6H4EAzHFlyGICRSMwi8g7uGmemibX83BUy5LvLz5+K8LK2QMHeGBLOE=
+script:
+- git config user.name "tuanpmt"
+- git config user.email "tuanpm@live.com"
+- git remote add gh-token "https://${GH_TOKEN}@github.com/microbitvn/microbit.vn.git"
+- git fetch gh-token && git fetch gh-token gh-pages:gh-pages
+- pip install mkdocs -U
+- mkdocs gh-deploy -v --clean --remote-name gh-token
