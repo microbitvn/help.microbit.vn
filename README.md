@@ -1,5 +1,6 @@
 # Microbit Việt Nam
 
+![Build image](https://travis-ci.org/microbitvn/help.microbit.vn.svg?branch=master)
 
 ## Cài đặt công cụ cần thiết
 
