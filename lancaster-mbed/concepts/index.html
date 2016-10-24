@@ -46,7 +46,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('create', 'UA-60470603-6', 'help.microbit.vn');
       ga('send', 'pageview');
   </script>
   
@@ -149,7 +149,7 @@
                 </li>
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../ubit/MessageBus/" id="messageBus">messageBus </a>
+                    <a style="padding-left:90px;" class="" href="../ubit/messageBus/" id="messageBus">messageBus </a>
                 </li>
             
                 <li class="">
@@ -373,7 +373,7 @@
     <li class="wy-breadcrumbs-aside">
       
         
-          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github"> Edit on GitHub</a>
         
       
     </li>
@@ -443,13 +443,13 @@ and an event MICROBIT_BUTTON_EVT_CLICK with the value &lsquo;3&rsquo; is generat
 
 
 <p>Feel free to create your own events lke this too. Just try to avoid using any source ID that is already used by the runtime! :-)
-See the <a href="ubit/messageBus.md">messageBus</a> page for a complete table of the reserved source IDs.</p>
+See the <a href="../ubit/messageBus/">messageBus</a> page for a complete table of the reserved source IDs.</p>
 <h2 id="detecting-events">Detecting Events<a class="headerlink" href="#detecting-events" title="Permanent link">#</a></h2>
-<p>The micro:bit runtime has a component called the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a>, and its job is remember which events your program is interested in, and
+<p>The micro:bit runtime has a component called the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a>, and its job is remember which events your program is interested in, and
 to deliver <code>MicroBitEvent</code>s to your program as they occur.</p>
 <p>To find out when an event happens, you need to create a function in your program,
 then tell the message bus which event you want to attach this function to. This is known as writing an <strong>event handler</strong>.</p>
-<p>You write an event handler through the <code>MicroBitMessageBus</code> <a href="ubit/messageBus.md">listen</a> function.  </p>
+<p>You write an event handler through the <code>MicroBitMessageBus</code> <a href="../ubit/messageBus/">listen</a> function.  </p>
 <pre class="code"><code class="language-cpp">void onButtonA(MicroBitEvent e)
 {
     uBit.display.print(&quot;A&quot;);
@@ -504,10 +504,10 @@ int main()
 <p>The example above will scroll &ldquo;SOMETHING HAPPENED&rdquo; whenever any event is raised&hellip; but scrolling that message will take several seconds to complete!</p>
 <p>What if another event happens during this time?  By default, the runtime will queue any events for your event handler until it has finished what its already doing.</p>
 <p>As soon as your handler is finished processing an event, the next one will be delivered (any other event handlers will be unaffected though - just because one event handler is busy, doesn&rsquo;t mean that another one can&rsquo;t receive its events!).</p>
-<p>The runtime does allow you to change this behaviour if you want to though. See the advanced documentation in <a href="ubit/messageBus.md">MicroBitMessageBus</a> for more details.</p>
+<p>The runtime does allow you to change this behaviour if you want to though. See the advanced documentation in <a href="../ubit/messageBus/">MicroBitMessageBus</a> for more details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>More advanced programmers might be interested to know that you can also attach event handler to member function of C++ objects. See the other forms of listen function in <a href="ubit/messageBus.md">MicroBitMessageBus</a> for more details.</p>
+<p>More advanced programmers might be interested to know that you can also attach event handler to member function of C++ objects. See the other forms of listen function in <a href="../ubit/messageBus/">MicroBitMessageBus</a> for more details.</p>
 </div>
 <h1 id="concurrency">Concurrency<a class="headerlink" href="#concurrency" title="Permanent link">#</a></h1>
 <p>It is not uncommon to want to write programs that can do more than one thing at a time. For example, it takes quite a long time to scroll a message over the LED matrix, so what if you want
@@ -566,7 +566,7 @@ function that is <em>blocking</em>.</p>
 <!-- <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../" style="color: #fcfcfc;">&laquo; Previous</a></span>

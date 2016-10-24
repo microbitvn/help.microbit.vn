@@ -46,7 +46,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('create', 'UA-60470603-6', 'help.microbit.vn');
       ga('send', 'pageview');
   </script>
   
@@ -149,7 +149,7 @@
                 </li>
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../ubit/MessageBus/" id="messageBus">messageBus </a>
+                    <a style="padding-left:90px;" class="" href="../ubit/messageBus/" id="messageBus">messageBus </a>
                 </li>
             
                 <li class="">
@@ -373,7 +373,7 @@
     <li class="wy-breadcrumbs-aside">
       
         
-          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github"> Edit on GitHub</a>
         
       
     </li>
@@ -435,8 +435,8 @@ int main()
 <p>There are also system components that provide background services. Without the <code>uBit</code> object, these will not be created by default.  Examples include the fiber scheduler, message bus and heap allocator.</p>
 <p>You are not required to initialise these components, but you should do so if you want to benefit from the functionality they provide. The following section describe how to do this.</p>
 <h2 id="initialising-the-message-bus">Initialising the Message Bus<a class="headerlink" href="#initialising-the-message-bus" title="Permanent link">#</a></h2>
-<p>The <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> allows events to be created and delivered to applications.  So if a <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> is not created, then all events in the micro:bit runtime will be quietly ignored.</p>
-<p>To enable this functionality, simply create an instance of the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> class. From that point onward in your program, you can raise and listen for events as described in the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> documentation.</p>
+<p>The <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> allows events to be created and delivered to applications.  So if a <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> is not created, then all events in the micro:bit runtime will be quietly ignored.</p>
+<p>To enable this functionality, simply create an instance of the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> class. From that point onward in your program, you can raise and listen for events as described in the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> documentation.</p>
 <pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
 
 MicroBitMessageBus bus;
@@ -460,11 +460,11 @@ int main()
 
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Running a MessageBus without the Fiber Scheduler will result in all event handlers being registered as MESSAGE_BUS_LISTENER_IMMEDIATE (see <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> for details). This means that your event handler will be executed in the context of the code that raised the event. This may include interrupt context, which may not be safe for all operations. It is recommend that you always run the MessageBus with the Fiber Scheduler in order to allow the event to be decoupled from interrupt context.</p>
+<p>Running a MessageBus without the Fiber Scheduler will result in all event handlers being registered as MESSAGE_BUS_LISTENER_IMMEDIATE (see <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> for details). This means that your event handler will be executed in the context of the code that raised the event. This may include interrupt context, which may not be safe for all operations. It is recommend that you always run the MessageBus with the Fiber Scheduler in order to allow the event to be decoupled from interrupt context.</p>
 </div>
 <h2 id="initialising-the-fiber-scheduler">Initialising the Fiber Scheduler<a class="headerlink" href="#initialising-the-fiber-scheduler" title="Permanent link">#</a></h2>
 <p>Often when using asynchronous events, it is also useful to run the fiber scheduler. Without a scheduler in operation, all event handlers (such as the one above) will be executed with the threading mode <code>MESSAGE_BUS_LISTENER_IMMEDIATE</code>, as
-described on the <a href="ubit/messageBus.md"><code>MicroBitMessageBus</code></a> documentation.</p>
+described on the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> documentation.</p>
 <p>Also, it is not really possible to transparently enter a power efficient sleep - as illustrated in the busy loop in the above example.</p>
 <p>Initialising the fiber scheduler is simple, and is demonstrated in the following example.</p>
 <p>From the moment the fiber scheduler is initialised, it is then possible to block the processor in a power efficient way and to operate threaded event handlers:</p>
@@ -808,7 +808,7 @@ listed in <code>MicroBitConfig.h</code></p>
 <!-- <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../concepts/" style="color: #fcfcfc;">&laquo; Previous</a></span>

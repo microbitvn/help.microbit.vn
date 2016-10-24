@@ -46,7 +46,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-60470603-5', 'microbit.vn');
+      ga('create', 'UA-60470603-6', 'help.microbit.vn');
       ga('send', 'pageview');
   </script>
   
@@ -149,7 +149,7 @@
                 </li>
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../MessageBus/" id="messageBus">messageBus </a>
+                    <a style="padding-left:90px;" class="" href="../messageBus/" id="messageBus">messageBus </a>
                 </li>
             
                 <li class="">
@@ -373,7 +373,7 @@
     <li class="wy-breadcrumbs-aside">
       
         
-          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github"> Edit on GitHub</a>
         
       
     </li>
@@ -391,7 +391,7 @@ ways, and is primarily designed to run the Bluetooth Low Energy (BLE) protocol. 
 simpler mode of operation based that allows simple, direct micro:bit to micro:bit communication.</p>
 <p>The <code>MicroBitRadio</code> component is made up of three classes - <code>MicroBitRadio</code>, <a href="../radioevent/"><code>MicroBitRadioEvent</code></a> and <a href="../radiodatagram/"><code>MicroBitRadioDatagram</code></a>. Together,
 these provide the ability to send general purpose data packets from one micro:bit to another, and to extend a message bus to span multiple micro:bits&hellip;
-so if you raise an event on one micro:bit, you can receive it on another using the normal <a href="messageBus.md">listen</a> mechanism!</p>
+so if you raise an event on one micro:bit, you can receive it on another using the normal <a href="../messageBus/">listen</a> mechanism!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is not currently possible to run the <code>MicroBitRadio</code> component and Bluetooth Low Energy (BLE) at the same time. If you want to use the <code>MicroBitRadio</code> functionality, you need to disable the BLE stack on your micro:bit by compiling the runtime with <code>#define MICROBIT_BLE_ENABLED 0</code> in your <code>inc/MicroBitConfig.h</code> file.</p>
@@ -587,7 +587,7 @@ int main()
 support for event driven applications. Once configured, an event raised on one micro:bit can be detected on another - in the just the same way as
 a local event such as a button click.</p>
 <p>To use this functionality, all that is needed is to register the event codes that you would like to be sent over the radio, then write event handlers
-for the message bus as with all other events. See the documentation for the <a href="messageBus.md"><code>MicroBitMessageBus</code></a> for details of how to write
+for the message bus as with all other events. See the documentation for the <a href="../messageBus/"><code>MicroBitMessageBus</code></a> for details of how to write
 event handlers.</p>
 <p>For example, if you wanted to share an event SOMETHING with another micro:bit whenever ButtonA is pressed, you might write code like this on the sending micro:bit:</p>
 <pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
@@ -866,7 +866,7 @@ int main()
 <!-- <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
-          <a href="https://github.com/microbitvn/microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+          <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
         <span><a href="../io/" style="color: #fcfcfc;">&laquo; Previous</a></span>
