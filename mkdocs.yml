@@ -32,7 +32,7 @@ pages:
           - i2c: lancaster-mbed/ubit/i2c.md
           - storage: lancaster-mbed/ubit/storage.md
           - serial: lancaster-mbed/ubit/serial.md
-          - messageBus: lancaster-mbed/ubit/messageBus.md
+          - messageBus: lancaster-mbed/ubit/MessageBus.md
           - buttons: lancaster-mbed/ubit/button.md
           - display: lancaster-mbed/ubit/display.md
           - accelerometer: lancaster-mbed/ubit/accelerometer.md
