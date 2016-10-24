@@ -150,9 +150,9 @@ uBit.display.image.setPixelValue(2,2,255);
  - 'clear' will clear the screen immediately.
  - 'stopAnimation' will terminate any on-going print, scroll or animate functions.
  - 'setBrightness' lets you set the overall maximum brightness of the display, as a value between 1 and 255.
- - 'enable' and 'disable' turn on and off the display. When disabled, you can reuse many if the GPIO pins. See the [MicroBitIO](/ubit/io.md) class for more information.
+ - 'enable' and 'disable' turn on and off the display. When disabled, you can reuse many if the GPIO pins. See the [MicroBitIO](io.md) class for more information.
  - 'rotateTo' even lets you specify the orientation of the display - in case you need to use your micro:bit the wrong way up. :-)
- - 'readLightLevel' runs the LEDs backwards as photodiodes and tells you how bright your room is... see [Light Sensing](/extras/light-sensing.md) for more info!
+ - 'readLightLevel' runs the LEDs backwards as photodiodes and tells you how bright your room is... see [Light Sensing](../extras/light-sensing.md) for more info!
 
 
 

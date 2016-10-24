@@ -1,5 +1,6 @@
 # Bộ tài liệu BBC Microbit tiếng Việt
 
+![Build](https://travis-ci.org/microbitvn/microbit.vn.svg?branch=master)
 
 ## Nội dung cung cấp
 

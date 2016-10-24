@@ -5,7 +5,7 @@
 This Bluetooth service is an optional part of the standard bluetooth profile for the micro:bit. It is a passive service, that can operate transparently in the
 background as your main program is running. It provides live temperature data to a connected Bluetooth master device such as a smartphone. You do not need to explicitly address an API on the service to achieve this.
 Please note that the temperature data is inferred from the die temperature of the Nordic nrf51822 CPU. Whilst this sensor has a high precision, it is not calibrated, so will exhibit
-a linear shift (although changes in temperature will be accurate). See [MicroBitThermometer](/ubit/thermometer.md) for information on the API to allow calibration.
+a linear shift (although changes in temperature will be accurate). See [MicroBitThermometer](../ubit/thermometer.md) for information on the API to allow calibration.
 
 ## Enabling the Service
 
