@@ -1,0 +1,331 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-10-24 14:47+0200\n"
+"PO-Revision-Date: 2016-10-25 09:43+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: vi\n"
+
+#. type: Plain text
+#: index.md:2
+msgid "#Introduction"
+msgstr "Giới thiệu"
+
+#. type: Plain text
+#: index.md:9
+msgid ""
+"The micro:bit runtime provides an easy to use environment for programming "
+"the BBC micro:bit in the C/C++ language, written by Lancaster University. It "
+"contains device drivers for all the hardware capabilities of the micro:bit, "
+"and also a suite of runtime mechanisms to make programming the micro:bit "
+"easier and more flexible. These range from control of the LED matrix display "
+"to peer-to-peer radio communication and secure Bluetooth Low Energy "
+"services. The micro:bit runtime is proudly built on the [ARM mbed](https://"
+"www.mbed.com)  and [Nordic nrf51](http://www.nordicsemi.com) platforms."
+msgstr ""
+"Bộ lệnh micro:bit runtime cung cấp một môi trường dễ sử dụng để lập trình "
+"cho BBC micro:bit bằng ngôn ngữ C/C++, viết bởi trường đại học Lancaster. Nó "
+"bao gồm các thư viện drivers cho tất cả các chức năng phần cứng của micro:"
+"bit, và cũng là một bộ các cơ chế thực thi (runtime) để giúp việc lập trình "
+"micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều khiển "
+"một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp (peer-to-peer) "
+"và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ lệnh micro:bit "
+"runtime được tự hào (proudly) xây dựng trên các nền tảng [ARM mbed](https://"
+"www.mbed.com)  và [Nordic nrf51](http://www.nordicsemi.com)."
+
+# microbit.co.uk đã được chuyển sang microbit.org từ tháng 10/2016.
+#. type: Plain text
+#: index.md:14
+msgid ""
+"In addition to supporting development in C/C++, the runtime is also designed "
+"specifically to support higher level languages provided by our partners that "
+"target the micro:bit. It is currently used as a support library for all the "
+"languages on the BBC [www.microbit.co.uk](http://www.microbit.co.uk) "
+"website, including the Microsoft Block Editor, Microsoft Touch Develop, Code "
+"Kingdom's JavaScript and Micropython languages."
+msgstr ""
+"Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc "
+"biệt để hỗ trợ các ngôn ngữ lập trình cấp cao do các đối tác của chúng tôi "
+"phát triển cho micro:bit. Nó đang được dùng như một thư viện hỗ trợ cho tất "
+"cả các ngôn ngữ lập trình trên trang web BBC [www.microbit.co.uk](http://www."
+"microbit.co.uk), bao gồm các ngôn ngữ Microsoft Block Editor, Microsoft "
+"Touch Develop, Code Kingdom's JavaScript và Micropython."
+
+#. type: Plain text
+#: index.md:17
+msgid ""
+"On these pages you will find guidance on how to start using the runtime in C/"
+"C++, summaries of all the components that make up the system and a full set "
+"of API documentation (the functions you can use to control the micro:bit)."
+msgstr ""
+"Trên các trang này, bạn sẽ tìm thấy hướng dẫn làm thế nào để bắt đầu sử dụng "
+"bộ lệnh runtime trong C/C++, tóm tắt của tất cả các thành phần cấu tạo nên "
+"hệ thống, và một bộ tài liệu đầy đủ về các API (các hàm mà bạn có thể dùng "
+"để điều khiển micro:bit)."
+
+#. type: Plain text
+#: index.md:19
+msgid ""
+"Just to show how easy it is to get started, view a <a href=\"#next-steps"
+"\">sample program</a>."
+msgstr ""
+"Để thử thấy việc bắt tay vào dễ như thế nào, hãy xem một <a href=\"#next-"
+"steps\">chương trình mẫu</a>."
+
+#. type: Plain text
+#: index.md:21
+msgid "#Getting Started"
+msgstr "#Bắt đầu tìm hiểu"
+
+#. type: Plain text
+#: index.md:23
+msgid ""
+"Developing with the micro:bit runtime is simple, and there are multiple ways "
+"to create programs for your device."
+msgstr ""
+"Viết chương trình với micro:bit runtime thật đơn giản, sau đây là những cách "
+"khác nhau để tạo ra các chương trình cho thiết bị của bạn."
+
+#. type: Plain text
+#: index.md:56
+#, no-wrap
+msgid ""
+"<div class=\"col-sm-6\">\n"
+"    <center>\n"
+"        <h3 id=\"online-environments\">Online development</h3>\n"
+"    </center>\n"
+"    <p>\n"
+"        A basic quick start guide to getting an example project building in an\n"
+"        online programming environment.\n"
+"    </p>\n"
+"    <p>\n"
+"        <center>\n"
+"            <a href=\"online-toolchains\" class=\"btn btn-lg btn-outline\">\n"
+"                Online development tools\n"
+"            </a>\n"
+"        </center>\n"
+"    </p>\n"
+"</div>\n"
+"<div class=\"col-sm-6\">\n"
+"    <center>\n"
+"        <h3 id=\"offline-environments\">Offline development</h3>\n"
+"    </center>\n"
+"    <p>\n"
+"        A full guide to installing offline development tools, and a tutorial on getting\n"
+"        an example project building.\n"
+"    </p>\n"
+"    <p>\n"
+"        <center>\n"
+"            <a href=\"offline-toolchains\" class=\"btn btn-lg btn-outline\">\n"
+"                Offline development tools\n"
+"            </a>\n"
+"        </center>\n"
+"    </p>\n"
+"</div>\n"
+msgstr ""
+"<div class=\"col-sm-6\">\n"
+"    <center>\n"
+"        <h3 id=\"online-environments\">Viết chương trình online</h3>\n"
+"    </center>\n"
+"    <p>\n"
+"        Một bản hướng dẫn cơ bản để xây dựng một dự án\n"
+"        trong môi trường lập trình online.\n"
+"    </p>\n"
+"    <p>\n"
+"        <center>\n"
+"            <a href=\"online-toolchains\" class=\"btn btn-lg btn-outline\">\n"
+"                Các công cụ phát triển online\n"
+"            </a>\n"
+"        </center>\n"
+"    </p>\n"
+"</div>\n"
+"<div class=\"col-sm-6\">\n"
+"    <center>\n"
+"        <h3 id=\"offline-environments\">Viết chương trình offline</h3>\n"
+"    </center>\n"
+"    <p>\n"
+"        Một bản hướng dẫn đầy đủ để cài đặt các công cụ phát triển chương trình trên máy tính, và một tutorial để\n"
+"        xây dựng một dự án làm ví dụ.\n"
+"    </p>\n"
+"    <p>\n"
+"        <center>\n"
+"            <a href=\"offline-toolchains\" class=\"btn btn-lg btn-outline\">\n"
+"                Các công cụ phát triển offline\n"
+"            </a>\n"
+"        </center>\n"
+"    </p>\n"
+"</div>\n"
+
+#. type: Plain text
+#: index.md:58
+msgid "## Next Steps"
+msgstr "## Các bước kế tiếp"
+
+#. type: Plain text
+#: index.md:60
+msgid ""
+"After you've chosen your development environment, the next step is obvious: "
+"**PROGRAM**!"
+msgstr ""
+"Sau khi bạn đã chọn môi trường phát triển chương trình, bước kế tiếp phải "
+"là: **LẬP TRÌNH**!"
+
+#. type: Plain text
+#: index.md:62
+msgid "Here is some sample code to get you started:"
+msgstr "Đây là vài đoạn code mẫu để bạn bắt đầu:"
+
+#. type: Plain text
+#: index.md:65
+msgid "```cpp #include \"MicroBit.h\""
+msgstr "```cpp #include \"MicroBit.h\""
+
+#. type: Plain text
+#: index.md:67
+msgid "MicroBit uBit;"
+msgstr "MicroBit uBit;"
+
+#. type: Plain text
+#: index.md:71
+#, no-wrap
+msgid ""
+"int main()\n"
+"{\n"
+"    uBit.init();\n"
+msgstr ""
+"int main()\n"
+"{\n"
+"    uBit.init();\n"
+
+#. type: Plain text
+#: index.md:73
+#, no-wrap
+msgid "    uBit.display.scroll(\"HELLO WORLD!\");\n"
+msgstr "    uBit.display.scroll(\"HELLO WORLD!\");\n"
+
+#. type: Plain text
+#: index.md:77
+#, no-wrap
+msgid ""
+"    release_fiber();\n"
+"}\n"
+"```\n"
+msgstr ""
+"    release_fiber();\n"
+"}\n"
+"```\n"
+
+#. type: Plain text
+#: index.md:79
+msgid "### What is uBit?"
+msgstr "### uBit là gì?"
+
+#. type: Plain text
+#: index.md:82
+msgid ""
+"uBit is an instance of the [MicroBit](ubit.md) class which provides a really "
+"simple way to interact with the various components on the micro:bit itself."
+msgstr ""
+"uBit là một bản hiện thực hóa lớp [MicroBit](ubit.md) để cung cấp một cách "
+"thật sự đơn giản nhằm tương tác với các thành phần khác nhau trên mạch micro:"
+"bit."
+
+#. type: Plain text
+#: index.md:84
+msgid "This simplicity can be seen with this line of code:"
+msgstr "Sự đơn giản có thể thấy qua một dòng lệnh này:"
+
+#. type: Plain text
+#: index.md:88
+msgid "```cpp uBit.display.scroll(\"HELLO WORLD!\"); ```"
+msgstr "```cpp uBit.display.scroll(\"HELLO WORLD!\"); ```"
+
+#. type: Plain text
+#: index.md:90
+msgid ""
+"This line scrolls the text `HELLO WORLD!` across the micro:bit's display."
+msgstr "Dòng lệnh này chạy chữ `HELLO WORLD!` ngang màn hình của micro:bit."
+
+#. type: Plain text
+#: index.md:92
+msgid "#### Initialisation"
+msgstr "#### Khởi tạo"
+
+#. type: Plain text
+#: index.md:94
+msgid ""
+"In the above example, there is a line used to initialise the uBit object:"
+msgstr ""
+"Trong ví dụ trên, có một dòng lệnh dùng để khởi tạo một đối tượng uBit:"
+
+#. type: Plain text
+#: index.md:98
+msgid "```cpp uBit.init(); ```"
+msgstr "```cpp uBit.init(); ```"
+
+#. type: Plain text
+#: index.md:100
+msgid ""
+"In this call the scheduler, memory allocator and Bluetooth stack are "
+"initialised."
+msgstr ""
+"Trong lệnh gọi đến trình xếp lịch (scheduler) này, chương trình cấp phát bộ "
+"nhớ và ngăn xếp Bluetooth được khởi tạo."
+
+#. type: Plain text
+#: index.md:104
+#, no-wrap
+msgid ""
+"!!!note\n"
+"    This line is omitted in all examples you will find on this site simply to avoid\n"
+"    repetition!\n"
+msgstr ""
+"!!!lưu ý\n"
+"    Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh\n"
+"    lặp lại!\n"
+
+#. type: Plain text
+#: index.md:107
+msgid "### What is a fiber and why do we release it?"
+msgstr "### \"fiber\" là gì và tại sao chúng ta giải phóng nó?"
+
+#. type: Plain text
+#: index.md:109
+msgid ""
+"Fibers are lightweight threads used by the runtime to perform operations "
+"asynchronously."
+msgstr ""
+"\"Fiber\" là các luồng hạng nhẹ, được dùng bởi bộ runtime để thực hiện các "
+"tác vụ không đồng bộ."
+
+#. type: Plain text
+#: index.md:114
+msgid ""
+"The function call `release_fiber();` is recommended at the end of main to "
+"release the main fiber, and enter the scheduler indefinitely as you may have "
+"other fibers running elsewhere in the code.  It also means that the "
+"processor will enter a power efficient sleep if there are no other processes "
+"running."
+msgstr ""
+"Một hàm gọi `release_fiber();` được khuyên dùng khi kết thúc chương trình "
+"chính để giải phóng cái fiber chính, và nhảy vào chương trình xếp lịch vô "
+"thời hạn như bạn có thể thấy các fiber khác chạy ở đâu đó trong chương "
+"trình. Nó cũng có nghĩa là bộ xử lý sẽ nhảy vào một chế độ ngủ để tiết kiệm "
+"năng lượng, khi không có tiến trình nào đang chạy."
+
+#. type: Plain text
+#: index.md:115
+msgid "If this line is omitted, your program will cease all execution."
+msgstr ""
+"Nếu dòng này bị bỏ đi, chương trình của bạn sẽ ngừng thực  hiện mọi tác vụ."

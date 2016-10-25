@@ -383,34 +383,44 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h1>
-<p>The micro:bit runtime provides an easy to use environment for programming the BBC micro:bit
-in the C/C++ language, written by Lancaster University. It contains device drivers for all the hardware capabilities of the micro:bit,
-and also a suite of runtime mechanisms to make programming the micro:bit easier and more flexible. These
-range from control of the LED matrix display to peer-to-peer radio communication and secure
-Bluetooth Low Energy services. The micro:bit runtime is proudly built on the <a href="https://www.mbed.com">ARM mbed</a>
-and <a href="http://www.nordicsemi.com">Nordic nrf51</a> platforms.</p>
-<p>In addition to supporting development in C/C++, the runtime is also designed specifically to support
-higher level languages provided by our partners that target the micro:bit. It is currently used as a support library for all the
-languages on the BBC <a href="http://www.microbit.co.uk">www.microbit.co.uk</a> website, including the Microsoft Block Editor, Microsoft Touch Develop, Code Kingdom&rsquo;s
-JavaScript and Micropython languages.</p>
-<p>On these pages you will find guidance on how to start using the runtime in C/C++, summaries of all the
-components that make up the system and a full set of API documentation (the functions you can use to control the micro:bit).</p>
-<p>Just to show how easy it is to get started, view a <a href="#next-steps">sample program</a>.</p>
-<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">#</a></h1>
-<p>Developing with the micro:bit runtime is simple, and there are multiple ways to create programs for your device.</p>
+                <p>Giới thiệu</p>
+<p>Bộ lệnh micro:bit runtime cung cấp một môi trường dễ sử dụng để lập trình
+cho BBC micro:bit bằng ngôn ngữ C/C++, viết bởi trường đại học Lancaster. Nó
+bao gồm các thư viện drivers cho tất cả các chức năng phần cứng của
+micro:bit, và cũng là một bộ các cơ chế thực thi (runtime) để giúp việc lập
+trình micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều
+khiển một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp
+(peer-to-peer) và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ
+lệnh micro:bit runtime được tự hào (proudly) xây dựng trên các nền tảng <a href="https://www.mbed.com">ARM
+mbed</a>  và <a href="http://www.nordicsemi.com">Nordic nrf51</a>.</p>
+<p>Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc
+biệt để hỗ trợ các ngôn ngữ lập trình cấp cao do các đối tác của chúng tôi
+phát triển cho micro:bit. Nó đang được dùng như một thư viện hỗ trợ cho tất
+cả các ngôn ngữ lập trình trên trang web BBC
+<a href="http://www.microbit.co.uk">www.microbit.co.uk</a>, bao gồm các ngôn ngữ
+Microsoft Block Editor, Microsoft Touch Develop, Code Kingdom&rsquo;s JavaScript
+và Micropython.</p>
+<p>Trên các trang này, bạn sẽ tìm thấy hướng dẫn làm thế nào để bắt đầu sử dụng
+bộ lệnh runtime trong C/C++, tóm tắt của tất cả các thành phần cấu tạo nên
+hệ thống, và một bộ tài liệu đầy đủ về các API (các hàm mà bạn có thể dùng
+để điều khiển micro:bit).</p>
+<p>Để thử thấy việc bắt tay vào dễ như thế nào, hãy xem một <a
+href="#next-steps">chương trình mẫu</a>.</p>
+<h1 id="bat-au-tim-hieu">Bắt đầu tìm hiểu<a class="headerlink" href="#bat-au-tim-hieu" title="Permanent link">#</a></h1>
+<p>Viết chương trình với micro:bit runtime thật đơn giản, sau đây là những cách
+khác nhau để tạo ra các chương trình cho thiết bị của bạn.</p>
 <div class="col-sm-6">
     <center>
-        <h3 id="online-environments">Online development</h3>
+        <h3 id="online-environments">Viết chương trình online</h3>
     </center>
     <p>
-        A basic quick start guide to getting an example project building in an
-        online programming environment.
+        Một bản hướng dẫn cơ bản để xây dựng một dự án
+        trong môi trường lập trình online.
     </p>
     <p>
         <center>
             <a href="online-toolchains" class="btn btn-lg btn-outline">
-                Online development tools
+                Các công cụ phát triển online
             </a>
         </center>
     </p>
@@ -418,24 +428,25 @@ components that make up the system and a full set of API documentation (the func
 
 <div class="col-sm-6">
     <center>
-        <h3 id="offline-environments">Offline development</h3>
+        <h3 id="offline-environments">Viết chương trình offline</h3>
     </center>
     <p>
-        A full guide to installing offline development tools, and a tutorial on getting
-        an example project building.
+        Một bản hướng dẫn đầy đủ để cài đặt các công cụ phát triển chương trình trên máy tính, và một tutorial để
+        xây dựng một dự án làm ví dụ.
     </p>
     <p>
         <center>
             <a href="offline-toolchains" class="btn btn-lg btn-outline">
-                Offline development tools
+                Các công cụ phát triển offline
             </a>
         </center>
     </p>
 </div>
 
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">#</a></h2>
-<p>After you&rsquo;ve chosen your development environment, the next step is obvious: <strong>PROGRAM</strong>!</p>
-<p>Here is some sample code to get you started:</p>
+<h2 id="cac-buoc-ke-tiep">Các bước kế tiếp<a class="headerlink" href="#cac-buoc-ke-tiep" title="Permanent link">#</a></h2>
+<p>Sau khi bạn đã chọn môi trường phát triển chương trình, bước kế tiếp phải
+là: <strong>LẬP TRÌNH</strong>!</p>
+<p>Đây là vài đoạn code mẫu để bạn bắt đầu:</p>
 <pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
 
 MicroBit uBit;
@@ -450,32 +461,33 @@ int main()
 }</code></pre>
 
 
-<h3 id="what-is-ubit">What is uBit?<a class="headerlink" href="#what-is-ubit" title="Permanent link">#</a></h3>
-<p>uBit is an instance of the <a href="ubit/">MicroBit</a> class which provides a really simple way to interact
-with the various components on the micro:bit itself.</p>
-<p>This simplicity can be seen with this line of code:</p>
-<pre class="code"><code class="language-cpp">uBit.display.scroll(&quot;HELLO WORLD!&quot;);</code></pre>
-
-
-<p>This line scrolls the text <code>HELLO WORLD!</code> across the micro:bit&rsquo;s display.</p>
-<h4 id="initialisation">Initialisation<a class="headerlink" href="#initialisation" title="Permanent link">#</a></h4>
-<p>In the above example, there is a line used to initialise the uBit object:</p>
-<pre class="code"><code class="language-cpp">uBit.init();</code></pre>
-
-
-<p>In this call the scheduler, memory allocator and Bluetooth stack are initialised.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This line is omitted in all examples you will find on this site simply to avoid
-repetition!</p>
+<h3 id="ubit-la-gi">uBit là gì?<a class="headerlink" href="#ubit-la-gi" title="Permanent link">#</a></h3>
+<p>uBit là một bản hiện thực hóa lớp <a href="ubit/">MicroBit</a> để cung cấp một cách
+thật sự đơn giản nhằm tương tác với các thành phần khác nhau trên mạch
+micro:bit.</p>
+<p>Sự đơn giản có thể thấy qua một dòng lệnh này:</p>
+<p><code>cpp uBit.display.scroll("HELLO WORLD!");</code></p>
+<p>Dòng lệnh này chạy chữ <code>HELLO WORLD!</code> ngang màn hình của micro:bit.</p>
+<h4 id="khoi-tao">Khởi tạo<a class="headerlink" href="#khoi-tao" title="Permanent link">#</a></h4>
+<p>Trong ví dụ trên, có một dòng lệnh dùng để khởi tạo một đối tượng uBit:</p>
+<p><code>cpp uBit.init();</code></p>
+<p>Trong lệnh gọi đến trình xếp lịch (scheduler) này, chương trình cấp phát bộ
+nhớ và ngăn xếp Bluetooth được khởi tạo.</p>
+<div class="admonition lưu">
+<p class="admonition-title">Lưu</p>
 </div>
-<h3 id="what-is-a-fiber-and-why-do-we-release-it">What is a fiber and why do we release it?<a class="headerlink" href="#what-is-a-fiber-and-why-do-we-release-it" title="Permanent link">#</a></h3>
-<p>Fibers are lightweight threads used by the runtime to perform operations asynchronously.</p>
-<p>The function call <code>release_fiber();</code> is recommended at the end of main to release the main fiber, and enter
-the scheduler indefinitely as you may have other fibers running elsewhere in the code.
-It also means that the processor will enter a power efficient sleep if there are
-no other processes running.</p>
-<p>If this line is omitted, your program will cease all execution.</p>
+<p>ý
+    Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh
+    lặp lại!</p>
+<h3 id="fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no">&ldquo;fiber&rdquo; là gì và tại sao chúng ta giải phóng nó?<a class="headerlink" href="#fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no" title="Permanent link">#</a></h3>
+<p>&ldquo;Fiber&rdquo; là các luồng hạng nhẹ, được dùng bởi bộ runtime để thực hiện các tác
+vụ không đồng bộ.</p>
+<p>Một hàm gọi <code>release_fiber();</code> được khuyên dùng khi kết thúc chương trình
+chính để giải phóng cái fiber chính, và nhảy vào chương trình xếp lịch vô
+thời hạn như bạn có thể thấy các fiber khác chạy ở đâu đó trong chương
+trình. Nó cũng có nghĩa là bộ xử lý sẽ nhảy vào một chế độ ngủ để tiết kiệm
+năng lượng, khi không có tiến trình nào đang chạy.</p>
+<p>Nếu dòng này bị bỏ đi, chương trình của bạn sẽ ngừng thực  hiện mọi tác vụ.</p>
               
             </div>
           </div>

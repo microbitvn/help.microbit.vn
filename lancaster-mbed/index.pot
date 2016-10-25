@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2016-10-24 14:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Plain text
+#: index.md:2
+msgid "#Introduction"
+msgstr ""
+
+#. type: Plain text
+#: index.md:9
+msgid ""
+"The micro:bit runtime provides an easy to use environment for programming "
+"the BBC micro:bit in the C/C++ language, written by Lancaster University. It "
+"contains device drivers for all the hardware capabilities of the micro:bit, "
+"and also a suite of runtime mechanisms to make programming the micro:bit "
+"easier and more flexible. These range from control of the LED matrix display "
+"to peer-to-peer radio communication and secure Bluetooth Low Energy "
+"services. The micro:bit runtime is proudly built on the [ARM "
+"mbed](https://www.mbed.com)  and [Nordic nrf51](http://www.nordicsemi.com) "
+"platforms."
+msgstr ""
+
+#. type: Plain text
+#: index.md:14
+msgid ""
+"In addition to supporting development in C/C++, the runtime is also designed "
+"specifically to support higher level languages provided by our partners that "
+"target the micro:bit. It is currently used as a support library for all the "
+"languages on the BBC [www.microbit.co.uk](http://www.microbit.co.uk) "
+"website, including the Microsoft Block Editor, Microsoft Touch Develop, Code "
+"Kingdom's JavaScript and Micropython languages."
+msgstr ""
+
+#. type: Plain text
+#: index.md:17
+msgid ""
+"On these pages you will find guidance on how to start using the runtime in "
+"C/C++, summaries of all the components that make up the system and a full "
+"set of API documentation (the functions you can use to control the "
+"micro:bit)."
+msgstr ""
+
+#. type: Plain text
+#: index.md:19
+msgid ""
+"Just to show how easy it is to get started, view a <a "
+"href=\"#next-steps\">sample program</a>."
+msgstr ""
+
+#. type: Plain text
+#: index.md:21
+msgid "#Getting Started"
+msgstr ""
+
+#. type: Plain text
+#: index.md:23
+msgid ""
+"Developing with the micro:bit runtime is simple, and there are multiple ways "
+"to create programs for your device."
+msgstr ""
+
+#. type: Plain text
+#: index.md:56
+#, no-wrap
+msgid ""
+"<div class=\"col-sm-6\">\n"
+"    <center>\n"
+"        <h3 id=\"online-environments\">Online development</h3>\n"
+"    </center>\n"
+"    <p>\n"
+"        A basic quick start guide to getting an example project building in "
+"an\n"
+"        online programming environment.\n"
+"    </p>\n"
+"    <p>\n"
+"        <center>\n"
+"            <a href=\"online-toolchains\" class=\"btn btn-lg "
+"btn-outline\">\n"
+"                Online development tools\n"
+"            </a>\n"
+"        </center>\n"
+"    </p>\n"
+"</div>\n"
+"<div class=\"col-sm-6\">\n"
+"    <center>\n"
+"        <h3 id=\"offline-environments\">Offline development</h3>\n"
+"    </center>\n"
+"    <p>\n"
+"        A full guide to installing offline development tools, and a tutorial "
+"on getting\n"
+"        an example project building.\n"
+"    </p>\n"
+"    <p>\n"
+"        <center>\n"
+"            <a href=\"offline-toolchains\" class=\"btn btn-lg "
+"btn-outline\">\n"
+"                Offline development tools\n"
+"            </a>\n"
+"        </center>\n"
+"    </p>\n"
+"</div>\n"
+msgstr ""
+
+#. type: Plain text
+#: index.md:58
+msgid "## Next Steps"
+msgstr ""
+
+#. type: Plain text
+#: index.md:60
+msgid ""
+"After you've chosen your development environment, the next step is obvious: "
+"**PROGRAM**!"
+msgstr ""
+
+#. type: Plain text
+#: index.md:62
+msgid "Here is some sample code to get you started:"
+msgstr ""
+
+#. type: Plain text
+#: index.md:65
+msgid "```cpp #include \"MicroBit.h\""
+msgstr ""
+
+#. type: Plain text
+#: index.md:67
+msgid "MicroBit uBit;"
+msgstr ""
+
+#. type: Plain text
+#: index.md:71
+#, no-wrap
+msgid ""
+"int main()\n"
+"{\n"
+"    uBit.init();\n"
+msgstr ""
+
+#. type: Plain text
+#: index.md:73
+#, no-wrap
+msgid "    uBit.display.scroll(\"HELLO WORLD!\");\n"
+msgstr ""
+
+#. type: Plain text
+#: index.md:77
+#, no-wrap
+msgid ""
+"    release_fiber();\n"
+"}\n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: index.md:79
+msgid "### What is uBit?"
+msgstr ""
+
+#. type: Plain text
+#: index.md:82
+msgid ""
+"uBit is an instance of the [MicroBit](ubit.md) class which provides a really "
+"simple way to interact with the various components on the micro:bit itself."
+msgstr ""
+
+#. type: Plain text
+#: index.md:84
+msgid "This simplicity can be seen with this line of code:"
+msgstr ""
+
+#. type: Plain text
+#: index.md:88
+msgid "```cpp uBit.display.scroll(\"HELLO WORLD!\"); ```"
+msgstr ""
+
+#. type: Plain text
+#: index.md:90
+msgid "This line scrolls the text `HELLO WORLD!` across the micro:bit's display."
+msgstr ""
+
+#. type: Plain text
+#: index.md:92
+msgid "#### Initialisation"
+msgstr ""
+
+#. type: Plain text
+#: index.md:94
+msgid "In the above example, there is a line used to initialise the uBit object:"
+msgstr ""
+
+#. type: Plain text
+#: index.md:98
+msgid "```cpp uBit.init(); ```"
+msgstr ""
+
+#. type: Plain text
+#: index.md:100
+msgid ""
+"In this call the scheduler, memory allocator and Bluetooth stack are "
+"initialised."
+msgstr ""
+
+#. type: Plain text
+#: index.md:104
+#, no-wrap
+msgid ""
+"!!!note\n"
+"    This line is omitted in all examples you will find on this site simply "
+"to avoid\n"
+"    repetition!\n"
+msgstr ""
+
+#. type: Plain text
+#: index.md:107
+msgid "### What is a fiber and why do we release it?"
+msgstr ""
+
+#. type: Plain text
+#: index.md:109
+msgid ""
+"Fibers are lightweight threads used by the runtime to perform operations "
+"asynchronously."
+msgstr ""
+
+#. type: Plain text
+#: index.md:114
+msgid ""
+"The function call `release_fiber();` is recommended at the end of main to "
+"release the main fiber, and enter the scheduler indefinitely as you may have "
+"other fibers running elsewhere in the code.  It also means that the "
+"processor will enter a power efficient sleep if there are no other processes "
+"running."
+msgstr ""
+
+#. type: Plain text
+#: index.md:115
+msgid "If this line is omitted, your program will cease all execution."
+msgstr ""
