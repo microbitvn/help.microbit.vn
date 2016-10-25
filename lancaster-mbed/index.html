@@ -391,7 +391,7 @@ micro:bit, và cũng là một bộ các cơ chế thực thi (runtime) để gi
 trình micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều
 khiển một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp
 (peer-to-peer) và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ
-lệnh micro:bit runtime được tự hào (proudly) xây dựng trên các nền tảng <a href="https://www.mbed.com">ARM
+lệnh micro:bit runtime tự hào được xây dựng trên các nền tảng <a href="https://www.mbed.com">ARM
 mbed</a>  và <a href="http://www.nordicsemi.com">Nordic nrf51</a>.</p>
 <p>Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc
 biệt để hỗ trợ các ngôn ngữ lập trình cấp cao do các đối tác của chúng tôi
@@ -473,12 +473,11 @@ micro:bit.</p>
 <p><code>cpp uBit.init();</code></p>
 <p>Trong lệnh gọi đến trình xếp lịch (scheduler) này, chương trình cấp phát bộ
 nhớ và ngăn xếp Bluetooth được khởi tạo.</p>
-<div class="admonition lưu">
-<p class="admonition-title">Lưu</p>
+<div class="admonition note">
+<p class="admonition-title">Lưu ý</p>
+<p>Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh
+lặp lại!</p>
 </div>
-<p>ý
-    Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh
-    lặp lại!</p>
 <h3 id="fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no">&ldquo;fiber&rdquo; là gì và tại sao chúng ta giải phóng nó?<a class="headerlink" href="#fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no" title="Permanent link">#</a></h3>
 <p>&ldquo;Fiber&rdquo; là các luồng hạng nhẹ, được dùng bởi bộ runtime để thực hiện các tác
 vụ không đồng bộ.</p>
