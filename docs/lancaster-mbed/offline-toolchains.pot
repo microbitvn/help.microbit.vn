@@ -1,0 +1,303 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2016-10-25 14:56+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Plain text
+#: offline-toolchains.md:2
+msgid "# Yotta"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:4
+msgid ""
+"The micro:bit DAL is built on top of [ARM mbed](http://mbed.com) and hence "
+"uses [yotta](http://yotta.mbed.com) as an offline build system."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:6
+msgid ""
+"When using `yotta` to build micro:bit projects there are currently two "
+"supported toolchains:"
+msgstr ""
+
+#. type: Bullet: '* '
+#: offline-toolchains.md:9
+msgid "GCC"
+msgstr ""
+
+#. type: Bullet: '* '
+#: offline-toolchains.md:9
+msgid "ARMCC"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:11
+msgid "## Installation on Windows"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:13 offline-toolchains.md:68 offline-toolchains.md:138
+msgid "### Install yotta and dependencies"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:15 offline-toolchains.md:70 offline-toolchains.md:140
+msgid ""
+"The first step is to get `yotta` and its dependencies onto your machine, to "
+"do this follow the install guide "
+"[here](http://docs.yottabuild.org/#installing)."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:18
+msgid ""
+"For the micro:bit targets you currently still need the `srecord` tools, "
+"which can be installed on **Windows** from "
+"[sourceforge](http://srecord.sourceforge.net/)."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:20 offline-toolchains.md:82 offline-toolchains.md:151
+msgid ""
+"`srecord` is used to create the final binaries for the micro:bit so is an "
+"essential dependency."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:23 offline-toolchains.md:84 offline-toolchains.md:154
+msgid "### Fetch the example project"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:28 offline-toolchains.md:89 offline-toolchains.md:159
+msgid ""
+"```bash git clone https://github.com/lancaster-university/microbit-samples "
+"cd microbit-samples ```"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:30 offline-toolchains.md:91 offline-toolchains.md:161
+msgid "### Set your yotta target"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:32 offline-toolchains.md:93 offline-toolchains.md:163
+msgid ""
+"A `yotta` target contains the information required by `yotta` in order to "
+"build a project for a specific combination of hardware. This includes the "
+"type of compiler. The microbit projects can build with both `armcc` and "
+"`gcc`, but as it gets installed with the `yotta` installer, we'll use `gcc` "
+"by default and choose a micro:bit specific target that knows about the "
+"hardware on the board."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:34 offline-toolchains.md:95 offline-toolchains.md:165
+msgid "You can use either `yotta` or `yt`, which is far easier to type!"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:38 offline-toolchains.md:99 offline-toolchains.md:169
+msgid "``` yt target bbc-microbit-classic-gcc ```"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:41 offline-toolchains.md:102 offline-toolchains.md:172
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    In microbit-samples this target will be configured by default.\n"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:43 offline-toolchains.md:104 offline-toolchains.md:174
+msgid ""
+"You only need to set the target once per project. All future `yotta` "
+"commands will use this target information (for example, when resolving "
+"dependencies)."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:45 offline-toolchains.md:106 offline-toolchains.md:176
+msgid "#### Build the project"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:49 offline-toolchains.md:110 offline-toolchains.md:180
+msgid "``` yt build ```"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:51 offline-toolchains.md:112 offline-toolchains.md:182
+msgid "### Flash your micro:bit"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:53 offline-toolchains.md:114 offline-toolchains.md:184
+msgid "The final step is to check your hex works."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:55
+msgid ""
+"The `yt build` command will place files in "
+"`/build/<TARGET_NAME>/source`. The file you will need to flash will be "
+"microbit-combined.hex.  Simply drag and drop the hex onto the MICROBIT usb "
+"device."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:57
+msgid ""
+"In the case of our example, using `bbc-microbit-classic-gcc` we could flash "
+"the micro:bit (assuming it is plugged in and mounted at `E:`) as follows:"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:62
+msgid ""
+"``` copy "
+"build\\bbc-microbit-classic-gcc\\source\\microbit-samples-combined.hex E: "
+"``` The expected result will be that the micro:bit will scroll `HELLO WORLD! "
+":)` on its display."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:63 offline-toolchains.md:133
+#, no-wrap
+msgid "____________________\n"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:66
+msgid "## Installation on Mac OSX"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:74
+msgid ""
+"For the micro:bit targets you currently still need the `srecord` tools, "
+"which can be installed on **Mac OSX** using [brew](http://brew.sh/):"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:78
+msgid "``` brew install srecord ```"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:80 offline-toolchains.md:149
+msgid ""
+"You can also install it manually from "
+"[sourceforge](http://srecord.sourceforge.net/)."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:116 offline-toolchains.md:186
+msgid ""
+"The `yt build` command will place files in "
+"`/build/<TARGET_NAME>/source`. The file you will need to flash will be "
+"`microbit-samples-combined.hex`. Simply drag and drop the hex onto the "
+"MICROBIT usb device."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:118
+msgid ""
+"In the case of our example, using `bbc-microbit-classic-gcc` we could flash "
+"the micro:bit (assuming it is plugged in and mounted at "
+"`/Volumes/\"MICROBIT\"`) as follows:"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:122
+msgid ""
+"``` cp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex "
+"/Volumes/\"MICROBIT\" ```"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:124
+msgid ""
+"The expected result will be that the micro:bit will scroll `HELLO WORLD! :)` "
+"on its display."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:127 offline-toolchains.md:196
+#, no-wrap
+msgid ""
+"!!!note\n"
+"    Note that if you'd like to copy the file from the command line, you can "
+"use the following command in any `yotta` project to do so, though it assumes "
+"you have only one micro:bit plugged in:\n"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:131
+#, no-wrap
+msgid ""
+"    ```\n"
+"    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt "
+"--plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex  "
+"/Volumes/\"MICROBIT\"\n"
+"    ```\n"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:136
+msgid "## Installation on Linux"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:143
+msgid ""
+"For the micro:bit targets you currently still need the `srecord` tools, "
+"which can be installed on **Ubuntu** using"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:147
+msgid "``` sudo apt-get install srecord ```"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:188
+msgid ""
+"In the case of our example, using `bbc-microbit-classic-gcc` we could flash "
+"the micro:bit (assuming it is plugged in and mounted at `/media/MICROBIT`) "
+"as follows:"
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:193
+msgid ""
+"``` cp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex "
+"/media/MICROBIT ``` The expected result will be that the micro:bit will "
+"scroll `HELLO WORLD! :)` on its display."
+msgstr ""
+
+#. type: Plain text
+#: offline-toolchains.md:199
+#, no-wrap
+msgid ""
+"    ```\n"
+"    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt "
+"--plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex /media/MICROBIT/\n"
+"    ```\n"
+msgstr ""
