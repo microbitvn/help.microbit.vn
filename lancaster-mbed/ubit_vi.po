@@ -1,0 +1,857 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2016-10-25 14:56+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: Plain text
+#: ubit.md:2
+msgid "#MicroBit"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:4
+msgid "##Overview"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:7
+msgid ""
+"Although the runtime is built from lots of small components, we also provide "
+"an easy to use pre-packaged collection of the commonly used components all "
+"in one place. This makes it much easier to start programming your micro:bit "
+"in C."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:10
+msgid ""
+"This grouping is provided by a C++ class called `MicroBit`.  The `MicroBit` "
+"class has a number of member variables, that operate as device drivers to "
+"control the most commonly used features of the micro:bit."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:12
+msgid ""
+"There is an instance of the `MicroBit` class created as a global variable in "
+"all the sample programs, called `uBit`:"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:28
+#, no-wrap
+msgid ""
+">    uBit {<br/>\n"
+">    &emsp;&emsp;[.i2c](ubit/i2c.md),<br/>\n"
+">    &emsp;&emsp;[.storage](ubit/storage.md),<br/>\n"
+">    &emsp;&emsp;[.serial](ubit/serial.md),<br/>\n"
+">    &emsp;&emsp;[.MessageBus](ubit/messageBus.md),<br/>\n"
+">    &emsp;&emsp;[.buttonA](ubit/button.md),<br/>\n"
+">    &emsp;&emsp;[.buttonB](ubit/button.md),<br/>\n"
+">    &emsp;&emsp;[.buttonAB](ubit/button.md),<br/>\n"
+">    &emsp;&emsp;[.display](ubit/display.md),<br/>\n"
+">    &emsp;&emsp;[.accelerometer](ubit/accelerometer.md),<br/>\n"
+">    &emsp;&emsp;[.compass](ubit/compass.md),<br/>\n"
+">    &emsp;&emsp;[.thermometer](ubit/thermometer.md),<br/>\n"
+">    &emsp;&emsp;[.io](ubit/io.md),<br/>\n"
+">    &emsp;&emsp;[.radio](ubit/radio.md),<br/>\n"
+">    }\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:31
+msgid ""
+"You can use dot operator '.' to any of these resources inside uBit to access "
+"any of the functions they provide. There is a complete list of the functions "
+"available under the `uBit` menu item in the navigation bar at the top of the "
+"page."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:33
+msgid ""
+"For example, if we needed to scroll some text across the display, we simply "
+"would write the following:"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:37
+msgid "```cpp uBit.display.scroll(\"HELLO!\"); ```"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:40
+msgid ""
+"Similarly, if we wanted to send some text over serial, we could write the "
+"following code:"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:47
+#, no-wrap
+msgid ""
+"```cpp\n"
+"for(int i = 3; i > 0; i--)\n"
+"{\n"
+"    uBit.serial.printf(\"%d...\", i);\n"
+"    uBit.sleep(1000);\n"
+"}\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:51
+msgid "// or alternatively...  uBit.serial.send(\"Code!\"); ```"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:54
+msgid ""
+"The runtime also contains a scheduler, which uses lightweight threads "
+"(called fibers)  to control the rate of execution."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:56
+msgid ""
+"To place the current fiber into a power efficient <a "
+"href=\"#sleep\">sleep</a> write the following:"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:61
+msgid ""
+"```cpp // where X is an integer in milliseconds for the amount of time you "
+"would like to sleep for.  uBit.sleep(X); ```"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:63
+msgid "##Message Bus ID"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:65 ubit.md:69
+msgid "> None"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:67
+msgid "##Message Bus Events"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:71
+msgid "#API"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:73
+msgid "[comment]: <> ({\"className\":\"MicroBit\"})"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:75
+msgid "##Constructor"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:77 ubit.md:90 ubit.md:118 ubit.md:137 ubit.md:175 ubit.md:192 ubit.md:215 ubit.md:244 ubit.md:264 ubit.md:281 ubit.md:305 ubit.md:335 ubit.md:370 ubit.md:407 ubit.md:446
+msgid "<br/>"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:79
+msgid "####MicroBit()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:81 ubit.md:94 ubit.md:122 ubit.md:141 ubit.md:179 ubit.md:196 ubit.md:219 ubit.md:248 ubit.md:268 ubit.md:285 ubit.md:309 ubit.md:339 ubit.md:374 ubit.md:411 ubit.md:450
+msgid "#####Description"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:83
+msgid "Constructor."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:85
+#, no-wrap
+msgid ""
+" Create a representation of a  MicroBit  device, which includes member "
+"variables that represent various device drivers used to control aspects of "
+"the micro:bit.           \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:88
+msgid "##init"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:92
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>init</div>()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:96
+msgid "Post constructor initialisation method."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:98
+#, no-wrap
+msgid ""
+" This call will initialised the scheduler, memory allocator and Bluetooth "
+"stack.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:100
+#, no-wrap
+msgid ""
+" This is required as the Bluetooth stack can't be brought up in a static "
+"context i.e. in a constructor.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:107 ubit.md:129 ubit.md:164 ubit.md:186 ubit.md:207 ubit.md:236 ubit.md:296 ubit.md:324 ubit.md:356 ubit.md:391 ubit.md:430 ubit.md:467
+msgid "#####Example"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:111
+#, no-wrap
+msgid ""
+"```cpp\n"
+" uBit.init(); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:114
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This method must be called before user code utilises any functionality "
+"contained by uBit. \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:116
+msgid "##reset"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:120
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>reset</div>()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:124
+msgid "Will reset the micro:bit when called."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:133
+#, no-wrap
+msgid ""
+"```cpp\n"
+" uBit.reset(); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:135
+msgid "##sleep"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:139
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>sleep</div>( <div "
+"style='color:#a71d5d; display:inline-block'>uint32_t</div> milliseconds)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:143
+msgid "Delay execution for the given amount of time."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:145
+#, no-wrap
+msgid ""
+" If the scheduler is running, this will deschedule the current fiber and "
+"perform a power efficient, concurrent sleep operation.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:147
+#, no-wrap
+msgid ""
+" If the scheduler is disabled or we're running in an interrupt context, this "
+"will revert to a busy wait.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:149
+#, no-wrap
+msgid ""
+" Alternatively: wait, wait_ms, wait_us can be used which will perform a "
+"blocking sleep operation.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:156 ubit.md:203 ubit.md:228 ubit.md:320 ubit.md:348 ubit.md:383 ubit.md:422 ubit.md:459
+msgid "#####Parameters"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:158
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>uint32_t</div> "
+"milliseconds - the amount of time, in ms, to wait for. This number cannot be "
+"negative."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:160 ubit.md:232 ubit.md:255 ubit.md:275 ubit.md:352 ubit.md:387 ubit.md:426 ubit.md:463
+msgid "#####Returns"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:162
+msgid ""
+"MICROBIT_OK on success, MICROBIT_INVALID_PARAMETER milliseconds is less than "
+"zero."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:168
+#, no-wrap
+msgid ""
+"```cpp\n"
+" uBit.sleep(20); //sleep for 20ms \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:171
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This operation is currently limited by the rate of the system timer, "
+"therefore the granularity of the sleep operation is limited to 6 ms unless "
+"the rate of the system timer is modified. \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:173
+msgid "##seedRandom"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:177
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>seedRandom</div>()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:181
+msgid ""
+"Seed the pseudo random number generator using the hardware random number "
+"generator."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:190
+#, no-wrap
+msgid ""
+"```cpp\n"
+" uBit.seedRandom(); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:194
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>seedRandom</div>( <div "
+"style='color:#a71d5d; display:inline-block'>uint32_t</div> seed)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:198
+msgid "Seed the pseudo random number generator using the given value."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:205
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>uint32_t</div> seed - The "
+"32-bit value to seed the generator with."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:211
+#, no-wrap
+msgid ""
+"```cpp\n"
+" uBit.seedRandom(0xBB5EED); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:213
+msgid "##random"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:217
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>int</div> <div "
+"style='color:#795da3; display:inline-block'>random</div>( <div "
+"style='color:#a71d5d; display:inline-block'>int</div> max)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:221
+msgid ""
+"Generate a random number in the given range. We use a simple Galois LFSR "
+"random number generator here, as a Galois LFSR is sufficient for our "
+"applications, and much more lightweight than the hardware random number "
+"generator built int the processor, which takes a long time and uses a lot of "
+"energy."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:223
+#, no-wrap
+msgid ""
+" KIDS: You shouldn't use this is the real world to generate cryptographic "
+"keys though... have a think why not. :-)  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:230
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>int</div> max - the upper "
+"range to generate a number for. This number cannot be negative."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:234
+msgid ""
+"A random, natural number between 0 and the max-1. Or MICROBIT_INVALID_VALUE "
+"if max is <= 0."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:240
+#, no-wrap
+msgid ""
+"```cpp\n"
+" uBit.random(200); //a number between 0 and 199 \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:242
+msgid "##systemTime"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:246
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>unsigned long</div> "
+"<div style='color:#795da3; display:inline-block'>systemTime</div>()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:250
+msgid "Determine the time since this MicroBit was last reset."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:257
+msgid "The time since the last reset, in milliseconds."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:260
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This will value overflow after 1.6 months. \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:262
+msgid "##systemVersion"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:266
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>const char \\*</div> "
+"<div style='color:#795da3; display:inline-block'>systemVersion</div>()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:270
+msgid "Determine the version of the micro:bit runtime currently in use."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:277
+msgid ""
+"A textual description of the version of the micro:bit runtime that is "
+"currently running on this device."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:279
+msgid "##panic"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:283
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>panic</div>()"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:287 ubit.md:311
+msgid ""
+"Triggers a microbit panic where an loop will display a panic face and the "
+"status code, if provided."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:289 ubit.md:313
+#, no-wrap
+msgid ""
+" This loop will continue for panic_timeout iterations, defaults to 0 "
+"(infinite).  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:291 ubit.md:315
+#, no-wrap
+msgid " panic_timeout can be configured via a call to microbit_panic_timeout.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:299 ubit.md:327
+#, no-wrap
+msgid ""
+"```cpp\n"
+" microbit_panic_timeout(4); \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:303 ubit.md:331
+#, no-wrap
+msgid ""
+" // will display loop for 4 iterations. \n"
+" uBit.panic(10); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:307
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>void</div> <div "
+"style='color:#795da3; display:inline-block'>panic</div>( <div "
+"style='color:#a71d5d; display:inline-block'>int</div> statusCode)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:322
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>int</div> statusCode - "
+"the status code of the associated error."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:333
+msgid "##addSystemComponent"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:337
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>int</div> <div "
+"style='color:#795da3; display:inline-block'>addSystemComponent</div>( <div "
+"style='color:#a71d5d; display:inline-block'>MicroBitComponent \\*</div> "
+"component)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:341
+msgid ""
+"Add a component to the array of system components. This component will then "
+"receive periodic callbacks, once every tick period in interrupt context."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:350
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent "
+"\\*</div> component - The component to add."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:354
+msgid ""
+"MICROBIT_OK on success or MICROBIT_NO_RESOURCES if the component array is "
+"full."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:360 ubit.md:395
+#, no-wrap
+msgid ""
+"```cpp\n"
+" // heap allocated - otherwise it will be paged out! \n"
+" MicroBitDisplay* display = new MicroBitDisplay(); \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:363
+#, no-wrap
+msgid ""
+" uBit.addSystemComponent(display); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:366
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This interface is now deprecated, and will be removed in the next major "
+"release. Please use  system_timer_add_component() . \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:368
+msgid "##removeSystemComponent"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:372
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>int</div> <div "
+"style='color:#795da3; display:inline-block'>removeSystemComponent</div>( "
+"<div style='color:#a71d5d; display:inline-block'>MicroBitComponent \\*</div> "
+"component)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:376
+msgid ""
+"Remove a component from the array of system components. This component will "
+"no longer receive periodic callbacks."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:385
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent "
+"\\*</div> component - The component to remove."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:389
+msgid ""
+"MICROBIT_OK on success or MICROBIT_INVALID_PARAMETER is returned if the "
+"given component has not been previously added."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:397
+#, no-wrap
+msgid " uBit.addSystemComponent(display); \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:400
+#, no-wrap
+msgid ""
+" uBit.removeSystemComponent(display); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:403
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This interface is now deprecated, and will be removed in the next major "
+"release. Please use  system_timer_remove_component() . \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:405
+msgid "##addIdleComponent"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:409
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>int</div> <div "
+"style='color:#795da3; display:inline-block'>addIdleComponent</div>( <div "
+"style='color:#a71d5d; display:inline-block'>MicroBitComponent \\*</div> "
+"component)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:413
+msgid ""
+"Adds a component to the array of idle thread components, which are processed "
+"when the run queue is empty."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:415
+#, no-wrap
+msgid ""
+" The system timer will poll isIdleCallbackNeeded on each component to "
+"determine if the scheduler should schedule the idle_task imminently.  \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:424
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent "
+"\\*</div> component - The component to add to the array."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:428
+msgid ""
+"MICROBIT_OK on success or MICROBIT_NO_RESOURCES if the fiber components "
+"array is full."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:433 ubit.md:470
+#, no-wrap
+msgid ""
+"```cpp\n"
+" MicroBitI2C i2c(I2C_SDA0, I2C_SCL0); \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:436 ubit.md:473
+#, no-wrap
+msgid ""
+" // heap allocated - otherwise it will be paged out! \n"
+" MicroBitAccelerometer* accelerometer = new MicroBitAccelerometer(i2c); \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:439
+#, no-wrap
+msgid ""
+" fiber_add_idle_component(accelerometer); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:442
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This interface is now deprecated, and will be removed in the next major "
+"release. Please use  fiber_add_idle_component() . \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:444
+msgid "##removeIdleComponent"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:448
+msgid ""
+"####<div style='color:#a71d5d; display:inline-block'>int</div> <div "
+"style='color:#795da3; display:inline-block'>removeIdleComponent</div>( <div "
+"style='color:#a71d5d; display:inline-block'>MicroBitComponent \\*</div> "
+"component)"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:452
+msgid "Remove a component from the array of idle thread components"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:461
+msgid ""
+"> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent "
+"\\*</div> component - The component to remove from the idle component array."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:465
+msgid ""
+"MICROBIT_OK on success. MICROBIT_INVALID_PARAMETER is returned if the given "
+"component has not been previously added."
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:475
+#, no-wrap
+msgid " uBit.addIdleComponent(accelerometer); \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:478
+#, no-wrap
+msgid ""
+" uBit.removeIdleComponent(accelerometer); \n"
+"```\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:481
+#, no-wrap
+msgid ""
+"!!! note\n"
+"    This interface is now deprecated, and will be removed in the next major "
+"release. Please use  fiber_remove_idle_component() . \n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:482
+#, no-wrap
+msgid "____\n"
+msgstr ""
+
+#. type: Plain text
+#: ubit.md:484
+msgid "[comment]: <> ({\"end\":\"MicroBit\"})"
+msgstr ""
