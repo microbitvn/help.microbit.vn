@@ -63,6 +63,7 @@ There are also system components that provide background services. Without the `
 You are not required to initialise these components, but you should do so if you want to benefit from the functionality they provide. The following section describe how to do this.
 
 ## Initialising the Message Bus
+
 The [`MicroBitMessageBus`](ubit/messageBus.md) allows events to be created and delivered to applications.  So if a [`MicroBitMessageBus`](ubit/messageBus.md) is not created, then all events in the micro:bit runtime will be quietly ignored.
 
 To enable this functionality, simply create an instance of the [`MicroBitMessageBus`](ubit/messageBus.md) class. From that point onward in your program, you can raise and listen for events as described in the [`MicroBitMessageBus`](ubit/messageBus.md) documentation.
@@ -146,6 +147,7 @@ int main()
 ```
 
 ## Compile Time Configuration Options
+
 In addition to the flexibility to initialise only the components that you need, the runtime also provides a central, compile time configuration file called `MicroBitConfig.h`.
 
 You can use this to reconfigure the default behaviour of the runtime.
@@ -154,7 +156,7 @@ The default settings will provide a stable working environment, but advanced use
 
 To tailor the behaviour, simply edit the `MicroBitConfig.h` file to change the settings, and then perform a clean rebuild.
 
-###Compile Time Options with MicroBitConfig.h
+### Compile Time Options with MicroBitConfig.h
 
 The following options are configurable at compile time through `MicroBitConfig.h`:
 

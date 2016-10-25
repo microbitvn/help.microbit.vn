@@ -1,93 +1,125 @@
-# Concepts
+# Các khái niệm
 
-The micro:bit runtime provides an easy to use environment for programming the BBC micro:bit
-in the C/C++ language. It contains device drivers for all the hardware capabilities of the micro:bit,
-and also a suite of runtime mechanisms to make programming the micro:bit easier and more flexible. These
-range from control of the LED matrix display to peer-to-peer radio communication and secure
-Bluetooth Low Energy services. The micro:bit runtime is proudly built on the [ARM mbed](https://www.mbed.com)
-and [Nordic nrf51](http://www.nordicsemi.com) platforms.
+Bộ lệnh micro:bit runtime cung cấp một môi trường dễ sử dụng để lập trình
+cho BBC micro:bit bằng ngôn ngữ C/C++, viết bởi trường đại học Lancaster. Nó
+bao gồm các thư viện drivers cho tất cả các chức năng phần cứng của
+micro:bit, và cũng là một bộ các cơ chế thực thi (runtime) để giúp việc lập
+trình micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều
+khiển một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp
+(peer-to-peer) và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ
+lệnh micro:bit runtime tự hào được xây dựng trên các nền tảng [ARM
+mbed](https://www.mbed.com)  và [Nordic nrf51](http://www.nordicsemi.com).
 
-In addition to supporting development in C/C++, the runtime is also designed specifically to support
-higher level languages provided by our partners that target the micro:bit. It is currently used as a support library for all the
-languages on the BBC [www.microbit.co.uk](http://www.microbit.co.uk) website, including Microsoft Block Editor, Microsoft Touch Develop, Code Kingdoms
-JavaScript and Micropython languages.
+Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc
+biệt để hỗ trợ các ngôn ngữ lập trình cấp cao do các đối tác của chúng tôi
+phát triển cho micro:bit. Nó đang được dùng như một thư viện hỗ trợ cho tất
+cả các ngôn ngữ lập trình trên trang web BBC
+[www.microbit.co.uk](http://www.microbit.co.uk), bao gồm các ngôn ngữ
+Microsoft Block Editor, Microsoft Touch Develop, Code  Kingdom's JavaScript
+và Micropython.
 
 ![micro:bit runtime](resources/examples/concepts/architecture.png)
 
 
-## A Component Based Approach
-Whenever computer scientists tackle large programming problems, we take the time to split the problem into smaller,
-independent sections to make the problem easier to solve (divide and conquer!).  The micro:bit runtime is no exception,
-and is made up of a number of smaller components. Each of these components looks after
-a specific job on the micro:bit.
+## Một cách tiếp cận từ thành phần
 
-Building up software like this helps us to write code in a way that is
-much easier to maintain as the amount of code grows. For example, a component called [MicroBitDisplay](ubit/display.md)
-controls the LEDs on the micro:bit, and lets the programmer show images, animations and messages. The
-[MicroBitIO](ubit/io.md) component controls input and output through the pins on the edge of the device.
+"Mỗi khi một nhà khoa học máy tính đụng phải một bài toán lập trình lớn,
+chúng ta thường dành chút thời gian để chia bài toán đó ra thành các phần
+nhỏ và độc tập, để giúp bài toán dễ giải quyết hơn (chiến lược "chia để
+trị"). Bộ micro:bit runtime cũng không phải ngoại lệ, và nó được ghép từ khá
+nhiều thành phần nhỏ. Mỗi thành phần lo cho một tác vụ riêng biệt trên
+micro:bit.
 
-The micro:bit runtime is object oriented, with each component typically being a C++ class.
-There are over 30 components making up the runtime, and they are documented on these pages.
+Xây dần phần mềm kiểu này giúp chúng ta viết code bằng một cách rất dễ để
+bảo quản khi số dòng lệnh tăng lên nhiều. Ví dụ, một thành phần tên là
+[MicroBitDisplay](ubit/display.md) điều khiển các đèn LED trên micro:bit, và
+giúp lập trình viên hiển thị hình ảnh, ảnh động và các thông điệp. Thành
+phần [MicroBitIO](ubit/io.md) điều khiển các ngõ vào và ngõ ra qua các chân
+ở cạnh của thiết bị.
 
-To make the runtime as easy to use as possible, there is also a grouping of the most commonly used components in
-an object called [uBit](ubit.md) (The 'u' being the greek letter mu - which often refers to 'micro' in scientific units!).
+Bộ micro:bit runtime là hướng đối tượng, trong đó mỗi thành phần thường là
+một lớp trong C++. Có trên 30 thành phần tạo nên bộ runtime, và chúng được
+ghi vào tài liệu trong các trang này.
 
-The uBit object can be used to easily access most of the functionality of the micro:bit. You can find the components
-and functions that can be accessed this way in the `uBit` in the navigation bar.
+Để tạo ra bộ runtime dễ dùng hết mức, có một nhóm các thành phần thường dùng
+nhất đặt trong một đối tượng gọi là [uBit](ubit.md) (Chữ 'u' là chữ cái Hy
+Lạp mu, đọc là "muy", thường chỉ đến tiền tố trong các đơn vị đo khoa học).
 
-To show just how easy it is to get started, the following code shows how you would write a traditional Hello World program.
+Đối tượng uBit có thể được dùng để truy cập dễ dàng đến hầu hết các tính
+năng của micro:bit. Bạn có thể tìm thấy các thành phần và hàm con truy cập
+được qua cách này ở link `uBit` trong menu điều hướng.
 
-This uses the uBit object to access the display component, then instructs the display to scroll the given string across
-the LEDs. Try to use the `uBit` menu tab above to find the documentation for this scroll() function!
+Để cho thấy có thể bắt đầu dễ như thế nào, đoạn code dưới đây trình diễn
+cách viết chương trình Hello World kinh điển.
 
-```cpp
-uBit.display.scroll("Hello micro:bit!");
-```
+Nó dùng đối tượng uBit để truy cập thành phần "màn hình", sau đó bảo màn
+hình chạy một dòng chữ ngang qua các đèn LED. Hãy thử dùng link `uBit` ở
+menu trang web để tìm phần tài liệu cho hàm scroll() này!
 
-!!! note
-    Did you know that you don't need to use the uBit object? Advanced users will likely prefer to create only the components they need to conserve memory on the device. See the [advanced](advanced.md) section for how to do this.
+```cpp uBit.display.scroll("Hello micro:bit!"); ```
 
-
-# Events
-Computer programs execute sequentially - one line after another, following the logic of the program you have written.
-Sometimes though, we want to be able to determine *when* something has happened, and write some code to decide what should
-happen in that case.
-
-For example, maybe you want to know when a button has been pressed, when your micro:bit has been shaken,
-or when some data has been sent to you over the device's radio. For these sorts of cases, we create a [MicroBitEvent](data-types/event.md).
-
-
-## Creating Events
-Many components will raise events when interesting things occur. For example, ['MicroBitAccelerometer'](ubit/accelerometer.md) will raise events to indicate that the
-micro:bit has be been shaken, or is in freefall and ['MicroBitButton'](ubit/button.md) will send events on a range of button up, down, click and hold events.
-Programmers are also free to send their own events whenever they feel it would be useful. `MicroBitEvent`s are *very* simple, and consist of
-only two numbers:
-
-  - `source` - A number identifying the component that created the event.
-  - `value` - A number unique to the source that identifies the event.
-
-The documentation for each component defines its event source, and all the events it may generate, and also gives a name to these
-event values. For example, take a look at the [button documentation](ubit/button.md) to see that the source MICROBIT_ID_BUTTON_A has the value '1',
-and an event MICROBIT_BUTTON_EVT_CLICK with the value '3' is generated when a button is clicked.
-
-Creating an event is easy - just create a MicroBitEvent with the `source` and `value` you need, and the runtime takes care of the rest:
-
-```cpp
-MicroBitEvent(MICROBIT_ID_BUTTON_A, MICROBIT_BUTTON_EVT_CLICK);
-```
-
-Feel free to create your own events lke this too. Just try to avoid using any source ID that is already used by the runtime! :-)
-See the [messageBus](ubit/messageBus.md) page for a complete table of the reserved source IDs.
+!!! note "Lưu ý"
+    Bạn có biết là bạn có thể không cần dùng đối tượng uBit? Người dùng nâng cao có thể ưa thích tạo ra chỉ các thành phần mà họ cần, để tiết kiệm bộ nhớ trên thiết bị. Xem phần [nâng cao](advanced.md) để biết cách làm này.
 
 
-## Detecting Events
-The micro:bit runtime has a component called the [`MicroBitMessageBus`](ubit/messageBus.md), and its job is remember which events your program is interested in, and
-to deliver `MicroBitEvent`s to your program as they occur.
+# Sự kiện
 
-To find out when an event happens, you need to create a function in your program,
-then tell the message bus which event you want to attach this function to. This is known as writing an **event handler**.
+Các chương trình máy tính chạy một cách tuần tự - từng dòng nối tiếp nhau,
+theo một logic của chương trình mà bạn đã viết. Tuy nhiên thỉnh thoảng chúng
+ta muốn có khả năng xác định *khi nào* một điều gì đó xảy ra, và viết vài
+dòng lệnh để quyết định việc gì sẽ thực hiện trong trường hợp đó.
 
-You write an event handler through the `MicroBitMessageBus` [listen](ubit/messageBus.md) function.  
+Ví dụ, bạn có thể muốn biết khi nào một nút nhấn được nhấn, khi nào mạch
+micro:bit của bạn đang được rung lắc, hoặc khi nào có dữ liệu gửi đến thiết
+bị của bạn qua sóng không dây. Cho các kiểu trường hợp này, chúng ta tạo ra
+một [MicroBitEvent](data-types/event.md).
+
+
+## Tạo ra sự kiện
+
+Nhiều thành phần sẽ tạo ra các events khi có gì đáng quan tâm xảy ra. Ví dụ,
+['MicroBitAccelerometer'](ubit/accelerometer.md) sẽ gây ra sự kiện để cho
+biết là micro:bit vừa bị lắc, hoặc nó đang rơi tự do, và
+['MicroBitButton'](ubit/button.md) sẽ gửi sự kiện trong phạm vi các hoạt
+động ấn xuống, nhả lên, nhấn rồi nhả (click) và nhấn giữ (hold). Lập trình
+viên có thể tự do gửi các sự kiện của họ khi họ thấy việc đó có thể hữu
+ích. Các `MicroBitEvent` *rất* đơn giản, và bao gồm chỉ có 2 con số:
+
+  - `source` (nguồn) - Một con số để xác định thành phần nào tạo ra sự kiện.
+  - `value` (giá trị) - Một con số độc nhất đối với nguồn để xác định sự
+    kiện.
+
+Tài liệu của từng thành phần xác định nguồn sự kiện của nó, và tất cả các sự
+kiện nó có thể tạo ra, cũng như cho biết tên ứng với các giá trị sự
+kiện. Lấy ví dụ, hãy xem thử [tài liệu về nút nhấn](ubit/button.md) để thấy
+là nguồn MICROBIT_ID_BUTTON_A có giá trị '1', và một sự kiện
+MICROBIT_BUTTON_EVT_CLICK với giá trị '3' được tạo ra khi một nút nhấn được
+bấm (click).
+
+Tạo ra một sự kiện thật dễ dàng - chỉ cần tạo ra một MicroBitEvent với
+`source` và `value` bạn cần, và bộ runtime sẽ lo việc còn lại:
+
+```cpp MicroBitEvent(MICROBIT_ID_BUTTON_A, MICROBIT_BUTTON_EVT_CLICK); ```
+
+Hãy tự nhiên tạo ra các sự kiện của riêng bạn kiểu thế này. Chỉ cần cố gắng
+tránh dùng bất kỳ ID nguồn nào đã được sử dụng trong bộ runtime! :-) Xem
+trang [messageBus](ubit/messageBus.md) để thấy bảng đầy đủ các ID nguồn được
+dành trước.
+
+
+## Dò đón các sự kiện
+
+The micro:bit runtime has a component called the
+[`MicroBitMessageBus`](ubit/messageBus.md), and its job is remember which
+events your program is interested in, and to deliver `MicroBitEvent`s to
+your program as they occur.
+
+To find out when an event happens, you need to create a function in your
+program, then tell the message bus which event you want to attach this
+function to. This is known as writing an **event handler**.
+
+Bạn viết một hàm xử lý sự kiện (event handler) qua hàm `MicroBitMessageBus`
+[listen](ubit/messageBus.md).
 
 ```cpp
 void onButtonA(MicroBitEvent e)
@@ -101,21 +133,32 @@ int main()
 }
 ```
 
-Now, whenever the MICROBIT_BUTTON_EVT_CLICK event is raise by MICROBIT_ID_BUTTON_A, your code inside function 'onButtonA' will be automatically executed.  
+Bây giờ, mỗi khi sự kiện MICROBIT_BUTTON_EVT_CLICK được gây ra bởi
+MICROBIT_ID_BUTTON_A, mã lệnh bạn để bên trong hàm 'onButtonA' sẽ được tự
+động thực thi.
 
-You can call listen as many times as you want to attached functions to each of the events that are useful for your program. In fact, a block like the
-following in the Microsoft Block language translates into code just like that shown above when it is run on a micro:bit!
+You can call listen as many times as you want to attached functions to each
+of the events that are useful for your program. In fact, a block like the
+following in the Microsoft Block language translates into code just like
+that shown above when it is run on a micro:bit!
 
-![on button a, equivalent in blocks](resources/examples/concepts/example-listener.png)
+![on button a, equivalent in
+blocks](resources/examples/concepts/example-listener.png)
 
 
-##Wildcard Events
-Sometimes though, you want to capture all events generated by some component. For example, you might want to know when any changes in a button has happened.
-In this case, there is a special event value called 'MICROBIT_EVT_ANY'. If you call listen with this value, then ALL events from the given source component will be delivered to your function.
+## Sự kiện wildcard
 
-You can find out which ones by looking at the `MicroBitEvent` delivered to your function - it contains the `source` and `value` variables that the `MicroBitEvent` was created with.
+Sometimes though, you want to capture all events generated by some
+component. For example, you might want to know when any changes in a button
+has happened.  In this case, there is a special event value called
+'MICROBIT_EVT_ANY'. If you call listen with this value, then ALL events from
+the given source component will be delivered to your function.
 
-For example, you could write a program like this:
+You can find out which ones by looking at the `MicroBitEvent` delivered to
+your function - it contains the `source` and `value` variables that the
+`MicroBitEvent` was created with.
+
+Lấy ví dụ, bạn có thể viết một chương trình kiểu này:
 ```cpp
 void onButtonA(MicroBitEvent e)
 {
@@ -132,15 +175,17 @@ int main()
 }
 ```
 
-If you *REALLY* want even more events, there is also a MICROBIT_ID_ANY source, that allows you to attach a function to event generated from any component.
+Nếu bạn *THẬT SỰ* muốn nhiều sự kiện hơn nữa, có một nguồn MICROBIT_ID_ANY,
+cho phép bạn gắn một hàm với một sự kiện sinh ra bởi bất kỳ thành phần nào.
 
-Use this sparingly though, as this could be quite a lot of events!
+Tuy nhiên, hãy sử dụng cái này một cách tiết kiệm, vì nó có thể làm ra nhiều
+sự kiện!
 
-The following code would attach the `onEvent` function to receive all the events from the whole runtime:
+Đoạn mã dưới đây sẽ gắn một hàm `onEvent` để nhận tất cả các sự kiện từ toàn bộ runtime:
 ```cpp
 void onEvent(MicroBitEvent e)
 {
-    uBit.display.scroll("SOMETHING HAPPENED!");
+    uBit.display.scroll("CO CHUYEN ROI!");
 }
 
 int main()
@@ -149,17 +194,27 @@ int main()
 }
 ```
 
-## Queued Events
+## Các sự kiện xếp hàng
 
-When you write an event handler, your function will be called each time the relevant event is raised. But what happens if your handler takes a long time to execute?
+When you write an event handler, your function will be called each time the
+relevant event is raised. But what happens if your handler takes a long time
+to execute?
 
-The example above will scroll "SOMETHING HAPPENED" whenever any event is raised... but scrolling that message will take several seconds to complete!
+The example above will scroll "SOMETHING HAPPENED" whenever any event is
+raised... but scrolling that message will take several seconds to complete!
 
-What if another event happens during this time?  By default, the runtime will queue any events for your event handler until it has finished what its already doing.
+What if another event happens during this time? By default, the runtime will
+queue any events for your event handler until it has finished what its
+already doing.
 
-As soon as your handler is finished processing an event, the next one will be delivered (any other event handlers will be unaffected though - just because one event handler is busy, doesn't mean that another one can't receive its events!).
+As soon as your handler is finished processing an event, the next one will
+be delivered (any other event handlers will be unaffected though - just
+because one event handler is busy, doesn't mean that another one can't
+receive its events!).
 
-The runtime does allow you to change this behaviour if you want to though. See the advanced documentation in [MicroBitMessageBus](ubit/messageBus.md) for more details.
+The runtime does allow you to change this behaviour if you want to
+though. See the advanced documentation in
+[MicroBitMessageBus](ubit/messageBus.md) for more details.
 
 !!! note
     More advanced programmers might be interested to know that you can also attach event handler to member function of C++ objects. See the other forms of listen function in [MicroBitMessageBus](ubit/messageBus.md) for more details.
@@ -167,14 +222,19 @@ The runtime does allow you to change this behaviour if you want to though. See t
 
 # Concurrency
 
-It is not uncommon to want to write programs that can do more than one thing at a time. For example, it takes quite a long time to scroll a message over the LED matrix, so what if you want
-your program to do something else while this is happening?
+It is not uncommon to want to write programs that can do more than one thing
+at a time. For example, it takes quite a long time to scroll a message over
+the LED matrix, so what if you want your program to do something else while
+this is happening?
 
-Programs that do more than one thing at a time are called **concurrent programs**.
+Programs that do more than one thing at a time are called **concurrent
+programs**.
 
 The runtime provides two ways you can achieve concurrency in your programs:
 
- -  Functions that may take a very long time to complete (e.g. display.scroll) often have "Async" versions (e.g. `display.scrollAsync`).         
+ -  Functions that may take a very long time to complete
+    (e.g. display.scroll) often have "Async" versions
+    (e.g. `display.scrollAsync`).
 
     These functions have the exact same behaviour as their counterparts, but don't wait for the effect to finish before allowing the user's program to continue.
 
