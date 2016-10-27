@@ -18,7 +18,7 @@ google_analytics: ['UA-60470603-6', 'help.microbit.vn']
 pages:
   - Trang chủ:                      index.md
   - Nội dung:
-    - Microbit - Mbed - C/C++:
+    - micro:bit - Mbed - C/C++:
         - General:
           - Introduction: lancaster-mbed/index.md
           - Concepts: lancaster-mbed/concepts.md
@@ -64,6 +64,13 @@ pages:
         - _buttonAB: lancaster-mbed/ubit/multibutton.md
         - _radioevent: lancaster-mbed/ubit/radioevent.md
         - _radiodatagram: lancaster-mbed/ubit/radiodatagram.md
+    - micro:bit - Micropython:
+        - Giới thiệu:               micropython/introduction.md
+        - Cơ bản:
+            - Hello World:          micropython/helloworld.md
+            - Ảnh:                  micropython/images.md
+        - micro:bit micropython API:
+            - API:                  micropython/api.md
   - Các dự án:                      projects/projects.md
   - Bản quyền:                      license.md
   - Đóng góp:                       contributor.md
