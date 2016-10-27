@@ -8,7 +8,7 @@
   
   <meta name="author" content="Doãn Minh Đăng">
   
-  <title>Các dự án - Microbit Việt Nam</title>
+  <title>Ảnh - Microbit Việt Nam</title>
   
 
   <link rel="shortcut icon" href="../../img/favicon.ico">
@@ -26,9 +26,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Các dự án";
-    var mkdocs_page_input_path = "projects/projects.md";
-    var mkdocs_page_url = "/projects/projects/";
+    var mkdocs_page_name = "Ảnh";
+    var mkdocs_page_input_path = "micropython/images.md";
+    var mkdocs_page_url = "/micropython/images/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -80,8 +80,8 @@
 <li>
           
             <li><ul class="subnav">
-    <li class="">
-        <a class=""  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
     </li>
     
         <li class="">
@@ -308,32 +308,32 @@
         
         </div>
     
-        <li class="">
-            <a style="padding-left:50px;" class=""  id="micro:bit - Micropython" onclick="showChildren('micro:bit - Micropython')">micro:bit - Micropython  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="micro:bit - Micropython" onclick="showChildren('micro:bit - Micropython')">micro:bit - Micropython  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
         </li>
         
         <div style="display:none" id="hidden_micro:bit - Micropython">
         
             <li class="">
-                <a style="padding-left:70px;" class="" href="../../micropython/introduction/" id="Giới thiệu">Giới thiệu </a>
+                <a style="padding-left:70px;" class="" href="../introduction/" id="Giới thiệu">Giới thiệu </a>
             </li>
             
             <div style="display:none" id="hidden_micro:bit - MicropythonGiới thiệu">
             
             </div>
         
-            <li class="">
-                <a style="padding-left:70px;" class=""  id="Cơ bản" onclick="showChildren('micro:bit - MicropythonGiới thiệuCơ bản')">Cơ bản  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="Cơ bản" onclick="showChildren('micro:bit - MicropythonGiới thiệuCơ bản')">Cơ bản  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
             </li>
             
             <div style="display:none" id="hidden_micro:bit - MicropythonGiới thiệuCơ bản">
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../../micropython/helloworld/" id="Hello World">Hello World </a>
+                    <a style="padding-left:90px;" class="" href="../helloworld/" id="Hello World">Hello World </a>
                 </li>
             
-                <li class="">
-                    <a style="padding-left:90px;" class="" href="../../micropython/images/" id="Ảnh">Ảnh </a>
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="Ảnh">Ảnh </a>
                 </li>
             
             </div>
@@ -345,7 +345,7 @@
             <div style="display:none" id="hidden_micro:bit - MicropythonGiới thiệuCơ bảnmicro:bit micropython API">
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../../micropython/api/" id="API">API </a>
+                    <a style="padding-left:90px;" class="" href="../api/" id="API">API </a>
                 </li>
             
             </div>
@@ -357,8 +357,8 @@
 <li>
           
             <li><ul class="subnav">
-    <li class="current">
-        <a class="current" href="./" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    <li class="">
+        <a class="" href="../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
     </li>
     
     <li class="paddingtop20"></li>
@@ -404,8 +404,16 @@
     <li><a href="../..">Docs</a> &raquo;</li>
     
       
+        
+          <li>micro:bit - Micropython &raquo;</li>
+        
+      
+        
+          <li>Cơ bản &raquo;</li>
+        
+      
     
-    <li>Các dự án</li>
+    <li>Ảnh</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -419,7 +427,218 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="cac-du-an">Các dự án<a class="headerlink" href="#cac-du-an" title="Permanent link">#</a></h1>
+                <h1 id="hinh-anh">Hình ảnh<a class="headerlink" href="#hinh-anh" title="Permanent link">#</a></h1>
+<p>MicroPython is about as good at art as you can be if the only thing you have is
+a 5x5 grid of red LEDs (light emitting diodes - the things that light up on the
+front of the device). MicroPython gives you quite a lot of control over the
+display so you can create all sorts of interesting effects.</p>
+<p>MicroPython comes with lots of built-in pictures to show on the display.
+For example, to make the device appear happy you type::</p>
+<pre class="code"><code class="language-python">from microbit import *
+display.show(Image.HAPPY)</code></pre>
+
+
+<p>I suspect you can remember what the first line does. The second line uses the
+<code>display</code> object to <code>show</code> a built-in image. The happy image we want to
+display is a part of the <code>Image</code> object and called <code>HAPPY</code>. We tell
+<code>show</code> to use it by putting it between the parenthesis (<code>(</code> and <code>)</code>).</p>
+<p><img alt="" src="../images/happy.png" /></p>
+<p>Here&rsquo;s a list of the built-in images:</p>
+<ul>
+<li><code>Image.HEART</code></li>
+<li><code>Image.HEART_SMALL</code></li>
+<li><code>Image.HAPPY</code></li>
+<li><code>Image.SMILE</code></li>
+<li><code>Image.SAD</code></li>
+<li><code>Image.CONFUSED</code></li>
+<li><code>Image.ANGRY</code></li>
+<li><code>Image.ASLEEP</code></li>
+<li><code>Image.SURPRISED</code></li>
+<li><code>Image.SILLY</code></li>
+<li><code>Image.FABULOUS</code></li>
+<li><code>Image.MEH</code></li>
+<li><code>Image.YES</code></li>
+<li><code>Image.NO</code></li>
+<li><code>Image.CLOCK12</code>, <code>Image.CLOCK11</code>, <code>Image.CLOCK10</code>, <code>Image.CLOCK9</code>,
+  <code>Image.CLOCK8</code>, <code>Image.CLOCK7</code>, <code>Image.CLOCK6</code>, <code>Image.CLOCK5</code>,
+  <code>Image.CLOCK4</code>, <code>Image.CLOCK3</code>, <code>Image.CLOCK2</code>, <code>Image.CLOCK1</code></li>
+<li><code>Image.ARROW_N</code>, <code>Image.ARROW_NE</code>, <code>Image.ARROW_E</code>,
+  <code>Image.ARROW_SE</code>, <code>Image.ARROW_S</code>, <code>Image.ARROW_SW</code>,
+  <code>Image.ARROW_W</code>, <code>Image.ARROW_NW</code></li>
+<li><code>Image.TRIANGLE</code></li>
+<li><code>Image.TRIANGLE_LEFT</code></li>
+<li><code>Image.CHESSBOARD</code></li>
+<li><code>Image.DIAMOND</code></li>
+<li><code>Image.DIAMOND_SMALL</code></li>
+<li><code>Image.SQUARE</code></li>
+<li><code>Image.SQUARE_SMALL</code></li>
+<li><code>Image.RABBIT</code></li>
+<li><code>Image.COW</code></li>
+<li><code>Image.MUSIC_CROTCHET</code></li>
+<li><code>Image.MUSIC_QUAVER</code></li>
+<li><code>Image.MUSIC_QUAVERS</code></li>
+<li><code>Image.PITCHFORK</code></li>
+<li><code>Image.XMAS</code></li>
+<li><code>Image.PACMAN</code></li>
+<li><code>Image.TARGET</code></li>
+<li><code>Image.TSHIRT</code></li>
+<li><code>Image.ROLLERSKATE</code></li>
+<li><code>Image.DUCK</code></li>
+<li><code>Image.HOUSE</code></li>
+<li><code>Image.TORTOISE</code></li>
+<li><code>Image.BUTTERFLY</code></li>
+<li><code>Image.STICKFIGURE</code></li>
+<li><code>Image.GHOST</code></li>
+<li><code>Image.SWORD</code></li>
+<li><code>Image.GIRAFFE</code></li>
+<li><code>Image.SKULL</code></li>
+<li><code>Image.UMBRELLA</code></li>
+<li><code>Image.SNAKE</code></li>
+</ul>
+<p>There&rsquo;s quite a lot! Why not modify the code that makes the micro:bit look
+happy to see what some of the other built-in images look like? (Just replace
+<code>Image.HAPPY</code> with one of the built-in images listed above.)</p>
+<h2 id="diy-images">DIY Images<a class="headerlink" href="#diy-images" title="Permanent link">#</a></h2>
+<p>Of course, you want to make your own image to display on the micro:bit, right?</p>
+<p>That&rsquo;s easy.</p>
+<p>Each LED pixel on the physical display can be set to one of ten values. If a
+pixel is set to <code>0</code> (zero) then it&rsquo;s off. It literally has zero brightness.
+However, if it is set to <code>9</code> then it is at its brightest level. The values
+<code>1</code> to <code>8</code> represent the brightness levels between off (<code>0</code>) and full on
+(<code>9</code>).</p>
+<p>Armed with this information, it&rsquo;s possible to create a new image like this::</p>
+<pre class="code"><code class="language-python">from microbit import *
+
+boat = Image(&quot;05050:&quot;
+             &quot;05050:&quot;
+             &quot;05050:&quot;
+             &quot;99999:&quot;
+             &quot;09990&quot;)
+
+display.show(boat)</code></pre>
+
+
+<p>(When run, the device should display an old-fashioned &ldquo;Blue Peter&rdquo; sailing ship
+with the masts dimmer than the boat&rsquo;s hull.)</p>
+<p>Have you figured out how to draw a picture? Have you noticed that each line of
+the physical display is represented by a line of numbers ending in <code>:</code> and
+enclosed between <code>"</code> double quotes? Each number specifies a brightness.
+There are five lines of five numbers so it&rsquo;s possible to specify the individual
+brightness for each of the five pixels on each of the five lines on the
+physical display. That&rsquo;s how to create a new image.</p>
+<p>Simple!</p>
+<p>In fact, you don&rsquo;t need to write this over several lines. If you think you can
+keep track of each line, you can rewrite it like this::</p>
+<pre class="code"><code class="language-python">boat = Image(&quot;05050:05050:05050:99999:09990&quot;)</code></pre>
+
+
+<h2 id="animation">Animation<a class="headerlink" href="#animation" title="Permanent link">#</a></h2>
+<p>Static images are fun, but it&rsquo;s even more fun to make them move. This is also
+amazingly simple to do with MicroPython ~ just use a list of images!</p>
+<p>Here is a shopping list::</p>
+<pre class="code"><code class="language-python">Eggs
+Bacon
+Tomatoes</code></pre>
+
+
+<p>Here&rsquo;s how you&rsquo;d represent this list in Python:</p>
+<pre class="code"><code class="language-python">shopping = [&quot;Eggs&quot;, &quot;Bacon&quot;, &quot;Tomatoes&quot; ]</code></pre>
+
+
+<p>I&rsquo;ve simply created a list called <code>shopping</code> and it contains three items.
+Python knows it&rsquo;s a list because it&rsquo;s enclosed in square brackets (<code>[</code> and
+<code>]</code>). Items in the list are separated by a comma (<code>,</code>) and in this instance
+the items are three strings of characters: <code>"Eggs"</code>, <code>"Bacon"</code> and
+<code>"Tomatoes"</code>. We know they are strings of characters because they&rsquo;re enclosed
+in quotation marks <code>"</code>.</p>
+<p>You can store anything in a list with Python. Here&rsquo;s a list of numbers::</p>
+<pre class="code"><code class="language-python">primes = [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
+
+
+<div class="admonition note">
+<p class="admonition-title">Lưu ý</p>
+<p>Numbers don&rsquo;t need to be quoted since they represent a value (rather than a
+string of characters). It&rsquo;s the difference between <code>2</code> (the numeric value
+2) and <code>"2"</code> (the character/digit representing the number 2). Don&rsquo;t worry
+if this doesn&rsquo;t make sense right now. You&rsquo;ll soon get used to it.</p>
+</div>
+<p>It&rsquo;s even possible to store different sorts of things in the same list::</p>
+<pre class="code"><code class="language-python">mixed_up_list = [&quot;hello!&quot;, 1.234, Image.HAPPY]</code></pre>
+
+
+<p>Notice that last item? It was an image!</p>
+<p>We can tell MicroPython to animate a list of images. Luckily we have a
+couple of lists of images already built in. They&rsquo;re called <code>Image.ALL_CLOCKS</code>
+and <code>Image.ALL_ARROWS</code>::</p>
+<pre class="code"><code class="language-python">from microbit import *
+
+display.show(Image.ALL_CLOCKS, loop=True, delay=100)</code></pre>
+
+
+<p>As with a single image, we use <code>display.show</code> to show it on the
+device&rsquo;s display. However, we tell MicroPython to use <code>Image.ALL_CLOCKS</code> and
+it understands that it needs to show each image in the list, one after the
+other. We also tell MicroPython to keep looping over the list of images (so
+the animation lasts forever) by saying <code>loop=True</code>. Furthermore, we tell it
+that we want the delay between each image to be only 100 milliseconds (a tenth
+of a second) with the argument <code>delay=100</code>.</p>
+<p>Can you work out how to animate over the <code>Image.ALL_ARROWS</code> list? How do you
+avoid looping forever (hint: the opposite of <code>True</code> is <code>False</code> although
+the default value for <code>loop</code> is <code>False</code>)? Can you change the speed of the
+animation?</p>
+<p>Finally, here&rsquo;s how to create your own animation. In my example I&rsquo;m going to
+make my boat sink into the bottom of the display::</p>
+<pre class="code"><code class="language-python">from microbit import *
+
+boat1 = Image(&quot;05050:&quot;
+              &quot;05050:&quot;
+              &quot;05050:&quot;
+              &quot;99999:&quot;
+              &quot;09990&quot;)
+
+boat2 = Image(&quot;00000:&quot;
+              &quot;05050:&quot;
+              &quot;05050:&quot;
+              &quot;05050:&quot;
+              &quot;99999&quot;)
+
+boat3 = Image(&quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;05050:&quot;
+              &quot;05050:&quot;
+              &quot;05050&quot;)
+
+boat4 = Image(&quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;05050:&quot;
+              &quot;05050&quot;)
+
+boat5 = Image(&quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;05050&quot;)
+
+boat6 = Image(&quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;00000:&quot;
+              &quot;00000&quot;)
+
+all_boats = [boat1, boat2, boat3, boat4, boat5, boat6]
+display.show(all_boats, delay=200)</code></pre>
+
+
+<p>Here&rsquo;s how the code works:</p>
+<ul>
+<li>I create six <code>boat</code> images in exactly the same way I described above.</li>
+<li>Then, I put them all into a list that I call <code>all_boats</code>.</li>
+<li>Finally, I ask <code>display.show</code> to animate the list with a delay of 200 milliseconds.</li>
+<li>Since I&rsquo;ve not set <code>loop=True</code> the boat will only sink once (thus making my animation scientifically accurate). :-)</li>
+</ul>
+<p>What would you animate? Can you animate special effects? How would you make an
+image fade out and then fade in again?</p>
               
             </div>
           </div>
@@ -427,10 +646,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../license/" class="btn btn-neutral float-right" title="Bản quyền">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../api/" class="btn btn-neutral float-right" title="API">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../micropython/api/" class="btn btn-neutral" title="API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../helloworld/" class="btn btn-neutral" title="Hello World"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -460,10 +679,10 @@
           <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../micropython/api/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../helloworld/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../license/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../api/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div> -->

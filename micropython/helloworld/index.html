@@ -8,7 +8,7 @@
   
   <meta name="author" content="Doãn Minh Đăng">
   
-  <title>Các dự án - Microbit Việt Nam</title>
+  <title>Hello World - Microbit Việt Nam</title>
   
 
   <link rel="shortcut icon" href="../../img/favicon.ico">
@@ -26,9 +26,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Các dự án";
-    var mkdocs_page_input_path = "projects/projects.md";
-    var mkdocs_page_url = "/projects/projects/";
+    var mkdocs_page_name = "Hello World";
+    var mkdocs_page_input_path = "micropython/helloworld.md";
+    var mkdocs_page_url = "/micropython/helloworld/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -80,8 +80,8 @@
 <li>
           
             <li><ul class="subnav">
-    <li class="">
-        <a class=""  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
+    <li class="current">
+        <a class="current"  id="Nội dung" style="font-size:95%;font-weight:bold;">Nội dung</a>
     </li>
     
         <li class="">
@@ -308,32 +308,32 @@
         
         </div>
     
-        <li class="">
-            <a style="padding-left:50px;" class=""  id="micro:bit - Micropython" onclick="showChildren('micro:bit - Micropython')">micro:bit - Micropython  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+        <li class="current">
+            <a style="padding-left:50px;" class="current"  id="micro:bit - Micropython" onclick="showChildren('micro:bit - Micropython')">micro:bit - Micropython  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
         </li>
         
         <div style="display:none" id="hidden_micro:bit - Micropython">
         
             <li class="">
-                <a style="padding-left:70px;" class="" href="../../micropython/introduction/" id="Giới thiệu">Giới thiệu </a>
+                <a style="padding-left:70px;" class="" href="../introduction/" id="Giới thiệu">Giới thiệu </a>
             </li>
             
             <div style="display:none" id="hidden_micro:bit - MicropythonGiới thiệu">
             
             </div>
         
-            <li class="">
-                <a style="padding-left:70px;" class=""  id="Cơ bản" onclick="showChildren('micro:bit - MicropythonGiới thiệuCơ bản')">Cơ bản  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
+            <li class="current">
+                <a style="padding-left:70px;" class="current"  id="Cơ bản" onclick="showChildren('micro:bit - MicropythonGiới thiệuCơ bản')">Cơ bản  <i class="fa fa-arrow-circle-down" style="padding-left:5px;font-size:13px;"></i></a>
             </li>
             
             <div style="display:none" id="hidden_micro:bit - MicropythonGiới thiệuCơ bản">
             
-                <li class="">
-                    <a style="padding-left:90px;" class="" href="../../micropython/helloworld/" id="Hello World">Hello World </a>
+                <li class="current">
+                    <a style="padding-left:90px;" class="current" href="./" id="Hello World">Hello World </a>
                 </li>
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../../micropython/images/" id="Ảnh">Ảnh </a>
+                    <a style="padding-left:90px;" class="" href="../images/" id="Ảnh">Ảnh </a>
                 </li>
             
             </div>
@@ -345,7 +345,7 @@
             <div style="display:none" id="hidden_micro:bit - MicropythonGiới thiệuCơ bảnmicro:bit micropython API">
             
                 <li class="">
-                    <a style="padding-left:90px;" class="" href="../../micropython/api/" id="API">API </a>
+                    <a style="padding-left:90px;" class="" href="../api/" id="API">API </a>
                 </li>
             
             </div>
@@ -357,8 +357,8 @@
 <li>
           
             <li><ul class="subnav">
-    <li class="current">
-        <a class="current" href="./" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
+    <li class="">
+        <a class="" href="../../projects/projects/" id="Các dự án" style="font-size:95%;font-weight:bold;">Các dự án</a>
     </li>
     
     <li class="paddingtop20"></li>
@@ -404,8 +404,16 @@
     <li><a href="../..">Docs</a> &raquo;</li>
     
       
+        
+          <li>micro:bit - Micropython &raquo;</li>
+        
+      
+        
+          <li>Cơ bản &raquo;</li>
+        
+      
     
-    <li>Các dự án</li>
+    <li>Hello World</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -419,7 +427,68 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="cac-du-an">Các dự án<a class="headerlink" href="#cac-du-an" title="Permanent link">#</a></h1>
+                <h1 id="hello-world">Hello, World!<a class="headerlink" href="#hello-world" title="Permanent link">#</a></h1>
+<p>The traditional way to start programming in a new language is to get your
+computer to say, &ldquo;Hello, World!&rdquo;.</p>
+<p><img alt="" src="../images/scroll-hello1.gif" /></p>
+<p>This is easy with MicroPython::</p>
+<pre class="code"><code class="language-python">from microbit import *
+display.scroll(&quot;Hello, World!&quot;)</code></pre>
+
+
+<p>Each line does something special. The first line::</p>
+<pre class="code"><code class="language-python">from microbit import *</code></pre>
+
+
+<p>&hellip;tells MicroPython to get all the stuff it needs to work with the BBC
+micro:bit. All this stuff is in a module called <code>microbit</code> (a module
+is a library of pre-existing code). When you <code>import</code> something you&rsquo;re telling
+MicroPython that you want to use it, and <code>*</code> is Python&rsquo;s way to say
+<em>everything</em>. So, <code>from microbit import *</code> means, in English, &ldquo;I want to be
+able to use everything from the microbit code library&rdquo;.</p>
+<p>The second line::</p>
+<pre class="code"><code class="language-python">display.scroll(&quot;Hello, World!&quot;)</code></pre>
+
+
+<p>&hellip;tells MicroPython to use the display to scroll the string of characters
+&ldquo;Hello, World!&rdquo;. The <code>display</code> part of that line is an <em>object</em> from the
+<code>microbit</code> module that represents the device&rsquo;s physical display (we say
+&ldquo;object&rdquo; instead of &ldquo;thingy&rdquo;, &ldquo;whatsit&rdquo; or &ldquo;doodah&rdquo;). We can tell the display
+to do things with a full-stop <code>.</code> followed by what looks like a command (in
+fact it&rsquo;s something we call a <em>method</em>). In this case we&rsquo;re using the
+<code>scroll</code> method. Since <code>scroll</code> needs to know what characters to scroll
+across the physical display we specify them between double quotes (<code>"</code>)
+within parenthesis (<code>(</code> and <code>)</code>). These are called the <em>arguments</em>. So,
+<code>display.scroll("Hello, World!")</code> means, in English, &ldquo;I want you to use the
+display to scroll the text &lsquo;Hello, World!&rsquo;&ldquo;. If a method doesn&rsquo;t need any
+arguments we make this clear by using empty parenthesis like this: <code>()</code>.</p>
+<p>Copy the &ldquo;Hello, World!&rdquo; code into your editor and flash it onto the device.
+Can you work out how to change the message? Can you make it say hello to you?
+For example, I might make it say &ldquo;Hello, Nicholas!&rdquo;. Here&rsquo;s a clue, you need to
+change the scroll method&rsquo;s argument.</p>
+<div class="admonition warning">
+<p class="admonition-title">Lưu ý</p>
+<p>It may not work. :-)</p>
+<p>This is where things get fun and MicroPython tries to be helpful. If
+it encounters an error it will scroll a helpful message on the micro:bit&rsquo;s
+display. If it can, it will tell you the line number for where the error
+can be found.</p>
+<p>Python expects you to type <strong>EXACTLY</strong> the right thing. So, for instance,
+<code>Microbit</code>, <code>microbit</code> and <code>microBit</code> are all different things to
+Python. If MicroPython complains about a <code>NameError</code> it&rsquo;s probably
+because you&rsquo;ve typed something inaccurately. It&rsquo;s like the difference
+between referring to &ldquo;Nicholas&rdquo; and &ldquo;Nicolas&rdquo;. They&rsquo;re two different people
+but their names look very similar.</p>
+<p>If MicroPython complains about a <code>SyntaxError</code> you&rsquo;ve simply typed code
+in a way that MicroPython can&rsquo;t understand. Check you&rsquo;re not missing any
+special characters like <code>"</code> or <code>:</code>. It&rsquo;s like putting. a full stop in
+the middle of a sentence. It&rsquo;s hard to understand exactly what you mean.</p>
+<p>Your microbit may stop responding: you cannot flash new code to it or
+enter commands into the REPL. If this happens, try power cycling it. That
+is, unplug the USB cable (and battery cable if it&rsquo;s connected), then plug
+the cable back in again. You may also need to quit and re-start your code
+editor application.</p>
+</div>
               
             </div>
           </div>
@@ -427,10 +496,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../../license/" class="btn btn-neutral float-right" title="Bản quyền">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../images/" class="btn btn-neutral float-right" title="Ảnh">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../micropython/api/" class="btn btn-neutral" title="API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../introduction/" class="btn btn-neutral" title="Giới thiệu"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -460,10 +529,10 @@
           <a href="https://github.com/microbitvn/help.microbit.vn" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../micropython/api/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../../license/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../images/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div> -->
