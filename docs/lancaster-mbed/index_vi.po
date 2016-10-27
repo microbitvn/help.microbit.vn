@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2016-10-24 14:47+0200\n"
-"PO-Revision-Date: 2016-10-25 09:43+0200\n"
+"PO-Revision-Date: 2016-10-25 11:10+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,8 +41,8 @@ msgstr ""
 "micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều khiển "
 "một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp (peer-to-peer) "
 "và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ lệnh micro:bit "
-"runtime được tự hào (proudly) xây dựng trên các nền tảng [ARM mbed](https://"
-"www.mbed.com)  và [Nordic nrf51](http://www.nordicsemi.com)."
+"runtime tự hào được xây dựng trên các nền tảng [ARM mbed](https://www.mbed."
+"com)  và [Nordic nrf51](http://www.nordicsemi.com)."
 
 # microbit.co.uk đã được chuyển sang microbit.org từ tháng 10/2016.
 #. type: Plain text
@@ -189,7 +189,9 @@ msgstr "Đây là vài đoạn code mẫu để bạn bắt đầu:"
 #. type: Plain text
 #: index.md:65
 msgid "```cpp #include \"MicroBit.h\""
-msgstr "```cpp #include \"MicroBit.h\""
+msgstr ""
+"```cpp\n"
+"#include \"MicroBit.h\""
 
 #. type: Plain text
 #: index.md:67
@@ -291,7 +293,7 @@ msgid ""
 "    This line is omitted in all examples you will find on this site simply to avoid\n"
 "    repetition!\n"
 msgstr ""
-"!!!lưu ý\n"
+"!!!note \"Lưu ý\"\n"
 "    Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh\n"
 "    lặp lại!\n"
 

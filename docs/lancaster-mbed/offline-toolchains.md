@@ -48,6 +48,7 @@ yt build
 ```
 
 ### Flash your micro:bit
+
 The final step is to check your hex works.
 
 The `yt build` command will place files in `/build/<TARGET_NAME>/source`. The file you will need to flash will be microbit-combined.hex.  Simply drag and drop the hex onto the MICROBIT usb device.
@@ -70,6 +71,7 @@ The first step is to get `yotta` and its dependencies onto your machine, to do t
 
 For the micro:bit targets you currently still need the `srecord` tools, which can be installed on **Mac OSX** using
 [brew](http://brew.sh/):
+
 ```
 brew install srecord
 ```
@@ -107,6 +109,7 @@ yt build
 ```
 
 ### Flash your micro:bit
+
 The final step is to check your hex works.
 
 The `yt build` command will place files in `/build/<TARGET_NAME>/source`. The file you will need to flash will be `microbit-samples-combined.hex`. Simply drag and drop the hex onto the MICROBIT usb device.
@@ -137,6 +140,7 @@ The first step is to get `yotta` and its dependencies onto your machine, to do t
 
 
 For the micro:bit targets you currently still need the `srecord` tools, which can be installed on **Ubuntu** using
+
 ```
 sudo apt-get install srecord
 ```
@@ -175,6 +179,7 @@ yt build
 ```
 
 ### Flash your micro:bit
+
 The final step is to check your hex works.
 
 The `yt build` command will place files in `/build/<TARGET_NAME>/source`. The file you will need to flash will be `microbit-samples-combined.hex`. Simply drag and drop the hex onto the MICROBIT usb device.

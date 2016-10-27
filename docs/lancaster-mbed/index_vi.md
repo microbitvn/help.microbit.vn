@@ -7,7 +7,7 @@ micro:bit, và cũng là một bộ các cơ chế thực thi (runtime) để gi
 trình micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều
 khiển một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp
 (peer-to-peer) và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ
-lệnh micro:bit runtime được tự hào (proudly) xây dựng trên các nền tảng [ARM
+lệnh micro:bit runtime tự hào được xây dựng trên các nền tảng [ARM
 mbed](https://www.mbed.com)  và [Nordic nrf51](http://www.nordicsemi.com).
 
 Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc
@@ -107,7 +107,7 @@ Trong ví dụ trên, có một dòng lệnh dùng để khởi tạo một đ�
 Trong lệnh gọi đến trình xếp lịch (scheduler) này, chương trình cấp phát bộ
 nhớ và ngăn xếp Bluetooth được khởi tạo.
 
-!!!lưu ý
+!!!note "Lưu ý"
     Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh
     lặp lại!
 
