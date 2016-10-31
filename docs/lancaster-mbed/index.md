@@ -1,4 +1,4 @@
-Giới thiệu
+#Giới thiệu
 
 Bộ lệnh micro:bit runtime cung cấp một môi trường dễ sử dụng để lập trình
 cho BBC micro:bit bằng ngôn ngữ C/C++, viết bởi trường đại học Lancaster. Nó
