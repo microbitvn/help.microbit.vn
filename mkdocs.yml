@@ -19,14 +19,14 @@ pages:
   - Trang chủ:                      index.md
   - Nội dung:
     - micro:bit - Mbed - C/C++:
-        - General:
-          - Introduction: lancaster-mbed/index.md
-          - Concepts: lancaster-mbed/concepts.md
-          - Advanced: lancaster-mbed/advanced.md
-          - Web-based Development: lancaster-mbed/online-toolchains.md
-          - Offline Development: lancaster-mbed/offline-toolchains.md
-          - Hardware: lancaster-mbed/device.md
-          - Help: lancaster-mbed/help.md
+        - Thông tin chung:
+          - Giới thiệu: lancaster-mbed/index.md
+          - Các khái niệm: lancaster-mbed/concepts.md
+          - Nâng cao: lancaster-mbed/advanced.md
+          - Phát triển trên web: lancaster-mbed/online-toolchains.md
+          - Phát triển offline: lancaster-mbed/offline-toolchains.md
+          - Phần cứng: lancaster-mbed/device.md
+          - Giúp đỡ: lancaster-mbed/help.md
         - uBit:
           - Overview: lancaster-mbed/ubit.md
           - i2c: lancaster-mbed/ubit/i2c.md
