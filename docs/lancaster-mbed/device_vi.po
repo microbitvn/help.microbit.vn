@@ -1,63 +1,68 @@
-# SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-25 14:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-31 11:46+0200\n"
+"PO-Revision-Date: 2016-10-31 12:04+0100\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: vi\n"
 
-#. type: Plain text
-#: device.md:2
+#: device.md:1
 msgid "#About the micro:bit"
-msgstr ""
+msgstr "# Về bo mạch micro:bit"
 
-#. type: Plain text
-#: device.md:4
-msgid "![microbit from the front and the back](resources/microbit_front_back.png)"
-msgstr ""
-
-#. type: Plain text
-#: device.md:7
+#: device.md:3
 msgid ""
-"The central processing unit (CPU) for the micro:bit is the [Nordic "
-"nRF51822](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822)  "
+"![microbit from the front and the back](resources/microbit_front_back.png)"
+msgstr ""
+"![microbit nhìn từ mặt trước và mặt sau](resources/microbit_front_back.png)"
+
+#: device.md:5
+msgid ""
+"The central processing unit (CPU) for the micro:bit is the [Nordic nRF51822]"
+"(https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-"
+"energy/nRF51822)\n"
 "and it controls all functionality offered by the micro:bit."
 msgstr ""
+"Bộ xử lý trung tâm (CPU) của micro:bit là chip [Nordic nRF51822](https://www."
+"nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822)\n"
+"và nó điều khiển tất cả các chức năng được cung cấp bởi micro:bit."
 
-#. type: Plain text
-#: device.md:9
+#: device.md:8
 msgid "On board the micro:bit there is already:"
-msgstr ""
+msgstr "Trên bo micro:bit đã có sẵn:"
 
-#. type: Plain text
-#: device.md:17
+#: device.md:10
 msgid ""
-"- a 5 x 5 LED matrix [display](ubit/display.md).  - 2 programmable "
-"[buttons](ubit/button.md).  - a 3-axis "
-"[accelerometer](ubit/accelerometer.md).  - an [e-compass](ubit/compass.md).  "
-"- [Bluetooth](ubit/blemanager.md).  - 20 user controlled [pins](ubit/io.md), "
-"with Analog and Digital capabilities.  - [serial](ubit/serial.md) "
-"capabilities over USB and the edge connector."
+"- a 5 x 5 LED matrix [display](ubit/display.md).\n"
+"- 2 programmable [buttons](ubit/button.md).\n"
+"- a 3-axis [accelerometer](ubit/accelerometer.md).\n"
+"- an [e-compass](ubit/compass.md).\n"
+"- [Bluetooth](ubit/blemanager.md).\n"
+"- 20 user controlled [pins](ubit/io.md), with Analog and Digital "
+"capabilities.\n"
+"- [serial](ubit/serial.md) capabilities over USB and the edge connector."
 msgstr ""
+"- một [màn hình](ubit/display.md) LED matrận 5 x 5.\n"
+"- 2 [nút bấm](ubit/button.md) lập trình được.\n"
+"- một [cảm biến gia tốc](ubit/accelerometer.md) 3 trục.\n"
+"- một [e-compass](ubit/compass.md).\n"
+"- [Bluetooth](ubit/blemanager.md).\n"
+"- 20 [chân IO](ubit/io.md) người dùng điều khiển được, với chế độ tương tự "
+"(Analog) hoặc số (Digital).\n"
+"- khả năng giao tiếp [nối tiếp](ubit/serial.md) qua ngõ USB hoặc chân cắm ở "
+"cạnh."
 
-#. type: Plain text
-#: device.md:19
+#: device.md:18
 msgid "##Datasheets"
-msgstr ""
+msgstr "##Datasheets"
 
-#. type: Plain text
-#: device.md:55
-#, no-wrap
+#: device.md:20
 msgid ""
 "<div class=\"col-sm-4\">\n"
 "    <h3>Nordic nRF51822</h3>\n"
@@ -100,5 +105,46 @@ msgid ""
 "            Datasheet\n"
 "        </a>\n"
 "    </p>\n"
-"</div>\n"
+"</div>"
 msgstr ""
+"<div class=\"col-sm-4\">\n"
+"    <h3>Nordic nRF51822</h3>\n"
+"    <p>\n"
+"        Bộ xử lý trung tâm của micro:bit, chip nRF51822, điều khiển và thực "
+"hiện tất cả các chức năng trên\n"
+"        bo micro:bit.\n"
+"    </p>\n"
+"    <p>\n"
+"        <a target=\"_blank\" href=\"../resources/datasheets/nRF51822.pdf\" "
+"class=\"btn btn-lg btn-outline\">\n"
+"            Datasheet\n"
+"        </a>\n"
+"    </p>\n"
+"</div>\n"
+"<div class=\"col-sm-4\">\n"
+"    <h3>NXP MAG3110</h3>\n"
+"    <p>\n"
+"        Cảm biến lực từ MAG3110 được dùng kết hợp với cảm biến gia tốc 3 "
+"trục\n"
+"        (MMA8653) để tạo thành một cái e-compass.\n"
+"    </p>\n"
+"    <p>\n"
+"        <a target=\"_blank\" href=\"../resources/datasheets/MAG3110.pdf\" "
+"class=\"btn btn-lg btn-outline\">\n"
+"            Datasheet\n"
+"        </a>\n"
+"    </p>\n"
+"</div>\n"
+"<div class=\"col-sm-4\">\n"
+"    <h3>NXP MMA8653</h3>\n"
+"    <p>\n"
+"        Cảm biến gia tốc MMA8653 cung cấp thông tin về hướng và gia tốc\n"
+"        của bo micro:bit.\n"
+"    </p>\n"
+"    <p>\n"
+"        <a target=\"_blank\" href=\"../resources/datasheets/MMA8653.pdf\" "
+"class=\"btn btn-lg btn-outline\">\n"
+"            Datasheet\n"
+"        </a>\n"
+"    </p>\n"
+"</div>"

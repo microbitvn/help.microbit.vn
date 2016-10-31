@@ -94,7 +94,9 @@ micro:bit.
 
 Sự đơn giản có thể thấy qua một dòng lệnh này:
 
-```cpp uBit.display.scroll("HELLO WORLD!"); ```
+```cpp
+uBit.display.scroll("HELLO WORLD!");
+```
 
 Dòng lệnh này chạy chữ `HELLO WORLD!` ngang màn hình của micro:bit.
 
@@ -102,7 +104,9 @@ Dòng lệnh này chạy chữ `HELLO WORLD!` ngang màn hình của micro:bit.
 
 Trong ví dụ trên, có một dòng lệnh dùng để khởi tạo một đối tượng uBit:
 
-```cpp uBit.init(); ```
+```cpp
+uBit.init();
+```
 
 Trong lệnh gọi đến trình xếp lịch (scheduler) này, chương trình cấp phát bộ
 nhớ và ngăn xếp Bluetooth được khởi tạo.
