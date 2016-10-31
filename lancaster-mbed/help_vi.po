@@ -1,58 +1,51 @@
-# SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+#. extracted from help.md
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-25 14:56+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-31 11:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.10.0\n"
 
-#. type: Plain text
-#: help.md:3
-msgid "#*Need help?* ![confused emjoi](resources/emoji/confused.png)"
-msgstr ""
-
-#. type: Plain text
-#: help.md:7
+#: help.md:1
 msgid ""
-"If you have any questions about the software or the hardware for the "
-"micro:bit, please visit our [stack exchange "
-"site](http://area51.stackexchange.com/proposals/96237/microbit/) as someone "
-"may have already answered your question! If they haven't, ask away!"
+"#*Need help?*\n"
+"![confused emjoi](resources/emoji/confused.png)"
 msgstr ""
 
-#. type: Plain text
-#: help.md:11
-#, no-wrap
+#: help.md:4
+msgid ""
+"If you have any questions about the software or the hardware\n"
+"for the micro:bit, please visit our [stack exchange "
+"site](http://area51.stackexchange.com/proposals/96237/microbit/) as\n"
+"someone may have already answered your question! If they haven't, ask away!"
+msgstr ""
+
+#: help.md:8
 msgid ""
 "!!!note\n"
 "    This site is currently in the proposal stages of the StackExchange "
 "process, and\n"
-"    will hopefully become a fully fledged StackExchange area.\n"
+"    will hopefully become a fully fledged StackExchange area."
 msgstr ""
 
-#. type: Plain text
-#: help.md:14
+#: help.md:12
 msgid ""
 "If you have found an issue with our **documentation**, or if something is "
-"not clear in the documentation, please file an issue on the [microbit-docs "
-"github "
+"not clear\n"
+"in the documentation, please file an issue on the [microbit-docs github "
 "repository](https://github.com/lancaster-university/microbit-docs/issues)."
 msgstr ""
 
-#. type: Plain text
-#: help.md:16
+#: help.md:15
 msgid ""
 "If you have found an issue with the **runtime software**, please file an "
-"issue on the [microbit-dal github "
-"repository](https://github.com/lancaster-university/microbit-dal/issues)."
+"issue on the\n"
+"[microbit-dal github repository](https://github.com/lancaster-university"
+"/microbit-dal/issues)."
 msgstr ""

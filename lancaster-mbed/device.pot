@@ -1,63 +1,55 @@
-# SOME DESCRIPTIVE TITLE
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+#. extracted from device.md
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-10-25 14:56+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-31 11:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.10.0\n"
 
-#. type: Plain text
-#: device.md:2
+#: device.md:1
 msgid "#About the micro:bit"
 msgstr ""
 
-#. type: Plain text
-#: device.md:4
-msgid "![microbit from the front and the back](resources/microbit_front_back.png)"
+#: device.md:3
+msgid ""
+"![microbit from the front and the back](resources/microbit_front_back.png)"
 msgstr ""
 
-#. type: Plain text
-#: device.md:7
+#: device.md:5
 msgid ""
 "The central processing unit (CPU) for the micro:bit is the [Nordic "
-"nRF51822](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF51822)  "
+"nRF51822](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-"
+"low-energy/nRF51822)\n"
 "and it controls all functionality offered by the micro:bit."
 msgstr ""
 
-#. type: Plain text
-#: device.md:9
+#: device.md:8
 msgid "On board the micro:bit there is already:"
 msgstr ""
 
-#. type: Plain text
-#: device.md:17
+#: device.md:10
 msgid ""
-"- a 5 x 5 LED matrix [display](ubit/display.md).  - 2 programmable "
-"[buttons](ubit/button.md).  - a 3-axis "
-"[accelerometer](ubit/accelerometer.md).  - an [e-compass](ubit/compass.md).  "
-"- [Bluetooth](ubit/blemanager.md).  - 20 user controlled [pins](ubit/io.md), "
-"with Analog and Digital capabilities.  - [serial](ubit/serial.md) "
-"capabilities over USB and the edge connector."
+"- a 5 x 5 LED matrix [display](ubit/display.md).\n"
+"- 2 programmable [buttons](ubit/button.md).\n"
+"- a 3-axis [accelerometer](ubit/accelerometer.md).\n"
+"- an [e-compass](ubit/compass.md).\n"
+"- [Bluetooth](ubit/blemanager.md).\n"
+"- 20 user controlled [pins](ubit/io.md), with Analog and Digital "
+"capabilities.\n"
+"- [serial](ubit/serial.md) capabilities over USB and the edge connector."
 msgstr ""
 
-#. type: Plain text
-#: device.md:19
+#: device.md:18
 msgid "##Datasheets"
 msgstr ""
 
-#. type: Plain text
-#: device.md:55
-#, no-wrap
+#: device.md:20
 msgid ""
 "<div class=\"col-sm-4\">\n"
 "    <h3>Nordic nRF51822</h3>\n"
@@ -100,5 +92,5 @@ msgid ""
 "            Datasheet\n"
 "        </a>\n"
 "    </p>\n"
-"</div>\n"
+"</div>"
 msgstr ""
