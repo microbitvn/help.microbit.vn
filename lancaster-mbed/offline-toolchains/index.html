@@ -436,130 +436,129 @@
             <div class="section">
               
                 <h1 id="yotta">Yotta<a class="headerlink" href="#yotta" title="Permanent link">#</a></h1>
-<p>The micro:bit DAL is built on top of <a href="http://mbed.com">ARM mbed</a> and hence uses <a href="http://yotta.mbed.com">yotta</a> as an offline build system.</p>
-<p>When using <code>yotta</code> to build micro:bit projects there are currently two supported toolchains:</p>
+<p>Phần mềm micro:bit DAL được xây dựng dựa trên <a href="http://mbed.com">ARM mbed</a> nên sử dụng <a href="http://yotta.mbed.com">yotta</a> làm hệ thống xây dựng chương trình offline.</p>
+<p>Khi sử dụng <code>yotta</code> để xây dựng dự án cho micro:bit, hiện nay có hai bộ công cụ (toolchain) hỗ trợ:</p>
 <ul>
 <li>GCC</li>
 <li>ARMCC</li>
 </ul>
-<h2 id="installation-on-windows">Installation on Windows<a class="headerlink" href="#installation-on-windows" title="Permanent link">#</a></h2>
-<h3 id="install-yotta-and-dependencies">Install yotta and dependencies<a class="headerlink" href="#install-yotta-and-dependencies" title="Permanent link">#</a></h3>
-<p>The first step is to get <code>yotta</code> and its dependencies onto your machine, to do this follow the install guide <a href="http://docs.yottabuild.org/#installing">here</a>.</p>
-<p>For the micro:bit targets you currently still need the <code>srecord</code> tools, which can be installed on <strong>Windows</strong> from <a href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
-<p><code>srecord</code> is used to create the final binaries for the micro:bit so is an essential dependency.</p>
-<h3 id="fetch-the-example-project">Fetch the example project<a class="headerlink" href="#fetch-the-example-project" title="Permanent link">#</a></h3>
+<h2 id="cai-at-tren-windows">Cài đặt trên Windows<a class="headerlink" href="#cai-at-tren-windows" title="Permanent link">#</a></h2>
+<h3 id="cai-at-yotta-va-cac-goi-phu-thuoc">Cài đặt yotta và các gói phụ thuộc<a class="headerlink" href="#cai-at-yotta-va-cac-goi-phu-thuoc" title="Permanent link">#</a></h3>
+<p>Bước đầu tiên là lấy <code>yotta</code> và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt <a href="http://docs/yottabuild.org/#installing">ở đây</a>.</p>
+<p>Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ <code>srecord</code>, có thể cài đặt được trên <strong>Windows</strong> từ <a href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code>srecord</code> được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản.</p>
+<h3 id="lay-ve-du-an-mau">Lấy về dự án mẫu<a class="headerlink" href="#lay-ve-du-an-mau" title="Permanent link">#</a></h3>
 <pre class="code"><code class="language-bash">git clone https://github.com/lancaster-university/microbit-samples
 cd microbit-samples</code></pre>
 
 
-<h3 id="set-your-yotta-target">Set your yotta target<a class="headerlink" href="#set-your-yotta-target" title="Permanent link">#</a></h3>
-<p>A <code>yotta</code> target contains the information required by <code>yotta</code> in order to build a project for a specific combination of hardware. This includes the type of compiler. The microbit projects can build with both <code>armcc</code> and <code>gcc</code>, but as it gets installed with the <code>yotta</code> installer, we&rsquo;ll use <code>gcc</code> by default and choose a micro:bit specific target that knows about the hardware on the board.</p>
-<p>You can use either <code>yotta</code> or <code>yt</code>, which is far easier to type!</p>
+<h3 id="chon-thiet-bi-ich-cho-yotta">Chọn thiết bị đích cho yotta<a class="headerlink" href="#chon-thiet-bi-ich-cho-yotta" title="Permanent link">#</a></h3>
+<p>Một cái đích (target) cho <code>yotta</code> bao gồm thông tin mà <code>yotta</code> cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả <code>armcc</code> lẫn <code>gcc</code>, nhưng do <code>gcc</code> được cài đặt sẵn với chương trình cài đặt <code>yotta</code> nên chúng ta sẽ dùng <code>gcc</code> làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch.</p>
+<p>Bạn có thể dùng hoặc <code>yotta</code> hoặc <code>yt</code>, để gõ dễ hơn!</p>
 <pre class="code"><code>yt target bbc-microbit-classic-gcc</code></pre>
 
 
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In microbit-samples this target will be configured by default.</p>
+<p class="admonition-title">Lưu ý</p>
+<p>Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định.</p>
 </div>
-<p>You only need to set the target once per project. All future <code>yotta</code> commands will use this target information (for example, when resolving dependencies).</p>
-<h4 id="build-the-project">Build the project<a class="headerlink" href="#build-the-project" title="Permanent link">#</a></h4>
+<p>Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh <code>yotta</code> sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc).</p>
+<h4 id="bien-dich-du-an">Biên dịch dự án<a class="headerlink" href="#bien-dich-du-an" title="Permanent link">#</a></h4>
 <pre class="code"><code>yt build</code></pre>
 
 
-<h3 id="flash-your-microbit">Flash your micro:bit<a class="headerlink" href="#flash-your-microbit" title="Permanent link">#</a></h3>
-<p>The final step is to check your hex works.</p>
-<p>The <code>yt build</code> command will place files in <code>/build/&lt;TARGET_NAME&gt;/source</code>. The file you will need to flash will be microbit-combined.hex.  Simply drag and drop the hex onto the MICROBIT usb device.</p>
-<p>In the case of our example, using <code>bbc-microbit-classic-gcc</code> we could flash the micro:bit (assuming it is plugged in and mounted at <code>E:</code>) as follows:</p>
+<h3 id="ghi-len-bo-microbit-cua-ban">Ghi lên bo micro:bit của bạn<a class="headerlink" href="#ghi-len-bo-microbit-cua-ban" title="Permanent link">#</a></h3>
+<p>Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không.</p>
+<p>Lệnh <code>yt build</code> sẽ đặt các tập tin trong <code>/build/&lt;TÊN_THIẾT_BỊ_ĐÍCH&gt;/source</code>. Tập tin bạn cần để ghi vào bo mạch là <code>microbit-combined.hex</code>. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT.</p>
+<p>Trong trường hợp ví dụ này, sử dụng <code>bbc-microbit-classic-gcc</code> chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính và là ổ đĩa <code>E:</code>) như sau:</p>
 <pre class="code"><code>copy build\bbc-microbit-classic-gcc\source\microbit-samples-combined.hex E:</code></pre>
 
 
-<p>The expected result will be that the micro:bit will scroll <code>HELLO WORLD! :)</code> on its display.</p>
+<p>Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ <code>HELLO WORLD! :)</code> trên màn hình của nó.</p>
 <hr />
-<h2 id="installation-on-mac-osx">Installation on Mac OSX<a class="headerlink" href="#installation-on-mac-osx" title="Permanent link">#</a></h2>
-<h3 id="install-yotta-and-dependencies_1">Install yotta and dependencies<a class="headerlink" href="#install-yotta-and-dependencies_1" title="Permanent link">#</a></h3>
-<p>The first step is to get <code>yotta</code> and its dependencies onto your machine, to do this follow the install guide <a href="http://docs.yottabuild.org/#installing">here</a>.</p>
-<p>For the micro:bit targets you currently still need the <code>srecord</code> tools, which can be installed on <strong>Mac OSX</strong> using
-<a href="http://brew.sh/">brew</a>:</p>
+<h2 id="cai-at-tren-mac-osx">Cài đặt trên Mac OSX<a class="headerlink" href="#cai-at-tren-mac-osx" title="Permanent link">#</a></h2>
+<h3 id="cai-at-yotta-va-cac-goi-phu-thuoc_1">Cài đặt yotta và các gói phụ thuộc<a class="headerlink" href="#cai-at-yotta-va-cac-goi-phu-thuoc_1" title="Permanent link">#</a></h3>
+<p>Bước đầu tiên là lấy <code>yotta</code> và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt <a href="http://docs/yottabuild.org/#installing">ở đây</a>.</p>
+<p>Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ <code>srecord</code>, có thể cài đặt được trên <strong> Mac OSX </strong> sử dụng <a href="http://brew.sh/">brew</a>:</p>
 <pre class="code"><code>brew install srecord</code></pre>
 
 
-<p>You can also install it manually from <a href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
-<p><code>srecord</code> is used to create the final binaries for the micro:bit so is an essential dependency.</p>
-<h3 id="fetch-the-example-project_1">Fetch the example project<a class="headerlink" href="#fetch-the-example-project_1" title="Permanent link">#</a></h3>
+<p>Bạn cũng có thể cài đặt nó bằng tay từ <a href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code>srecord</code> được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản.</p>
+<h3 id="lay-ve-du-an-mau_1">Lấy về dự án mẫu<a class="headerlink" href="#lay-ve-du-an-mau_1" title="Permanent link">#</a></h3>
 <pre class="code"><code class="language-bash">git clone https://github.com/lancaster-university/microbit-samples
 cd microbit-samples</code></pre>
 
 
-<h3 id="set-your-yotta-target_1">Set your yotta target<a class="headerlink" href="#set-your-yotta-target_1" title="Permanent link">#</a></h3>
-<p>A <code>yotta</code> target contains the information required by <code>yotta</code> in order to build a project for a specific combination of hardware. This includes the type of compiler. The microbit projects can build with both <code>armcc</code> and <code>gcc</code>, but as it gets installed with the <code>yotta</code> installer, we&rsquo;ll use <code>gcc</code> by default and choose a micro:bit specific target that knows about the hardware on the board.</p>
-<p>You can use either <code>yotta</code> or <code>yt</code>, which is far easier to type!</p>
+<h3 id="chon-thiet-bi-ich-cho-yotta_1">Chọn thiết bị đích cho yotta<a class="headerlink" href="#chon-thiet-bi-ich-cho-yotta_1" title="Permanent link">#</a></h3>
+<p>Một cái đích (target) cho <code>yotta</code> bao gồm thông tin mà <code>yotta</code> cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả <code>armcc</code> lẫn <code>gcc</code>, nhưng do <code>gcc</code> được cài đặt sẵn với chương trình cài đặt <code>yotta</code> nên chúng ta sẽ dùng <code>gcc</code> làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch.</p>
+<p>Bạn có thể dùng hoặc <code>yotta</code> hoặc <code>yt</code>, để gõ dễ hơn!</p>
 <pre class="code"><code>yt target bbc-microbit-classic-gcc</code></pre>
 
 
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In microbit-samples this target will be configured by default.</p>
+<p class="admonition-title">Lưu ý</p>
+<p>Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định.</p>
 </div>
-<p>You only need to set the target once per project. All future <code>yotta</code> commands will use this target information (for example, when resolving dependencies).</p>
-<h4 id="build-the-project_1">Build the project<a class="headerlink" href="#build-the-project_1" title="Permanent link">#</a></h4>
+<p>Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh <code>yotta</code> sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc).</p>
+<h4 id="bien-dich-du-an_1">Biên dịch dự án<a class="headerlink" href="#bien-dich-du-an_1" title="Permanent link">#</a></h4>
 <pre class="code"><code>yt build</code></pre>
 
 
-<h3 id="flash-your-microbit_1">Flash your micro:bit<a class="headerlink" href="#flash-your-microbit_1" title="Permanent link">#</a></h3>
-<p>The final step is to check your hex works.</p>
-<p>The <code>yt build</code> command will place files in <code>/build/&lt;TARGET_NAME&gt;/source</code>. The file you will need to flash will be <code>microbit-samples-combined.hex</code>. Simply drag and drop the hex onto the MICROBIT usb device.</p>
-<p>In the case of our example, using <code>bbc-microbit-classic-gcc</code> we could flash the micro:bit (assuming it is plugged in and mounted at <code>/Volumes/"MICROBIT"</code>) as follows:</p>
+<h3 id="ghi-len-bo-microbit-cua-ban_1">Ghi lên bo micro:bit của bạn<a class="headerlink" href="#ghi-len-bo-microbit-cua-ban_1" title="Permanent link">#</a></h3>
+<p>Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không.</p>
+<p>Lệnh <code>yt build</code> sẽ đặt các tập tin trong <code>/build/&lt;TÊN_THIẾT_BỊ_ĐÍCH&gt;/source</code>. Tập tin bạn cần để ghi vào bo mạch là <code>microbit-combined.hex</code>. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT.</p>
+<p>Trong trường hợp ví dụ này, sử dụng <code>bbc-microbit-classic-gcc</code> chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính ở đường dẫn <code>/Volumes/"MICROBIT"</code>) như sau:</p>
 <pre class="code"><code>cp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex /Volumes/&quot;MICROBIT&quot;</code></pre>
 
 
-<p>The expected result will be that the micro:bit will scroll <code>HELLO WORLD! :)</code> on its display.</p>
+<p>Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ <code>HELLO WORLD! :)</code> trên màn hình của nó.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that if you&rsquo;d like to copy the file from the command line, you can use the following command in any <code>yotta</code> project to do so, though it assumes you have only one micro:bit plugged in:</p>
+<p class="admonition-title">Lưu ý</p>
+<p>Lưu ý rằng nếu bạn muốn sao chép các tập tin từ dòng lệnh, bạn có thể sử dụng lệnh sau đây trong bất kỳ dự án &lsquo;yotta` nào, với điều kiện bạn cắm vào máy chỉ một bo micro:bit:</p>
 <p><code>cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt --plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex  /Volumes/"MICROBIT"</code></p>
 </div>
 <hr />
-<h2 id="installation-on-linux">Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permanent link">#</a></h2>
-<h3 id="install-yotta-and-dependencies_2">Install yotta and dependencies<a class="headerlink" href="#install-yotta-and-dependencies_2" title="Permanent link">#</a></h3>
-<p>The first step is to get <code>yotta</code> and its dependencies onto your machine, to do this follow the install guide <a href="http://docs.yottabuild.org/#installing">here</a>.</p>
-<p>For the micro:bit targets you currently still need the <code>srecord</code> tools, which can be installed on <strong>Ubuntu</strong> using</p>
+<h2 id="cai-at-tren-linux">Cài đặt trên Linux<a class="headerlink" href="#cai-at-tren-linux" title="Permanent link">#</a></h2>
+<h3 id="cai-at-yotta-va-cac-goi-phu-thuoc_2">Cài đặt yotta và các gói phụ thuộc<a class="headerlink" href="#cai-at-yotta-va-cac-goi-phu-thuoc_2" title="Permanent link">#</a></h3>
+<p>Bước đầu tiên là lấy <code>yotta</code> và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt <a href="http://docs/yottabuild.org/#installing">ở đây</a>.</p>
+<p>Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ <code>srecord</code>, có thể cài đặt được trên <strong>Ubuntu</strong> sử dụng:</p>
 <pre class="code"><code>sudo apt-get install srecord</code></pre>
 
 
-<p>You can also install it manually from <a href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
-<p><code>srecord</code> is used to create the final binaries for the micro:bit so is an essential dependency.</p>
-<h3 id="fetch-the-example-project_2">Fetch the example project<a class="headerlink" href="#fetch-the-example-project_2" title="Permanent link">#</a></h3>
+<p>Bạn cũng có thể cài đặt nó bằng tay từ <a href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code>srecord</code> được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản.</p>
+<h3 id="lay-ve-du-an-mau_2">Lấy về dự án mẫu<a class="headerlink" href="#lay-ve-du-an-mau_2" title="Permanent link">#</a></h3>
 <pre class="code"><code class="language-bash">git clone https://github.com/lancaster-university/microbit-samples
 cd microbit-samples</code></pre>
 
 
-<h3 id="set-your-yotta-target_2">Set your yotta target<a class="headerlink" href="#set-your-yotta-target_2" title="Permanent link">#</a></h3>
-<p>A <code>yotta</code> target contains the information required by <code>yotta</code> in order to build a project for a specific combination of hardware. This includes the type of compiler. The microbit projects can build with both <code>armcc</code> and <code>gcc</code>, but as it gets installed with the <code>yotta</code> installer, we&rsquo;ll use <code>gcc</code> by default and choose a micro:bit specific target that knows about the hardware on the board.</p>
-<p>You can use either <code>yotta</code> or <code>yt</code>, which is far easier to type!</p>
+<h3 id="chon-thiet-bi-ich-cho-yotta_2">Chọn thiết bị đích cho yotta<a class="headerlink" href="#chon-thiet-bi-ich-cho-yotta_2" title="Permanent link">#</a></h3>
+<p>Một cái đích (target) cho <code>yotta</code> bao gồm thông tin mà <code>yotta</code> cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả <code>armcc</code> lẫn <code>gcc</code>, nhưng do <code>gcc</code> được cài đặt sẵn với chương trình cài đặt <code>yotta</code> nên chúng ta sẽ dùng <code>gcc</code> làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch.</p>
+<p>Bạn có thể dùng hoặc <code>yotta</code> hoặc <code>yt</code>, để gõ dễ hơn!</p>
 <pre class="code"><code>yt target bbc-microbit-classic-gcc</code></pre>
 
 
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In microbit-samples this target will be configured by default.</p>
+<p class="admonition-title">Lưu ý</p>
+<p>Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định.</p>
 </div>
-<p>You only need to set the target once per project. All future <code>yotta</code> commands will use this target information (for example, when resolving dependencies).</p>
-<h4 id="build-the-project_2">Build the project<a class="headerlink" href="#build-the-project_2" title="Permanent link">#</a></h4>
+<p>Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh <code>yotta</code> sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc).</p>
+<h4 id="bien-dich-du-an_2">Biên dịch dự án<a class="headerlink" href="#bien-dich-du-an_2" title="Permanent link">#</a></h4>
 <pre class="code"><code>yt build</code></pre>
 
 
-<h3 id="flash-your-microbit_2">Flash your micro:bit<a class="headerlink" href="#flash-your-microbit_2" title="Permanent link">#</a></h3>
-<p>The final step is to check your hex works.</p>
-<p>The <code>yt build</code> command will place files in <code>/build/&lt;TARGET_NAME&gt;/source</code>. The file you will need to flash will be <code>microbit-samples-combined.hex</code>. Simply drag and drop the hex onto the MICROBIT usb device.</p>
-<p>In the case of our example, using <code>bbc-microbit-classic-gcc</code> we could flash the micro:bit (assuming it is plugged in and mounted at <code>/media/MICROBIT</code>) as follows:</p>
+<h3 id="ghi-len-bo-microbit-cua-ban_2">Ghi lên bo micro:bit của bạn<a class="headerlink" href="#ghi-len-bo-microbit-cua-ban_2" title="Permanent link">#</a></h3>
+<p>Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không.</p>
+<p>Lệnh <code>yt build</code> sẽ đặt các tập tin trong <code>/build/&lt;TÊN_THIẾT_BỊ_ĐÍCH&gt;/source</code>. Tập tin bạn cần để ghi vào bo mạch là <code>microbit-combined.hex</code>. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT.</p>
+<p>Trong trường hợp ví dụ này, sử dụng <code>bbc-microbit-classic-gcc</code> chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính ở đường dẫn <code>/media/MICROBIT</code>) như sau:</p>
 <pre class="code"><code>cp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex /media/MICROBIT</code></pre>
 
 
-<p>The expected result will be that the micro:bit will scroll <code>HELLO WORLD! :)</code> on its display.</p>
+<p>Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ <code>HELLO WORLD! :)</code> trên màn hình của nó.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note that if you&rsquo;d like to copy the file from the command line, you can use the following command in any <code>yotta</code> project to do so, though it assumes you have only one micro:bit plugged in:</p>
+<p class="admonition-title">Lưu ý</p>
+<p>Lưu ý rằng nếu bạn muốn sao chép các tập tin từ dòng lệnh, bạn có thể sử dụng lệnh sau đây trong bất kỳ dự án &lsquo;yotta` nào, với điều kiện bạn cắm vào máy chỉ một bo micro:bit:</p>
 <p><code>cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt --plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex /media/MICROBIT/</code></p>
 </div>
               

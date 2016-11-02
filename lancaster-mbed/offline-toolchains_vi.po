@@ -1,74 +1,77 @@
-#. extracted from offline-toolchains.md
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-31 11:46+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-11-01 09:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: LANGUAGE\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.10.0\n"
+"X-Loco-Source-Locale: en_DE\n"
+"X-Generator: Loco - https://localise.biz/\n"
+"X-Loco-Parser: loco_parse_po"
 
 #: offline-toolchains.md:1
 msgid "# Yotta"
-msgstr ""
+msgstr "# Yotta"
 
 #: offline-toolchains.md:3
 msgid ""
 "The micro:bit DAL is built on top of [ARM mbed](http://mbed.com) and hence "
 "uses [yotta](http://yotta.mbed.com) as an offline build system."
-msgstr ""
+msgstr "Phần mềm micro:bit DAL được xây dựng dựa trên [ARM mbed](http://mbed.com) nên sử dụng [yotta](http://yotta.mbed.com) làm hệ thống xây dựng chương trình offline."
 
 #: offline-toolchains.md:5
 msgid ""
 "When using `yotta` to build micro:bit projects there are currently two "
 "supported toolchains:"
-msgstr ""
+msgstr "Khi sử dụng `yotta` để xây dựng dự án cho micro:bit, hiện nay có hai bộ công cụ (toolchain) hỗ trợ:"
 
 #: offline-toolchains.md:7
 msgid ""
 "* GCC\n"
 "* ARMCC"
-msgstr ""
+msgstr "* GCC\n* ARMCC"
 
 #: offline-toolchains.md:10
 msgid "## Installation on Windows"
-msgstr ""
+msgstr "## Cài đặt trên Windows"
 
 #: offline-toolchains.md:12
 msgctxt "offline-toolchains.md:12"
 msgid "### Install yotta and dependencies"
-msgstr ""
+msgstr "### Cài đặt yotta và các gói phụ thuộc"
 
 #: offline-toolchains.md:14
 msgctxt "offline-toolchains.md:14"
 msgid ""
 "The first step is to get `yotta` and its dependencies onto your machine, to "
-"do this follow the install guide "
-"[here](http://docs.yottabuild.org/#installing)."
-msgstr ""
+"do this follow the install guide [here](http://docs.yottabuild."
+"org/#installing)."
+msgstr "Bước đầu tiên là lấy `yotta` và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt [ở đây](http://docs/yottabuild.org/#installing)."
 
 #: offline-toolchains.md:17
 msgid ""
 "For the micro:bit targets you currently still need the `srecord` tools, "
-"which can be installed on **Windows** from "
-"[sourceforge](http://srecord.sourceforge.net/)."
-msgstr ""
+"which can be installed on **Windows** from [sourceforge](http://srecord."
+"sourceforge.net/)."
+msgstr "Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ `srecord`, có thể cài đặt được trên **Windows** từ [sourceforge](http://srecord.sourceforge.net/)."
 
 #: offline-toolchains.md:19
 msgctxt "offline-toolchains.md:19"
 msgid ""
 "`srecord` is used to create the final binaries for the micro:bit so is an "
 "essential dependency."
-msgstr ""
+msgstr "`srecord` được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản."
 
 #: offline-toolchains.md:22
 msgctxt "offline-toolchains.md:22"
 msgid "### Fetch the example project"
-msgstr ""
+msgstr "### Lấy về dự án mẫu"
 
 #: offline-toolchains.md:24
 msgctxt "offline-toolchains.md:24"
@@ -77,12 +80,12 @@ msgid ""
 "git clone https://github.com/lancaster-university/microbit-samples\n"
 "cd microbit-samples\n"
 "```"
-msgstr ""
+msgstr "```bash\ngit clone https://github.com/lancaster-university/microbit-samples\ncd microbit-samples\n```"
 
 #: offline-toolchains.md:29
 msgctxt "offline-toolchains.md:29"
 msgid "### Set your yotta target"
-msgstr ""
+msgstr "### Chọn thiết bị đích cho yotta"
 
 #: offline-toolchains.md:31
 msgctxt "offline-toolchains.md:31"
@@ -93,12 +96,12 @@ msgid ""
 "`gcc`, but as it gets installed with the `yotta` installer, we'll use `gcc` "
 "by default and choose a micro:bit specific target that knows about the "
 "hardware on the board."
-msgstr ""
+msgstr "Một cái đích (target) cho `yotta` bao gồm thông tin mà `yotta` cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả `armcc` lẫn `gcc`, nhưng do `gcc` được cài đặt sẵn với chương trình cài đặt `yotta` nên chúng ta sẽ dùng `gcc` làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch."
 
 #: offline-toolchains.md:33
 msgctxt "offline-toolchains.md:33"
 msgid "You can use either `yotta` or `yt`, which is far easier to type!"
-msgstr ""
+msgstr "Bạn có thể dùng hoặc `yotta` hoặc `yt`, để gõ dễ hơn!"
 
 #: offline-toolchains.md:35
 msgctxt "offline-toolchains.md:35"
@@ -106,14 +109,14 @@ msgid ""
 "```\n"
 "yt target bbc-microbit-classic-gcc\n"
 "```"
-msgstr ""
+msgstr "```\nyt target bbc-microbit-classic-gcc\n```"
 
 #: offline-toolchains.md:39
 msgctxt "offline-toolchains.md:39"
 msgid ""
 "!!! note\n"
 "    In microbit-samples this target will be configured by default."
-msgstr ""
+msgstr "!!! note \"Lưu ý\"\n    Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định."
 
 #: offline-toolchains.md:42
 msgctxt "offline-toolchains.md:42"
@@ -121,12 +124,12 @@ msgid ""
 "You only need to set the target once per project. All future `yotta` "
 "commands will use this target information (for example, when resolving "
 "dependencies)."
-msgstr ""
+msgstr "Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh `yotta` sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc)."
 
 #: offline-toolchains.md:44
 msgctxt "offline-toolchains.md:44"
 msgid "#### Build the project"
-msgstr ""
+msgstr "#### Biên dịch dự án"
 
 #: offline-toolchains.md:46
 msgctxt "offline-toolchains.md:46"
@@ -134,94 +137,95 @@ msgid ""
 "```\n"
 "yt build\n"
 "```"
-msgstr ""
+msgstr "```\nyt build\n```"
 
 #: offline-toolchains.md:50
 msgctxt "offline-toolchains.md:50"
 msgid "### Flash your micro:bit"
-msgstr ""
+msgstr "### Ghi lên bo micro:bit của bạn"
 
 #: offline-toolchains.md:52
 msgctxt "offline-toolchains.md:52"
 msgid "The final step is to check your hex works."
-msgstr ""
+msgstr "Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không."
 
 #: offline-toolchains.md:54
 msgid ""
 "The `yt build` command will place files in `/build/<TARGET_NAME>/source`. "
 "The file you will need to flash will be microbit-combined.hex.  Simply drag "
 "and drop the hex onto the MICROBIT usb device."
-msgstr ""
+msgstr "Lệnh `yt build` sẽ đặt các tập tin trong `/build/<TÊN_THIẾT_BỊ_ĐÍCH>/source`. Tập tin bạn cần để ghi vào bo mạch là `microbit-combined.hex`. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT."
 
 #: offline-toolchains.md:56
 msgid ""
 "In the case of our example, using `bbc-microbit-classic-gcc` we could flash "
 "the micro:bit (assuming it is plugged in and mounted at `E:`) as follows:"
-msgstr ""
+msgstr "Trong trường hợp ví dụ này, sử dụng `bbc-microbit-classic-gcc` chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính và là ổ đĩa `E:`) như sau:"
 
 #: offline-toolchains.md:58
 msgid ""
 "```\n"
-"copy build\\bbc-microbit-classic-gcc\\source\\microbit-samples-combined.hex E:\n"
+"copy build\\bbc-microbit-classic-gcc\\source\\microbit-samples-combined.hex "
+"E:\n"
 "```\n"
 "The expected result will be that the micro:bit will scroll `HELLO WORLD! :)` "
 "on its display."
-msgstr ""
+msgstr "```\ncopy build\\bbc-microbit-classic-gcc\\source\\microbit-samples-combined.hex E:\n```\nKết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ `HELLO WORLD! :)` trên màn hình của nó."
 
 #: offline-toolchains.md:63
 msgctxt "offline-toolchains.md:63"
 msgid "____________________"
-msgstr ""
+msgstr "____________________"
 
 #: offline-toolchains.md:65
 msgid "## Installation on Mac OSX"
-msgstr ""
+msgstr "## Cài đặt trên Mac OSX"
 
 #: offline-toolchains.md:67
 msgctxt "offline-toolchains.md:67"
 msgid "### Install yotta and dependencies"
-msgstr ""
+msgstr "### Cài đặt yotta và các gói phụ thuộc"
 
 #: offline-toolchains.md:69
 msgctxt "offline-toolchains.md:69"
 msgid ""
 "The first step is to get `yotta` and its dependencies onto your machine, to "
-"do this follow the install guide "
-"[here](http://docs.yottabuild.org/#installing)."
-msgstr ""
+"do this follow the install guide [here](http://docs.yottabuild."
+"org/#installing)."
+msgstr "Bước đầu tiên là lấy `yotta` và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt [ở đây](http://docs/yottabuild.org/#installing)."
 
 #: offline-toolchains.md:72
 msgid ""
 "For the micro:bit targets you currently still need the `srecord` tools, "
 "which can be installed on **Mac OSX** using\n"
 "[brew](http://brew.sh/):"
-msgstr ""
+msgstr "Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ `srecord`, có thể cài đặt được trên ** Mac OSX ** sử dụng [brew](http://brew.sh/):"
 
 #: offline-toolchains.md:75
 msgid ""
 "```\n"
 "brew install srecord\n"
 "```"
-msgstr ""
+msgstr "```\nbrew install srecord\n```"
 
 #: offline-toolchains.md:79
 msgctxt "offline-toolchains.md:79"
 msgid ""
-"You can also install it manually from "
-"[sourceforge](http://srecord.sourceforge.net/)."
-msgstr ""
+"You can also install it manually from [sourceforge](http://srecord."
+"sourceforge.net/)."
+msgstr "Bạn cũng có thể cài đặt nó bằng tay từ [sourceforge](http://srecord.sourceforge.net/)."
 
 #: offline-toolchains.md:81
 msgctxt "offline-toolchains.md:81"
 msgid ""
 "`srecord` is used to create the final binaries for the micro:bit so is an "
 "essential dependency."
-msgstr ""
+msgstr "`srecord` được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản."
 
 #: offline-toolchains.md:83
 msgctxt "offline-toolchains.md:83"
 msgid "### Fetch the example project"
-msgstr ""
+msgstr "### Lấy về dự án mẫu"
 
 #: offline-toolchains.md:85
 msgctxt "offline-toolchains.md:85"
@@ -230,12 +234,12 @@ msgid ""
 "git clone https://github.com/lancaster-university/microbit-samples\n"
 "cd microbit-samples\n"
 "```"
-msgstr ""
+msgstr "```bash\ngit clone https://github.com/lancaster-university/microbit-samples\ncd microbit-samples\n```"
 
 #: offline-toolchains.md:90
 msgctxt "offline-toolchains.md:90"
 msgid "### Set your yotta target"
-msgstr ""
+msgstr "### Chọn thiết bị đích cho yotta"
 
 #: offline-toolchains.md:92
 msgctxt "offline-toolchains.md:92"
@@ -246,12 +250,12 @@ msgid ""
 "`gcc`, but as it gets installed with the `yotta` installer, we'll use `gcc` "
 "by default and choose a micro:bit specific target that knows about the "
 "hardware on the board."
-msgstr ""
+msgstr "Một cái đích (target) cho `yotta` bao gồm thông tin mà `yotta` cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả `armcc` lẫn `gcc`, nhưng do `gcc` được cài đặt sẵn với chương trình cài đặt `yotta` nên chúng ta sẽ dùng `gcc` làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch."
 
 #: offline-toolchains.md:94
 msgctxt "offline-toolchains.md:94"
 msgid "You can use either `yotta` or `yt`, which is far easier to type!"
-msgstr ""
+msgstr "Bạn có thể dùng hoặc `yotta` hoặc `yt`, để gõ dễ hơn!"
 
 #: offline-toolchains.md:96
 msgctxt "offline-toolchains.md:96"
@@ -259,14 +263,14 @@ msgid ""
 "```\n"
 "yt target bbc-microbit-classic-gcc\n"
 "```"
-msgstr ""
+msgstr "```\nyt target bbc-microbit-classic-gcc\n```"
 
 #: offline-toolchains.md:100
 msgctxt "offline-toolchains.md:100"
 msgid ""
 "!!! note\n"
 "    In microbit-samples this target will be configured by default."
-msgstr ""
+msgstr "!!! note \"Lưu ý\"\n    Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định."
 
 #: offline-toolchains.md:103
 msgctxt "offline-toolchains.md:103"
@@ -274,12 +278,12 @@ msgid ""
 "You only need to set the target once per project. All future `yotta` "
 "commands will use this target information (for example, when resolving "
 "dependencies)."
-msgstr ""
+msgstr "Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh `yotta` sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc)."
 
 #: offline-toolchains.md:105
 msgctxt "offline-toolchains.md:105"
 msgid "#### Build the project"
-msgstr ""
+msgstr "#### Biên dịch dự án"
 
 #: offline-toolchains.md:107
 msgctxt "offline-toolchains.md:107"
@@ -287,17 +291,17 @@ msgid ""
 "```\n"
 "yt build\n"
 "```"
-msgstr ""
+msgstr "```\nyt build\n```"
 
 #: offline-toolchains.md:111
 msgctxt "offline-toolchains.md:111"
 msgid "### Flash your micro:bit"
-msgstr ""
+msgstr "### Ghi lên bo micro:bit của bạn"
 
 #: offline-toolchains.md:113
 msgctxt "offline-toolchains.md:113"
 msgid "The final step is to check your hex works."
-msgstr ""
+msgstr "Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không."
 
 #: offline-toolchains.md:115
 msgctxt "offline-toolchains.md:115"
@@ -305,14 +309,14 @@ msgid ""
 "The `yt build` command will place files in `/build/<TARGET_NAME>/source`. "
 "The file you will need to flash will be `microbit-samples-combined.hex`. "
 "Simply drag and drop the hex onto the MICROBIT usb device."
-msgstr ""
+msgstr "Lệnh `yt build` sẽ đặt các tập tin trong `/build/<TÊN_THIẾT_BỊ_ĐÍCH>/source`. Tập tin bạn cần để ghi vào bo mạch là `microbit-combined.hex`. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT."
 
 #: offline-toolchains.md:117
 msgid ""
 "In the case of our example, using `bbc-microbit-classic-gcc` we could flash "
 "the micro:bit (assuming it is plugged in and mounted at "
 "`/Volumes/\"MICROBIT\"`) as follows:"
-msgstr ""
+msgstr "Trong trường hợp ví dụ này, sử dụng `bbc-microbit-classic-gcc` chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính ở đường dẫn `/Volumes/\"MICROBIT\"`) như sau:"
 
 #: offline-toolchains.md:119
 msgid ""
@@ -320,13 +324,13 @@ msgid ""
 "cp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex "
 "/Volumes/\"MICROBIT\"\n"
 "```"
-msgstr ""
+msgstr "```\ncp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex /Volumes/\"MICROBIT\"\n```"
 
 #: offline-toolchains.md:123
 msgid ""
 "The expected result will be that the micro:bit will scroll `HELLO WORLD! :)` "
 "on its display."
-msgstr ""
+msgstr "Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ `HELLO WORLD! :)` trên màn hình của nó."
 
 #: offline-toolchains.md:125
 msgctxt "offline-toolchains.md:125"
@@ -335,69 +339,69 @@ msgid ""
 "    Note that if you'd like to copy the file from the command line, you can "
 "use the following command in any `yotta` project to do so, though it assumes "
 "you have only one micro:bit plugged in:"
-msgstr ""
+msgstr "!!! note \"Lưu ý\"\n    Lưu ý rằng nếu bạn muốn sao chép các tập tin từ dòng lệnh, bạn có thể sử dụng lệnh sau đây trong bất kỳ dự án 'yotta` nào, với điều kiện bạn cắm vào máy chỉ một bo micro:bit:"
 
 #: offline-toolchains.md:128
 msgid ""
 "    ```\n"
-"    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt "
-"--plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex  /Volumes/\"MICROBIT\"\n"
+"    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt --"
+"plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex  /Volumes/\"MICROBIT\"\n"
 "    ```"
-msgstr ""
+msgstr "    ```\n    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt --plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex  /Volumes/\"MICROBIT\"\n    ```"
 
 #: offline-toolchains.md:133
 msgctxt "offline-toolchains.md:133"
 msgid "____________________"
-msgstr ""
+msgstr "____________________"
 
 #: offline-toolchains.md:135
 msgid "## Installation on Linux"
-msgstr ""
+msgstr "## Cài đặt trên Linux"
 
 #: offline-toolchains.md:137
 msgctxt "offline-toolchains.md:137"
 msgid "### Install yotta and dependencies"
-msgstr ""
+msgstr "### Cài đặt yotta và các gói phụ thuộc"
 
 #: offline-toolchains.md:139
 msgctxt "offline-toolchains.md:139"
 msgid ""
 "The first step is to get `yotta` and its dependencies onto your machine, to "
-"do this follow the install guide "
-"[here](http://docs.yottabuild.org/#installing)."
-msgstr ""
+"do this follow the install guide [here](http://docs.yottabuild."
+"org/#installing)."
+msgstr "Bước đầu tiên là lấy `yotta` và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt [ở đây](http://docs/yottabuild.org/#installing)."
 
 #: offline-toolchains.md:142
 msgid ""
 "For the micro:bit targets you currently still need the `srecord` tools, "
 "which can be installed on **Ubuntu** using"
-msgstr ""
+msgstr "Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ `srecord`, có thể cài đặt được trên **Ubuntu** sử dụng:"
 
 #: offline-toolchains.md:144
 msgid ""
 "```\n"
 "sudo apt-get install srecord\n"
 "```"
-msgstr ""
+msgstr "```\nsudo apt-get install srecord\n```"
 
 #: offline-toolchains.md:148
 msgctxt "offline-toolchains.md:148"
 msgid ""
-"You can also install it manually from "
-"[sourceforge](http://srecord.sourceforge.net/)."
-msgstr ""
+"You can also install it manually from [sourceforge](http://srecord."
+"sourceforge.net/)."
+msgstr "Bạn cũng có thể cài đặt nó bằng tay từ [sourceforge](http://srecord.sourceforge.net/)."
 
 #: offline-toolchains.md:150
 msgctxt "offline-toolchains.md:150"
 msgid ""
 "`srecord` is used to create the final binaries for the micro:bit so is an "
 "essential dependency."
-msgstr ""
+msgstr "`srecord` được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản."
 
 #: offline-toolchains.md:153
 msgctxt "offline-toolchains.md:153"
 msgid "### Fetch the example project"
-msgstr ""
+msgstr "### Lấy về dự án mẫu"
 
 #: offline-toolchains.md:155
 msgctxt "offline-toolchains.md:155"
@@ -406,12 +410,12 @@ msgid ""
 "git clone https://github.com/lancaster-university/microbit-samples\n"
 "cd microbit-samples\n"
 "```"
-msgstr ""
+msgstr "```bash\ngit clone https://github.com/lancaster-university/microbit-samples\ncd microbit-samples\n```"
 
 #: offline-toolchains.md:160
 msgctxt "offline-toolchains.md:160"
 msgid "### Set your yotta target"
-msgstr ""
+msgstr "### Chọn thiết bị đích cho yotta"
 
 #: offline-toolchains.md:162
 msgctxt "offline-toolchains.md:162"
@@ -422,12 +426,12 @@ msgid ""
 "`gcc`, but as it gets installed with the `yotta` installer, we'll use `gcc` "
 "by default and choose a micro:bit specific target that knows about the "
 "hardware on the board."
-msgstr ""
+msgstr "Một cái đích (target) cho `yotta` bao gồm thông tin mà `yotta` cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả `armcc` lẫn `gcc`, nhưng do `gcc` được cài đặt sẵn với chương trình cài đặt `yotta` nên chúng ta sẽ dùng `gcc` làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch."
 
 #: offline-toolchains.md:164
 msgctxt "offline-toolchains.md:164"
 msgid "You can use either `yotta` or `yt`, which is far easier to type!"
-msgstr ""
+msgstr "Bạn có thể dùng hoặc `yotta` hoặc `yt`, để gõ dễ hơn!"
 
 #: offline-toolchains.md:166
 msgctxt "offline-toolchains.md:166"
@@ -435,14 +439,14 @@ msgid ""
 "```\n"
 "yt target bbc-microbit-classic-gcc\n"
 "```"
-msgstr ""
+msgstr "```\nyt target bbc-microbit-classic-gcc\n```"
 
 #: offline-toolchains.md:170
 msgctxt "offline-toolchains.md:170"
 msgid ""
 "!!! note\n"
 "    In microbit-samples this target will be configured by default."
-msgstr ""
+msgstr "!!! note \"Lưu ý\"\n    Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định."
 
 #: offline-toolchains.md:173
 msgctxt "offline-toolchains.md:173"
@@ -450,12 +454,12 @@ msgid ""
 "You only need to set the target once per project. All future `yotta` "
 "commands will use this target information (for example, when resolving "
 "dependencies)."
-msgstr ""
+msgstr "Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh `yotta` sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc)."
 
 #: offline-toolchains.md:175
 msgctxt "offline-toolchains.md:175"
 msgid "#### Build the project"
-msgstr ""
+msgstr "#### Biên dịch dự án"
 
 #: offline-toolchains.md:177
 msgctxt "offline-toolchains.md:177"
@@ -463,17 +467,17 @@ msgid ""
 "```\n"
 "yt build\n"
 "```"
-msgstr ""
+msgstr "```\nyt build\n```"
 
 #: offline-toolchains.md:181
 msgctxt "offline-toolchains.md:181"
 msgid "### Flash your micro:bit"
-msgstr ""
+msgstr "### Ghi lên bo micro:bit của bạn"
 
 #: offline-toolchains.md:183
 msgctxt "offline-toolchains.md:183"
 msgid "The final step is to check your hex works."
-msgstr ""
+msgstr "Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không."
 
 #: offline-toolchains.md:185
 msgctxt "offline-toolchains.md:185"
@@ -481,14 +485,14 @@ msgid ""
 "The `yt build` command will place files in `/build/<TARGET_NAME>/source`. "
 "The file you will need to flash will be `microbit-samples-combined.hex`. "
 "Simply drag and drop the hex onto the MICROBIT usb device."
-msgstr ""
+msgstr "Lệnh `yt build` sẽ đặt các tập tin trong `/build/<TÊN_THIẾT_BỊ_ĐÍCH>/source`. Tập tin bạn cần để ghi vào bo mạch là `microbit-combined.hex`. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT."
 
 #: offline-toolchains.md:187
 msgid ""
 "In the case of our example, using `bbc-microbit-classic-gcc` we could flash "
 "the micro:bit (assuming it is plugged in and mounted at `/media/MICROBIT`) "
 "as follows:"
-msgstr ""
+msgstr "Trong trường hợp ví dụ này, sử dụng `bbc-microbit-classic-gcc` chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính ở đường dẫn `/media/MICROBIT`) như sau:"
 
 #: offline-toolchains.md:189
 msgid ""
@@ -498,7 +502,7 @@ msgid ""
 "```\n"
 "The expected result will be that the micro:bit will scroll `HELLO WORLD! :)` "
 "on its display."
-msgstr ""
+msgstr "```\ncp ./build/bbc-microbit-classic-gcc/source/microbit-samples-combined.hex /media/MICROBIT\n```\nKết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ `HELLO WORLD! :)` trên màn hình của nó."
 
 #: offline-toolchains.md:194
 msgctxt "offline-toolchains.md:194"
@@ -507,12 +511,13 @@ msgid ""
 "    Note that if you'd like to copy the file from the command line, you can "
 "use the following command in any `yotta` project to do so, though it assumes "
 "you have only one micro:bit plugged in:"
-msgstr ""
+msgstr "!!! note \"Lưu ý\"\n    Lưu ý rằng nếu bạn muốn sao chép các tập tin từ dòng lệnh, bạn có thể sử dụng lệnh sau đây trong bất kỳ dự án 'yotta` nào, với điều kiện bạn cắm vào máy chỉ một bo micro:bit:"
 
 #: offline-toolchains.md:197
 msgid ""
 "    ```\n"
-"    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt "
-"--plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex /media/MICROBIT/\n"
+"    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt --"
+"plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex /media/MICROBIT/\n"
 "    ```"
-msgstr ""
+msgstr "    ```\n    cp build/$(yt --plain target | head -n 1 | cut -f 1 -d' ')/source/$(yt --plain ls | head -n 1 | cut -f 1 -d' ')-combined.hex /media/MICROBIT/\n    ```"
+
