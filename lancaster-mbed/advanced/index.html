@@ -435,23 +435,22 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="advanced-features-of-the-runtime">Advanced Features of the Runtime<a class="headerlink" href="#advanced-features-of-the-runtime" title="Permanent link">#</a></h1>
-<p>Under the surface, the micro:bit runtime is a highly configurable, modular and component based piece of software.</p>
-<p>The <code>uBit</code> object is provided as a collection of the commonly used components, all gathered together in one place
-to make it easier for novice users to access the functionality of the device. However, there is no obligation to
-use the <code>uBit</code> abstraction. More advanced users may prefer to create and use only the parts of the runtime they
-need.</p>
-<p>This provides more control and often frees up more memory resource for the application program - but does so
-at the expense of the user taking more responsibility and additional complexity in their programs.</p>
-<h2 id="using-components-directly">Using Components Directly<a class="headerlink" href="#using-components-directly" title="Permanent link">#</a></h2>
-<p>Taking advantage of the modular structure of the micro:bit runtime is fairly straightforward.</p>
+                <h1 id="tinh-nang-nang-cao-cua-bo-runtime">Tính năng nâng cao của bộ Runtime<a class="headerlink" href="#tinh-nang-nang-cao-cua-bo-runtime" title="Permanent link">#</a></h1>
+<p>Ở tầng dưới, micro:bit runtime là một phần mềm có khả năng tùy biến cao, có tính mô-đun và dựa trên các bộ phận.</p>
+<p>Các đối tượng <code>uBit</code> được cung cấp như một bộ sưu tập của các thành phần thường được sử dụng, tất cả tập trung lại với nhau ở một nơi
+ giúp người dùng mới dễ truy cập vào các chức năng của thiết bị. Tuy nhiên, không bắt buộc phải
+ dùng <code>uBit</code> trừu tượng. Người dùng cao cấp hơn có thể thích tạo ra và chỉ sử dụng các bộ phận của runtime mà họ cần.</p>
+<p>Điều này cung cấp khả năng kiểm soát nhiều hơn và thường giải phóng nhiều tài nguyên bộ nhớ cho chương trình ứng dụng - nhưng làm như vậy 
+ cũng có cái giá là người lập trình cần đảm nhận trách nhiệm và sự phức tạp lớn hơn trong chương trình của họ.</p>
+<h2 id="su-dung-truc-tiep-cac-thanh-phan">Sử dụng trực tiếp các thành phần<a class="headerlink" href="#su-dung-truc-tiep-cac-thanh-phan" title="Permanent link">#</a></h2>
+<p>Tận dụng lợi thế của cấu trúc mô-đun của micro:bit runtime là khá đơn giản.</p>
 <ul>
-<li>Firstly, create a program that does <strong>not</strong> create or initialise a uBit object.</li>
-<li>Include <code>MicroBit.h</code> (or if you prefer, just the header files of the components you want to use). Including <code>MicroBit.h</code> is however, simpler.</li>
-<li>Instead, create C++ object instances of the classes that you want to use <strong>as global variables</strong> in your program. Create as many components as you need. You are free to use any of the constructors in this documentation.</li>
-<li>Call functions on those instances to elicit the behaviour you need, using the name of your object instances instead of <code>uBit.*</code></li>
+<li>Thứ nhất, tạo ra một chương trình mà <strong> không </strong> tạo ra hoặc khởi tạo một đối tượng uBit.</li>
+<li>Thêm vào (include) <code>MicroBit.h</code> (hoặc nếu bạn thích, chỉ cần các tập tin tiêu đề của các thành phần bạn muốn sử dụng). Tuy nhiên, thêm vào <code>MicroBit.h</code> thì đơn giản hơn.</li>
+<li>Thay vào đó, tạo ra các đối tượng C++ là phiên bản (instance) của các lớp (class) mà bạn muốn sử dụng <strong>như các biến toàn cục</strong> trong chương trình của bạn. Tạo đủ các thành phần như bạn cần. Bạn có thể tự do sử dụng bất kỳ hàm khởi tạo (constructor) nào trong tài liệu này.</li>
+<li>Gọi các hàm trên các phiên bản đó để thực thi hành vi mà bạn cần, dùng tên của đối tượng phiên bản của bạn thay vì <code>uBit.*</code></li>
 </ul>
-<p>For example, if you wanted to create a program that just used the LED matrix display driver, you might write a program like this:</p>
+<p>Ví dụ, nếu bạn muốn tạo ra một chương trình chỉ sử dụng driver điều khiển màn hình LED ma trận, bạn có thể viết một chương trình như thế này:</p>
 <pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
 
 MicroBitDisplay display;
@@ -463,9 +462,9 @@ int main()
 }</code></pre>
 
 
-<p>If you need other components, add them to your program in the same way.</p>
-<p>If a component has a dependency on another component (e.g. in the example below, the accelerometer is dependent on an I2C bus), then this will be requested as a mandatory parameter in the constructor.</p>
-<p>See the &lsquo;Constructor&rsquo; section of the each components&rsquo; API documentation for details and examples.</p>
+<p>Nếu bạn cần các thành phần khác, thêm chúng vào chương trình của bạn với cùng cách đó.</p>
+<p>Nếu một thành phần phụ thuộc vào một thành phần khác (như trong ví dụ dưới đây, gia tốc phụ thuộc vào một đường truyền I2C), thì cái này sẽ được yêu cầu là một tham số bắt buộc trong hàm khởi tạo.</p>
+<p>Xem phần &lsquo;Constructor&rsquo; của tài liệu API mỗi thành phần để biết chi tiết và ví dụ. </p>
 <pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
 
 MicroBitI2C i2c = MicroBitI2C(I2C_SDA0, I2C_SCL0);
@@ -480,15 +479,15 @@ int main()
 
 
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>micro:bit runtime components should <strong>always</strong> be brought up as global variables. They should <strong>not</strong> be created as local variables - either in your main method or anywhere else. The reason for this is the the runtime is a multi-threaded environment, and any variables created in stack memory (like local variables) may be paged out by the scheduler, and result in instability if they utilise interrupts or are accessed by other threads. So&hellip; don&rsquo;t do it!</p>
+<p class="admonition-title">Cảnh báo</p>
 </div>
-<h2 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">#</a></h2>
-<p>There are also system components that provide background services. Without the <code>uBit</code> object, these will not be created by default.  Examples include the fiber scheduler, message bus and heap allocator.</p>
-<p>You are not required to initialise these components, but you should do so if you want to benefit from the functionality they provide. The following section describe how to do this.</p>
-<h2 id="initialising-the-message-bus">Initialising the Message Bus<a class="headerlink" href="#initialising-the-message-bus" title="Permanent link">#</a></h2>
-<p>The <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> allows events to be created and delivered to applications.  So if a <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> is not created, then all events in the micro:bit runtime will be quietly ignored.</p>
-<p>To enable this functionality, simply create an instance of the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> class. From that point onward in your program, you can raise and listen for events as described in the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> documentation.</p>
+<p>Các thành phần của micro:bit nên <strong>luôn luôn</strong> được đưa lên làm biến toàn cục. Chúng <strong>không nên</strong> được tạo ra ở dạng các biến địa phương - dù là trong hàm &ldquo;main&rdquo; ở bất cứ nơi nào khác. Lý do cho điều này là bộ runtime là một môi trường đa luồng, và bất kỳ biến nào được tạo ra trong bộ nhớ stack (như các biến địa phương) có thể bị đẩy ra bởi các trình đặt lịch (scheduler), và dẫn đến sự mất ổn định nếu chúng có sử dụng các ngắt hoặc được truy cập bởi các luồng khác. Vì vậy&hellip; đừng làm điều đó!</p>
+<h2 id="cac-thanh-phan-he-thong">Các thành phần hệ thống<a class="headerlink" href="#cac-thanh-phan-he-thong" title="Permanent link">#</a></h2>
+<p>Ngoài ra còn có các thành phần hệ thống cung cấp các dịch vụ nền. Nếu không có đối tượng <code>uBit</code>, những cái này sẽ không được tạo ra một cách mặc định. Ví dụ như trình đặt lịch fiber, bus truyền tin và heap cấp phát.</p>
+<p>Bạn không cần phải khởi tạo các thành phần này, nhưng bạn nên làm như vậy nếu bạn muốn dùng chức năng chúng cung cấp. Phần sau đây mô tả làm thế nào để làm điều này.</p>
+<h2 id="khoi-tao-kenh-truyen-thong-iep-message-bus">Khởi tạo kênh truyền thông điệp (Message Bus)<a class="headerlink" href="#khoi-tao-kenh-truyen-thong-iep-message-bus" title="Permanent link">#</a></h2>
+<p>Các <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> cho phép các sự kiện được tạo ra và chuyển tới các ứng dụng. Vì vậy, nếu một <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> không được tạo ra, thì tất cả các sự kiện micro:bit runtime sẽ bị lặng lẽ bỏ qua.</p>
+<p>Để kích hoạt chức năng này, bạn chỉ cần tạo một phiên bản của lớp <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a>. Từ thời điểm đó trở đi trong chương trình của bạn, bạn có thể tạo ra và lắng nghe các sự kiện như mô tả trong phần tài liệu <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a>.</p>
 <pre class="code"><code class="language-cpp">#include &quot;MicroBit.h&quot;
 
 MicroBitMessageBus bus;
@@ -511,15 +510,15 @@ int main()
 
 
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Running a MessageBus without the Fiber Scheduler will result in all event handlers being registered as MESSAGE_BUS_LISTENER_IMMEDIATE (see <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> for details). This means that your event handler will be executed in the context of the code that raised the event. This may include interrupt context, which may not be safe for all operations. It is recommend that you always run the MessageBus with the Fiber Scheduler in order to allow the event to be decoupled from interrupt context.</p>
+<p class="admonition-title">Cảnh báo</p>
 </div>
-<h2 id="initialising-the-fiber-scheduler">Initialising the Fiber Scheduler<a class="headerlink" href="#initialising-the-fiber-scheduler" title="Permanent link">#</a></h2>
-<p>Often when using asynchronous events, it is also useful to run the fiber scheduler. Without a scheduler in operation, all event handlers (such as the one above) will be executed with the threading mode <code>MESSAGE_BUS_LISTENER_IMMEDIATE</code>, as
-described on the <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> documentation.</p>
-<p>Also, it is not really possible to transparently enter a power efficient sleep - as illustrated in the busy loop in the above example.</p>
-<p>Initialising the fiber scheduler is simple, and is demonstrated in the following example.</p>
-<p>From the moment the fiber scheduler is initialised, it is then possible to block the processor in a power efficient way and to operate threaded event handlers:</p>
+<p>Chạy một MessageBus mà không có trình đặt lịch Fiber sẽ làm cho tất cả các trình xử lý sự kiện được đăng ký là MESSAGE_BUS_LISTENER_IMMEDIATE (xem <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a> để biết chi tiết). Điều này có nghĩa là xử lý sự kiện của bạn sẽ được thực hiện trong context của đoạn mã gây nên sự kiện này. Điều này có thể bao gồm context về ngắt (interrupt), mà có thể không an toàn cho tất cả các hoạt động. Lời khuyên là bạn luôn chạy MessageBus với trình đặt lịch Fiber để cho phép sự kiện để được tách rời khỏi context về ngắt.</p>
+<h2 id="khoi-tao-trinh-at-lich-fiber">Khởi tạo trình đặt lịch Fiber<a class="headerlink" href="#khoi-tao-trinh-at-lich-fiber" title="Permanent link">#</a></h2>
+<p>Thông thường khi sử dụng các sự kiện không đồng bộ, dùng các trình đặt lịch Fiber cũng sẽ hữu ích. Nếu không có một trình xếp lịch đang hoạt động, tất cả các trình xử lý sự kiện (chẳng hạn như cái ở trên) sẽ được thực hiện với chế độ luồng <code>MESSAGE_BUS_LISTENER_IMMEDIATE</code>, 
+ như mô tả trên tài liệu <a href="../ubit/messageBus/"><code>MicroBitMessageBus</code></a>.</p>
+<p>Ngoài ra, không thực sự có thể chuyển gọn vào trạng thái ngủ để tiết kiệm năng lượng - như minh họa trong vòng lặp bận rộn trong ví dụ trên.</p>
+<p>Khởi tạo trình đặt lịch fiber là đơn giản, và được thể hiện trong ví dụ sau đây.</p>
+<p>Từ thời điểm trình đặt lịch fiber được khởi tạo, sau đó nó có thể chặn bộ xử lý bằng một cách tiết kiệm năng lượng và điều hành các luồng xử lý sự kiện:</p>
 <pre class="code"><code class="language-c++">#include &quot;MicroBit.h&quot;
 
 MicroBitMessageBus bus;
@@ -543,13 +542,13 @@ int main()
 
 
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Function calls to <code>uBit.sleep()</code> must be replaced with the direct, equivalent calls to the scheduler using <code>fiber_sleep()</code>.</p>
+<p class="admonition-title">Lưu ý</p>
 </div>
-<h2 id="initialising-the-heap-allocator">Initialising the Heap Allocator<a class="headerlink" href="#initialising-the-heap-allocator" title="Permanent link">#</a></h2>
-<p>The micro:bit runtime provides an optional, heap memory allocator. This is primarily to permit the use of <strong>multiple</strong> regions of memory to be used as heap memory space for your variables.</p>
-<p>The <code>uBit</code> initialisation function will automatically release any memory unused by the Bluetooth stack for general purpose use in this fashion (this typically provides an additional 1K of SRAM under Bluetooth enabled builds, and another 8K if Bluetooth is disabled).</p>
-<p>Should you wish to also reclaim memory in this way, you can do so as follows:</p>
+<p>Hàm gọi đến <code>uBit.sleep()</code> phải được thay thế bằng cách tương đương là gọi trực tiếp đến trình đặt lịch, sử dụng <code>fiber_sleep()</code>.</p>
+<h2 id="khoi-tao-heap-cap-phat">Khởi tạo heap cấp phát<a class="headerlink" href="#khoi-tao-heap-cap-phat" title="Permanent link">#</a></h2>
+<p>Các micro:bit runtime cung cấp một trình cấp phát bộ nhớ heap tùy chọn. Điều này chủ yếu là để cho phép sử dụng <strong>nhiều</strong> vùng của bộ nhớ như là không gian bộ nhớ heap cho các biến của bạn.</p>
+<p>Hàm khởi tạo <code>uBit</code> sẽ tự động giải phóng bộ nhớ nào không dùng bởi ngăn xếp Bluetooth để phục vụ mục đích dùng chung theo cách này (điều này thường cung cấp thêm 1K của SRAM trong các bản biên dịch có dùng Bluetooth, và 8K nếu Bluetooth bị vô hiệu hóa).</p>
+<p>Nếu bạn muốn cũng lấy lại bộ nhớ theo cách này, bạn có thể làm như sau:</p>
 <pre class="code"><code class="language-c++">#include &quot;MicroBit.h&quot;
 
 int main()
@@ -558,214 +557,214 @@ int main()
 }</code></pre>
 
 
-<h2 id="compile-time-configuration-options">Compile Time Configuration Options<a class="headerlink" href="#compile-time-configuration-options" title="Permanent link">#</a></h2>
-<p>In addition to the flexibility to initialise only the components that you need, the runtime also provides a central, compile time configuration file called <code>MicroBitConfig.h</code>.</p>
-<p>You can use this to reconfigure the default behaviour of the runtime.</p>
-<p>The default settings will provide a stable working environment, but advanced users may want to further tailor the behaviour.</p>
-<p>To tailor the behaviour, simply edit the <code>MicroBitConfig.h</code> file to change the settings, and then perform a clean rebuild.</p>
-<h3 id="compile-time-options-with-microbitconfigh">Compile Time Options with MicroBitConfig.h<a class="headerlink" href="#compile-time-options-with-microbitconfigh" title="Permanent link">#</a></h3>
-<p>The following options are configurable at compile time through <code>MicroBitConfig.h</code>:</p>
+<h2 id="tuy-chon-cau-hinh-vao-thoi-iem-bien-dich">Tùy chọn cấu hình vào thời điểm biên dịch<a class="headerlink" href="#tuy-chon-cau-hinh-vao-thoi-iem-bien-dich" title="Permanent link">#</a></h2>
+<p>Ngoài sự linh hoạt để khởi tạo chỉ những thành phần mà bạn cần, bộ runtime cũng cung cấp ở trung tâm một tập tin cấu hình thời gian biên dịch, gọi là <code>MicroBitConfig.h</code>.</p>
+<p>Bạn có thể sử dụng để cấu hình lại các hành vi mặc định của bộ runtime.</p>
+<p>Các thiết lập mặc định sẽ cung cấp một môi trường làm việc ổn định, nhưng người dùng cao cấp có thể muốn chỉnh sửa thêm hành vi.</p>
+<p>Để chỉnh hành vi, chỉ cần chỉnh sửa file <code>MicroBitConfig.h</code> để thay đổi các thiết lập, và sau đó biên dịch lại từ đầu (clean rebuild).</p>
+<h3 id="tuy-chon-vao-thoi-iem-bien-dich-voi-microbitconfigh">Tùy chọn vào thời điểm biên dịch với MicroBitConfig.h<a class="headerlink" href="#tuy-chon-vao-thoi-iem-bien-dich-voi-microbitconfigh" title="Permanent link">#</a></h3>
+<p>Các tùy chọn sau đây được cấu hình tại thời điểm biên dịch qua <code>MicroBitConfig.h</code>:</p>
 <table>
 <thead>
 <tr>
-<th>Configuration option</th>
-<th>Brief Description</th>
+<th>Tùy chọn cấu hình</th>
+<th>Mô tả tóm tắt</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>MICROBIT_HEAP_ALLOCATOR</code></td>
-<td>Enables or disables the MicroBitHeapAllocator for <code>uBit</code> based builds.</td>
+<td>Cho phép hoặc vô hiệu hóa các MicroBitHeapAllocator cho các bản biên dịch dựa trên <code>uBit</code>.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_HEAP_BLOCK_SIZE</code></td>
-<td>The Block size used by the heap allocator in bytes.</td>
+<td>Kích thước khối được sử dụng bởi bộ cấp phát heap theo số byte.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_NESTED_HEAP_SIZE</code></td>
-<td>The proportion of SRAM available on the mbed heap to reserve for the micro:bit heap.</td>
+<td>Tỷ lệ SRAM có sẵn trên mbed heap để dành cho micro:bit heap.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_HEAP_REUSE_SD</code></td>
-<td>If set to &lsquo;1&rsquo;, any unused areas of the Soft Device GATT table will be automatically reused as heap memory.</td>
+<td>Nếu đặt là &lsquo;1&rsquo;, bất kỳ khu vực chưa sử dụng nào của bảng Soft Device GATT sẽ được tự động tái sử dụng như là bộ nhớ heap.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_SD_GATT_TABLE_SIZE</code></td>
-<td>The amount of memory (bytes) to dedicate to the SoftDevice GATT table.</td>
+<td>Số lượng bộ nhớ (byte) để dành cho bảng Soft Device GATT.</td>
 </tr>
 <tr>
 <td><code>SYSTEM_TICK_PERIOD_MS</code></td>
-<td>The default scheduling quantum</td>
+<td>Trình đặt lịch cơ sở mặc định</td>
 </tr>
 <tr>
 <td><code>EVENT_LISTENER_DEFAUT_FLAGS</code></td>
-<td>The default threading mode used when a <code>MicroBitMessageBus</code> listener is created.</td>
+<td>Chế độ luồng mặc định được sử dụng khi một trình lắng nghe <code>MicroBitMessageBus</code> được tạo ra.</td>
 </tr>
 <tr>
 <td><code>MESSAGE_BUS_LISTENER_MAX_QUEUE_DEPTH</code></td>
-<td>Maximum event queue depth. If a queue exceeds this depth, further events will be dropped.</td>
+<td>Độ sâu tối đa của hàng đợi sự kiện. Nếu một hàng đợi vượt quá độ sâu này, các sự kiện sau đó sẽ bị bỏ.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_SYSTEM_COMPONENTS</code></td>
-<td>The maximum size of the interrupt callback list.</td>
+<td>Kích thước tối đa của danh sách gọi lại ngắt.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_IDLE_COMPONENTS</code></td>
-<td>The maximum size of the idle callback list.</td>
+<td>Kích thước tối đa của danh sách gọi lại nhàn rỗi.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_ENABLED</code></td>
-<td>Enable/Disable Bluetooth during normal operation. If disabled, no Bluetooth communication is possible, but radio functionality is made possible, and an additional 8K of SRAM is released</td>
+<td>Bật / Tắt Bluetooth trong khi hoạt động bình thường. Nếu bị vô hiệu, không thể giao tiếp Bluetooth, nhưng chức năng radio có thể được thực hiện, và có thêm 8K của SRAM được giải tỏa</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_PAIRING_MODE</code></td>
-<td>Enable/Disable Bluetooth pairing mode with A+B / reset at power up</td>
+<td>Bật / Tắt Bluetooth chế độ ghép nối với A+B / thiết lập lại khi mới cấp điện</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_PRIVATE_ADDRESSES</code></td>
-<td>Enable/Disable the use of private resolvable addresses. <strong>This is known to be a feature that suffers compatibility issues with many Bluetooth central devices.</strong></td>
+<td>Kích hoạt / Vô hiệu hóa việc sử dụng các địa chỉ riêng phân giải được. <strong>Tính năng này được biết là gặp vấn đề tương thích với nhiều thiết bị trung tâm Bluetooth</strong>.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_OPEN</code></td>
-<td>Enable/Disable Bluetooth security entirely. Open Bluetooth links are not secure, but are highly useful during the development of Bluetooth services</td>
+<td>Bật / Tắt việc bảo mật Bluetooth toàn diện. Mở liên kết Bluetooth là không an toàn, nhưng rất hữu ích trong việc phát triển các dịch vụ Bluetooth.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_SECURITY_LEVEL</code></td>
-<td>Define the default, global Bluetooth security requirements for MicroBit Bluetooth services</td>
+<td>Xác định các yêu cầu bảo mật toàn cục, mặc định cho các dịch vụ Bluetooth</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_WHITELIST</code></td>
-<td>Enable/Disable the use of Bluetooth whitelisting.</td>
+<td>Kích hoạt / Vô hiệu hóa việc sử dụng các danh sách trắng Bluetooth.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_ADVERTISING_TIMEOUT</code></td>
-<td>Define the period of time for which the Bluetooth stack will advertise (seconds).</td>
+<td>Xác định khoảng thời gian mà các ngăn xếp Bluetooth sẽ quảng cáo (giây).</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_DEFAULT_TX_POWER</code></td>
-<td>Defines default power level of the Bluetooth radio transmitter.</td>
+<td>Xác định mức năng lượng mặc định của bộ phát vô tuyến Bluetooth.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_DFU_SERVICE</code></td>
-<td>Enable/Disable Bluetooth Service: MicroBitDFU. This allows over the air programming during normal operation.</td>
+<td>Kích hoạt / Vô hiệu hoá dịch vụ Bluetooth: MicroBitDFU. Điều này cho phép các lập trình lại thiết bị trực tiếp (over the air) trong quá trình hoạt động bình thường.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_EVENT_SERVICE</code></td>
-<td>Enable/Disable Bluetooth Service: MicroBitEventService. This allows routing of events from the micro:bit message bus over Bluetooth.</td>
+<td>Kích hoạt / Vô hiệu hoá dịch vụ Bluetooth: MicroBitEventService. Điều này cho phép chuyển các sự kiện từ bus thông điệp micro:bit qua Bluetooth.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_DEVICE_INFORMATION_SERVICE</code></td>
-<td>Enable/Disable Bluetooth Service: MicroBitDeviceInformationService. This enables the standard Bluetooth device information service.</td>
+<td>Kích hoạt / Vô hiệu hoá dịch vụ Bluetooth: MicroBitDeviceInformationService. Dùng để bật các dịch vụ thông tin chuẩn của thiết bị Bluetooth.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_BLE_EDDYSTONE_URL</code></td>
-<td>Enable/Disable Eddystone URL support. Enabling this enables you to broadcast a physical web url from the microbit</td>
+<td>Kích hoạt / Vô hiệu hoá hỗ trợ URL Eddystone. Bật tính năng này cho phép bạn để phát sóng một url web vật lý từ micro:bit.</td>
 </tr>
 <tr>
 <td><code>USE_ACCEL_LSB</code></td>
-<td>Enable 10 bit sampling on the accelerometer. By default, a more efficient 8 bit sampling if used.</td>
+<td>Kích hoạt tính năng lấy mẫu 10 bit trên máy đo gia tốc. Chế độ mặc định sử dụng các lấy mẫu 8 bit tiết kiệm năng lượng hơn.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DISPLAY_TYPE</code></td>
-<td>Selects the default matrix configuration for the display driver.</td>
+<td>Chọn cấu hình ma trận mặc định cho driver điều khiển hiển thị.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DISPLAY_MINIMUM_BRIGHTNESS</code></td>
-<td>Selects the minimum permissible brightness level for the device.</td>
+<td>Chọn mức độ sáng tối thiểu cho phép của thiết bị.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DISPLAY_MAXIMUM_BRIGHTNESS</code></td>
-<td>Selects the maximum permissible brightness level for the device.</td>
+<td>Chọn mức độ sáng tối đa cho phép của thiết bị.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DISPLAY_DEFAULT_BRIGHTNESS</code></td>
-<td>Selects the default brightness level for the device.</td>
+<td>Chọn mức độ sáng mặc định cho thiết bị.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DEFAULT_SCROLL_SPEED</code></td>
-<td>Selects the time taken to scroll a single pixel, in milliseconds.</td>
+<td>Chọn thời gian dùng để cuộn một điểm ảnh duy nhất, trong mili giây.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DEFAULT_SCROLL_STRIDE</code></td>
-<td>Selects the number of pixels a scroll will move in each quantum.</td>
+<td>Chọn số lượng điểm ảnh mà một cuộn sẽ di chuyển trong từng lượt.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DEFAULT_PRINT_SPEED</code></td>
-<td>Selects the time each character will be shown on the display during print operations, in milliseconds.</td>
+<td>Chọn thời gian mỗi ký tự sẽ được hiển thị trên màn hình trong các hoạt động in ra màn hình, trong mili giây.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DEFAULT_SERIAL_MODE</code></td>
-<td>Configures the default serial mode used by serial read and send calls.</td>
+<td>Cấu hình mặc định chế độ giao tiếp nối tiếp (serial) được sử dụng bởi các lệnh đọc và ghi serial.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DEFAULT_PULLMODE</code></td>
-<td>Define the default mode in which the digital input pins are configured. Valid options are PullDown, PullUp and PullNone.</td>
+<td>Xác định chế độ mặc định để cấu hình các chân đầu vào kỹ thuật số. Các lựa chọn hợp lệ là PullDown, PullUp và PullNone.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_PANIC_HEAP_FULL</code></td>
-<td>Enable this to invoke a panic on out of memory conditions.</td>
+<td>Kích hoạt tính năng này để tạo một báo động (panic) về những hoàn cảnh hết bộ nhớ.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DBG</code></td>
-<td>Enable this to route debug messages through the USB serial interface.</td>
+<td>Kích hoạt tính năng này để chuyển thông điệp debug qua giao diện nối tiếp USB.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_HEAP_DBG</code></td>
-<td>Enable this to receive detailed diagnostic messages from the heap allocator via the USB serial interface.</td>
+<td>Kích hoạt tính năng này để nhận tin nhắn chẩn đoán chi tiết từ bộ cấp phát heap qua giao diện nối tiếp USB.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_DAL_VERSION</code></td>
-<td>Define the default version information of the runtime.</td>
+<td>Xác định thông tin phiên bản mặc định của bộ runtime.</td>
 </tr>
 </tbody>
 </table>
-<p>There are also some constants that define the geometry of the micro:bit memory</p>
+<p>Ngoài ra còn có một số hằng số định nghĩa (kích thước) hình học của bộ nhớ micro:bit.</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Only change these if you really know what you are doing!</p>
+<p class="admonition-title">Cảnh báo</p>
 </div>
+<p>Chỉ thay đổi những điều này nếu bạn thực sự biết mình đang làm gì!</p>
 <table>
 <thead>
 <tr>
-<th>Configuration option</th>
-<th>Brief Description</th>
+<th>Tùy chọn cấu hình</th>
+<th>Mô tả tóm tắt</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>MICROBIT_SRAM_BASE</code></td>
-<td>The start address of usable RAM memory.</td>
+<td>Địa chỉ bắt đầu của bộ nhớ RAM có thể sử dụng.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_SRAM_END</code></td>
-<td>The end address of usable RAM memory.</td>
+<td>Địa chỉ cuối của bộ nhớ RAM có thể sử dụng.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_SD_LIMIT</code></td>
-<td>The end address of RAM memory reserved for Soft Device (Nordic&rsquo;s Bluetooth stack).</td>
+<td>Địa chỉ cuối của bộ nhớ RAM để dành cho Soft Device (Nordic&rsquo;s Bluetooth stack).</td>
 </tr>
 <tr>
 <td><code>MICROBIT_SD_GATT_TABLE_START</code></td>
-<td>The start address of the Bluetooth GATT table in RAM.</td>
+<td>Địa chỉ bắt đầu của bảng Bluetooth GATT table trong RAM.</td>
 </tr>
 <tr>
 <td><code>CORTEX_M0_STACK_BASE</code></td>
-<td>The memory address of the top of the system stack.</td>
+<td>Địa chỉ bộ nhớ ở trên cùng của stack hệ thống.</td>
 </tr>
 <tr>
 <td><code>MICROBIT_STACK_SIZE</code></td>
-<td>Amount of memory reserved for the stack (in bytes).</td>
+<td>Lượng bộ nhớ để dành cho stack (tính theo byte).</td>
 </tr>
 <tr>
 <td><code>MICROBIT_HEAP_END</code></td>
-<td>The end address of the mbed heap space</td>
+<td>Địa chỉ cuối cùng của không gian mbed heap.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="compile-time-options-with-yotta">Compile Time Options with Yotta<a class="headerlink" href="#compile-time-options-with-yotta" title="Permanent link">#</a></h3>
-<p>Rather than edit the <code>MicroBitConfig.h</code> file to change the default behaviour of the runtime, if you are using
-<code>yotta</code>, you can also provide a <code>config.json</code> in your project.</p>
-<p>Here&rsquo;s a <code>config.json</code>, using all available configuration options, that matches the default values specified in <code>MicroBitConfig.h</code>:</p>
+<h3 id="tuy-chon-tai-thoi-iem-bien-dich-voi-yotta">Tùy chọn tại thời điểm biên dịch với Yotta<a class="headerlink" href="#tuy-chon-tai-thoi-iem-bien-dich-voi-yotta" title="Permanent link">#</a></h3>
+<p>Thay vì chỉnh sửa file <code>MicroBitConfig.h</code> để thay đổi hành vi mặc định của bộ runtime, nếu bạn đang sử dụng
+ <code>yotta</code>, bạn cũng có thể cung cấp một <code>config.json</code> trong dự án của bạn.</p>
+<p>Dưới đây là một <code>config.json</code>, sử dụng tất cả các tùy chọn cấu hình có sẵn, phù hợp với các giá trị mặc định được quy định trong <code>MicroBitConfig.h</code>:</p>
 <pre class="code"><code class="language-json">{
     &quot;microbit-dal&quot;:{
         &quot;bluetooth&quot;:{
@@ -807,9 +806,9 @@ int main()
 }</code></pre>
 
 
-<p>It should be noted that <strong>all</strong> of the above options are optional, and will revert to their default values
-if not specified. This means that we can also provide a subset of these options, to configure specific
-parts of the runtime:</p>
+<p>Cần lưu ý rằng <strong>tất cả</strong> các tùy chọn ở trên là tùy chọn, và sẽ trở lại giá trị mặc định của chúng 
+ nếu không được nhắc đến. Điều này có nghĩa rằng chúng ta cũng có thể cung cấp một tập hợp con của các tùy chọn này, để cấu hình
+ các phần cụ thể của bộ runtime:</p>
 <pre class="code"><code class="language-json">{
     &quot;microbit-dal&quot;:{
         &quot;bluetooth&quot;:{
@@ -820,9 +819,9 @@ parts of the runtime:</p>
 }</code></pre>
 
 
-<p>Additionally, the options provided through <code>config.json</code> intuitively map onto the <code>#defines</code>
+<p>Ngoài ra, các tùy chọn được cung cấp qua <code>config.json</code> ánh xạ một cách tự nhiên lên <code>#defines</code>
 listed in <code>MicroBitConfig.h</code></p>
-<p>An example of <code>config.json</code> in operation is available at the <a href="https://github.com/lancaster-university/microbit-samples">microbit-samples</a> GitHub repository.</p>
+<p>Một ví dụ của <code>config.json</code> khi hoạt động có tại  kho GitHub <a href="https://github.com/lancaster-university/microbit-samples">microbit-samples</a>.</p>
               
             </div>
           </div>
