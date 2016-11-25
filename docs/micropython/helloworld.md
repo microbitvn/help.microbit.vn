@@ -50,7 +50,7 @@ Can you work out how to change the message? Can you make it say hello to you?
 For example, I might make it say "Hello, Nicholas!". Here's a clue, you need to
 change the scroll method's argument.
 
-!!! warning "Lưu ý"
+!!! warning 
 
     It may not work. :-)
 
