@@ -436,66 +436,65 @@
             <div class="section">
               
                 <h1 id="hello-world">Hello, World!<a class="headerlink" href="#hello-world" title="Permanent link">#</a></h1>
-<p>The traditional way to start programming in a new language is to get your
-computer to say, &ldquo;Hello, World!&rdquo;.</p>
+<p>Cách thông thường để bắt đầu lập trình bằng một ngôn ngữ mới là ra lệnh cho
+máy tính của bạn hiển thị, &ldquo;Hello, World! &ldquo;. </p>
 <p><img alt="" src="../images/scroll-hello1.gif" /></p>
-<p>This is easy with MicroPython::</p>
+<p>Thật dễ dàng với MicroPython:</p>
 <pre class="code"><code class="language-python">from microbit import *
 display.scroll(&quot;Hello, World!&quot;)</code></pre>
 
 
-<p>Each line does something special. The first line::</p>
+<p>Mỗi dòng lệnh thực thi một điều đặc biệt nào đó. Dòng lệnh đầu tiên:</p>
 <pre class="code"><code class="language-python">from microbit import *</code></pre>
 
 
-<p>&hellip;tells MicroPython to get all the stuff it needs to work with the BBC
-micro:bit. All this stuff is in a module called <code>microbit</code> (a module
-is a library of pre-existing code). When you <code>import</code> something you&rsquo;re telling
-MicroPython that you want to use it, and <code>*</code> is Python&rsquo;s way to say
-<em>everything</em>. So, <code>from microbit import *</code> means, in English, &ldquo;I want to be
-able to use everything from the microbit code library&rdquo;.</p>
-<p>The second line::</p>
-<pre class="code"><code class="language-python">display.scroll(&quot;Hello, World!&quot;)</code></pre>
+<p>&hellip; ra lệnh cho MicroPython lấy tất cả những thứ cần thiết để làm việc với BBC 
+micro:bit. Tất cả các thứ này nằm trong một mô-đun gọi là <code>microbit</code> (một mô-đun 
+ là một thư viện của mã có trước đó). Khi bạn <code>import</code> (nhập) một cái gì đó tức là bạn đang cho
+ MicroPython biết rằng bạn muốn sử dụng nó, và ký hiệu <code>*</code> là cách Python nói
+ <em>mọi thứ</em>. Vì vậy, <code>from microbit import *</code> trong tiếng Việt có nghĩa là, &ldquo;Tôi muốn có thể 
+ sử dụng mọi thứ từ thư viện mã lệnh của microbit&rdquo;.</p>
+<p>Dòng lệnh thứ hai:</p>
+<pre class="code"><code class="language-python">display.scroll (&quot;Hello, World!&quot;)</code></pre>
 
 
-<p>&hellip;tells MicroPython to use the display to scroll the string of characters
-&ldquo;Hello, World!&rdquo;. The <code>display</code> part of that line is an <em>object</em> from the
-<code>microbit</code> module that represents the device&rsquo;s physical display (we say
-&ldquo;object&rdquo; instead of &ldquo;thingy&rdquo;, &ldquo;whatsit&rdquo; or &ldquo;doodah&rdquo;). We can tell the display
-to do things with a full-stop <code>.</code> followed by what looks like a command (in
-fact it&rsquo;s something we call a <em>method</em>). In this case we&rsquo;re using the
-<code>scroll</code> method. Since <code>scroll</code> needs to know what characters to scroll
-across the physical display we specify them between double quotes (<code>"</code>)
-within parenthesis (<code>(</code> and <code>)</code>). These are called the <em>arguments</em>. So,
-<code>display.scroll("Hello, World!")</code> means, in English, &ldquo;I want you to use the
-display to scroll the text &lsquo;Hello, World!&rsquo;&ldquo;. If a method doesn&rsquo;t need any
-arguments we make this clear by using empty parenthesis like this: <code>()</code>.</p>
-<p>Copy the &ldquo;Hello, World!&rdquo; code into your editor and flash it onto the device.
-Can you work out how to change the message? Can you make it say hello to you?
-For example, I might make it say &ldquo;Hello, Nicholas!&rdquo;. Here&rsquo;s a clue, you need to
-change the scroll method&rsquo;s argument.</p>
+<p>&hellip;ra lệnh cho MicroPython hãy sử dụng màn hình để di chuyển chuỗi các ký tự
+&ldquo;Hello, World!&rdquo;. Phần <code>display</code> của dòng lệnh đó là một <em>object</em> từ mô-đun
+<code>microbit</code> đại diện hiển thị vật lý của thiết bị (chúng ta khai báo là
+&ldquo;object&rdquo;thay vì &rdquo; thingy&rdquo;, &ldquo;whatsit&rdquo; hoặc &ldquo;doodah&rdquo;). Chúng ta có thể ra lệnh cho màn hình 
+ làm một vài điều với một dấu chấm <code>.</code> theo sau bởi những gì trông giống như một lệnh (thực tế
+chúng ta gọi là một <em>method</em>). Trong trường hợp này, chúng tôi đang sử dụng phương pháp
+<code>scroll</code> (<code>cuộn</code>). Vì <code>scroll</code> cần phải biết những kí tự gì để di chuyển 
+đi ngang qua màn hình hiển thị nên chúng ta khai báo chúng giữa dấu nháy kép (<code>"</code>)
+bên trong dấu ngoặc đơn (<code>(</code> và <code>)</code>). Chúng được gọi là các <em>argument</em> (đối số). Vì vậy,
+<code>display.scroll("Hello, World!")</code>trong tiếng Việt có nghĩa là, &ldquo;Tôi muốn bạn sử dụng
+màn hình để di chuyển dòng chữ &ldquo;Hello, World!&rsquo;&ldquo;. Nếu một method (phương pháp) không cần bất kỳ
+đối số nào chúng ta cần khai báo rõ ràng bằng cách sử dụng dấu ngoặc đơn trống như thế này: <code>()</code>.</p>
+<p>Sao chép file lệnh &ldquo;Hello, World! &rdquo; vào chương trình soạn thảo của bạn và ghi (flash) nó vào thiết bị.
+Bạn có thể tìm ra cách thay đổi tin báo không? Bạn có thể ra lệnh cho nó nói xin chào bạn không?
+Ví dụ, tôi có thể làm cho nó nói &ldquo;Hello, Nicholas! &ldquo;. Dưới đây là một manh mối, bạn cần phải 
+thay đổi đối số của phương pháp cuộn.</p>
 <div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>It may not work. :-)</p>
-<p>This is where things get fun and MicroPython tries to be helpful. If
-it encounters an error it will scroll a helpful message on the micro:bit&rsquo;s
-display. If it can, it will tell you the line number for where the error
-can be found.</p>
-<p>Python expects you to type <strong>EXACTLY</strong> the right thing. So, for instance,
-<code>Microbit</code>, <code>microbit</code> and <code>microBit</code> are all different things to
-Python. If MicroPython complains about a <code>NameError</code> it&rsquo;s probably
-because you&rsquo;ve typed something inaccurately. It&rsquo;s like the difference
-between referring to &ldquo;Nicholas&rdquo; and &ldquo;Nicolas&rdquo;. They&rsquo;re two different people
-but their names look very similar.</p>
-<p>If MicroPython complains about a <code>SyntaxError</code> you&rsquo;ve simply typed code
-in a way that MicroPython can&rsquo;t understand. Check you&rsquo;re not missing any
-special characters like <code>"</code> or <code>:</code>. It&rsquo;s like putting. a full stop in
-the middle of a sentence. It&rsquo;s hard to understand exactly what you mean.</p>
-<p>Your microbit may stop responding: you cannot flash new code to it or
-enter commands into the REPL. If this happens, try power cycling it. That
-is, unplug the USB cable (and battery cable if it&rsquo;s connected), then plug
-the cable back in again. You may also need to quit and re-start your code
-editor application.</p>
+<p class="admonition-title">Cảnh báo</p>
+<p>Nó có thể không hoạt động. :-)</p>
+<p>Đây là nơi mọi thứ trở nên thú vị và MicroPython cố gắng để hữu dụng. Nếu
+gặp lỗi nó sẽ đưa ra một tin báo hữu ích trên màn hình hiển thị
+của micro:bit. Nếu có thể, nó sẽ cho bạn biết dòng số mấy xuất hiện lỗi.</p>
+<p>Python kỳ vọng bạn gõ <strong> CHÍNH XÁC</strong> cái mình muốn. Ví dụ,
+<code>Microbit</code>,<code>microbit</code> và <code>microBit</code> tất cả đều khác nhau đối với
+Python. Nếu MicroPython than phiền <code>NameError</code> (Sai tên) có thể 
+bởi vì bạn đã gõ cái gì đó không chính xác. Giống như sự khác biệt
+giữa việc đề cập đến &ldquo;Nicholas &rdquo; và &ldquo;Nicolas&rdquo; vậy. Họ là hai người khác nhau
+nhưng tên của họ rất giống nhau.</p>
+<p>Nếu MicroPython than phiền <code>SyntaxError</code> đơn giản là bạn đã gõ mã
+theo cách mà MicroPython không thể hiểu. Hãy kiểm tra bạn không thiếu bất kỳ 
+ký tự đặc biệt nào như <code>"</code> hoặc <code>:</code>. Điều đó giống như đặt dấu chấm. vào
+giữa câu vậy. Thật khó để hiểu ý bạn muốn nói chính xác là gì.</p>
+<p>Microbit có thể ngừng đáp ứng: bạn không thể flash mã mới vào hoặc
+nhập lệnh vào REPL. Nếu điều này xảy ra, hãy thử cấp nguồn điện lại cho nó. Bằng
+cách, tháo cáp USB (và cáp pin nếu nó được kết nối), sau đó cắm
+cáp lại. Bạn có thể cũng cần phải thoát và khởi động lại chương trình
+soạn thảo lệnh.</p>
 </div>
               
             </div>
