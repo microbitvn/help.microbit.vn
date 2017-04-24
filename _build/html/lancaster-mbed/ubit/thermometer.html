@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Real time updates &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.thermometer</p>
+<p>##Overview</p>
+<p>MicroBitThermometer provides access to the surface temperature of the nrf51822.
+The temperature reading therefore is not representative of the ambient temperature,
+but rather the temperature relative to the surface temperature of the chip.</p>
+<p>However, we can make it representative of the ambient temperature in software
+through &#8220;calibrating&#8221; the thermometer.</p>
+<p>Calibration is very simple, and is calculated by giving the current temperature
+to the <code class="docutils literal"><span class="pre">setCalibration()</span></code> member function. From the temperature, an offset is
+calculated, and is subsequently used to offset future temperature readings.</p>
+<div class="section" id="real-time-updates">
+<span id="real-time-updates"></span><h1>Real time updates<a class="headerlink" href="#real-time-updates" title="Permalink to this headline">¶</a></h1>
+<p>When using the standard uBit presentation, the thermometer is continuously updated
+in the background using an idle thread (after it is first used), which is executed
+whenever the micro:bit has no other tasks to perform.</p>
+<p>If there is no scheduler running, the values are synchronously read on <code class="docutils literal"><span class="pre">getTemperature()</span></code>
+calls. Additionally, if you would like to drive thermometer updates manually <code class="docutils literal"><span class="pre">updateSample()</span></code>
+can be used.</p>
+<p>##Message Bus ID</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ID_THERMOMETER | 28 |</p>
+<p>##Message Bus Events</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_THERMOMETER_EVT_UPDATE | 1 |</p>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitThermometer&#8221;})
+##Constructor
+<br/>
+####MicroBitThermometer( <div style='color:#a71d5d; display:inline-block'>MicroBitStorage  &amp;</div> _storage)
+#####Description
+Constructor. Create new  MicroBitThermometer  that gives an indication of the current temperature.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitStorage  &</div> _storage - an instance of  MicroBitStorage  used to persist temperature offset data</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitStorage</span> <span class="n">storage</span><span class="p">;</span> 
+ <span class="n">MicroBitThermometer</span> <span class="nf">thermometer</span><span class="p">(</span><span class="n">storage</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitThermometer( <div style='color:#a71d5d; display:inline-block'>MicroBitStorage  &amp;</div> _storage,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)
+#####Description
+Constructor. Create new  MicroBitThermometer  that gives an indication of the current temperature.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitStorage  &</div> _storage - an instance of  MicroBitStorage  used to persist temperature offset data</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - the unique  EventModel  id of this component. Defaults to MICROBIT_ID_THERMOMETER.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitStorage</span> <span class="n">storage</span><span class="p">;</span> 
+ <span class="n">MicroBitThermometer</span> <span class="nf">thermometer</span><span class="p">(</span><span class="n">storage</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitThermometer()
+#####Description
+Constructor. Create new  MicroBitThermometer  that gives an indication of the current temperature.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitThermometer</span> <span class="n">thermometer</span><span class="p">;</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitThermometer( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)
+#####Description
+Constructor. Create new  MicroBitThermometer  that gives an indication of the current temperature.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - the unique  EventModel  id of this component. Defaults to MICROBIT_ID_THERMOMETER.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitThermometer</span> <span class="n">thermometer</span><span class="p">;</span> 
+</pre></div>
+</div>
+<p>##setPeriod
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>setPeriod</div>( <div style='color:#a71d5d; display:inline-block'>int</div> period)
+#####Description
+Set the sample rate at which the temperatureis read (in ms).</p>
+<p>The default sample period is 1 second.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> period - the requested time between samples, in milliseconds.</div></blockquote>
+<p>!!! note
+the temperature is always read in the background, and is only updated when the processor is idle, or when the temperature is explicitly read.</p>
+<p>##getPeriod
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getPeriod</div>()
+#####Description
+Reads the currently configured sample rate of the thermometer.</p>
+<p>#####Returns
+The time between samples, in milliseconds.
+##setOffset
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setOffset</div>( <div style='color:#a71d5d; display:inline-block'>int</div> offset)
+#####Description
+Set the value that is used to offset the raw silicon temperature.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> offset - the offset for the silicon temperature</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success
+##getOffset
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getOffset</div>()
+#####Description
+Retreive the value that is used to offset the raw silicon temperature.</p>
+<p>#####Returns
+the current offset.
+##setCalibration
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setCalibration</div>( <div style='color:#a71d5d; display:inline-block'>int</div> calibrationTemp)
+#####Description
+This member function fetches the raw silicon temperature, and calculates the value used to offset the raw silicon temperature based on a given temperature.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> calibrationTemp - the temperature used to calculate the raw silicon temperature offset.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success
+##getTemperature
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getTemperature</div>()
+#####Description
+Gets the current temperature of the microbit.</p>
+<p>#####Returns
+the current temperature, in degrees celsius.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">thermometer</span><span class="p">.</span><span class="n">getTemperature</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##updateSample
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>updateSample</div>()
+#####Description
+Updates the temperature sample of this instance of  MicroBitThermometer  only if  isSampleNeeded()  indicates that an update is required.</p>
+<p>This call also will add the thermometer to fiber components to receive periodic callbacks.</p>
+<p>#####Returns
+MICROBIT_OK on success.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitThermometer&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/thermometer.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/thermometer.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

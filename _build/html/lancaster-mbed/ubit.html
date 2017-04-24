@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#MicroBit</p>
+<p>##Overview</p>
+<p>Although the runtime is built from lots of small components, we also provide an easy to use pre-packaged collection of the commonly used components
+all in one place. This makes it much easier to start programming your micro:bit in C.</p>
+<p>This grouping is provided by a C++ class called <code class="docutils literal"><span class="pre">MicroBit</span></code>.  The <code class="docutils literal"><span class="pre">MicroBit</span></code> class has a number of
+member variables, that operate as device drivers to control the most commonly used features of the micro:bit.</p>
+<p>There is an instance of the <code class="docutils literal"><span class="pre">MicroBit</span></code> class created as a global variable in all the sample programs, called <code class="docutils literal"><span class="pre">uBit</span></code>:</p>
+<blockquote>
+<div>uBit {<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/i2c.md">.i2c</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/storage.md">.storage</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/serial.md">.serial</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/messageBus.md">.MessageBus</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/button.md">.buttonA</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/button.md">.buttonB</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/button.md">.buttonAB</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/display.md">.display</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/accelerometer.md">.accelerometer</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/compass.md">.compass</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/thermometer.md">.thermometer</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/io.md">.io</a>,<br/>
+<p> </p>
+<p> </p>
+<a class="reference external" href="ubit/radio.md">.radio</a>,<br/>
+}</div></blockquote>
+<p>You can use dot operator &#8216;.&#8217; to any of these resources inside uBit to access any of the functions they provide. There is a complete list of the
+functions available under the <code class="docutils literal"><span class="pre">uBit</span></code> menu item in the navigation bar at the top of the page.</p>
+<p>For example, if we needed to scroll some text across the display, we simply would write the following:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Similarly, if we wanted to send some text over serial, we could write the following
+code:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">serial</span><span class="p">.</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d...&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// or alternatively...</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">serial</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;Code!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The runtime also contains a scheduler, which uses lightweight threads (called fibers)
+to control the rate of execution.</p>
+<p>To place the current fiber into a power efficient <a href="#sleep">sleep</a> write the following:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// where X is an integer in milliseconds for the amount of time you would like to sleep for.</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>##Message Bus ID</p>
+<blockquote>
+<div>None</div></blockquote>
+<p>##Message Bus Events</p>
+<blockquote>
+<div>None</div></blockquote>
+<p>#API</p>
+<p>[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBit&#8221;})</p>
+<p>##Constructor</p>
+<p><br/></p>
+<p>####MicroBit()</p>
+<p>#####Description</p>
+<p>Constructor.</p>
+<p>Create a representation of a  MicroBit  device, which includes member variables that represent various device drivers used to control aspects of the micro:bit.</p>
+<p>##init</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>init</div>()</p>
+<p>#####Description</p>
+<p>Post constructor initialisation method.</p>
+<p>This call will initialised the scheduler, memory allocator and Bluetooth stack.</p>
+<p>This is required as the Bluetooth stack can&#8217;t be brought up in a static context i.e. in a constructor.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>!!! note
+This method must be called before user code utilises any functionality contained by uBit.</p>
+<p>##reset</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>reset</div>()</p>
+<p>#####Description</p>
+<p>Will reset the micro:bit when called.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">uBit</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##sleep</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>sleep</div>( <div style='color:#a71d5d; display:inline-block'>uint32_t</div> milliseconds)</p>
+<p>#####Description</p>
+<p>Delay execution for the given amount of time.</p>
+<p>If the scheduler is running, this will deschedule the current fiber and perform a power efficient, concurrent sleep operation.</p>
+<p>If the scheduler is disabled or we&#8217;re running in an interrupt context, this will revert to a busy wait.</p>
+<p>Alternatively: wait, wait_ms, wait_us can be used which will perform a blocking sleep operation.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint32_t</div> milliseconds - the amount of time, in ms, to wait for. This number cannot be negative.</div></blockquote>
+<p>#####Returns</p>
+<p>MICROBIT_OK on success, MICROBIT_INVALID_PARAMETER milliseconds is less than zero.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> <span class="c1">//sleep for 20ms </span>
+</pre></div>
+</div>
+<p>!!! note
+This operation is currently limited by the rate of the system timer, therefore the granularity of the sleep operation is limited to 6 ms unless the rate of the system timer is modified.</p>
+<p>##seedRandom</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>seedRandom</div>()</p>
+<p>#####Description</p>
+<p>Seed the pseudo random number generator using the hardware random number generator.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">uBit</span><span class="p">.</span><span class="n">seedRandom</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>seedRandom</div>( <div style='color:#a71d5d; display:inline-block'>uint32_t</div> seed)</p>
+<p>#####Description</p>
+<p>Seed the pseudo random number generator using the given value.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint32_t</div> seed - The 32-bit value to seed the generator with.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">uBit</span><span class="p">.</span><span class="n">seedRandom</span><span class="p">(</span><span class="mh">0xBB5EED</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##random</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>random</div>( <div style='color:#a71d5d; display:inline-block'>int</div> max)</p>
+<p>#####Description</p>
+<p>Generate a random number in the given range. We use a simple Galois LFSR random number generator here, as a Galois LFSR is sufficient for our applications, and much more lightweight than the hardware random number generator built int the processor, which takes a long time and uses a lot of energy.</p>
+<p>KIDS: You shouldn&#8217;t use this is the real world to generate cryptographic keys though... have a think why not. :-)</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> max - the upper range to generate a number for. This number cannot be negative.</div></blockquote>
+<p>#####Returns</p>
+<p>A random, natural number between 0 and the max-1. Or MICROBIT_INVALID_VALUE if max is &lt;= 0.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">uBit</span><span class="p">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span> <span class="c1">//a number between 0 and 199 </span>
+</pre></div>
+</div>
+<p>##systemTime</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>unsigned long</div> <div style='color:#795da3; display:inline-block'>systemTime</div>()</p>
+<p>#####Description</p>
+<p>Determine the time since this  MicroBit  was last reset.</p>
+<p>#####Returns</p>
+<p>The time since the last reset, in milliseconds.</p>
+<p>!!! note
+This will value overflow after 1.6 months.</p>
+<p>##systemVersion</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>const char *</div> <div style='color:#795da3; display:inline-block'>systemVersion</div>()</p>
+<p>#####Description</p>
+<p>Determine the version of the micro:bit runtime currently in use.</p>
+<p>#####Returns</p>
+<p>A textual description of the version of the micro:bit runtime that is currently running on this device.</p>
+<p>##panic</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>panic</div>()</p>
+<p>#####Description</p>
+<p>Triggers a microbit panic where an loop will display a panic face and the status code, if provided.</p>
+<p>This loop will continue for panic_timeout iterations, defaults to 0 (infinite).</p>
+<p>panic_timeout can be configured via a call to microbit_panic_timeout.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">microbit_panic_timeout</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> 
+ 
+ <span class="c1">// will display loop for 4 iterations. </span>
+ <span class="n">uBit</span><span class="p">.</span><span class="n">panic</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>panic</div>( <div style='color:#a71d5d; display:inline-block'>int</div> statusCode)</p>
+<p>#####Description</p>
+<p>Triggers a microbit panic where an loop will display a panic face and the status code, if provided.</p>
+<p>This loop will continue for panic_timeout iterations, defaults to 0 (infinite).</p>
+<p>panic_timeout can be configured via a call to microbit_panic_timeout.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> statusCode - the status code of the associated error.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">microbit_panic_timeout</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> 
+ 
+ <span class="c1">// will display loop for 4 iterations. </span>
+ <span class="n">uBit</span><span class="p">.</span><span class="n">panic</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##addSystemComponent</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>addSystemComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)</p>
+<p>#####Description</p>
+<p>Add a component to the array of system components. This component will then receive periodic callbacks, once every tick period in interrupt context.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  \*</div> component - The component to add.</div></blockquote>
+<p>#####Returns</p>
+<p>MICROBIT_OK on success or MICROBIT_NO_RESOURCES if the component array is full.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// heap allocated - otherwise it will be paged out! </span>
+ <span class="n">MicroBitDisplay</span><span class="o">*</span> <span class="n">display</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MicroBitDisplay</span><span class="p">();</span> 
+ 
+ <span class="n">uBit</span><span class="p">.</span><span class="n">addSystemComponent</span><span class="p">(</span><span class="n">display</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+This interface is now deprecated, and will be removed in the next major release. Please use  system_timer_add_component() .</p>
+<p>##removeSystemComponent</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>removeSystemComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)</p>
+<p>#####Description</p>
+<p>Remove a component from the array of system components. This component will no longer receive periodic callbacks.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  \*</div> component - The component to remove.</div></blockquote>
+<p>#####Returns</p>
+<p>MICROBIT_OK on success or MICROBIT_INVALID_PARAMETER is returned if the given component has not been previously added.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// heap allocated - otherwise it will be paged out! </span>
+ <span class="n">MicroBitDisplay</span><span class="o">*</span> <span class="n">display</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MicroBitDisplay</span><span class="p">();</span> 
+ 
+ <span class="n">uBit</span><span class="p">.</span><span class="n">addSystemComponent</span><span class="p">(</span><span class="n">display</span><span class="p">);</span> 
+ 
+ <span class="n">uBit</span><span class="p">.</span><span class="n">removeSystemComponent</span><span class="p">(</span><span class="n">display</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+This interface is now deprecated, and will be removed in the next major release. Please use  system_timer_remove_component() .</p>
+<p>##addIdleComponent</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>addIdleComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)</p>
+<p>#####Description</p>
+<p>Adds a component to the array of idle thread components, which are processed when the run queue is empty.</p>
+<p>The system timer will poll isIdleCallbackNeeded on each component to determine if the scheduler should schedule the idle_task imminently.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  \*</div> component - The component to add to the array.</div></blockquote>
+<p>#####Returns</p>
+<p>MICROBIT_OK on success or MICROBIT_NO_RESOURCES if the fiber components array is full.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitI2C</span> <span class="nf">i2c</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span> 
+ 
+ <span class="c1">// heap allocated - otherwise it will be paged out! </span>
+ <span class="n">MicroBitAccelerometer</span><span class="o">*</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span> 
+ 
+ <span class="n">fiber_add_idle_component</span><span class="p">(</span><span class="n">accelerometer</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+This interface is now deprecated, and will be removed in the next major release. Please use  fiber_add_idle_component() .</p>
+<p>##removeIdleComponent</p>
+<p><br/></p>
+<p>####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>removeIdleComponent</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  *</div> component)</p>
+<p>#####Description</p>
+<p>Remove a component from the array of idle thread components</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitComponent  \*</div> component - The component to remove from the idle component array.</div></blockquote>
+<p>#####Returns</p>
+<p>MICROBIT_OK on success. MICROBIT_INVALID_PARAMETER is returned if the given component has not been previously added.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitI2C</span> <span class="nf">i2c</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span> 
+ 
+ <span class="c1">// heap allocated - otherwise it will be paged out! </span>
+ <span class="n">MicroBitAccelerometer</span><span class="o">*</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span> 
+ 
+ <span class="n">uBit</span><span class="p">.</span><span class="n">addIdleComponent</span><span class="p">(</span><span class="n">accelerometer</span><span class="p">);</span> 
+ 
+ <span class="n">uBit</span><span class="p">.</span><span class="n">removeIdleComponent</span><span class="p">(</span><span class="n">accelerometer</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+This interface is now deprecated, and will be removed in the next major release. Please use  fiber_remove_idle_component() .</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBit&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/ubit.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/ubit.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

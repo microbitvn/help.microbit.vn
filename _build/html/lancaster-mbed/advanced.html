@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tính năng nâng cao của bộ Runtime &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="tinh-nang-nang-cao-cua-bo-runtime">
+<span id="tinh-nang-nang-cao-cua-bo-runtime"></span><h1>Tính năng nâng cao của bộ Runtime<a class="headerlink" href="#tinh-nang-nang-cao-cua-bo-runtime" title="Permalink to this headline">¶</a></h1>
+<p>Ở tầng dưới, micro:bit runtime là một phần mềm có khả năng tùy biến cao, có tính mô-đun và dựa trên các bộ phận.</p>
+<p>Các đối tượng <code class="docutils literal"><span class="pre">uBit</span></code> được cung cấp như một bộ sưu tập của các thành phần thường được sử dụng, tất cả tập trung lại với nhau ở một nơi
+giúp người dùng mới dễ truy cập vào các chức năng của thiết bị. Tuy nhiên, không bắt buộc phải
+dùng <code class="docutils literal"><span class="pre">uBit</span></code> trừu tượng. Người dùng cao cấp hơn có thể thích tạo ra và chỉ sử dụng các bộ phận của runtime mà họ cần.</p>
+<p>Điều này cung cấp khả năng kiểm soát nhiều hơn và thường giải phóng nhiều tài nguyên bộ nhớ cho chương trình ứng dụng - nhưng làm như vậy
+cũng có cái giá là người lập trình cần đảm nhận trách nhiệm và sự phức tạp lớn hơn trong chương trình của họ.</p>
+<div class="section" id="su-dung-truc-tiep-cac-thanh-phan">
+<span id="su-dung-truc-tiep-cac-thanh-phan"></span><h2>Sử dụng trực tiếp các thành phần<a class="headerlink" href="#su-dung-truc-tiep-cac-thanh-phan" title="Permalink to this headline">¶</a></h2>
+<p>Tận dụng lợi thế của cấu trúc mô-đun của micro:bit runtime là khá đơn giản.</p>
+<ul class="simple">
+<li>Thứ nhất, tạo ra một chương trình mà ** không ** tạo ra hoặc khởi tạo một đối tượng uBit.</li>
+<li>Thêm vào (include) <code class="docutils literal"><span class="pre">MicroBit.h</span></code> (hoặc nếu bạn thích, chỉ cần các tập tin tiêu đề của các thành phần bạn muốn sử dụng). Tuy nhiên, thêm vào <code class="docutils literal"><span class="pre">MicroBit.h</span></code> thì đơn giản hơn.</li>
+<li>Thay vào đó, tạo ra các đối tượng C++ là phiên bản (instance) của các lớp (class) mà bạn muốn sử dụng <strong>như các biến toàn cục</strong> trong chương trình của bạn. Tạo đủ các thành phần như bạn cần. Bạn có thể tự do sử dụng bất kỳ hàm khởi tạo (constructor) nào trong tài liệu này.</li>
+<li>Gọi các hàm trên các phiên bản đó để thực thi hành vi mà bạn cần, dùng tên của đối tượng phiên bản của bạn thay vì <code class="docutils literal"><span class="pre">uBit.*</span></code></li>
+</ul>
+<p>Ví dụ, nếu bạn muốn tạo ra một chương trình chỉ sử dụng driver điều khiển màn hình LED ma trận, bạn có thể viết một chương trình như thế này:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;:)&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Nếu bạn cần các thành phần khác, thêm chúng vào chương trình của bạn với cùng cách đó.</p>
+<p>Nếu một thành phần phụ thuộc vào một thành phần khác (như trong ví dụ dưới đây, gia tốc phụ thuộc vào một đường truyền I2C), thì cái này sẽ được yêu cầu là một tham số bắt buộc trong hàm khởi tạo.</p>
+<p>Xem phần &#8216;Constructor&#8217; của tài liệu API mỗi thành phần để biết chi tiết và ví dụ.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitI2C</span> <span class="n">i2c</span> <span class="o">=</span> <span class="n">MicroBitI2C</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span>
+<span class="n">MicroBitAccelerometer</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span>
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">accelerometer</span><span class="p">.</span><span class="n">getX</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>!!! warning &#8220;Cảnh báo&#8221;
+Các thành phần của micro:bit nên <strong>luôn luôn</strong> được đưa lên làm biến toàn cục. Chúng <strong>không nên</strong> được tạo ra ở dạng các biến địa phương - dù là trong hàm &#8220;main&#8221; ở bất cứ nơi nào khác. Lý do cho điều này là bộ runtime là một môi trường đa luồng, và bất kỳ biến nào được tạo ra trong bộ nhớ stack (như các biến địa phương) có thể bị đẩy ra bởi các trình đặt lịch (scheduler), và dẫn đến sự mất ổn định nếu chúng có sử dụng các ngắt hoặc được truy cập bởi các luồng khác. Vì vậy... đừng làm điều đó!</p>
+</div>
+<div class="section" id="cac-thanh-phan-he-thong">
+<span id="cac-thanh-phan-he-thong"></span><h2>Các thành phần hệ thống<a class="headerlink" href="#cac-thanh-phan-he-thong" title="Permalink to this headline">¶</a></h2>
+<p>Ngoài ra còn có các thành phần hệ thống cung cấp các dịch vụ nền. Nếu không có đối tượng <code class="docutils literal"><span class="pre">uBit</span></code>, những cái này sẽ không được tạo ra một cách mặc định. Ví dụ như trình đặt lịch fiber, bus truyền tin và heap cấp phát.</p>
+<p>Bạn không cần phải khởi tạo các thành phần này, nhưng bạn nên làm như vậy nếu bạn muốn dùng chức năng chúng cung cấp. Phần sau đây mô tả làm thế nào để làm điều này.</p>
+</div>
+<div class="section" id="khoi-tao-kenh-truyen-thong-diep-message-bus">
+<span id="khoi-tao-kenh-truyen-thong-diep-message-bus"></span><h2>Khởi tạo kênh truyền thông điệp (Message Bus)<a class="headerlink" href="#khoi-tao-kenh-truyen-thong-diep-message-bus" title="Permalink to this headline">¶</a></h2>
+<p>Các <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> cho phép các sự kiện được tạo ra và chuyển tới các ứng dụng. Vì vậy, nếu một <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> không được tạo ra, thì tất cả các sự kiện micro:bit runtime sẽ bị lặng lẽ bỏ qua.</p>
+<p>Để kích hoạt chức năng này, bạn chỉ cần tạo một phiên bản của lớp <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a>. Từ thời điểm đó trở đi trong chương trình của bạn, bạn có thể tạo ra và lắng nghe các sự kiện như mô tả trong phần tài liệu <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a>.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitMessageBus</span> <span class="n">bus</span><span class="p">;</span>
+<span class="n">MicroBitButton</span> <span class="nf">buttonA</span><span class="p">(</span><span class="n">MICROBIT_PIN_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">);</span>
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onPressed</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;S&quot;</span><span class="p">);</span>    
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">bus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onPressed</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>!!! warning &#8220;Cảnh báo&#8221;
+Chạy một MessageBus mà không có trình đặt lịch Fiber sẽ làm cho tất cả các trình xử lý sự kiện được đăng ký là MESSAGE_BUS_LISTENER_IMMEDIATE (xem <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> để biết chi tiết). Điều này có nghĩa là xử lý sự kiện của bạn sẽ được thực hiện trong context của đoạn mã gây nên sự kiện này. Điều này có thể bao gồm context về ngắt (interrupt), mà có thể không an toàn cho tất cả các hoạt động. Lời khuyên là bạn luôn chạy MessageBus với trình đặt lịch Fiber để cho phép sự kiện để được tách rời khỏi context về ngắt.</p>
+</div>
+<div class="section" id="khoi-tao-trinh-dat-lich-fiber">
+<span id="khoi-tao-trinh-dat-lich-fiber"></span><h2>Khởi tạo trình đặt lịch Fiber<a class="headerlink" href="#khoi-tao-trinh-dat-lich-fiber" title="Permalink to this headline">¶</a></h2>
+<p>Thông thường khi sử dụng các sự kiện không đồng bộ, dùng các trình đặt lịch Fiber cũng sẽ hữu ích. Nếu không có một trình xếp lịch đang hoạt động, tất cả các trình xử lý sự kiện (chẳng hạn như cái ở trên) sẽ được thực hiện với chế độ luồng <code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_IMMEDIATE</span></code>,
+như mô tả trên tài liệu <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a>.</p>
+<p>Ngoài ra, không thực sự có thể chuyển gọn vào trạng thái ngủ để tiết kiệm năng lượng - như minh họa trong vòng lặp bận rộn trong ví dụ trên.</p>
+<p>Khởi tạo trình đặt lịch fiber là đơn giản, và được thể hiện trong ví dụ sau đây.</p>
+<p>Từ thời điểm trình đặt lịch fiber được khởi tạo, sau đó nó có thể chặn bộ xử lý bằng một cách tiết kiệm năng lượng và điều hành các luồng xử lý sự kiện:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitMessageBus</span> <span class="n">bus</span><span class="p">;</span>
+<span class="n">MicroBitButton</span> <span class="nf">buttonA</span><span class="p">(</span><span class="n">MICROBIT_PIN_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">);</span>
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onPressed</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;S&quot;</span><span class="p">);</span>    
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">scheduler_init</span><span class="p">(</span><span class="n">bus</span><span class="p">);</span>
+
+    <span class="n">bus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onPressed</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fiber_sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>!!! note &#8220;Lưu ý&#8221;
+Hàm gọi đến <code class="docutils literal"><span class="pre">uBit.sleep()</span></code> phải được thay thế bằng cách tương đương là gọi trực tiếp đến trình đặt lịch, sử dụng <code class="docutils literal"><span class="pre">fiber_sleep()</span></code>.</p>
+</div>
+<div class="section" id="khoi-tao-heap-cap-phat">
+<span id="khoi-tao-heap-cap-phat"></span><h2>Khởi tạo heap cấp phát<a class="headerlink" href="#khoi-tao-heap-cap-phat" title="Permalink to this headline">¶</a></h2>
+<p>Các micro:bit runtime cung cấp một trình cấp phát bộ nhớ heap tùy chọn. Điều này chủ yếu là để cho phép sử dụng <strong>nhiều</strong> vùng của bộ nhớ như là không gian bộ nhớ heap cho các biến của bạn.</p>
+<p>Hàm khởi tạo <code class="docutils literal"><span class="pre">uBit</span></code> sẽ tự động giải phóng bộ nhớ nào không dùng bởi ngăn xếp Bluetooth để phục vụ mục đích dùng chung theo cách này (điều này thường cung cấp thêm 1K của SRAM trong các bản biên dịch có dùng Bluetooth, và 8K nếu Bluetooth bị vô hiệu hóa).</p>
+<p>Nếu bạn muốn cũng lấy lại bộ nhớ theo cách này, bạn có thể làm như sau:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">microbit_create_heap</span><span class="p">(</span><span class="n">MICROBIT_SD_GATT_TABLE_START</span> <span class="o">+</span> <span class="n">MICROBIT_SD_GATT_TABLE_SIZE</span><span class="p">,</span> <span class="n">MICROBIT_SD_LIMIT</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tuy-chon-cau-hinh-vao-thoi-diem-bien-dich">
+<span id="tuy-chon-cau-hinh-vao-thoi-diem-bien-dich"></span><h2>Tùy chọn cấu hình vào thời điểm biên dịch<a class="headerlink" href="#tuy-chon-cau-hinh-vao-thoi-diem-bien-dich" title="Permalink to this headline">¶</a></h2>
+<p>Ngoài sự linh hoạt để khởi tạo chỉ những thành phần mà bạn cần, bộ runtime cũng cung cấp ở trung tâm một tập tin cấu hình thời gian biên dịch, gọi là <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code>.</p>
+<p>Bạn có thể sử dụng để cấu hình lại các hành vi mặc định của bộ runtime.</p>
+<p>Các thiết lập mặc định sẽ cung cấp một môi trường làm việc ổn định, nhưng người dùng cao cấp có thể muốn chỉnh sửa thêm hành vi.</p>
+<p>Để chỉnh hành vi, chỉ cần chỉnh sửa file <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code> để thay đổi các thiết lập, và sau đó biên dịch lại từ đầu (clean rebuild).</p>
+<div class="section" id="tuy-chon-vao-thoi-diem-bien-dich-voi-microbitconfig-h">
+<span id="tuy-chon-vao-thoi-diem-bien-dich-voi-microbitconfig-h"></span><h3>Tùy chọn vào thời điểm biên dịch với MicroBitConfig.h<a class="headerlink" href="#tuy-chon-vao-thoi-diem-bien-dich-voi-microbitconfig-h" title="Permalink to this headline">¶</a></h3>
+<p>Các tùy chọn sau đây được cấu hình tại thời điểm biên dịch qua <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code>:</p>
+<p>| Tùy chọn cấu hình | Mô tả tóm tắt |
+| &#8212;&#8212;&#8212;&#8212;- | &#8212;&#8212;&#8212;&#8212;- |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_ALLOCATOR</span></code> | Cho phép hoặc vô hiệu hóa các MicroBitHeapAllocator cho các bản biên dịch dựa trên <code class="docutils literal"><span class="pre">uBit</span></code>. |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_BLOCK_SIZE</span></code> | Kích thước khối được sử dụng bởi bộ cấp phát heap theo số byte. |
+| <code class="docutils literal"><span class="pre">MICROBIT_NESTED_HEAP_SIZE</span></code> | Tỷ lệ SRAM có sẵn trên mbed heap để dành cho micro:bit heap. |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_REUSE_SD</span></code> | Nếu đặt là &#8216;1&#8217;, bất kỳ khu vực chưa sử dụng nào của bảng Soft Device GATT sẽ được tự động tái sử dụng như là bộ nhớ heap. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SD_GATT_TABLE_SIZE</span></code> | Số lượng bộ nhớ (byte) để dành cho bảng Soft Device GATT. |
+| <code class="docutils literal"><span class="pre">SYSTEM_TICK_PERIOD_MS</span></code> | Trình đặt lịch cơ sở mặc định |
+| <code class="docutils literal"><span class="pre">EVENT_LISTENER_DEFAUT_FLAGS</span></code> | Chế độ luồng mặc định được sử dụng khi một trình lắng nghe <code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> được tạo ra. |
+| <code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_MAX_QUEUE_DEPTH</span></code> | Độ sâu tối đa của hàng đợi sự kiện. Nếu một hàng đợi vượt quá độ sâu này, các sự kiện sau đó sẽ bị bỏ. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SYSTEM_COMPONENTS</span></code> | Kích thước tối đa của danh sách gọi lại ngắt. |
+| <code class="docutils literal"><span class="pre">MICROBIT_IDLE_COMPONENTS</span></code> | Kích thước tối đa của danh sách gọi lại nhàn rỗi. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_ENABLED</span></code> | Bật / Tắt Bluetooth trong khi hoạt động bình thường. Nếu bị vô hiệu, không thể giao tiếp Bluetooth, nhưng chức năng radio có thể được thực hiện, và có thêm 8K của SRAM được giải tỏa |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_PAIRING_MODE</span></code> | Bật / Tắt Bluetooth chế độ ghép nối với A+B / thiết lập lại khi mới cấp điện |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_PRIVATE_ADDRESSES</span></code> | Kích hoạt / Vô hiệu hóa việc sử dụng các địa chỉ riêng phân giải được. <strong>Tính năng này được biết là gặp vấn đề tương thích với nhiều thiết bị trung tâm Bluetooth</strong>. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_OPEN</span></code> | Bật / Tắt việc bảo mật Bluetooth toàn diện. Mở liên kết Bluetooth là không an toàn, nhưng rất hữu ích trong việc phát triển các dịch vụ Bluetooth. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_SECURITY_LEVEL</span></code> | Xác định các yêu cầu bảo mật toàn cục, mặc định cho các dịch vụ Bluetooth |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_WHITELIST</span></code> | Kích hoạt / Vô hiệu hóa việc sử dụng các danh sách trắng Bluetooth. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_ADVERTISING_TIMEOUT</span></code> | Xác định khoảng thời gian mà các ngăn xếp Bluetooth sẽ quảng cáo (giây). |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_DEFAULT_TX_POWER</span></code> | Xác định mức năng lượng mặc định của bộ phát vô tuyến Bluetooth. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_DFU_SERVICE</span></code> | Kích hoạt / Vô hiệu hoá dịch vụ Bluetooth: MicroBitDFU. Điều này cho phép các lập trình lại thiết bị trực tiếp (over the air) trong quá trình hoạt động bình thường. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_EVENT_SERVICE</span></code> | Kích hoạt / Vô hiệu hoá dịch vụ Bluetooth: MicroBitEventService. Điều này cho phép chuyển các sự kiện từ bus thông điệp micro:bit qua Bluetooth. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_DEVICE_INFORMATION_SERVICE</span></code> | Kích hoạt / Vô hiệu hoá dịch vụ Bluetooth: MicroBitDeviceInformationService. Dùng để bật các dịch vụ thông tin chuẩn của thiết bị Bluetooth. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_EDDYSTONE_URL</span></code> | Kích hoạt / Vô hiệu hoá hỗ trợ URL Eddystone. Bật tính năng này cho phép bạn để phát sóng một url web vật lý từ micro:bit. |
+| <code class="docutils literal"><span class="pre">USE_ACCEL_LSB</span></code> | Kích hoạt tính năng lấy mẫu 10 bit trên máy đo gia tốc. Chế độ mặc định sử dụng các lấy mẫu 8 bit tiết kiệm năng lượng hơn. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_TYPE</span></code> | Chọn cấu hình ma trận mặc định cho driver điều khiển hiển thị. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_MINIMUM_BRIGHTNESS</span></code> | Chọn mức độ sáng tối thiểu cho phép của thiết bị. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_MAXIMUM_BRIGHTNESS</span></code> | Chọn mức độ sáng tối đa cho phép của thiết bị. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_DEFAULT_BRIGHTNESS</span></code> | Chọn mức độ sáng mặc định cho thiết bị. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_SCROLL_SPEED</span></code> | Chọn thời gian dùng để cuộn một điểm ảnh duy nhất, trong mili giây. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_SCROLL_STRIDE</span></code> | Chọn số lượng điểm ảnh mà một cuộn sẽ di chuyển trong từng lượt. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_PRINT_SPEED</span></code> | Chọn thời gian mỗi ký tự sẽ được hiển thị trên màn hình trong các hoạt động in ra màn hình, trong mili giây. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_SERIAL_MODE</span></code> | Cấu hình mặc định chế độ giao tiếp nối tiếp (serial) được sử dụng bởi các lệnh đọc và ghi serial. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_PULLMODE</span></code> | Xác định chế độ mặc định để cấu hình các chân đầu vào kỹ thuật số. Các lựa chọn hợp lệ là PullDown, PullUp và PullNone. |
+| <code class="docutils literal"><span class="pre">MICROBIT_PANIC_HEAP_FULL</span></code> | Kích hoạt tính năng này để tạo một báo động (panic) về những hoàn cảnh hết bộ nhớ. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DBG</span></code> | Kích hoạt tính năng này để chuyển thông điệp debug qua giao diện nối tiếp USB. |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_DBG</span></code> | Kích hoạt tính năng này để nhận tin nhắn chẩn đoán chi tiết từ bộ cấp phát heap qua giao diện nối tiếp USB. |
+| <code class="docutils literal"><span class="pre">MICROBIT_DAL_VERSION</span></code> | Xác định thông tin phiên bản mặc định của bộ runtime. |</p>
+<p>Ngoài ra còn có một số hằng số định nghĩa (kích thước) hình học của bộ nhớ micro:bit.</p>
+<p>!!! warning &#8220;Cảnh báo&#8221;
+Chỉ thay đổi những điều này nếu bạn thực sự biết mình đang làm gì!</p>
+<p>| Tùy chọn cấu hình | Mô tả tóm tắt |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| <code class="docutils literal"><span class="pre">MICROBIT_SRAM_BASE</span></code> |  Địa chỉ bắt đầu của bộ nhớ RAM có thể sử dụng. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SRAM_END</span></code> |  Địa chỉ cuối của bộ nhớ RAM có thể sử dụng. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SD_LIMIT</span></code> |  Địa chỉ cuối của bộ nhớ RAM để dành cho Soft Device (Nordic&#8217;s Bluetooth stack). |
+| <code class="docutils literal"><span class="pre">MICROBIT_SD_GATT_TABLE_START</span></code> |  Địa chỉ bắt đầu của bảng Bluetooth GATT table trong RAM. |
+| <code class="docutils literal"><span class="pre">CORTEX_M0_STACK_BASE</span></code> | Địa chỉ bộ nhớ ở trên cùng của stack hệ thống. |
+| <code class="docutils literal"><span class="pre">MICROBIT_STACK_SIZE</span></code> | Lượng bộ nhớ để dành cho stack (tính theo byte). |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_END</span></code> | Địa chỉ cuối cùng của không gian mbed heap. |</p>
+</div>
+<div class="section" id="tuy-chon-tai-thoi-diem-bien-dich-voi-yotta">
+<span id="tuy-chon-tai-thoi-diem-bien-dich-voi-yotta"></span><h3>Tùy chọn tại thời điểm biên dịch với Yotta<a class="headerlink" href="#tuy-chon-tai-thoi-diem-bien-dich-voi-yotta" title="Permalink to this headline">¶</a></h3>
+<p>Thay vì chỉnh sửa file <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code> để thay đổi hành vi mặc định của bộ runtime, nếu bạn đang sử dụng
+<code class="docutils literal"><span class="pre">yotta</span></code>, bạn cũng có thể cung cấp một <code class="docutils literal"><span class="pre">config.json</span></code> trong dự án của bạn.</p>
+<p>Dưới đây là một <code class="docutils literal"><span class="pre">config.json</span></code>, sử dụng tất cả các tùy chọn cấu hình có sẵn, phù hợp với các giá trị mặc định được quy định trong <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;microbit-dal&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;bluetooth&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;pairing_mode&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;private_addressing&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;open&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;whitelist&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;advertising_timeout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;tx_power&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;dfu_service&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;event_service&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;device_info_service&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;eddystone_url&quot;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;reuse_sd&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;default_pullmode&quot;</span><span class="p">:</span><span class="s2">&quot;PullDown&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;gatt_table_size&quot;</span><span class="p">:</span> <span class="s2">&quot;0x300&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;heap_allocator&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;nested_heap_proportion&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+        <span class="nt">&quot;system_tick_period&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="nt">&quot;system_components&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nt">&quot;idle_components&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="nt">&quot;use_accel_lsb&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;min_display_brightness&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;max_display_brightness&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
+        <span class="nt">&quot;display_scroll_speed&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+        <span class="nt">&quot;display_scroll_stride&quot;</span><span class="p">:</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="nt">&quot;display_print_speed&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+        <span class="nt">&quot;panic_on_heap_full&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;debug&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;heap_debug&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;stack_size&quot;</span><span class="p">:</span><span class="mi">2048</span><span class="p">,</span>
+        <span class="nt">&quot;sram_base&quot;</span><span class="p">:</span><span class="s2">&quot;0x20000008&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sram_end&quot;</span><span class="p">:</span><span class="s2">&quot;0x20004000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sd_limit&quot;</span><span class="p">:</span><span class="s2">&quot;0x20002000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;gatt_table_start&quot;</span><span class="p">:</span><span class="s2">&quot;0x20001900&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Cần lưu ý rằng <strong>tất cả</strong> các tùy chọn ở trên là tùy chọn, và sẽ trở lại giá trị mặc định của chúng
+nếu không được nhắc đến. Điều này có nghĩa rằng chúng ta cũng có thể cung cấp một tập hợp con của các tùy chọn này, để cấu hình
+các phần cụ thể của bộ runtime:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;microbit-dal&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;bluetooth&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;open&quot;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;debug&quot;</span><span class="p">:</span><span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Ngoài ra, các tùy chọn được cung cấp qua <code class="docutils literal"><span class="pre">config.json</span></code> ánh xạ một cách tự nhiên lên <code class="docutils literal"><span class="pre">#defines</span></code>
+listed in <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code></p>
+<p>Một ví dụ của <code class="docutils literal"><span class="pre">config.json</span></code> khi hoạt động có tại  kho GitHub <a class="reference external" href="https://github.com/lancaster-university/microbit-samples">microbit-samples</a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tính năng nâng cao của bộ Runtime</a><ul>
+<li><a class="reference internal" href="#su-dung-truc-tiep-cac-thanh-phan">Sử dụng trực tiếp các thành phần</a></li>
+<li><a class="reference internal" href="#cac-thanh-phan-he-thong">Các thành phần hệ thống</a></li>
+<li><a class="reference internal" href="#khoi-tao-kenh-truyen-thong-diep-message-bus">Khởi tạo kênh truyền thông điệp (Message Bus)</a></li>
+<li><a class="reference internal" href="#khoi-tao-trinh-dat-lich-fiber">Khởi tạo trình đặt lịch Fiber</a></li>
+<li><a class="reference internal" href="#khoi-tao-heap-cap-phat">Khởi tạo heap cấp phát</a></li>
+<li><a class="reference internal" href="#tuy-chon-cau-hinh-vao-thoi-diem-bien-dich">Tùy chọn cấu hình vào thời điểm biên dịch</a><ul>
+<li><a class="reference internal" href="#tuy-chon-vao-thoi-diem-bien-dich-voi-microbitconfig-h">Tùy chọn vào thời điểm biên dịch với MicroBitConfig.h</a></li>
+<li><a class="reference internal" href="#tuy-chon-tai-thoi-diem-bien-dich-voi-yotta">Tùy chọn tại thời điểm biên dịch với Yotta</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/advanced.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/advanced.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

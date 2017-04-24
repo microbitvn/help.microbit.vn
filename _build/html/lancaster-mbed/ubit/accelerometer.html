@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Real time updates &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.accelerometer</p>
+<p>##Overview</p>
+<p>Onboard the micro:bit is an accelerometer, and it is linked to the
+<a class="reference external" href="i2c.md">i2c</a> bus which is used to read data from the accelerometer.</p>
+<p>The accelerometer on the micro:bit detects the acceleration (<em>in milli-g</em>) in 3 planes: x and y
+(<em>the horizontal planes</em>), and z (<em>the vertical plane</em>).</p>
+<p>As well as detecting acceleration, accelerometers can also detect orientation, which
+is used in smart phones and tablets to rotate content as you tilt the device. This means
+that the micro:bit can infer its own orientation as well!</p>
+<p>As well as being used to detect acceleration, accelerometers are also used to detect
+the rate of deceleration. A great example of an application of accelerometers are
+airbags in modern vehicles, where an accelerometer is used to detect the rapid deceleration
+of a vehicle. If rapid deceleration were to occur, the airbags are deployed.</p>
+<p>Accelerometers can also be used to detect when an object is in free fall, which is
+when only the force gravity is acting upon an object. If you were to throw a ball directly
+into the air, free fall would begin as soon as the ball begins its decent after the
+acceleration from your throw has subsided.</p>
+<p>The micro:bit uses the <a class="reference external" href="../resources/datasheets/MMA8653.pdf">MMA8653</a>.</p>
+<div class="section" id="real-time-updates">
+<span id="real-time-updates"></span><h1>Real time updates<a class="headerlink" href="#real-time-updates" title="Permalink to this headline">¶</a></h1>
+<p>When using the standard uBit presentation, the accelerometer is continuously updated
+in the background using an idle thread (after it is first used), which is executed
+whenever the micro:bit has no other tasks to perform..</p>
+<p>If there is no scheduler running, the values are synchronously read on <code class="docutils literal"><span class="pre">get[X,Y,Z]()</span></code>
+calls. Additionally, if you would like to drive accelerometer updates manually <code class="docutils literal"><span class="pre">updateSample()</span></code>
+can be used.</p>
+<p>##Message Bus ID</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ID_ACCELEROMETER | 4 |
+| MICROBIT_ID_GESTURE | 27 |</p>
+<p>##Message Bus Events:</p>
+</div>
+<div class="section" id="microbit-id-accelerometer">
+<span id="microbit-id-accelerometer"></span><h1>MICROBIT_ID_ACCELEROMETER<a class="headerlink" href="#microbit-id-accelerometer" title="Permalink to this headline">¶</a></h1>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ACCELEROMETER_EVT_DATA_UPDATE | 1 |</p>
+</div>
+<div class="section" id="microbit-id-gesture">
+<span id="microbit-id-gesture"></span><h1>MICROBIT_ID_GESTURE<a class="headerlink" href="#microbit-id-gesture" title="Permalink to this headline">¶</a></h1>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ACCELEROMETER_EVT_TILT_UP | 1 |
+| MICROBIT_ACCELEROMETER_EVT_TILT_DOWN | 2 |
+| MICROBIT_ACCELEROMETER_EVT_TILT_LEFT | 3 |
+| MICROBIT_ACCELEROMETER_EVT_TILT_RIGHT | 4 |
+| MICROBIT_ACCELEROMETER_EVT_FACE_UP | 5 |
+| MICROBIT_ACCELEROMETER_EVT_FACE_DOWN | 6 |
+| MICROBIT_ACCELEROMETER_EVT_FREEFALL | 7 |
+| MICROBIT_ACCELEROMETER_EVT_3G | 8 |
+| MICROBIT_ACCELEROMETER_EVT_6G | 9 |
+| MICROBIT_ACCELEROMETER_EVT_8G | 10 |
+| MICROBIT_ACCELEROMETER_EVT_SHAKE | 11 |</p>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitAccelerometer&#8221;})
+##Constructor
+<br/>
+####MicroBitAccelerometer( <div style='color:#a71d5d; display:inline-block'>MicroBitI2C  &amp;</div> _i2c)
+#####Description
+Constructor. Create a software abstraction of an accelerometer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitI2C  &</div> _i2c - an instance of  MicroBitI2C  used to communicate with the onboard accelerometer.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitI2C</span> <span class="n">i2c</span> <span class="o">=</span> <span class="n">MicroBitI2C</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span> 
+ 
+ <span class="n">MicroBitAccelerometer</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitAccelerometer( <div style='color:#a71d5d; display:inline-block'>MicroBitI2C  &amp;</div> _i2c,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> address)
+#####Description
+Constructor. Create a software abstraction of an accelerometer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitI2C  &</div> _i2c - an instance of  MicroBitI2C  used to communicate with the onboard accelerometer.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> address - the default I2C address of the accelerometer. Defaults to: MMA8653_DEFAULT_ADDR.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitI2C</span> <span class="n">i2c</span> <span class="o">=</span> <span class="n">MicroBitI2C</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span> 
+ 
+ <span class="n">MicroBitAccelerometer</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitAccelerometer( <div style='color:#a71d5d; display:inline-block'>MicroBitI2C  &amp;</div> _i2c,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> address,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)
+#####Description
+Constructor. Create a software abstraction of an accelerometer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitI2C  &</div> _i2c - an instance of  MicroBitI2C  used to communicate with the onboard accelerometer.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> address - the default I2C address of the accelerometer. Defaults to: MMA8653_DEFAULT_ADDR.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - the unique  EventModel  id of this component. Defaults to: MICROBIT_ID_ACCELEROMETER</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitI2C</span> <span class="n">i2c</span> <span class="o">=</span> <span class="n">MicroBitI2C</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span> 
+ 
+ <span class="n">MicroBitAccelerometer</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##configure
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>configure</div>()
+#####Description
+Configures the accelerometer for G range and sample rate defined in this object. The nearest values are chosen to those defined that are supported by the hardware. The instance variables are then updated to reflect reality.</p>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR if the accelerometer could not be configured.
+##updateSample
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>updateSample</div>()
+#####Description
+Reads the acceleration data from the accelerometer, and stores it in our buffer. This only happens if the accelerometer indicates that it has new data via int1.</p>
+<p>On first use, this member function will attempt to add this component to the list of fiber components in order to constantly update the values stored by this object.</p>
+<p>This technique is called lazy instantiation, and it means that we do not obtain the overhead from non-chalantly adding this component to fiber components.</p>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR if the read request fails.
+##setPeriod
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setPeriod</div>( <div style='color:#a71d5d; display:inline-block'>int</div> period)
+#####Description
+Attempts to set the sample rate of the accelerometer to the specified value (in ms).</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> period - the requested time between samples, in milliseconds.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR is the request fails.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// sample rate is now 20 ms. </span>
+ <span class="n">accelerometer</span><span class="p">.</span><span class="n">setPeriod</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+The requested rate may not be possible on the hardware. In this case, the nearest lower rate is chosen.</p>
+<p>##getPeriod
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getPeriod</div>()
+#####Description
+Reads the currently configured sample rate of the accelerometer.</p>
+<p>#####Returns
+The time between samples, in milliseconds.
+##setRange
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setRange</div>( <div style='color:#a71d5d; display:inline-block'>int</div> range)
+#####Description
+Attempts to set the sample range of the accelerometer to the specified value (in g).</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> range - The requested sample range of samples, in g.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR is the request fails.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// the sample range of the accelerometer is now 8G. </span>
+ <span class="n">accelerometer</span><span class="p">.</span><span class="n">setRange</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+The requested range may not be possible on the hardware. In this case, the nearest lower range is chosen.</p>
+<p>##getRange
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getRange</div>()
+#####Description
+Reads the currently configured sample range of the accelerometer.</p>
+<p>#####Returns
+The sample range, in g.
+##whoAmI
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>whoAmI</div>()
+#####Description
+Attempts to read the 8 bit ID from the accelerometer, this can be used for validation purposes.</p>
+<p>#####Returns
+the 8 bit ID returned by the accelerometer, or MICROBIT_I2C_ERROR if the request fails.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">whoAmI</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getX
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getX</div>()
+#####Description
+Reads the value of the X axis from the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The force measured in the X axis, in milli-g.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getX</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getX</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitCoordinateSystem</div> system)
+#####Description
+Reads the value of the X axis from the latest update retrieved from the accelerometer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitCoordinateSystem</div> system - The coordinate system to use. By default, a simple cartesian system is provided.</div></blockquote>
+<p>#####Returns
+The force measured in the X axis, in milli-g.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getX</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getY
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getY</div>()
+#####Description
+Reads the value of the Y axis from the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The force measured in the Y axis, in milli-g.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getY</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getY</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitCoordinateSystem</div> system)
+#####Description
+Reads the value of the Y axis from the latest update retrieved from the accelerometer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitCoordinateSystem</div> system</div></blockquote>
+<p>#####Returns
+The force measured in the Y axis, in milli-g.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getY</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getZ
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getZ</div>()
+#####Description
+Reads the value of the Z axis from the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The force measured in the Z axis, in milli-g.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getZ</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getZ</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitCoordinateSystem</div> system)
+#####Description
+Reads the value of the Z axis from the latest update retrieved from the accelerometer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitCoordinateSystem</div> system</div></blockquote>
+<p>#####Returns
+The force measured in the Z axis, in milli-g.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getZ</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getPitch
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getPitch</div>()
+#####Description
+Provides a rotation compensated pitch of the device, based on the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The pitch of the device, in degrees.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getPitch</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getPitchRadians
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>float</div> <div style='color:#795da3; display:inline-block'>getPitchRadians</div>()
+#####Description
+Provides a rotation compensated pitch of the device, based on the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The pitch of the device, in radians.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getPitchRadians</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getRoll
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getRoll</div>()
+#####Description
+Provides a rotation compensated roll of the device, based on the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The roll of the device, in degrees.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getRoll</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getRollRadians
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>float</div> <div style='color:#795da3; display:inline-block'>getRollRadians</div>()
+#####Description
+Provides a rotation compensated roll of the device, based on the latest update retrieved from the accelerometer.</p>
+<p>#####Returns
+The roll of the device, in radians.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">accelerometer</span><span class="p">.</span><span class="n">getRollRadians</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##getGesture
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>uint16_t</div> <div style='color:#795da3; display:inline-block'>getGesture</div>()
+#####Description
+Retrieves the last recorded gesture.</p>
+<p>#####Returns
+The last gesture that was detected.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ 
+ <span class="k">if</span> <span class="p">(</span><span class="n">accelerometer</span><span class="p">.</span><span class="n">getGesture</span><span class="p">()</span> <span class="o">==</span> <span class="n">SHAKE</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;SHAKE!&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitAccelerometer&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Real time updates</a></li>
+<li><a class="reference internal" href="#microbit-id-accelerometer">MICROBIT_ID_ACCELEROMETER</a></li>
+<li><a class="reference internal" href="#microbit-id-gesture">MICROBIT_ID_GESTURE</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/accelerometer.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/accelerometer.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

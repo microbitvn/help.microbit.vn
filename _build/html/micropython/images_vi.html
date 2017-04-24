@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Hình ảnh &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="hinh-anh">
+<span id="hinh-anh"></span><h1>Hình ảnh<a class="headerlink" href="#hinh-anh" title="Permalink to this headline">¶</a></h1>
+<p>MicroPython cũng giỏi về nghệ thuật bằng bạn nếu điều duy nhất bạn có là
+một lưới đèn LEDs đỏ có kích thước 5x5 (điốt phát quang - những thứ phát sáng
+trên mặt trước của thiết bị). MicroPython cung cấp cho bạn khá nhiều quyền kiểm soát
+việc hiển thị để bạn có thể tạo ra tất cả các loại hiệu ứng thú vị.</p>
+<p>MicroPython đi kèm với rất nhiều hình ảnh được xây dựng sẵn để hiển thị trên màn hình.
+Ví dụ, để làm cho thiết bị hiển thị trông hạnh phúc bạn gõ:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">HAPPY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tôi đoán bạn có thể nhớ dòng lệnh đầu tiên làm gì. Dòng thứ hai sử dụng đối tượng
+<code class="docutils literal"><span class="pre">display</span></code> (hiển thị) để <code class="docutils literal"><span class="pre">show</span></code>(đưa ra) một hình ảnh được xây dựng sẵn. Hình ảnh hạnh phúc chúng ta muốn
+hiển thị là một phần của đối tượng <code class="docutils literal"><span class="pre">Image</span></code> (Hình ảnh) và được gọi là <code class="docutils literal"><span class="pre">HAPPY</span></code> (Hạnh phúc). Chúng ta ra lệnh cho
+<code class="docutils literal"><span class="pre">show</span></code> sử dụng nó bằng cách đặt nó giữa dấu ngoặc đơn (<code class="docutils literal"><span class="pre">(</span></code> và <code class="docutils literal"><span class="pre">)</span></code>).</p>
+<p><img alt="" src="../_images/happy.png" /></p>
+<p>Dưới đây là một danh sách các hình ảnh được xây dựng sẵn:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Image.HEART</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.HEART_SMALL</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.HAPPY</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SMILE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SAD</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.CONFUSED</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.ANGRY</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.ASLEEP</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SURPRISED</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SILLY</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.FABULOUS</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.MEH</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.YES</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.NO</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.CLOCK12</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK11</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK10</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK9</span></code>,
+<code class="docutils literal"><span class="pre">Image.CLOCK8</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK7</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK6</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK5</span></code>,
+<code class="docutils literal"><span class="pre">Image.CLOCK4</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK3</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK2</span></code>, <code class="docutils literal"><span class="pre">Image.CLOCK1</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.ARROW_N</span></code>, <code class="docutils literal"><span class="pre">Image.ARROW_NE</span></code>, <code class="docutils literal"><span class="pre">Image.ARROW_E</span></code>,
+<code class="docutils literal"><span class="pre">Image.ARROW_SE</span></code>, <code class="docutils literal"><span class="pre">Image.ARROW_S</span></code>, <code class="docutils literal"><span class="pre">Image.ARROW_SW</span></code>,
+<code class="docutils literal"><span class="pre">Image.ARROW_W</span></code>, <code class="docutils literal"><span class="pre">Image.ARROW_NW</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.TRIANGLE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.TRIANGLE_LEFT</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.CHESSBOARD</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.DIAMOND</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.DIAMOND_SMALL</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SQUARE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SQUARE_SMALL</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.RABBIT</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.COW</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.MUSIC_CROTCHET</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.MUSIC_QUAVER</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.MUSIC_QUAVERS</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.PITCHFORK</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.XMAS</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.PACMAN</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.TARGET</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.TSHIRT</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.ROLLERSKATE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.DUCK</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.HOUSE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.TORTOISE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.BUTTERFLY</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.STICKFIGURE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.GHOST</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SWORD</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.GIRAFFE</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SKULL</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.UMBRELLA</span></code></li>
+<li><code class="docutils literal"><span class="pre">Image.SNAKE</span></code></li>
+</ul>
+<p>Có khá nhiều! Tại sao không điều chỉnh mã lệnh làm cho micro:bit trông
+hạnh phúc để xem một số hình ảnh khác được xây dựng sẵn trông như thế nào?
+(Chỉ cần thay thế <code class="docutils literal"><span class="pre">Image.HAPPY</span></code> bằng một trong số những hình ảnh được xây dựng sẵn
+đã liệt kê ở trên.)</p>
+<div class="section" id="hinh-anh-diy-tu-tay-tao">
+<span id="hinh-anh-diy-tu-tay-tao"></span><h2>Hình ảnh DIY (Tự tay tạo)<a class="headerlink" href="#hinh-anh-diy-tu-tay-tao" title="Permalink to this headline">¶</a></h2>
+<p>Tất nhiên, bạn muốn tạo ra hình ảnh của riêng bạn để hiển thị trên các micro:bit, phải vậy không?</p>
+<p>Dễ lắm.</p>
+<p>Mỗi pixel (điểm ảnh) LED trên màn hình hiển thị có thể được thiết lập một trong mười giá trị.
+Nếu một pixel được thiết lập là <code class="docutils literal"><span class="pre">0</span></code> (không) thì nó sẽ tắt. Nghĩa là nó có độ sáng bằng không.
+Tuy nhiên, nếu nó được thiết lập là <code class="docutils literal"><span class="pre">9</span></code> thì nó đang ở mức sáng nhất. Các giá trị
+từ <code class="docutils literal"><span class="pre">1</span></code> để <code class="docutils literal"><span class="pre">8</span></code> đại diện cho mức độ sáng giữa tắt (<code class="docutils literal"><span class="pre">0</span></code>) và sáng nhất ( <code class="docutils literal"><span class="pre">9</span></code>).</p>
+<p>Được trang bị thông tin này, ta hoàn toàn có thể tạo ra một hình ảnh mới như thế này:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">boat</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;05050:&quot;</span>
+             <span class="s2">&quot;05050:&quot;</span>
+             <span class="s2">&quot;05050:&quot;</span>
+             <span class="s2">&quot;99999:&quot;</span>
+             <span class="s2">&quot;09990&quot;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">boat</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(Khi chạy, thiết bị sẽ hiển thị một thuyền buồm &#8220;Blue Peter&#8221; kiểu cũ
+với các cột buồm mờ hơn thân tàu.)</p>
+<p>Bạn đã tìm ra cách để vẽ một bức tranh chưa? Bạn có nhận thấy rằng mỗi dòng
+của màn hình hiển thị được diễn tả bởi một dòng các con số kết thúc với dấu <code class="docutils literal"><span class="pre">:</span></code> và
+được đặt giữa dấu ngoặc kép <code class="docutils literal"><span class="pre">&quot;</span></code>? Mỗi số quy định một độ sáng.
+Có năm dòng, mỗi dòng năm con số vì vậy nó có thể quy định độ sáng
+riêng lẻ cho từng pixel trong năm điểm ảnh trên từng dòng của năm dòng trên màn hình
+hiển thị. Đó là cách để tạo ra một hình ảnh mới.</p>
+<p>Đơn giản vậy thôi!</p>
+<p>Thực tế, bạn không cần phải viết trên nhiều dòng. Nếu bạn nghĩ rằng bạn có thể
+theo dõi từng dòng, bạn có thể viết lại như thế này:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">boat</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;05050:05050:05050:99999:09990&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="animation-anh-dong">
+<span id="animation-anh-dong"></span><h2>Animation (Ảnh động)<a class="headerlink" href="#animation-anh-dong" title="Permalink to this headline">¶</a></h2>
+<p>Hình ảnh tĩnh thì thú vị, nhưng còn thú vị hơn khi làm cho chúng chuyển động. Điều này cũng
+thật đơn giản khi thực hiện với MicroPython ~ chỉ cần sử dụng một danh sách các hình ảnh!</p>
+<p>Đây là một danh sách mua sắm:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Eggs</span>
+<span class="n">Bacon</span>
+<span class="n">Tomatoes</span>
+</pre></div>
+</div>
+<p>Đây là cách bạn thể hiện danh sách này trong Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">shopping</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;Bacon&quot;</span><span class="p">,</span> <span class="s2">&quot;Tomatoes&quot;</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Tôi đơn giản tạo ra một danh sách gọi là <code class="docutils literal"><span class="pre">shopping</span></code> (mua sắm) và nó chứa ba mục.
+Python biết đó là một danh sách bởi vì nó được đặt trong dấu ngoặc vuông (<code class="docutils literal"><span class="pre">[</span></code>và
+<code class="docutils literal"><span class="pre">]</span></code>). Các mục trong danh sách được phân cách bằng dấu phẩy (<code class="docutils literal"><span class="pre">,</span></code>) và trong trường hợp này
+các mục là ba chuỗi ký tự: <code class="docutils literal"><span class="pre">&quot;Egg</span> <span class="pre">(Trứng)&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;Bacon</span> <span class="pre">(Thịt</span> <span class="pre">xông</span> <span class="pre">khói)&quot;</span></code> và
+<code class="docutils literal"><span class="pre">&quot;Tomatoes</span> <span class="pre">(Cà</span> <span class="pre">chua)&quot;</span></code>. Chúng ta biết chúng là các chuỗi ký tự, vì chúng được đặt trong
+dấu ngoặc kép <code class="docutils literal"><span class="pre">&quot;</span></code>.</p>
+<p>Bạn có thể lưu trữ bất cứ điều gì trong một danh sách với Python. Đây là một danh sách các số:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">primes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>!!! note &#8220;Lưu ý&#8221;</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Số không cần phải được đặt trong ngoặc vì chúng đại diện cho một giá trị (chứ không phải là
+một chuỗi các ký tự). Đó là sự khác biệt giữa `2` (giá trị số 2)
+và `&quot;2&quot;` (ký tự/chữ số đại diện cho số 2). Đừng lo lắng
+nếu điều này vô nghĩa ngay bây giờ. Bạn sẽ sớm làm quen với nó thôi.
+</pre></div>
+</div>
+<p>Ta còn có thể lưu trữ các thứ thuộc các loại khác nhau trong cùng một danh sách:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mixed_up_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello!&quot;</span><span class="p">,</span> <span class="mf">1.234</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">HAPPY</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Bạn có để ý mục cuối cùng không? Đó là một hình ảnh!</p>
+<p>Chúng ta có thể ra lệnh cho MicroPython làm chuyển động một danh sách các hình ảnh. Chúng ta may mắn có một
+vài danh sách các hình ảnh đã được xây dựng sẵn. Chúng được gọi là <code class="docutils literal"><span class="pre">Image.ALL_CLOCKS</span></code>
+và <code class="docutils literal"><span class="pre">Image.ALL_ARROWS</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ALL_CLOCKS</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Giống như với hình ảnh đơn, chúng ta sử dụng <code class="docutils literal"><span class="pre">display.show</span></code> để hiển thị nó trên màn hình
+của thiết bị. Tuy nhiên, chúng ta ra lệnh cho MicroPython sử dụng <code class="docutils literal"><span class="pre">Image.ALL_CLOCKS</span></code> và
+nó hiểu rằng nó cần hiển thị mỗi hình ảnh trong danh sách theo trật tự.
+Chúng ta cũng ra lệnh cho MicroPython tiếp tục lặp trên danh sách các hình ảnh
+(để ảnh động kéo dài mãi mãi) bằng cách khai báo <code class="docutils literal"><span class="pre">loop</span> <span class="pre">=</span> <span class="pre">TRUE</span></code>. Hơn nữa, chúng ta ra lệnh cho nó
+rằng chúng ta muốn delay (độ trễ) giữa mỗi hình ảnh là 100 mili giây (một phần mười
+của một giây) với tham số <code class="docutils literal"><span class="pre">delay</span> <span class="pre">=</span> <span class="pre">100</span></code>.</p>
+<p>Bạn có thể tìm cách để làm chuyển động trên danh sách <code class="docutils literal"><span class="pre">Image.ALL_ARROWS</span></code> không?
+Làm thế nào để bạn tránh vòng lặp mãi mãi (gợi ý: ngược với <code class="docutils literal"><span class="pre">TRUE</span></code> (Đúng) là<code class="docutils literal"><span class="pre">FALSE</span></code> (Sai)
+mặc dù giá trị mặc định cho <code class="docutils literal"><span class="pre">loop</span></code> (vòng lặp) là<code class="docutils literal"><span class="pre">FALSE</span></code>)? Bạn có thể thay đổi tốc độ của
+chuyển động không?</p>
+<p>Cuối cùng, đây là cách để tạo ra hình ảnh động của riêng bạn. Trong ví dụ của tôi,
+tôi sẽ làm cho con thuyền của mình chìm vào phía dưới của màn hình hiển thị:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">boat1</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;99999:&quot;</span>
+              <span class="s2">&quot;09990&quot;</span><span class="p">)</span>
+
+<span class="n">boat2</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;99999&quot;</span><span class="p">)</span>
+
+<span class="n">boat3</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050&quot;</span><span class="p">)</span>
+
+<span class="n">boat3</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050:&quot;</span>
+              <span class="s2">&quot;05050&quot;</span><span class="p">)</span>
+
+<span class="n">boat5</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;05050&quot;</span><span class="p">)</span>
+
+<span class="n">boat6</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000:&quot;</span>
+              <span class="s2">&quot;00000&quot;</span><span class="p">)</span>
+
+<span class="n">all_boats</span> <span class="o">=</span> <span class="p">[</span><span class="n">boat1</span><span class="p">,</span> <span class="n">boat2</span><span class="p">,</span> <span class="n">boat3</span><span class="p">,</span> <span class="n">boat4</span><span class="p">,</span> <span class="n">boat5</span><span class="p">,</span> <span class="n">boat6</span><span class="p">]</span>
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">all_boats</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Đây là cách mã lệnh hoạt động:</p>
+<ul class="simple">
+<li>Tôi tạo ra sáu hình ảnh <code class="docutils literal"><span class="pre">boat</span></code> (con thuyền) chính xác như cách tôi mô tả ở trên.</li>
+<li>Sau đó, tôi đặt tất cả chúng vào một danh sách mà tôi gọi là <code class="docutils literal"><span class="pre">all_boats</span></code>.</li>
+<li>Cuối cùng, tôi ra lệnh cho <code class="docutils literal"><span class="pre">display.show</span></code> làm danh sách chuyển động với độ trễ 200 mili giây.</li>
+<li>Bởi vì tôi không thiết lập <code class="docutils literal"><span class="pre">loop=TRUE</span></code> cho nên thuyền sẽ chỉ chìm một lần (như vậy, làm cho hình ảnh động của tôi chính xác về mặt khoa học). :-)</li>
+</ul>
+<p>Bạn sẽ làm cái gì chuyển động? Bạn có thể tạo ra hiệu ứng chuyển động đặc biệt không? Làm thế nào
+bạn có thể làm một hình ảnh mờ dần đến biến mất và rồi hiện lên rõ dần trở lại?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Hình ảnh</a><ul>
+<li><a class="reference internal" href="#hinh-anh-diy-tu-tay-tao">Hình ảnh DIY (Tự tay tạo)</a></li>
+<li><a class="reference internal" href="#animation-anh-dong">Animation (Ảnh động)</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/images_vi.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/images_vi.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

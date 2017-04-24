@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#MicroBitLightSensor</p>
+<p>##Operation
+###Sensing Pins</p>
+<p>If the current is inverted on an LED, it becomes sensitive to light. In particular
+it is sensitive to the <strong>same colour</strong> of light it emits.</p>
+<p>You will find that the Light Sensor on the micro:bit is more reactive to red light
+than any other colour because that is the colour of light the display emits.</p>
+<p>The display is architected with 3 rows, each with 9 columns. This is illustrated
+below:</p>
+<p><img alt="light-sensing info graphic" src="../../_images/light-sensing.png" /></p>
+<p><center><em>Where the format is: <strong>ROW</strong>.</em><em>COLUMN</em>**</center></p>
+<p>On the micro:bit we have 6 analog pins, 3 are applicable to the display and reside
+on columns 1, 2 and 3.</p>
+<p>This means that we have 9 pins in total that we can sense light on if we are
+fast enough to transition between emitting and sensing light.</p>
+<p>The 9 sense pins are illustrated below:</p>
+<p><center></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="n">_____________________________</span>
+<span class="o">|</span> <span class="mf">1.1</span> <span class="o">|</span>     <span class="o">|</span> <span class="mf">1.2</span> <span class="o">|</span>     <span class="o">|</span> <span class="mf">1.3</span> <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span> <span class="mf">2.2</span> <span class="o">|</span>     <span class="o">|</span> <span class="mf">2.3</span> <span class="o">|</span>     <span class="o">|</span> <span class="mf">2.1</span> <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span> <span class="mf">3.3</span> <span class="o">|</span>     <span class="o">|</span> <span class="mf">3.1</span> <span class="o">|</span>     <span class="o">|</span> <span class="mf">3.2</span> <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+</pre></div>
+</div>
+<p></center></p>
+<p>The ADC takes around 4ms to settle and give accurate values with minimal current.
+This places restrictions on our sensing window.</p>
+<p>###Interleaving
+In the current implementation, the display and the Light sensor can operate in an
+interleaving manner. This interleaving is enabled due to a special display mode on the <a class="reference external" href="../ubit/display.md">display</a>
+which is automatically activated when <code class="docutils literal"><span class="pre">readLightLevel</span></code> is called by the user.</p>
+<p>This special mode (<code class="docutils literal"><span class="pre">DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE</span></code>), increases the rate of the <code class="docutils literal"><span class="pre">systemTick</span></code> callback to 5ms, and the
+<a class="reference external" href="../ubit/display.md">display</a> is thusly configured to drop the 4th frame for user processing,
+which in this case, is entirely consumed by the light sensor. This reduces the display
+refresh rate from 55Hz to around 50Hz.</p>
+<p>To signify the window for user processing, the display will fire an event:</p>
+<ul class="simple">
+<li><em>ID</em>: <code class="docutils literal"><span class="pre">MICROBIT_ID_DISPLAY</span></code></li>
+<li><em>Value</em>: <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_EVT_LIGHT_SENSE</span></code></li>
+</ul>
+<p>This will trigger an event handler in the <code class="docutils literal"><span class="pre">MicroBitLightSensor</span></code> class.</p>
+<p>##Sensing Life Cycle</p>
+<p>In the previous section we discussed how the <a class="reference external" href="../ubit/display.md">display</a> and the Light
+Sensor interleave. This section will cover the actual operation of the sensor during
+the <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_EVT_LIGHT_SENSE</span></code> event.</p>
+<p><br/></p>
+<p>!!! note
+If you would like to manually trigger the Light Sensor, a few steps must be taken:<br/><br/>
+1) Disable the display so that the column pins are under the users&#8217; control.<br/>
+2) Construct an instance of <code class="docutils literal"><span class="pre">MicroBitLightSensor</span></code><br/>
+3) Trigger the Light Sensor by firing a <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> with the ID <code class="docutils literal"><span class="pre">MICROBIT_ID_DISPLAY</span></code> and the value <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_EVT_LIGHT_SENSE</span></code>.</p>
+<p>####The Concept of Channels</p>
+<p>As we previously discussed there are 9 pins we can sense light on. However, we face the problem
+of interference from the state of other Columns.</p>
+<p>We found that the best combination was to treat each of the three analog enabled Columns as a channel.
+This leads our picture to look something more like this:</p>
+<p><center></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="n">_____________________________</span>
+<span class="o">|</span>  <span class="mi">1</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="mi">2</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="mi">3</span>  <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="mi">3</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="mi">1</span>  <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="mi">1</span>  <span class="o">|</span>     <span class="o">|</span>  <span class="mi">2</span>  <span class="o">|</span>
+<span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span><span class="n">_____</span><span class="o">|</span>
+</pre></div>
+</div>
+<p></center>
+<center><em>Where each number represents a different column, now named a channel as it is a collection of 3 rows</em></center></p>
+<p>This reduces the resolution of our light sensing capabilities as we can
+now no longer can use 9 pins to sense light, purely due to the unfortunate fact
+that we obtain interference from other pins that cannot be mitigated.</p>
+<p>However, we do gain an accurate picture of the overall brightness detected by the display.</p>
+<p>We expose a mean representation of the light level from the 3 channels on the display.</p>
+<p>####The Algorithm</p>
+<p><strong>Upon receiving an event:</strong></p>
+<ul class="simple">
+<li>Set all rows to be a DigitalOut, with a value of 0.</li>
+<li>For the current channel:<ul>
+<li>Set the current channel pin HI.</li>
+<li>Immediately transition the current channel to be an AnalogIn</li>
+</ul>
+</li>
+<li>Attach an interrupt to occur 4ms into the future. (This allows our AnalogIn instance
+to settle correctly)</li>
+</ul>
+<p><strong>Upon interrupt:</strong></p>
+<ul class="simple">
+<li>Obtain our analog value.</li>
+<li>Release the pin from GPIOTE control. (<em>If we do not do these, this column will not
+be useable in the display driver</em>)</li>
+<li>Move onto the next channel.</li>
+</ul>
+<p>After these two phases have occurred, the display will now once again be available
+for regular usage until the next interleave is signaled by the display.</p>
+<p>##Message Bus ID</p>
+<p>##Message Bus Events</p>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitLightSensor&#8221;})
+##Constructor
+<br/>
+####MicroBitLightSensor( <div style='color:#a71d5d; display:inline-block'>const  MatrixMap  &amp;</div> map)
+#####Description
+Constructor.</p>
+<p>Create a representation of the light sensor.</p>
+<p>map</p>
+<p>The mapping information that relates pin inputs/outputs to physical screen coordinates. Defaults to microbitMatrixMap, defined in  MicroBitMatrixMaps.h .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MatrixMap  &</div> map - The mapping information that relates pin inputs/outputs to physical screen coordinates. Defaults to microbitMatrixMap, defined in  MicroBitMatrixMaps.h . </div></blockquote>
+<p>##read
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>read</div>()
+#####Description
+This method returns a summed average of the three sections of the display.</p>
+<p>A section is defined as:| 1 | | 2 | | 3 |</p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>2         3         1</p>
+<hr class="docutils" />
+<hr class="docutils" />
+<p>3         1         2</p>
+<hr class="docutils" />
+<p>Where each number represents a different section on the 5 x 5 matrix display.</p>
+<p>#####Returns
+returns a value in the range 0 - 255 where 0 is dark, and 255 is very bright
+##startSensing
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>startSensing</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> )
+#####Description
+The method that is invoked by sending MICROBIT_DISPLAY_EVT_LIGHT_SENSE using the id MICROBIT_ID_DISPLAY.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> </div></blockquote>
+<p>!!! note
+this can be manually driven by calling this member function, with a  MicroBitEvent  using the CREATE_ONLY option of the  MicroBitEvent  constructor.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitLightSensor&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/extras/light-sensing.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/extras/light-sensing.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bluetooth LED Service &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bluetooth-led-service">
+<span id="bluetooth-led-service"></span><h1>Bluetooth LED Service<a class="headerlink" href="#bluetooth-led-service" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<span id="introduction"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This Bluetooth service is an optional part of the standard bluetooth profile for the micro:bit. It is a passive service, that can operate transparently in the
+background as your main program is running. It allows a connected Bluetooth master device such as a smartphone to read and write the status of the LEDs on the display. This includes reading and writing
+bitmap pattern values and sending text messages to be scrolled across the display. Scrolling speed may also be controlled over Bluetooth via a control point characteristic designed for this purpose.</p>
+</div>
+<div class="section" id="enabling-the-service">
+<span id="enabling-the-service"></span><h2>Enabling the Service<a class="headerlink" href="#enabling-the-service" title="Permalink to this headline">¶</a></h2>
+<p>This service is disabled by default. To enable the service, simply create an instance of this class in your program, at any time after the uBit object has been initialised:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span>    <span class="k">new</span> <span class="nf">MicroBitLEDService</span><span class="p">(</span><span class="o">*</span><span class="n">uBit</span><span class="p">.</span><span class="n">ble</span><span class="p">,</span> <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>!!! note
+Using Bluetooth services is memory hungry. By default, some of the memory normally used by Nordic&#8217;s Bluetooth protocol stack (known as a SoftDevice), is reclaimed by the micro:bit runtime as general purpose memory for your applications. if you enable more Bluetooth services, then you may need to provide more memory back to Soft Device to ensure proper operation. If after enabling this service your Bluetooth application cannot access the service reliably, you should consider increasing the value of MICROBIT_SD_GATT_TABLE_SIZE in your inc/MicroBitConfig.h. The more service you add, the larger this will need to be, up to the limit defined in MicroBitConfig.h.</p>
+</div>
+<div class="section" id="bluetooth-service-specification">
+<span id="bluetooth-service-specification"></span><h2>Bluetooth Service Specification<a class="headerlink" href="#bluetooth-service-specification" title="Permalink to this headline">¶</a></h2>
+<p>Please see the <a class="reference external" href="../resources/bluetooth/microbit-profile-V1.9-Level-2.pdf">micro:bit Bluetooth profile specification</a>.</p>
+</div>
+<div class="section" id="example-applications-for-android-ios-android">
+<span id="example-applications-for-android-ios-android"></span><h2>Example Applications for Android/IOS/Android<a class="headerlink" href="#example-applications-for-android-ios-android" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-procedures">
+<span id="general-procedures"></span><h3>General Procedures<a class="headerlink" href="#general-procedures" title="Permalink to this headline">¶</a></h3>
+<p>micro:bit has an LED display with 5 rows and 5 columns i.e. 25 LEDs in total. The Bluetooth LED service allows the entire grid to be addressed as a bitmap using the LED Matrix State characteristic which supports both read and write operations. Text strings can be sent to the micro:bit for display by writing to the LED Text characteristic and the speed with which it is scrolled can be controlled by setting a delay value in milliseconds by writing to the Scrolling Delay characteristic.</p>
+<p>See the profile page and profile reference documentation for data format and UUID details.</p>
+</div>
+<div class="section" id="android">
+<span id="android"></span><h3>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
+<p><img src="../../resources/bluetooth/led_demo.png" alt="LED Demo"></p>
+<div class="section" id="android-bluetooth-apis">
+<span id="android-bluetooth-apis"></span><h4>Android Bluetooth APIs<a class="headerlink" href="#android-bluetooth-apis" title="Permalink to this headline">¶</a></h4>
+<p>Android developers should make themselves familiar with the <a class="reference external" href="http://developer.android.com/guide/topics/connectivity/bluetooth-le.html">Android Bluetooth low energy APIs</a></p>
+</div>
+<div class="section" id="microbit-ble-demo-android">
+<span id="microbit-ble-demo-android"></span><h4>microbit-ble-demo-android<a class="headerlink" href="#microbit-ble-demo-android" title="Permalink to this headline">¶</a></h4>
+<p>The open source microbit-ble-demo-android application contains a full demonstration of the micro:bit Bluetooth LED service. The main body of code for this demonstration can be found in ui.LEDsActivity.java except for the Bluetooth operations themselves which are in bluetooth.BleAdapterService which acts as a kind of higher level Bluetooth API for activities to use without needing to directly concern themselves too closely with the Android APIs themselves. In most cases, operations are asynchronous so that the activity code initiates a Bluetooth operation by calling one of the methods in bluetooth.BleAdapterService (e.g. readCharacteristic(....) ) and later receives a message containing the result of the operation from this object via a Handler object. The message is examined in the Handler code and acted upon.</p>
+<p>Key parts of the button demonstration in this application are explained next.</p>
+</div>
+<div class="section" id="in-bluetooth-bleadapterservice">
+<span id="in-bluetooth-bleadapterservice"></span><h4>In bluetooth.BleAdapterService<a class="headerlink" href="#in-bluetooth-bleadapterservice" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">LEDSERVICE_SERVICE_UUID</span> <span class="o">=</span> <span class="s">&quot;E95DD91D251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">LEDMATRIXSTATE_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D7B77251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">LEDTEXT_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D93EE251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">SCROLLINGDELAY_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D0D2D251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-ui-ledsactivity">
+<span id="in-ui-ledsactivity"></span><h4>In ui.LEDsActivity<a class="headerlink" href="#in-ui-ledsactivity" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">private</span> <span class="kt">short</span> <span class="n">scrolling_delay</span><span class="o">;</span>
+<span class="c1">//    Octet 0, LED Row 1: bit4 bit3 bit2 bit1 bit0</span>
+<span class="c1">//    Octet 1, LED Row 2: bit4 bit3 bit2 bit1 bit0</span>
+<span class="c1">//    Octet 2, LED Row 3: bit4 bit3 bit2 bit1 bit0</span>
+<span class="c1">//    Octet 3, LED Row 4: bit4 bit3 bit2 bit1 bit0</span>
+<span class="c1">//    Octet 4, LED Row 5: bit4 bit3 bit2 bit1 bit0</span>
+<span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">led_matrix_state</span><span class="o">;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// read the current LED matrix state so the application UI can be initialised to match the current micro:bit display state</span>
+<span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">readCharacteristic</span><span class="o">(</span>
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">LEDSERVICE_SERVICE_UUID</span><span class="o">),</span> 
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">LEDMATRIXSTATE_CHARACTERISTIC_UUID</span><span class="o">))</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// send a short text string from the application to the micro:bit</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSendText</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">EditText</span> <span class="n">text</span> <span class="o">=</span> <span class="o">(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">LEDsActivity</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">display_text</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">utf8_bytes</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">TAG</span><span class="o">,</span> <span class="s">&quot;UTF8 bytes: 0x&quot;</span> <span class="o">+</span> <span class="n">Utility</span><span class="o">.</span><span class="na">byteArrayAsHexString</span><span class="o">(</span><span class="n">utf8_bytes</span><span class="o">));</span>
+        <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span>
+                            <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">LEDSERVICE_SERVICE_UUID</span><span class="o">),</span> 
+                            <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">LEDTEXT_CHARACTERISTIC_UUID</span><span class="o">),</span> 
+                            <span class="n">utf8_bytes</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">showMsg</span><span class="o">(</span><span class="s">&quot;Unable to convert text to UTF8 bytes&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// update the local state and UI in response to user interactions</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouch</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">TAG</span><span class="o">,</span> <span class="s">&quot;onTouch - &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="na">actionToString</span><span class="o">((</span><span class="n">event</span><span class="o">.</span><span class="na">getAction</span><span class="o">())));</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">led_matrix_state</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">TAG</span><span class="o">,</span> <span class="s">&quot;onTouch - LED state array has not yet been initialised so ignoring touch&quot;</span><span class="o">);</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">getAction</span><span class="o">()</span> <span class="o">==</span> <span class="n">MotionEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">GridLayout</span> <span class="n">grid</span> <span class="o">=</span> <span class="o">(</span><span class="n">GridLayout</span><span class="o">)</span> <span class="n">LEDsActivity</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">grid</span><span class="o">);</span>
+            <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="na">getChildCount</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">display_row</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">led_in_row</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">View</span> <span class="n">child</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="na">getChildAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">child</span> <span class="o">==</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">TAG</span><span class="o">,</span><span class="s">&quot;Touched row &quot;</span><span class="o">+</span><span class="n">display_row</span><span class="o">+</span><span class="s">&quot;, LED &quot;</span><span class="o">+</span><span class="n">led_in_row</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">((</span><span class="n">led_matrix_state</span><span class="o">[</span><span class="n">display_row</span><span class="o">]</span> <span class="o">&amp;</span> <span class="o">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">led_in_row</span><span class="o">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">child</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">parseColor</span><span class="o">(</span><span class="s">&quot;#C0C0C0&quot;</span><span class="o">));</span>
+                        <span class="n">led_matrix_state</span><span class="o">[</span><span class="n">display_row</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="o">(</span><span class="n">led_matrix_state</span><span class="o">[</span><span class="n">display_row</span><span class="o">]</span> <span class="o">&amp;</span> <span class="o">~(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">led_in_row</span><span class="o">));</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">child</span><span class="o">.</span><span class="na">setBackgroundColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+                        <span class="n">led_matrix_state</span><span class="o">[</span><span class="n">display_row</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)</span> <span class="o">(</span><span class="n">led_matrix_state</span><span class="o">[</span><span class="n">display_row</span><span class="o">]</span> <span class="o">|</span> <span class="o">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">led_in_row</span><span class="o">));</span>
+                    <span class="o">}</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">led_in_row</span> <span class="o">=</span> <span class="n">led_in_row</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">led_in_row</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">led_in_row</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+                    <span class="n">display_row</span><span class="o">++;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// send new display state to micro:bit so it mirrors that shown on the application UI</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSetDisplay</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span>
+                        <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">LEDSERVICE_SERVICE_UUID</span><span class="o">),</span> 
+                        <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">LEDMATRIXSTATE_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">led_matrix_state</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="video-demonstration-starts-at-2-00">
+<span id="video-demonstration-starts-at-2-00"></span><h4>Video Demonstration - starts at 2:00<a class="headerlink" href="#video-demonstration-starts-at-2-00" title="Permalink to this headline">¶</a></h4>
+<iframe src="https://player.vimeo.com/video/153078747" width="750" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bluetooth LED Service</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#enabling-the-service">Enabling the Service</a></li>
+<li><a class="reference internal" href="#bluetooth-service-specification">Bluetooth Service Specification</a></li>
+<li><a class="reference internal" href="#example-applications-for-android-ios-android">Example Applications for Android/IOS/Android</a><ul>
+<li><a class="reference internal" href="#general-procedures">General Procedures</a></li>
+<li><a class="reference internal" href="#android">Android</a><ul>
+<li><a class="reference internal" href="#android-bluetooth-apis">Android Bluetooth APIs</a></li>
+<li><a class="reference internal" href="#microbit-ble-demo-android">microbit-ble-demo-android</a></li>
+<li><a class="reference internal" href="#in-bluetooth-bleadapterservice">In bluetooth.BleAdapterService</a></li>
+<li><a class="reference internal" href="#in-ui-ledsactivity">In ui.LEDsActivity</a></li>
+<li><a class="reference internal" href="#video-demonstration-starts-at-2-00">Video Demonstration - starts at 2:00</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ble/led-service.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ble/led-service.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Concepts &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="concepts">
+<span id="concepts"></span><h1>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h1>
+<p>The micro:bit runtime provides an easy to use environment for programming the BBC micro:bit
+in the C/C++ language. It contains device drivers for all the hardware capabilities of the micro:bit,
+and also a suite of runtime mechanisms to make programming the micro:bit easier and more flexible. These
+range from control of the LED matrix display to peer-to-peer radio communication and secure
+Bluetooth Low Energy services. The micro:bit runtime is proudly built on the <a class="reference external" href="https://www.mbed.com">ARM mbed</a>
+and <a class="reference external" href="http://www.nordicsemi.com">Nordic nrf51</a> platforms.</p>
+<p>In addition to supporting development in C/C++, the runtime is also designed specifically to support
+higher level languages provided by our partners that target the micro:bit. It is currently used as a support library for all the
+languages on the BBC <a class="reference external" href="http://www.microbit.co.uk">www.microbit.co.uk</a> website, including Microsoft Block Editor, Microsoft Touch Develop, Code Kingdoms
+JavaScript and Micropython languages.</p>
+<p><img alt="micro:bit runtime" src="../_images/architecture.png" /></p>
+<div class="section" id="a-component-based-approach">
+<span id="a-component-based-approach"></span><h2>A Component Based Approach<a class="headerlink" href="#a-component-based-approach" title="Permalink to this headline">¶</a></h2>
+<p>Whenever computer scientists tackle large programming problems, we take the time to split the problem into smaller,
+independent sections to make the problem easier to solve (divide and conquer!).  The micro:bit runtime is no exception,
+and is made up of a number of smaller components. Each of these components looks after
+a specific job on the micro:bit.</p>
+<p>Building up software like this helps us to write code in a way that is
+much easier to maintain as the amount of code grows. For example, a component called <a class="reference external" href="ubit/display.md">MicroBitDisplay</a>
+controls the LEDs on the micro:bit, and lets the programmer show images, animations and messages. The
+<a class="reference external" href="ubit/io.md">MicroBitIO</a> component controls input and output through the pins on the edge of the device.</p>
+<p>The micro:bit runtime is object oriented, with each component typically being a C++ class.
+There are over 30 components making up the runtime, and they are documented on these pages.</p>
+<p>To make the runtime as easy to use as possible, there is also a grouping of the most commonly used components in
+an object called <a class="reference external" href="ubit.md">uBit</a> (The &#8216;u&#8217; being the greek letter mu - which often refers to &#8216;micro&#8217; in scientific units!).</p>
+<p>The uBit object can be used to easily access most of the functionality of the micro:bit. You can find the components
+and functions that can be accessed this way in the <code class="docutils literal"><span class="pre">uBit</span></code> in the navigation bar.</p>
+<p>To show just how easy it is to get started, the following code shows how you would write a traditional Hello World program.</p>
+<p>This uses the uBit object to access the display component, then instructs the display to scroll the given string across
+the LEDs. Try to use the <code class="docutils literal"><span class="pre">uBit</span></code> menu tab above to find the documentation for this scroll() function!</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;Hello micro:bit!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>!!! note
+Did you know that you don&#8217;t need to use the uBit object? Advanced users will likely prefer to create only the components they need to conserve memory on the device. See the <a class="reference external" href="advanced.md">advanced</a> section for how to do this.</p>
+</div>
+</div>
+<div class="section" id="events">
+<span id="events"></span><h1>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h1>
+<p>Computer programs execute sequentially - one line after another, following the logic of the program you have written.
+Sometimes though, we want to be able to determine <em>when</em> something has happened, and write some code to decide what should
+happen in that case.</p>
+<p>For example, maybe you want to know when a button has been pressed, when your micro:bit has been shaken,
+or when some data has been sent to you over the device&#8217;s radio. For these sorts of cases, we create a <a class="reference external" href="data-types/event.md">MicroBitEvent</a>.</p>
+<div class="section" id="creating-events">
+<span id="creating-events"></span><h2>Creating Events<a class="headerlink" href="#creating-events" title="Permalink to this headline">¶</a></h2>
+<p>Many components will raise events when interesting things occur. For example, <a class="reference external" href="ubit/accelerometer.md">&#8216;MicroBitAccelerometer&#8217;</a> will raise events to indicate that the
+micro:bit has be been shaken, or is in freefall and <a class="reference external" href="ubit/button.md">&#8216;MicroBitButton&#8217;</a> will send events on a range of button up, down, click and hold events.
+Programmers are also free to send their own events whenever they feel it would be useful. <code class="docutils literal"><span class="pre">MicroBitEvent</span></code>s are <em>very</em> simple, and consist of
+only two numbers:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">source</span></code> - A number identifying the component that created the event.</li>
+<li><code class="docutils literal"><span class="pre">value</span></code> - A number unique to the source that identifies the event.</li>
+</ul>
+<p>The documentation for each component defines its event source, and all the events it may generate, and also gives a name to these
+event values. For example, take a look at the <a class="reference external" href="ubit/button.md">button documentation</a> to see that the source MICROBIT_ID_BUTTON_A has the value &#8216;1&#8217;,
+and an event MICROBIT_BUTTON_EVT_CLICK with the value &#8216;3&#8217; is generated when a button is clicked.</p>
+<p>Creating an event is easy - just create a MicroBitEvent with the <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">value</span></code> you need, and the runtime takes care of the rest:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitEvent</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Feel free to create your own events lke this too. Just try to avoid using any source ID that is already used by the runtime! :-)
+See the <a class="reference external" href="ubit/messageBus.md">messageBus</a> page for a complete table of the reserved source IDs.</p>
+</div>
+<div class="section" id="detecting-events">
+<span id="detecting-events"></span><h2>Detecting Events<a class="headerlink" href="#detecting-events" title="Permalink to this headline">¶</a></h2>
+<p>The micro:bit runtime has a component called the <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a>, and its job is remember which events your program is interested in, and
+to deliver <code class="docutils literal"><span class="pre">MicroBitEvent</span></code>s to your program as they occur.</p>
+<p>To find out when an event happens, you need to create a function in your program,
+then tell the message bus which event you want to attach this function to. This is known as writing an <strong>event handler</strong>.</p>
+<p>You write an event handler through the <code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> <a class="reference external" href="ubit/messageBus.md">listen</a> function.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now, whenever the MICROBIT_BUTTON_EVT_CLICK event is raise by MICROBIT_ID_BUTTON_A, your code inside function &#8216;onButtonA&#8217; will be automatically executed.</p>
+<p>You can call listen as many times as you want to attached functions to each of the events that are useful for your program. In fact, a block like the
+following in the Microsoft Block language translates into code just like that shown above when it is run on a micro:bit!</p>
+<p><img alt="on button a, equivalent in blocks" src="../_images/example-listener.png" /></p>
+<p>##Wildcard Events</p>
+<p>Sometimes though, you want to capture all events generated by some component. For example, you might want to know when any changes in a button has happened.
+In this case, there is a special event value called &#8216;MICROBIT_EVT_ANY&#8217;. If you call listen with this value, then ALL events from the given source component will be delivered to your function.</p>
+<p>You can find out which ones by looking at the <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> delivered to your function - it contains the <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">value</span></code> variables that the <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> was created with.</p>
+<p>For example, you could write a program like this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;CLICK&quot;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MICROBIT_BUTTON_EVT_DOWN</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;DOWN&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you <em>REALLY</em> want even more events, there is also a MICROBIT_ID_ANY source, that allows you to attach a function to event generated from any component.</p>
+<p>Use this sparingly though, as this could be quite a lot of events!</p>
+<p>The following code would attach the <code class="docutils literal"><span class="pre">onEvent</span></code> function to receive all the events from the whole runtime:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onEvent</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;SOMETHING HAPPENED!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_ANY</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">,</span> <span class="n">onEvent</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="queued-events">
+<span id="queued-events"></span><h2>Queued Events<a class="headerlink" href="#queued-events" title="Permalink to this headline">¶</a></h2>
+<p>When you write an event handler, your function will be called each time the relevant event is raised. But what happens if your handler takes a long time to execute?</p>
+<p>The example above will scroll &#8220;SOMETHING HAPPENED&#8221; whenever any event is raised... but scrolling that message will take several seconds to complete!</p>
+<p>What if another event happens during this time?  By default, the runtime will queue any events for your event handler until it has finished what its already doing.</p>
+<p>As soon as your handler is finished processing an event, the next one will be delivered (any other event handlers will be unaffected though - just because one event handler is busy, doesn&#8217;t mean that another one can&#8217;t receive its events!).</p>
+<p>The runtime does allow you to change this behaviour if you want to though. See the advanced documentation in <a class="reference external" href="ubit/messageBus.md">MicroBitMessageBus</a> for more details.</p>
+<p>!!! note
+More advanced programmers might be interested to know that you can also attach event handler to member function of C++ objects. See the other forms of listen function in <a class="reference external" href="ubit/messageBus.md">MicroBitMessageBus</a> for more details.</p>
+</div>
+</div>
+<div class="section" id="concurrency">
+<span id="concurrency"></span><h1>Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline">¶</a></h1>
+<p>It is not uncommon to want to write programs that can do more than one thing at a time. For example, it takes quite a long time to scroll a message over the LED matrix, so what if you want
+your program to do something else while this is happening?</p>
+<p>Programs that do more than one thing at a time are called <strong>concurrent programs</strong>.</p>
+<p>The runtime provides two ways you can achieve concurrency in your programs:</p>
+<ul>
+<li><p class="first">Functions that may take a very long time to complete (e.g. display.scroll) often have &#8220;Async&#8221; versions (e.g. <code class="docutils literal"><span class="pre">display.scrollAsync</span></code>).</p>
+<p>These functions have the exact same behaviour as their counterparts, but don&#8217;t wait for the effect to finish before allowing the user&#8217;s program to continue.</p>
+<p>Instead, as soon as the function is called, the user&#8217;s program carries on executing (and can go an do something else while the task is running in the background).</p>
+</li>
+</ul>
+<ul>
+<li><p class="first">Users can also make use of the runtime fiber scheduler. This lets you run parts of your program in the background, and share the processor on your micro:bit between those parts
+as they need it.</p>
+<p>In fact, whenever you write an event handler, the runtime will normally execute your handler in the background in this way, so that it reduces the impact on the rest of your program!</p>
+<p>The scheduler is a type of <em>non-preemptive scheduler</em>. This means that the runtime will never take control away from your program - it will wait for it to make a call to a runtime
+function that is <em>blocking</em>.</p>
+<p>All the functions that are blocking are listed as such in their documentation.  You can create <strong>fibers</strong> at any time.</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Concepts</a><ul>
+<li><a class="reference internal" href="#a-component-based-approach">A Component Based Approach</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#events">Events</a><ul>
+<li><a class="reference internal" href="#creating-events">Creating Events</a></li>
+<li><a class="reference internal" href="#detecting-events">Detecting Events</a></li>
+<li><a class="reference internal" href="#queued-events">Queued Events</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#concurrency">Concurrency</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/concepts_en.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/concepts_en.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

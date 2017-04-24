@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Các khái niệm &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cac-khai-niem">
+<span id="cac-khai-niem"></span><h1>Các khái niệm<a class="headerlink" href="#cac-khai-niem" title="Permalink to this headline">¶</a></h1>
+<p>Bộ lệnh micro:bit runtime cung cấp một môi trường dễ sử dụng để lập trình
+cho BBC micro:bit bằng ngôn ngữ C/C++, viết bởi trường đại học Lancaster. Nó
+bao gồm các thư viện drivers cho tất cả các chức năng phần cứng của
+micro:bit, và cũng là một bộ các cơ chế thực thi (runtime) để giúp việc lập
+trình micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều
+khiển một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp
+(peer-to-peer) và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ
+lệnh micro:bit runtime tự hào được xây dựng trên các nền tảng <a class="reference external" href="https://www.mbed.com">ARM
+mbed</a>  và <a class="reference external" href="http://www.nordicsemi.com">Nordic nrf51</a>.</p>
+<p>Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc
+biệt để hỗ trợ các ngôn ngữ lập trình cấp cao do các đối tác của chúng tôi
+phát triển cho micro:bit. Nó đang được dùng như một thư viện hỗ trợ cho tất
+cả các ngôn ngữ lập trình trên trang web BBC
+<a class="reference external" href="http://www.microbit.co.uk">www.microbit.co.uk</a>, bao gồm các ngôn ngữ
+Microsoft Block Editor, Microsoft Touch Develop, Code  Kingdom&#8217;s JavaScript
+và Micropython.</p>
+<p><img alt="micro:bit runtime" src="../_images/architecture.png" /></p>
+<div class="section" id="mot-cach-tiep-can-tu-thanh-phan">
+<span id="mot-cach-tiep-can-tu-thanh-phan"></span><h2>Một cách tiếp cận từ thành phần<a class="headerlink" href="#mot-cach-tiep-can-tu-thanh-phan" title="Permalink to this headline">¶</a></h2>
+<p>&#8220;Mỗi khi một nhà khoa học máy tính đụng phải một bài toán lập trình lớn,
+chúng ta thường dành chút thời gian để chia bài toán đó ra thành các phần
+nhỏ và độc tập, để giúp bài toán dễ giải quyết hơn (chiến lược &#8220;chia để
+trị&#8221;). Bộ micro:bit runtime cũng không phải ngoại lệ, và nó được ghép từ khá
+nhiều thành phần nhỏ. Mỗi thành phần lo cho một tác vụ riêng biệt trên
+micro:bit.</p>
+<p>Xây dần phần mềm kiểu này giúp chúng ta viết code bằng một cách rất dễ để
+bảo quản khi số dòng lệnh tăng lên nhiều. Ví dụ, một thành phần tên là
+<a class="reference external" href="ubit/display.md">MicroBitDisplay</a> điều khiển các đèn LED trên micro:bit, và
+giúp lập trình viên hiển thị hình ảnh, ảnh động và các thông điệp. Thành
+phần <a class="reference external" href="ubit/io.md">MicroBitIO</a> điều khiển các ngõ vào và ngõ ra qua các chân
+ở cạnh của thiết bị.</p>
+<p>Bộ micro:bit runtime là hướng đối tượng, trong đó mỗi thành phần thường là
+một lớp trong C++. Có trên 30 thành phần tạo nên bộ runtime, và chúng được
+ghi vào tài liệu trong các trang này.</p>
+<p>Để tạo ra bộ runtime dễ dùng hết mức, có một nhóm các thành phần thường dùng
+nhất đặt trong một đối tượng gọi là <a class="reference external" href="ubit.md">uBit</a> (Chữ &#8216;u&#8217; là chữ cái Hy
+Lạp mu, đọc là &#8220;muy&#8221;, thường chỉ đến tiền tố trong các đơn vị đo khoa học).</p>
+<p>Đối tượng uBit có thể được dùng để truy cập dễ dàng đến hầu hết các tính
+năng của micro:bit. Bạn có thể tìm thấy các thành phần và hàm con truy cập
+được qua cách này ở link <code class="docutils literal"><span class="pre">uBit</span></code> trong menu điều hướng.</p>
+<p>Để cho thấy có thể bắt đầu dễ như thế nào, đoạn code dưới đây trình diễn
+cách viết chương trình Hello World kinh điển.</p>
+<p>Nó dùng đối tượng uBit để truy cập thành phần &#8220;màn hình&#8221;, sau đó bảo màn
+hình chạy một dòng chữ ngang qua các đèn LED. Hãy thử dùng link <code class="docutils literal"><span class="pre">uBit</span></code> ở
+menu trang web để tìm phần tài liệu cho hàm scroll() này!</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;Hello micro:bit!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>!!! note &#8220;Lưu ý&#8221;
+Bạn có biết là bạn có thể không cần dùng đối tượng uBit? Người dùng nâng cao có thể ưa thích tạo ra chỉ các thành phần mà họ cần, để tiết kiệm bộ nhớ trên thiết bị. Xem phần <a class="reference external" href="advanced.md">nâng cao</a> để biết cách làm này.</p>
+</div>
+</div>
+<div class="section" id="su-kien">
+<span id="su-kien"></span><h1>Sự kiện<a class="headerlink" href="#su-kien" title="Permalink to this headline">¶</a></h1>
+<p>Các chương trình máy tính chạy một cách tuần tự - từng dòng nối tiếp nhau,
+theo một logic của chương trình mà bạn đã viết. Tuy nhiên thỉnh thoảng chúng
+ta muốn có khả năng xác định <em>khi nào</em> một điều gì đó xảy ra, và viết vài
+dòng lệnh để quyết định việc gì sẽ thực hiện trong trường hợp đó.</p>
+<p>Ví dụ, bạn có thể muốn biết khi nào một nút nhấn được nhấn, khi nào mạch
+micro:bit của bạn đang được rung lắc, hoặc khi nào có dữ liệu gửi đến thiết
+bị của bạn qua sóng không dây. Cho các kiểu trường hợp này, chúng ta tạo ra
+một <a class="reference external" href="data-types/event.md">MicroBitEvent</a>.</p>
+<div class="section" id="tao-ra-su-kien">
+<span id="tao-ra-su-kien"></span><h2>Tạo ra sự kiện<a class="headerlink" href="#tao-ra-su-kien" title="Permalink to this headline">¶</a></h2>
+<p>Nhiều thành phần sẽ tạo ra các events khi có gì đáng quan tâm xảy ra. Ví dụ,
+<a class="reference external" href="ubit/accelerometer.md">&#8216;MicroBitAccelerometer&#8217;</a> sẽ gây ra sự kiện để cho
+biết là micro:bit vừa bị lắc, hoặc nó đang rơi tự do, và
+<a class="reference external" href="ubit/button.md">&#8216;MicroBitButton&#8217;</a> sẽ gửi sự kiện trong phạm vi các hoạt
+động ấn xuống, nhả lên, nhấn rồi nhả (click) và nhấn giữ (hold). Lập trình
+viên có thể tự do gửi các sự kiện của họ khi họ thấy việc đó có thể hữu
+ích. Các <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> <em>rất</em> đơn giản, và chỉ bao gồm 2 con số:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">source</span></code> (nguồn) - Một con số để xác định thành phần nào tạo ra sự kiện.</li>
+<li><code class="docutils literal"><span class="pre">value</span></code> (giá trị) - Một con số độc nhất đối với nguồn để xác định sự
+kiện.</li>
+</ul>
+<p>Tài liệu của từng thành phần xác định nguồn sự kiện của nó, và tất cả các sự
+kiện nó có thể tạo ra, cũng như cho biết tên ứng với các giá trị sự
+kiện. Lấy ví dụ, hãy xem thử <a class="reference external" href="ubit/button.md">tài liệu về nút nhấn</a> để thấy
+là nguồn MICROBIT_ID_BUTTON_A có giá trị &#8216;1&#8217;, và một sự kiện
+MICROBIT_BUTTON_EVT_CLICK với giá trị &#8216;3&#8217; được tạo ra khi một nút nhấn được
+bấm (click).</p>
+<p>Tạo ra một sự kiện thật dễ dàng - chỉ cần tạo ra một MicroBitEvent với
+<code class="docutils literal"><span class="pre">source</span></code> và <code class="docutils literal"><span class="pre">value</span></code> bạn cần, và bộ runtime sẽ lo việc còn lại:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitEvent</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Hãy tự nhiên tạo ra các sự kiện của riêng bạn kiểu thế này. Chỉ cần cố gắng
+tránh dùng bất kỳ ID nguồn nào đã được sử dụng trong bộ runtime! :-) Xem
+trang <a class="reference external" href="ubit/messageBus.md">messageBus</a> để thấy bảng đầy đủ các ID nguồn được
+dành trước.</p>
+</div>
+<div class="section" id="do-don-cac-su-kien">
+<span id="do-don-cac-su-kien"></span><h2>Dò đón các sự kiện<a class="headerlink" href="#do-don-cac-su-kien" title="Permalink to this headline">¶</a></h2>
+<p>Bộ micro:bit runtime có một thành phần tên là
+<a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a>, nó có nhiệm vụ ghi nhớ những sự
+kiện nào mà chương trình của bạn quan tâm, và chuyển các <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> đến
+chương trình của bạn khi chúng xảy ra.</p>
+<p>Để biết khi nào một sự kiện xảy ra, bạn cần tạo một hàm trong chương trình
+của mình, rồi bảo cái đường truyền tin nhắn (message bus) sự kiện nào bạn
+muốn gắn với hàm này. Việc này xem như là viết một <strong>trình xử lý sự kiện</strong>
+(event handler).</p>
+<p>Bạn viết một trình xử lý sự kiện (event handler) qua hàm
+<code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> <a class="reference external" href="ubit/messageBus.md">listen</a>.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Bây giờ, mỗi khi sự kiện MICROBIT_BUTTON_EVT_CLICK được gây ra bởi
+MICROBIT_ID_BUTTON_A, mã lệnh bạn để bên trong hàm &#8216;onButtonA&#8217; sẽ được tự
+động thực thi.</p>
+<p>Bạn có thể gọi hàm <a class="reference external" href="ubit/messageBus.md">listen</a> bao nhiêu lần tùy thích để
+gắn các hàm với từng sự kiện hữu ích cho chương trình của bạn. Kỳ thực, một
+khối lệnh như dưới đây trong ngôn ngữ Microsoft Block sẽ được dịch thành mã
+lệnh giống như khối lệnh ở trên, khi nó được chạy trên micro:bit.</p>
+<p><img alt="on button a, equivalent inblocks" src="../_images/example-listener.png" /></p>
+</div>
+<div class="section" id="su-kien-dai-dien-wildcard-events">
+<span id="su-kien-dai-dien-wildcard-events"></span><h2>Sự kiện đại diện (wildcard events)<a class="headerlink" href="#su-kien-dai-dien-wildcard-events" title="Permalink to this headline">¶</a></h2>
+<p>Tuy nhiên, thỉnh thoảng bạn muốn bắt được tất cả sự kiện được sinh ra bởi
+một thành phần. Lấy ví dụ, bạn có thể muốn biết khi nào có thay đổi bất kỳ
+xảy ra đối với một nút bấm. Trong trường hợp này, có một giá trị sự kiện đặc
+biệt gọi là &#8216;MICROBIT_EVT_ANY&#8217;. Nếu bạn gọi hàm listen với giá trị này, thì
+TẤT CẢ các sự kiện sinh ra từ thành phần nguồn sẽ được chuyển đến hàm của
+bạn.</p>
+<p>Bạn có thể tìm ra cái nào bằng cách nhìn vào <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> được chuyển đến
+hàm của bạn - nó bao gồm các tham số <code class="docutils literal"><span class="pre">source</span></code> và <code class="docutils literal"><span class="pre">value</span></code> mà sự kiện
+<code class="docutils literal"><span class="pre">MicroBitEvent</span></code> được tạo ra.</p>
+<p>Lấy ví dụ, bạn có thể viết một chương trình kiểu này:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;CLICK&quot;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MICROBIT_BUTTON_EVT_DOWN</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;DOWN&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Nếu bạn <em>THẬT SỰ</em> muốn nhiều sự kiện hơn nữa, có một nguồn MICROBIT_ID_ANY,
+cho phép bạn gắn một hàm với một sự kiện sinh ra bởi bất kỳ thành phần nào.</p>
+<p>Tuy nhiên, hãy sử dụng cái này một cách tiết kiệm, vì nó có thể làm ra nhiều
+sự kiện!</p>
+<p>Đoạn mã dưới đây sẽ gắn một hàm <code class="docutils literal"><span class="pre">onEvent</span></code> để nhận tất cả các sự kiện từ toàn bộ runtime:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onEvent</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;CO CHUYEN ROI!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_ANY</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">,</span> <span class="n">onEvent</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cac-su-kien-xep-hang">
+<span id="cac-su-kien-xep-hang"></span><h2>Các sự kiện xếp hàng<a class="headerlink" href="#cac-su-kien-xep-hang" title="Permalink to this headline">¶</a></h2>
+<p>Khi bạn viết một trình xử lý sự kiện, hàm của bạn sẽ được gọi mỗi khi sự
+kiện liên quan được sinh ra. Nhưng điều gì xảy ra nếu trình xử lý sự kiện
+của bạn tốn nhiều thời gian để chạy?</p>
+<p>Ví dụ ở trên sẽ chạy ngang chữ &#8220;CO CHUYEN ROI!&#8221; mỗi khi một sự kiện được gây
+ra... nhưng khi chạy thông điệp đó sẽ cần vài giây để hoàn tất!</p>
+<p>Điều gì xảy ra nếu một sự kiện khác xuất hiện trong thời gian này? Mặc định
+thì bộ runtime sẽ cho xếp hàng tất cả các sự kiện để đợi đến khi trình xử lý
+sự kiện của bạn kết thúc việc đang làm.</p>
+<p>Ngay khi trình xử lý hoàn tất việc xử lý một sự kiện, cái tiếp theo sẽ được
+chuyển tới (bất kỳ trình xử lý sự kiện nào khác cũng sẽ không bị ảnh hưởng -
+chỉ bởi vì một trình xử lý sự kiện đang bận rộn, không có nghĩa là một cái
+khác không nhận được sự kiện của nó).</p>
+<p>Dù vậy, bộ runtime vẫn cho phép bạn thay đổi cách làm này nếu bạn muốn. Hãy
+xem phần tài liệu nâng cao trong <a class="reference external" href="ubit/messageBus.md">MicroBitMessageBus</a> để
+biết cụ thể hơn.</p>
+<p>!!! note &#8220;Lưu ý&#8221;
+Những lập trình viên kinh nghiệm hơn chắc quan tâm đến việc là các bạn cũng có thể gắn trình xử lý sự kiện vào một hàm thành viên của đối tượng trong C++. Hãy xem các dạng khác của hàm listen trong <a class="reference external" href="ubit/messageBus.md">MicroBitMessageBus</a> để biết thêm chi tiết.</p>
+</div>
+</div>
+<div class="section" id="tinh-dong-thoi">
+<span id="tinh-dong-thoi"></span><h1>Tính đồng thời<a class="headerlink" href="#tinh-dong-thoi" title="Permalink to this headline">¶</a></h1>
+<p>Người ta không xa lạ với việc viết các chương trình có thể làm nhiều hơn một
+việc vào cùng thời điểm. Lấy ví dụ, sẽ mất khá nhiều thời gian để chạy ngang
+một thông điệp trên cái LED ma trận, vậy khi bạn muốn chương trình của bạn
+làm việc gì khác khi việc này đang xảy ra thì làm thế nào?</p>
+<p>Các chương trình làm nhiều hơn một việc tại cùng thời điểm được gọi là
+<strong>chương trình đồng thời</strong> (concurrent programs).</p>
+<p>Bộ runtime cung cấp hai cách để bạn đạt được sự đồng thời trong các chương
+trình của mình:</p>
+<ul>
+<li><p class="first">Các hàm có thể tốn thời gian rất dài để hoàn thành (ví dụ
+display.scroll) thường có một phiên bản &#8220;Async&#8221; (ví dụ
+<code class="docutils literal"><span class="pre">display.scrollAsync</span></code>).</p>
+<p>Các hàm này có cách hành xử y hệt hàm tương đương của chúng, tuy nhiên không phải đợi đến khi làm xong tác vụ rồi mới cho phép chương trình của người dùng được chạy.</p>
+<p>Thay vào đó, ngay khi hàm này được gọi, chương trình của người dùng vẫn tiếp tục được thực thi (và có thể làm việc gì khác trong khi tác vụ kia đang chạy ở chế độ nền (background).</p>
+</li>
+</ul>
+<ul>
+<li><p class="first">Người dùng cũng có thể sử dụng trình đặt lịch fiber của bộ runtime. Nó hỗ trợ cho bạn chạy các phần của chương trình của bạn trong chế độ nền, và chia sẻ bộ xử lý trên micro:bit giữa các phần đó
+khi chúng cần nó.</p>
+<p>Thật ra, mỗi khi bạn muốn viết một trình xử lý sự kiện, bộ runtime mặc định thực thi trình xử lý của bạn trong chế độ nền như kiểu này, nhằm giảm tác động lên phần còn lại trong chương trình của bạn!</p>
+<p>Trình xếp lịch thuộc về loại <em>xếp lịch không ưu tiên</em> (non-preemptive scheduler). Điều này có nghĩa là bộ runtime sẽ không bao giờ tước đi quyền quản lý từ chương trình của bạn - nó sẽ đợi cho đến lúc chương trình gọi đến một hàm runtime
+đang <em>chặn</em>.</p>
+<p>Tất cả các hàm đang chặn được liệt kê trong tài liệu về chúng. Bạn có thể tạo các <strong>fibers</strong> bất cứ lúc nào.</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Các khái niệm</a><ul>
+<li><a class="reference internal" href="#mot-cach-tiep-can-tu-thanh-phan">Một cách tiếp cận từ thành phần</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#su-kien">Sự kiện</a><ul>
+<li><a class="reference internal" href="#tao-ra-su-kien">Tạo ra sự kiện</a></li>
+<li><a class="reference internal" href="#do-don-cac-su-kien">Dò đón các sự kiện</a></li>
+<li><a class="reference internal" href="#su-kien-dai-dien-wildcard-events">Sự kiện đại diện (wildcard events)</a></li>
+<li><a class="reference internal" href="#cac-su-kien-xep-hang">Các sự kiện xếp hàng</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tinh-dong-thoi">Tính đồng thời</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/concepts.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/concepts.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

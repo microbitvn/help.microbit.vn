@@ -1,0 +1,1032 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.display</p>
+<div class="section" id="overview">
+<span id="overview"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>The MicroBitDisplay class is a general purpose device driver for controlling LED matrix displays.
+LED matrix displays are simple, inexpensive devices that use a single LED as a display pixel. They therefore
+tend to be of relatively low resolution, but often provide visually attractive displays due to the high coherence and brightness
+of the LEDs.</p>
+<p>LEDs in matrix displays are connected to general purpose I/O (GPIO) pins on CPU. Although they <em>could</em> be connected such that each
+LED has its own GPIO pin, this is not usually the case, as the scarce resource of GPIO pins would soon be used up.  For example,
+on the micro:bit, the LED matrix has 25 LEDs. If this required 25 GPIO pins, then there would be none left for anything else!</p>
+<p>Instead, these LEDs are controlled by 12 GPIO pins. Three of those pins provide power to LEDs, the other
+nine provide a route to ground. The pins that source power are called <strong>rows</strong>. The pins that sink power are called <strong>columns</strong>.
+The following diagram shows how the 5x5 grid is connected into 3 logical &#8216;rows&#8217; and 9 &#8216;columns&#8217;:</p>
+<p><img alt="light-sensing info graphic" src="../../_images/light-sensing1.png" />
+<center><em>Where the format is: <strong>ROW</strong>.</em><em>COLUMN</em>**</center></p>
+<p>So, if we wanted to light up the middle LED, we would need to put a HIGH voltage (logic 1) on row 2, and a LOW voltage (logic 0) on column 3. Notice that when row 2 is
+HIGH, we the value we write to the 9 column pins affect all of the LEDs 2.1 to 2.7, without affecting any of the LEDS on row 1 or row 3. Sharing GPIO pins in this way is known as multiplexing.
+Moreover, if we scan through the different rows fast enough - faster than the eye can see - then we can provide the illusion of all the LEDS being on at the same time! This is a technique
+known as <em>persistence of vision</em>... and was also the same basis of the very first TV sets (although that did not use LEDs!).</p>
+</div>
+<div class="section" id="capabilities">
+<span id="capabilities"></span><h1>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h1>
+<p>The MicroBitDisplay class provides a driver for a general purpose matrix display, and also several high level features that make creating animations and visual effects on the
+micro:bit LED display easy and fun! This class lets you:</p>
+<ul class="simple">
+<li>Control the LED matrix on the micro:bit.</li>
+<li>Use an optimised typeface (font) so you can show upper and lower case letters, numbers of symbols on the display.</li>
+<li>Set Display wide or <em>per-pixel</em> brightness control up to 256 levels per pixel.</li>
+<li>Create, move, paste and animate images.</li>
+<li>Scroll and print images and text.</li>
+<li>Access the screen buffer directly, so you can manipulate individual pixels.</li>
+</ul>
+</div>
+<div class="section" id="using-the-display">
+<span id="using-the-display"></span><h1>Using the Display<a class="headerlink" href="#using-the-display" title="Permalink to this headline">¶</a></h1>
+<p>When using the uBit object, the display is automatically set up, and ready for you to use. Use any or all of the functions listed in the API section below to create effects on the
+LED display. Here are a few examples to get you started though!</p>
+<div class="section" id="scrolling-text">
+<span id="scrolling-text"></span><h2>Scrolling Text<a class="headerlink" href="#scrolling-text" title="Permalink to this headline">¶</a></h2>
+<p>Simply use the scroll function to specify the message you want to scroll, and sit back and watch the result. The message you provide will be scrolled, pixel by pixel across the display from right to left.
+If you take a look at the documentation for the scroll function in the API below, you will notice that you can also specify the speed of the scroll as an optional final parameter. The lower the delay, the
+faster your text will scroll across the screen.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO!&quot;</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO!&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Notice that you can also scroll numbers (either constants of variables):</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="printing-text">
+<span id="printing-text"></span><h2>Printing Text<a class="headerlink" href="#printing-text" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes it is better to show the letters/numbers in turn on the screen rather than scrolling them. If you want to do this, the &#8216;print&#8217; function has exactly the same parameters as &#8216;scroll&#8217;, but
+with this behaviour.  e.g.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;HELLO!&quot;</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;HELLO!&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Do notice that print behaves slightly differently if you provide a single character or numeric digit though. if you do this, the value you provide will stay on the screen until you explicitly
+change the screen. If you ask the runtime to print a string with two or more characters, then each will appear in turn, then disappear. e.g. try this and you will find it stays on the screen:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="showing-images">
+<span id="showing-images"></span><h2>Showing Images<a class="headerlink" href="#showing-images" title="Permalink to this headline">¶</a></h2>
+<p>It is also possible to print and scroll bitmap images on the display. Images are represented in the runtime by using a <a class="reference external" href="../data-types/image.md">MicroBitImage</a>. These can easily be created, just as
+you create any variable. Once created, you can then provide them as a parameter to the scroll and print functions. Unlike the text based animation functions, you can also specify exactly
+where in the screen you would like the image to appear - and you can even treat pixel values of zero as transparent if you like!
+See the <a class="reference external" href="../data-types/image.md">MicroBitImage page</a> for more details on images, but here are a few simple examples:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// show your smiley on the screen...</span>
+<span class="n">MicroBitImage</span> <span class="nf">smiley</span><span class="p">(</span><span class="s">&quot;0,255,0,255, 0</span><span class="se">\n</span><span class="s">0,255,0,255,0</span><span class="se">\n</span><span class="s">0,0,0,0,0</span><span class="se">\n</span><span class="s">255,0,0,0,255</span><span class="se">\n</span><span class="s">0,255,255,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">smiley</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// make your smiley peep up from the bottom of the screen...</span>
+<span class="n">MicroBitImage</span> <span class="nf">smiley</span><span class="p">(</span><span class="s">&quot;0,255,0,255, 0</span><span class="se">\n</span><span class="s">0,255,0,255,0</span><span class="se">\n</span><span class="s">0,0,0,0,0</span><span class="se">\n</span><span class="s">255,0,0,0,255</span><span class="se">\n</span><span class="s">0,255,255,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">y</span><span class="o">--</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">image</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">smiley</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// scroll your smiley across the screen...</span>
+<span class="n">MicroBitImage</span> <span class="nf">smiley</span><span class="p">(</span><span class="s">&quot;0,255,0,255, 0</span><span class="se">\n</span><span class="s">0,255,0,255,0</span><span class="se">\n</span><span class="s">0,0,0,0,0</span><span class="se">\n</span><span class="s">255,0,0,0,255</span><span class="se">\n</span><span class="s">0,255,255,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">smiley</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-in-the-background">
+<span id="running-in-the-background"></span><h2>Running in the Background...<a class="headerlink" href="#running-in-the-background" title="Permalink to this headline">¶</a></h2>
+<p>By now you have probably noticed that the scroll, print and animate functions all wait for the effect requested to finishes before returning. This is by design, to allow you to easily synchronise your programs.
+However, sometimes you want to launch an effect, and let it run in the background while your program does something else. For this, you can use the <em>Async</em> variations of the scroll, print and animate functions.
+These all have identical parameters and capabilities, but will return immediately. Try some of the examples above with their Async equivalents to understand this different behaviour.  For example:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// scroll your smiley across the screen, without waiting for it to finish...</span>
+<span class="n">MicroBitImage</span> <span class="nf">smiley</span><span class="p">(</span><span class="s">&quot;0,255,0,255, 0</span><span class="se">\n</span><span class="s">0,255,0,255,0</span><span class="se">\n</span><span class="s">0,0,0,0,0</span><span class="se">\n</span><span class="s">255,0,0,0,255</span><span class="se">\n</span><span class="s">0,255,255,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="n">smiley</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="changing-display-mode">
+<span id="changing-display-mode"></span><h2>Changing Display Mode<a class="headerlink" href="#changing-display-mode" title="Permalink to this headline">¶</a></h2>
+<p>The MicroBitDisplay class supports either on/off LED display, or displays where each pixel has an individual brightness value between 0 and 255. The former costs much less processor time and battery power to
+operate, so it is the default. The latter does provide more useful effects though, so you can change between these modes by using the  &#8216;setDiplayMode&#8217; function. Valid values are:</p>
+<p>| Display mode | Brief Description |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| DISPLAY_MODE_BLACK_AND_WHITE | Each pixel can be just on or off. The brightness of all pixels is controlled by the setBrightness function. |
+| DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE | Each pixel can be just on or off, and the display driver will also sense the ambient brightness from the LEDs. |
+| DISPLAY_MODE_GREYSCALE | Each pixel can independently have 256 levels of brightness. |</p>
+<p>for example:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// show a smiley with bright eyes!</span>
+<span class="n">MicroBitImage</span> <span class="nf">smiley</span><span class="p">(</span><span class="s">&quot;0,255,0,255, 0</span><span class="se">\n</span><span class="s">0,255,0,255,0</span><span class="se">\n</span><span class="s">0,0,0,0,0</span><span class="se">\n</span><span class="s">32,0,0,0,32</span><span class="se">\n</span><span class="s">0,32,32,32,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">setDisplayMode</span><span class="p">(</span><span class="n">DISPLAY_MODE_GREYSCALE</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">smiley</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-the-display-buffer">
+<span id="accessing-the-display-buffer"></span><h2>Accessing the Display Buffer<a class="headerlink" href="#accessing-the-display-buffer" title="Permalink to this headline">¶</a></h2>
+<p>The memory buffer that is used to drive the LEDs is itself a <a class="reference external" href="../data-types/image.md">MicroBitImage</a>. This means that you can also access and call any of the functions listed in the <a class="reference external" href="../data-types/image.md">MicroBitImage API documentation</a>
+directly on the display buffer. Examples here include setPixelValue, as illustrated below, but read the above documentation link for full details.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="c1">// set a single pixel by co-ordinate</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">image</span><span class="p">.</span><span class="n">setPixelValue</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">255</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-useful-functions">
+<span id="other-useful-functions"></span><h2>Other Useful Functions<a class="headerlink" href="#other-useful-functions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>&#8216;clear&#8217; will clear the screen immediately.</li>
+<li>&#8216;stopAnimation&#8217; will terminate any on-going print, scroll or animate functions.</li>
+<li>&#8216;setBrightness&#8217; lets you set the overall maximum brightness of the display, as a value between 1 and 255.</li>
+<li>&#8216;enable&#8217; and &#8216;disable&#8217; turn on and off the display. When disabled, you can reuse many if the GPIO pins. See the <a class="reference external" href="io.md">MicroBitIO</a> class for more information.</li>
+<li>&#8216;rotateTo&#8217; even lets you specify the orientation of the display - in case you need to use your micro:bit the wrong way up. :-)</li>
+<li>&#8216;readLightLevel&#8217; runs the LEDs backwards as photodiodes and tells you how bright your room is... see <a class="reference external" href="../extras/light-sensing.md">Light Sensing</a> for more info!</li>
+</ul>
+<p>##Message Bus ID</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ID_DISPLAY | 6 |</p>
+<p>##Message Bus Events</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_DISPLAY_EVT_ANIMATION_COMPLETE | 1 |
+| MICROBIT_DISPLAY_EVT_LIGHT_SENSE | 2 |</p>
+</div>
+</div>
+<div class="section" id="notify-events">
+<span id="notify-events"></span><h1>Notify Events<a class="headerlink" href="#notify-events" title="Permalink to this headline">¶</a></h1>
+<p>These events use the notification channel <code class="docutils literal"><span class="pre">MICROBIT_ID_NOTIFY</span></code>, which provides
+general purpose synchronisation.</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_DISPLAY_EVT_FREE | 1 |</p>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitDisplay&#8221;})
+##Constructor
+<br/>
+####MicroBitDisplay()
+#####Description
+Constructor.</p>
+<p>Create a software representation the micro:bit&#8217;s 5x5 LED matrix. The display is initially blank.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitDisplay( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)
+#####Description
+Constructor.</p>
+<p>Create a software representation the micro:bit&#8217;s 5x5 LED matrix. The display is initially blank.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id the display should use when sending events on the MessageBus. Defaults to MICROBIT_ID_DISPLAY.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitDisplay( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>const  MatrixMap  &amp;</div> map)
+#####Description
+Constructor.</p>
+<p>Create a software representation the micro:bit&#8217;s 5x5 LED matrix. The display is initially blank.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id the display should use when sending events on the MessageBus. Defaults to MICROBIT_ID_DISPLAY.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MatrixMap  &</div> map - The mapping information that relates pin inputs/outputs to physical screen coordinates. Defaults to microbitMatrixMap, defined in  MicroBitMatrixMaps.h .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+</pre></div>
+</div>
+<p>##stopAnimation
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>stopAnimation</div>()
+#####Description
+Stops any currently running animation, and any that are waiting to be displayed.</p>
+<p>##printCharAsync
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printCharAsync</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c)
+#####Description
+Prints the given character to the display, if it is not in use.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY is the screen is in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printCharAsync</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Prints the given character to the display, if it is not in use.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - Optional parameter - the time for which to show the character. Zero displays the character forever, or until the Displays next use.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY is the screen is in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##printAsync
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s)
+#####Description
+Prints the given  ManagedString  to the display, one character at a time. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Prints the given  ManagedString  to the display, one character at a time. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between characters, in milliseconds. Must be > 0. Defaults to: MICROBIT_DEFAULT_PRINT_SPEED.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i)
+#####Description
+Prints the given image to the display, if the display is not in use. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x)
+#####Description
+Prints the given image to the display, if the display is not in use. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x,  <div style='color:#a71d5d; display:inline-block'>int</div> y)
+#####Description
+Prints the given image to the display, if the display is not in use. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> y - The vertical position on the screen to display the image. Defaults to 0.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x,  <div style='color:#a71d5d; display:inline-block'>int</div> y,  <div style='color:#a71d5d; display:inline-block'>int</div> alpha)
+#####Description
+Prints the given image to the display, if the display is not in use. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> y - The vertical position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> alpha - Treats the brightness level '0' as transparent. Defaults to 0.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x,  <div style='color:#a71d5d; display:inline-block'>int</div> y,  <div style='color:#a71d5d; display:inline-block'>int</div> alpha,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Prints the given image to the display, if the display is not in use. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> y - The vertical position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> alpha - Treats the brightness level '0' as transparent. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between characters, in milliseconds. Defaults to 0.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##printChar
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printChar</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c)
+#####Description
+Prints the given character to the display.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printChar</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Prints the given character to the display.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - Optional parameter - the time for which to show the character. Zero displays the character forever, or until the Displays next use.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">printAsync</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##print
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s)
+#####Description
+Prints the given string to the display, one character at a time.</p>
+<p>Blocks the calling thread until all the text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Prints the given string to the display, one character at a time.</p>
+<p>Blocks the calling thread until all the text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between characters, in milliseconds. Defaults to: MICROBIT_DEFAULT_PRINT_SPEED.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i)
+#####Description
+Prints the given image to the display. Blocks the calling thread until all the image has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x)
+#####Description
+Prints the given image to the display. Blocks the calling thread until all the image has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x,  <div style='color:#a71d5d; display:inline-block'>int</div> y)
+#####Description
+Prints the given image to the display. Blocks the calling thread until all the image has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> y - The vertical position on the screen to display the image. Defaults to 0.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x,  <div style='color:#a71d5d; display:inline-block'>int</div> y,  <div style='color:#a71d5d; display:inline-block'>int</div> alpha)
+#####Description
+Prints the given image to the display. Blocks the calling thread until all the image has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> y - The vertical position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> alpha - Treats the brightness level '0' as transparent. Defaults to 0.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i,  <div style='color:#a71d5d; display:inline-block'>int</div> x,  <div style='color:#a71d5d; display:inline-block'>int</div> y,  <div style='color:#a71d5d; display:inline-block'>int</div> alpha,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Prints the given image to the display. Blocks the calling thread until all the image has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> i - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> x - The horizontal position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> y - The vertical position on the screen to display the image. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> alpha - Treats the brightness level '0' as transparent. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to display the image for, or zero to show the image forever. Defaults to 0.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">400</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##scrollAsync
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scrollAsync</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s)
+#####Description
+Scrolls the given string to the display, from right to left. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scrollAsync</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Scrolls the given string to the display, from right to left. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between characters, in milliseconds. Defaults to: MICROBIT_DEFAULT_SCROLL_SPEED.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scrollAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image)
+#####Description
+Scrolls the given image across the display, from right to left. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scrollAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Scrolls the given image across the display, from right to left. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time between updates, in milliseconds. Defaults to: MICROBIT_DEFAULT_SCROLL_SPEED.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scrollAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride)
+#####Description
+Scrolls the given image across the display, from right to left. Returns immediately, and executes the animation asynchronously.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time between updates, in milliseconds. Defaults to: MICROBIT_DEFAULT_SCROLL_SPEED.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update. Defaults to MICROBIT_DEFAULT_SCROLL_STRIDE.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the display is already in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##scroll
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scroll</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s)
+#####Description
+Scrolls the given string across the display, from right to left. Blocks the calling thread until all text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scroll</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Scrolls the given string across the display, from right to left. Blocks the calling thread until all text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> s - The string to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between characters, in milliseconds. Defaults to: MICROBIT_DEFAULT_SCROLL_SPEED.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;abc123&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scroll</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image)
+#####Description
+Scrolls the given image across the display, from right to left. Blocks the calling thread until all the text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scroll</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay)
+#####Description
+Scrolls the given image across the display, from right to left. Blocks the calling thread until all the text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time between updates, in milliseconds. Defaults to: MICROBIT_DEFAULT_SCROLL_SPEED.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>scroll</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride)
+#####Description
+Scrolls the given image across the display, from right to left. Blocks the calling thread until all the text has been displayed.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time between updates, in milliseconds. Defaults to: MICROBIT_DEFAULT_SCROLL_SPEED.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update. Defaults to MICROBIT_DEFAULT_SCROLL_STRIDE.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicrobitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;1,1,1,1,1</span><span class="se">\n</span><span class="s">1,1,1,1,1</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##animateAsync
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>animateAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride)
+#####Description
+&#8220;Animates&#8221; the current image across the display with a given stride, finishing on the last frame of the animation. Returns immediately.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between each update of the display, in milliseconds.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the screen is in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> 
+ 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="n">heart_w</span><span class="p">,</span><span class="n">heart_h</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">animateAsync</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>animateAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride,  <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition)
+#####Description
+&#8220;Animates&#8221; the current image across the display with a given stride, finishing on the last frame of the animation. Returns immediately.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between each update of the display, in milliseconds.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition - the starting position on the display for the animation to begin at. Defaults to MICROBIT_DISPLAY_ANIMATE_DEFAULT_POS.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the screen is in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> 
+ 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="n">heart_w</span><span class="p">,</span><span class="n">heart_h</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">animateAsync</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>animateAsync</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride,  <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition,  <div style='color:#a71d5d; display:inline-block'>int</div> autoClear)
+#####Description
+&#8220;Animates&#8221; the current image across the display with a given stride, finishing on the last frame of the animation. Returns immediately.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image - The image to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between each update of the display, in milliseconds.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition - the starting position on the display for the animation to begin at. Defaults to MICROBIT_DISPLAY_ANIMATE_DEFAULT_POS.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> autoClear - defines whether or not the display is automatically cleared once the animation is complete. By default, the display is cleared. Set this parameter to zero to disable the autoClear operation.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_BUSY if the screen is in use, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> 
+ 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="n">heart_w</span><span class="p">,</span><span class="n">heart_h</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">animateAsync</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##animate
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>animate</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride)
+#####Description
+&#8220;Animates&#8221; the current image across the display with a given stride, finishing on the last frame of the animation. Blocks the calling thread until the animation is complete.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between each update of the display, in milliseconds.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> 
+ 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="n">heart_w</span><span class="p">,</span><span class="n">heart_h</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>animate</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride,  <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition)
+#####Description
+&#8220;Animates&#8221; the current image across the display with a given stride, finishing on the last frame of the animation. Blocks the calling thread until the animation is complete.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between each update of the display, in milliseconds.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition - the starting position on the display for the animation to begin at. Defaults to MICROBIT_DISPLAY_ANIMATE_DEFAULT_POS.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> 
+ 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="n">heart_w</span><span class="p">,</span><span class="n">heart_h</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>animate</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image,  <div style='color:#a71d5d; display:inline-block'>int</div> delay,  <div style='color:#a71d5d; display:inline-block'>int</div> stride,  <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition,  <div style='color:#a71d5d; display:inline-block'>int</div> autoClear)
+#####Description
+&#8220;Animates&#8221; the current image across the display with a given stride, finishing on the last frame of the animation. Blocks the calling thread until the animation is complete.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> image</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> delay - The time to delay between each update of the display, in milliseconds.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> stride - The number of pixels to shift by in each update.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> startingPosition - the starting position on the display for the animation to begin at. Defaults to MICROBIT_DISPLAY_ANIMATE_DEFAULT_POS.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> autoClear - defines whether or not the display is automatically cleared once the animation is complete. By default, the display is cleared. Set this parameter to zero to disable the autoClear operation.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, MICROBIT_CANCELLED or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_w</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">int</span> <span class="n">heart_h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> 
+ <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> 
+ 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="n">heart_w</span><span class="p">,</span><span class="n">heart_h</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##setBrightness
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setBrightness</div>( <div style='color:#a71d5d; display:inline-block'>int</div> b)
+#####Description
+Configures the brightness of the display.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> b - The brightness to set the brightness to, in the range 0 - 255.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, or MICROBIT_INVALID_PARAMETER
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">setBrightness</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span> <span class="c1">//max brightness </span>
+</pre></div>
+</div>
+<p>##setDisplayMode
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>setDisplayMode</div>( <div style='color:#a71d5d; display:inline-block'>DisplayMode</div> mode)
+#####Description
+Configures the mode of the display.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>DisplayMode</div> mode - The mode to swap the display into. One of: DISPLAY_MODE_GREYSCALE, DISPLAY_MODE_BLACK_AND_WHITE, DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">setDisplayMode</span><span class="p">(</span><span class="n">DISPLAY_MODE_GREYSCALE</span><span class="p">);</span> <span class="c1">//per pixel brightness </span>
+</pre></div>
+</div>
+<p>##getDisplayMode
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getDisplayMode</div>()
+#####Description
+Retrieves the mode of the display.</p>
+<p>#####Returns
+the current mode of the display
+##getBrightness
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getBrightness</div>()
+#####Description
+Fetches the current brightness of this display.</p>
+<p>#####Returns
+the brightness of this display, in the range 0..255.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">getBrightness</span><span class="p">();</span> <span class="c1">//the current brightness </span>
+</pre></div>
+</div>
+<p>##rotateTo
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>rotateTo</div>( <div style='color:#a71d5d; display:inline-block'>DisplayRotation</div> position)
+#####Description
+Rotates the display to the given position.</p>
+<p>Axis aligned values only.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>DisplayRotation</div> position</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">rotateTo</span><span class="p">(</span><span class="n">MICROBIT_DISPLAY_ROTATION_180</span><span class="p">);</span> <span class="c1">//rotates 180 degrees from original orientation </span>
+</pre></div>
+</div>
+<p>##enable
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>enable</div>()
+#####Description
+Enables the display, should only be called if the display is disabled.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span> <span class="c1">//Enables the display mechanics </span>
+</pre></div>
+</div>
+<p>!!! note
+Only enables the display if the display is currently disabled.</p>
+<p>##disable
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>disable</div>()
+#####Description
+Disables the display, which releases control of the GPIO pins used by the display, which are exposed on the edge connector.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">disable</span><span class="p">();</span> <span class="c1">//disables the display </span>
+</pre></div>
+</div>
+<p>!!! note
+Only disables the display if the display is currently enabled.</p>
+<p>##clear
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>clear</div>()
+#####Description
+Clears the display of any remaining pixels.</p>
+<p>display.image.clear()  can also be used!</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">display</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span> <span class="c1">//clears the display </span>
+</pre></div>
+</div>
+<p>##setFont
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>setFont</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitFont</div> font)
+#####Description
+Updates the font that will be used for display operations.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitFont</div> font - the new font that will be used to render characters.</div></blockquote>
+<p>!!! note
+DEPRECATED! Please use  MicroBitFont::setSystemFont()  instead.</p>
+<p>##getFont
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>MicroBitFont</div> <div style='color:#795da3; display:inline-block'>getFont</div>()
+#####Description
+Retrieves the font object used for rendering characters on the display.</p>
+<p>!!! note
+DEPRECATED! Please use  MicroBitFont::getSystemFont()  instead.</p>
+<p>##screenShot
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>screenShot</div>()
+#####Description
+Captures the bitmap currently being rendered on the display.</p>
+<p>#####Returns
+a  MicroBitImage  containing the captured data.
+##readLightLevel
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>readLightLevel</div>()
+#####Description
+Gives a representative figure of the light level in the current environment where are micro:bit is situated.</p>
+<p>Internally, it constructs an instance of a  MicroBitLightSensor  if not already configured and sets the display mode to DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE.</p>
+<p>This also changes the tickPeriod to MICROBIT_LIGHT_SENSOR_TICK_SPEED so that the display does not suffer from artifacts.</p>
+<p>#####Returns
+an indicative light level in the range 0 - 255.</p>
+<p>!!! note
+this will return 0 on the first call to this method, a light reading will be available after the display has activated the light sensor for the first time.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitDisplay&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Overview</a></li>
+<li><a class="reference internal" href="#capabilities">Capabilities</a></li>
+<li><a class="reference internal" href="#using-the-display">Using the Display</a><ul>
+<li><a class="reference internal" href="#scrolling-text">Scrolling Text</a></li>
+<li><a class="reference internal" href="#printing-text">Printing Text</a></li>
+<li><a class="reference internal" href="#showing-images">Showing Images</a></li>
+<li><a class="reference internal" href="#running-in-the-background">Running in the Background...</a></li>
+<li><a class="reference internal" href="#changing-display-mode">Changing Display Mode</a></li>
+<li><a class="reference internal" href="#accessing-the-display-buffer">Accessing the Display Buffer</a></li>
+<li><a class="reference internal" href="#other-useful-functions">Other Useful Functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notify-events">Notify Events</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/display.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/display.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
