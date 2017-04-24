@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creating Strings &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#ManagedString</p>
+<p>##Overview</p>
+<p><code class="docutils literal"><span class="pre">ManagedString</span></code> represents a text string in the micro:bit runtime.</p>
+<p>A string is simply a sequence of characters such as &#8220;joe&#8221; or &#8220;micro:bit&#8221;.</p>
+<p>In the C language, the end of the string is marked by a special character (a <strong>NULL</strong> character, commonly with the value zero).</p>
+<p>Simple strings are often represented as literal character arrays:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Which is almost exactly the same as:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">message</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;H&#39;</span><span class="p">,</span> <span class="sc">&#39;E&#39;</span><span class="p">,</span> <span class="sc">&#39;L&#39;</span><span class="p">,</span> <span class="sc">&#39;L&#39;</span><span class="p">,</span> <span class="sc">&#39;O&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Although fantastically simple, strings of this form are well known to lead to memory leaks and be sources of bugs in code (especially when the programmers are still learning!).</p>
+<p>As a result, most modern high level languages such as Java, C#, Javascript and TouchDevelop do not use strings of this format.
+Instead, they provide code that is capable of ensuring strings remain safe.</p>
+<p><code class="docutils literal"><span class="pre">ManagedString</span></code> provides this equivalent functionality for the micro:bit, as a building block for higher level languages. However, it can also makes programming the micro:bit in C easier too!</p>
+<p>!!! note
+This is a <strong>managed type</strong>. This means that it will automatically use and release memory as needed. There is no need for you to explicitly free or release memory when your done - the memory will be freed as soon as the last piece of code stops using the data.</p>
+<div class="section" id="creating-strings">
+<span id="creating-strings"></span><h1>Creating Strings<a class="headerlink" href="#creating-strings" title="Permalink to this headline">¶</a></h1>
+<p>Images are simple to create - just create them like a variable, and provide the text or number you would like to build the string from.</p>
+<p>For example:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">ManagedString</span> <span class="nf">hi</span><span class="p">(</span><span class="s">&quot;HELLO&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">message</span><span class="p">(</span><span class="s">&quot;micro:bit&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">n</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The runtime will also create a <code class="docutils literal"><span class="pre">ManagedString</span></code> for you from a number or quoted literal anytime a function requires a <code class="docutils literal"><span class="pre">ManagedString</span></code>.</p>
+<p>In the example below, even though the scroll function of <a class="reference external" href="../ubit/display.md"><code class="docutils literal"><span class="pre">MicroBitDisplay</span></code></a> expects a <code class="docutils literal"><span class="pre">ManagedString</span></code>,
+it is totally fine to pass a literal value in quotes or a number (or in fact, any parameter that is listed in the API section as a legal constructor will work):</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">ManagedString</span> <span class="nf">hi</span><span class="p">(</span><span class="s">&quot;HELLO&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">message</span><span class="p">(</span><span class="s">&quot;micro:bit&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">n</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+
+<span class="c1">// All these calls are legal:</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">hi</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;THANKS!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="manipulating-strings">
+<span id="manipulating-strings"></span><h1>Manipulating Strings<a class="headerlink" href="#manipulating-strings" title="Permalink to this headline">¶</a></h1>
+<p>ManagedStrings are <strong>immutable</strong>, meaning that once created, they cannot be changed. However, you can join them, search them, extract characters from them and create other strings!</p>
+<p>The micro:bit runtime makes use of <strong>operator overloading</strong> to keep this easy to use.</p>
+<p>In other words, we make use of the <code class="docutils literal"><span class="pre">=</span></code> <code class="docutils literal"><span class="pre">+</span></code> <code class="docutils literal"><span class="pre">&lt;</span></code> <code class="docutils literal"><span class="pre">&gt;</span></code> and <code class="docutils literal"><span class="pre">==</span></code> operators to let you easily assign and compare strings.</p>
+<p>Although this may sound complex, it is easy once you see how to do it.</p>
+<p>Here is how you would join together more than one string, and assign it to a new one:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">ManagedString</span> <span class="nf">hi</span><span class="p">(</span><span class="s">&quot;HELLO&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">message</span><span class="p">(</span><span class="s">&quot;micro:bit&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">space</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">);</span>
+
+<span class="n">ManagedString</span> <span class="n">s</span> <span class="o">=</span> <span class="n">hi</span> <span class="o">+</span> <span class="n">space</span> <span class="o">+</span> <span class="n">message</span><span class="p">;</span>
+
+<span class="c1">// This would say &quot;HELLO micro:bit&quot; on the LED display.</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can compare strings (alphabetically) in a similar way:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">ManagedString</span> <span class="nf">hi</span><span class="p">(</span><span class="s">&quot;HELLO&quot;</span><span class="p">);</span>
+<span class="n">ManagedString</span> <span class="nf">message</span><span class="p">(</span><span class="s">&quot;micro:bit&quot;</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">hi</span> <span class="o">==</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;SAME&quot;</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">hi</span> <span class="o">&lt;</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;LESS&quot;</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">hi</span> <span class="o">&gt;</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;MORE&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also determine the length of a string, extract parts of strings, retrieve individual characters at a given index or convert a ManagedString to a C-style character array using the <code class="docutils literal"><span class="pre">length</span></code>, <code class="docutils literal"><span class="pre">substring</span></code>, <code class="docutils literal"><span class="pre">charAt</span></code> and <code class="docutils literal"><span class="pre">toCharArray</span></code> functions respectively.</p>
+<p>See the API documentation below for further details.</p>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;ManagedString&#8221;})
+##Constructor
+<br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>StringData  *</div> ptr)
+#####Description
+Constructor. Create a managed string from a specially prepared string literal.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>StringData  \*</div> ptr - The literal - first two bytes should be 0xff, then the length in little endian, then the literal. The literal has to be 4-byte aligned.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">hello</span><span class="p">[]</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">aligned</span> <span class="p">(</span><span class="mi">4</span><span class="p">)))</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\xff\xff\x05\x00</span><span class="s">&quot;</span> <span class="s">&quot;Hello&quot;</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">((</span><span class="n">StringData</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">hello</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##leakData
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>StringData</div> <div style='color:#795da3; display:inline-block'>leakData</div>()
+#####Description
+Get current ptr, do not decr() it, and set the current instance to empty string.</p>
+<p>This is to be used by specialized runtimes which pass  StringData  around.</p>
+<p>##Constructor
+<br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const char *</div> str)
+#####Description
+Constructor.</p>
+<p>Create a managed string from a pointer to an 8-bit character buffer.</p>
+<p>The buffer is copied to ensure safe memory management (the supplied character buffer may be declared on the stack for instance).</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> str - The character array on which to base the new  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const int</div> value)
+#####Description
+Constructor.</p>
+<p>Create a managed string from a given integer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int</div> value - The integer from which to create the  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const char</div> value)
+#####Description
+Constructor. Create a managed string from a given char.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char</div> value - The character from which to create the  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> buffer)
+#####Description
+Constructor. Create a  ManagedString  from a  PacketBuffer . All bytes in the  PacketBuffer  are added to the  ManagedString .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> buffer - The PacktBuffer from which to create the  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="n">s</span> <span class="o">=</span> <span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const char *</div> str,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> length)
+#####Description
+Constructor. Create a  ManagedString  from a pointer to an 8-bit character buffer of a given length.</p>
+<p>The buffer is copied to ensure sane memory management (the supplied character buffer may be declared on the stack for instance).</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> str - The character array on which to base the new  ManagedString .</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int16_t</div> length - The length of the character array</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Copy constructor. Makes a new  ManagedString  identical to the one supplied.</p>
+<p>Shares the character buffer and reference count with the supplied  ManagedString .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to copy.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString()
+#####Description
+Default constructor.</p>
+<p>Create an empty  ManagedString .</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##operator=
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>operator=</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Copy assign operation.</p>
+<p>Called when one  ManagedString  is assigned the value of another.</p>
+<p>If the  ManagedString  being assigned is already referring to a character buffer, decrement the reference count and free up the buffer as necessary.</p>
+<p>Then, update our character buffer to refer to that of the supplied  ManagedString , and increase its reference count.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to copy.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;efgh&quot;</span><span class="p">);</span> 
+ <span class="n">p</span> <span class="o">=</span> <span class="n">s</span> <span class="c1">// p now points to s, s&#39; ref is incremented </span>
+</pre></div>
+</div>
+<p>##operator==
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator==</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Equality operation.</p>
+<p>Called when one  ManagedString  is tested to be equal to another using the &#8216;==&#8217; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  ManagedString  is identical to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;efgh&quot;</span><span class="p">);</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">s</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;We are the same!&quot;</span><span class="p">);</span> 
+ <span class="k">else</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;We are different!&quot;</span><span class="p">);</span> <span class="c1">//p is not equal to s - this will be called </span>
+</pre></div>
+</div>
+<p>##operator&lt;
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator&lt;</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Inequality operation.</p>
+<p>Called when one  ManagedString  is tested to be less than another using the &#8216;&lt;&#8216; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  ManagedString  is alphabetically less than to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">);</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;a is before b!&quot;</span><span class="p">);</span> <span class="c1">//a is before b </span>
+ <span class="k">else</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;b is before a!&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##operator&gt;
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator&gt;</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Inequality operation.</p>
+<p>Called when one  ManagedString  is tested to be greater than another using the &#8216;&gt;&#8217; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  ManagedString  is alphabetically greater than to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">);</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">&gt;</span><span class="n">a</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;b is after a!&quot;</span><span class="p">);</span> <span class="c1">//b is after a </span>
+ <span class="k">else</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;a is after b!&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##substring
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>substring</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> start,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> length)
+#####Description
+Extracts a  ManagedString  from this string, at the position provided.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> start - The index of the first character to extract, indexed from zero.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> length - The number of characters to extract from the start position</div></blockquote>
+<p>#####Returns
+a  ManagedString  representing the requested substring.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">);</span> 
+ 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="c1">// displays &quot;ab&quot; </span>
+</pre></div>
+</div>
+<p>##charAt
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>char</div> <div style='color:#795da3; display:inline-block'>charAt</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> index)
+#####Description
+Provides a character value at a given position in the string, indexed from zero.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> index - The position of the character to return.</div></blockquote>
+<p>#####Returns
+the character at posisiton index, zero if index is invalid.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">charAt</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1">// scrolls &quot;b&quot; </span>
+</pre></div>
+</div>
+<p>##toCharArray
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>const char *</div> <div style='color:#795da3; display:inline-block'>toCharArray</div>()
+#####Description
+Provides an immutable 8 bit wide character buffer representing this string.</p>
+<p>#####Returns
+a pointer to the character buffer.
+##length
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int16_t</div> <div style='color:#795da3; display:inline-block'>length</div>()
+#####Description
+Determines the length of this  ManagedString  in characters.</p>
+<p>#####Returns
+the length of the string in characters.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">())</span> <span class="c1">// scrolls &quot;4&quot; </span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;ManagedString&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Creating Strings</a></li>
+<li><a class="reference internal" href="#manipulating-strings">Manipulating Strings</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/data-types/string.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/data-types/string.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

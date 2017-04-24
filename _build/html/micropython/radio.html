@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Radio &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="radio">
+<h1>Radio<a class="headerlink" href="#radio" title="Permalink to this headline">¶</a></h1>
+<p>Interaction at a distance feels like magic.</p>
+<p>Magic might be useful if you&#8217;re an elf, wizard or unicorn, but such things only
+exist in stories.</p>
+<p>However, there&#8217;s something much better than magic: physics!</p>
+<p>Wireless interaction is all about physics: radio waves (a type of
+electromagnetic radiation, similar to visible light) have some sort of property
+(such as their amplitude, phase or pulse width) modulated by a transmitter in
+such a way that information can be encoded and, thus, broadcast. When radio
+waves encounter an electrical conductor (i.e. an aerial), they cause an
+alternating current from which the information in the waves can be extracted
+and transformed back into its original form.</p>
+<div class="section" id="layers-upon-layers">
+<h2>Layers upon Layers<a class="headerlink" href="#layers-upon-layers" title="Permalink to this headline">¶</a></h2>
+<p>If you remember, networks are built in layers.</p>
+<p>The most fundamental requirement for a network is some sort of connection that
+allows a signal to get from one device to the other. In our networking
+tutorial we used wires connected to the I/O pins. Thanks to the radio module we
+can do away with wires and use the physics summarised above as the invisible
+connection between devices.</p>
+<p>The next layer up in the network stack is also different from the example in
+the networking tutorial. With the wired example we used digital on and off to
+send and read a signal from the pins. With the built-in radio on the
+micro:bit the smallest useful part of the signal is a byte.</p>
+</div>
+<div class="section" id="bytes">
+<h2>Bytes<a class="headerlink" href="#bytes" title="Permalink to this headline">¶</a></h2>
+<p>A byte is a unit of information that (usually) consists of eight bits. A bit is
+the smallest possible unit of information since it can only be in two states:
+on or off.</p>
+<p>Bytes work like a sort of abacus: each position in the byte is like a
+column in an abacus - they represent an associated number. In an abacus these
+are usually thousands, hundreds, tens and units (in UK parlance). In a byte
+they are 128, 64, 32, 16, 8, 4, 2 and 1. As bits (on/off
+signals) are sent over the air, they are re-combined into bytes by the
+recipient.</p>
+<p>Have you spotted the pattern? (Hint: base 2.)</p>
+<p>By adding the numbers associated with the positions in a byte that are set to
+&#8220;on&#8221; we can represent numbers between 0 and 255. The image below shows how this
+works with five bits and counting from zero to 32:</p>
+<img alt="micropython/binary_count.gif" src="micropython/binary_count.gif" />
+<p>If we can agree what each one of the 255 numbers (encoded by a byte) represents ~ such as a character ~ then we can start to send text one character per byte
+at a time.</p>
+<p>Funnily enough, people have already
+<a class="reference external" href="https://en.wikipedia.org/wiki/ASCII">thought of this</a> ~ using bytes to
+encode and decode information is commonplace. This approximately corresponds to
+the Morse-code &#8220;protocol&#8221; layer in the wired networking example.</p>
+<p>A really great series of child (and teacher) friendly explanations of &#8220;all
+things bytes&#8221; can be found at the
+<a class="reference external" href="http://csunplugged.org/binary-numbers/">CS unplugged</a> website.</p>
+</div>
+<div class="section" id="addressing">
+<h2>Addressing<a class="headerlink" href="#addressing" title="Permalink to this headline">¶</a></h2>
+<p>The problem with radio is that you can&#8217;t transmit directly to one person.
+Anyone with an appropriate aerial can receive the messages you transmit. As a
+result it&#8217;s important to be able to differentiate who should be receiving
+broadcasts.</p>
+<p>The way the radio built into the micro:bit solves this problem is quite simple:</p>
+<ul class="simple">
+<li>It&#8217;s possible to tune the radio to different channels (numbered 0-100). This works in exactly the same way as kids&#8217; walkie-talkie radios: everyone tunes into the same channel and everyone hears what everyone else broadcasts via that channel. As with walkie-talkies, if you use adjacent channels there is a slight possibility of interference.</li>
+<li>The radio module allows you to specify two pieces of information: an address and a group. The address is like a postal address whereas a group is like a specific recipient at the address. The important thing is the radio will filter out messages that it receives that do not match <em>your</em> address and group. As a result, it&#8217;s important to pre-arrange the address and group your application is going to use.</li>
+</ul>
+<p>Of course, the micro:bit is still receiving broadcast messages for other
+address/group combinations. The important thing is you don&#8217;t need to worry
+about filtering those out. Nevertheless, if someone were clever enough, they
+could just read <em>all the wireless network traffic</em> no matter what the target
+address/group was supposed to be. In this case, it&#8217;s <em>essential</em> to use
+encrypted means of communication so only the desired recipient can actually
+read the message that was broadcast. Cryptography is a fascinating subject but,
+unfortunately, beyond the scope of this tutorial.</p>
+</div>
+<div class="section" id="fireflies">
+<h2>Fireflies<a class="headerlink" href="#fireflies" title="Permalink to this headline">¶</a></h2>
+<p>This is a firefly:</p>
+<img alt="micropython/firefly.gif" src="micropython/firefly.gif" />
+<p>It&#8217;s a sort of bug that uses bioluminescence to signal (without wires) to its
+friends. Here&#8217;s what they look like when they signal to each other:</p>
+<img alt="micropython/fireflies.gif" src="micropython/fireflies.gif" />
+<p>The BBC have <a class="reference external" href="http://www.bbc.com/earth/story/20160224-worlds-largest-gathering-of-synchronised-fireflies">rather a beautiful video</a> of fireflies available online.</p>
+<p>We&#8217;re going to use the radio module to create something akin to a swarm of
+fireflies signalling to each other.</p>
+<p>First <code class="docutils literal"><span class="pre">import</span> <span class="pre">radio</span></code> to make the functions available to your Python program.
+Then call the <code class="docutils literal"><span class="pre">radio.on()</span></code> function to turn the radio on. Since
+the radio draws power and takes up memory we&#8217;ve made it so <em>you</em> decide
+when it is enabled (there is, of course a <code class="docutils literal"><span class="pre">radio.off()</span></code> function).</p>
+<p>At this point the radio module is configured to sensible defaults that make
+it compatible with other platforms that may target the BBC micro:bit. It is
+possible to control many of the features discussed above (such as channel and
+addressing) as well as the amount of power used to broadcast messages and the
+amount of RAM the incoming message queue will take up. The API documentation
+contains all the information you need to configure the radio to your needs.</p>
+<p>Assuming we&#8217;re happy with the defaults, the simplest way to send a message is
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">radio</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;a message&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The example uses the <code class="docutils literal"><span class="pre">send</span></code> function to simply broadcast the string
+&#8220;a message&#8221;. To receive a message is even easier:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">new_message</span> <span class="o">=</span> <span class="n">radio</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As messages are received they are put on a message queue. The <code class="docutils literal"><span class="pre">receive</span></code>
+function returns the oldest message from the queue as a string, making space
+for a new incoming message. If the message queue fills up, then new incoming
+messages are ignored.</p>
+<p>That&#8217;s really all there is to it! (Although the radio module is also powerful
+enough that you can send any arbitrary type of data, not just strings. See the
+API documentation for how this works.)</p>
+<p>Armed with this knowledge, it&#8217;s simple to make micro:bit fireflies like this:</p>
+<p>The import stuff happens in the event loop. First, it checks if button A was
+pressed and, if it was, uses the radio to send the message &#8220;flash&#8221;. Then it
+reads any messages from the message queue with <code class="docutils literal"><span class="pre">radio.receive()</span></code>. If there is
+a message it sleeps a short, random period of time (to make the display more
+interesting) and uses <code class="docutils literal"><span class="pre">display.show()</span></code> to animate a firefly flash. Finally,
+to make things a bit exciting, it chooses a random number so that it has a 1 in
+10 chance of re-broadcasting the &#8220;flash&#8221; message to anyone else (this is how
+it&#8217;s possible to sustain the firefly display among several devices). If it
+decides to re-broadcast then it waits for half a second (so the display from
+the initial flash message has chance to die down) before sending
+the &#8220;flash&#8221; signal again. Because this code is enclosed within a <code class="docutils literal"><span class="pre">while</span> <span class="pre">True</span></code>
+block, it loops back to the beginning of the event loop and repeats this
+process forever.</p>
+<p>The end result (using a group of micro:bits) should look something like this:</p>
+<img alt="micropython/mb-firefly.gif" src="micropython/mb-firefly.gif" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Radio</a><ul>
+<li><a class="reference internal" href="#layers-upon-layers">Layers upon Layers</a></li>
+<li><a class="reference internal" href="#bytes">Bytes</a></li>
+<li><a class="reference internal" href="#addressing">Addressing</a></li>
+<li><a class="reference internal" href="#fireflies">Fireflies</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/radio.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/radio.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

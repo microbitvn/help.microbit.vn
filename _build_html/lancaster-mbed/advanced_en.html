@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Advanced Features of the Runtime &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="advanced-features-of-the-runtime">
+<span id="advanced-features-of-the-runtime"></span><h1>Advanced Features of the Runtime<a class="headerlink" href="#advanced-features-of-the-runtime" title="Permalink to this headline">¶</a></h1>
+<p>Under the surface, the micro:bit runtime is a highly configurable, modular and component based piece of software.</p>
+<p>The <code class="docutils literal"><span class="pre">uBit</span></code> object is provided as a collection of the commonly used components, all gathered together in one place
+to make it easier for novice users to access the functionality of the device. However, there is no obligation to
+use the <code class="docutils literal"><span class="pre">uBit</span></code> abstraction. More advanced users may prefer to create and use only the parts of the runtime they
+need.</p>
+<p>This provides more control and often frees up more memory resource for the application program - but does so
+at the expense of the user taking more responsibility and additional complexity in their programs.</p>
+<div class="section" id="using-components-directly">
+<span id="using-components-directly"></span><h2>Using Components Directly<a class="headerlink" href="#using-components-directly" title="Permalink to this headline">¶</a></h2>
+<p>Taking advantage of the modular structure of the micro:bit runtime is fairly straightforward.</p>
+<ul class="simple">
+<li>Firstly, create a program that does <strong>not</strong> create or initialise a uBit object.</li>
+<li>Include <code class="docutils literal"><span class="pre">MicroBit.h</span></code> (or if you prefer, just the header files of the components you want to use). Including <code class="docutils literal"><span class="pre">MicroBit.h</span></code> is however, simpler.</li>
+<li>Instead, create C++ object instances of the classes that you want to use <strong>as global variables</strong> in your program. Create as many components as you need. You are free to use any of the constructors in this documentation.</li>
+<li>Call functions on those instances to elicit the behaviour you need, using the name of your object instances instead of <code class="docutils literal"><span class="pre">uBit.*</span></code></li>
+</ul>
+<p>For example, if you wanted to create a program that just used the LED matrix display driver, you might write a program like this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;:)&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you need other components, add them to your program in the same way.</p>
+<p>If a component has a dependency on another component (e.g. in the example below, the accelerometer is dependent on an I2C bus), then this will be requested as a mandatory parameter in the constructor.</p>
+<p>See the &#8216;Constructor&#8217; section of the each components&#8217; API documentation for details and examples.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitI2C</span> <span class="n">i2c</span> <span class="o">=</span> <span class="n">MicroBitI2C</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span>
+<span class="n">MicroBitAccelerometer</span> <span class="n">accelerometer</span> <span class="o">=</span> <span class="n">MicroBitAccelerometer</span><span class="p">(</span><span class="n">i2c</span><span class="p">);</span>
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">accelerometer</span><span class="p">.</span><span class="n">getX</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>!!! warning
+micro:bit runtime components should <strong>always</strong> be brought up as global variables. They should <strong>not</strong> be created as local variables - either in your main method or anywhere else. The reason for this is the the runtime is a multi-threaded environment, and any variables created in stack memory (like local variables) may be paged out by the scheduler, and result in instability if they utilise interrupts or are accessed by other threads. So... don&#8217;t do it!</p>
+</div>
+<div class="section" id="system-components">
+<span id="system-components"></span><h2>System Components<a class="headerlink" href="#system-components" title="Permalink to this headline">¶</a></h2>
+<p>There are also system components that provide background services. Without the <code class="docutils literal"><span class="pre">uBit</span></code> object, these will not be created by default.  Examples include the fiber scheduler, message bus and heap allocator.</p>
+<p>You are not required to initialise these components, but you should do so if you want to benefit from the functionality they provide. The following section describe how to do this.</p>
+</div>
+<div class="section" id="initialising-the-message-bus">
+<span id="initialising-the-message-bus"></span><h2>Initialising the Message Bus<a class="headerlink" href="#initialising-the-message-bus" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> allows events to be created and delivered to applications.  So if a <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> is not created, then all events in the micro:bit runtime will be quietly ignored.</p>
+<p>To enable this functionality, simply create an instance of the <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> class. From that point onward in your program, you can raise and listen for events as described in the <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> documentation.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitMessageBus</span> <span class="n">bus</span><span class="p">;</span>
+<span class="n">MicroBitButton</span> <span class="nf">buttonA</span><span class="p">(</span><span class="n">MICROBIT_PIN_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">);</span>
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onPressed</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;S&quot;</span><span class="p">);</span>    
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">bus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onPressed</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>!!! warning
+Running a MessageBus without the Fiber Scheduler will result in all event handlers being registered as MESSAGE_BUS_LISTENER_IMMEDIATE (see <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> for details). This means that your event handler will be executed in the context of the code that raised the event. This may include interrupt context, which may not be safe for all operations. It is recommend that you always run the MessageBus with the Fiber Scheduler in order to allow the event to be decoupled from interrupt context.</p>
+</div>
+<div class="section" id="initialising-the-fiber-scheduler">
+<span id="initialising-the-fiber-scheduler"></span><h2>Initialising the Fiber Scheduler<a class="headerlink" href="#initialising-the-fiber-scheduler" title="Permalink to this headline">¶</a></h2>
+<p>Often when using asynchronous events, it is also useful to run the fiber scheduler. Without a scheduler in operation, all event handlers (such as the one above) will be executed with the threading mode <code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_IMMEDIATE</span></code>, as
+described on the <a class="reference external" href="ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> documentation.</p>
+<p>Also, it is not really possible to transparently enter a power efficient sleep - as illustrated in the busy loop in the above example.</p>
+<p>Initialising the fiber scheduler is simple, and is demonstrated in the following example.</p>
+<p>From the moment the fiber scheduler is initialised, it is then possible to block the processor in a power efficient way and to operate threaded event handlers:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBitMessageBus</span> <span class="n">bus</span><span class="p">;</span>
+<span class="n">MicroBitButton</span> <span class="nf">buttonA</span><span class="p">(</span><span class="n">MICROBIT_PIN_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">);</span>
+<span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onPressed</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;S&quot;</span><span class="p">);</span>    
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">scheduler_init</span><span class="p">(</span><span class="n">bus</span><span class="p">);</span>
+
+    <span class="n">bus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onPressed</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fiber_sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>!!!note
+Function calls to <code class="docutils literal"><span class="pre">uBit.sleep()</span></code> must be replaced with the direct, equivalent calls to the scheduler using <code class="docutils literal"><span class="pre">fiber_sleep()</span></code>.</p>
+</div>
+<div class="section" id="initialising-the-heap-allocator">
+<span id="initialising-the-heap-allocator"></span><h2>Initialising the Heap Allocator<a class="headerlink" href="#initialising-the-heap-allocator" title="Permalink to this headline">¶</a></h2>
+<p>The micro:bit runtime provides an optional, heap memory allocator. This is primarily to permit the use of <strong>multiple</strong> regions of memory to be used as heap memory space for your variables.</p>
+<p>The <code class="docutils literal"><span class="pre">uBit</span></code> initialisation function will automatically release any memory unused by the Bluetooth stack for general purpose use in this fashion (this typically provides an additional 1K of SRAM under Bluetooth enabled builds, and another 8K if Bluetooth is disabled).</p>
+<p>Should you wish to also reclaim memory in this way, you can do so as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">microbit_create_heap</span><span class="p">(</span><span class="n">MICROBIT_SD_GATT_TABLE_START</span> <span class="o">+</span> <span class="n">MICROBIT_SD_GATT_TABLE_SIZE</span><span class="p">,</span> <span class="n">MICROBIT_SD_LIMIT</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compile-time-configuration-options">
+<span id="compile-time-configuration-options"></span><h2>Compile Time Configuration Options<a class="headerlink" href="#compile-time-configuration-options" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the flexibility to initialise only the components that you need, the runtime also provides a central, compile time configuration file called <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code>.</p>
+<p>You can use this to reconfigure the default behaviour of the runtime.</p>
+<p>The default settings will provide a stable working environment, but advanced users may want to further tailor the behaviour.</p>
+<p>To tailor the behaviour, simply edit the <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code> file to change the settings, and then perform a clean rebuild.</p>
+<div class="section" id="compile-time-options-with-microbitconfig-h">
+<span id="compile-time-options-with-microbitconfig-h"></span><h3>Compile Time Options with MicroBitConfig.h<a class="headerlink" href="#compile-time-options-with-microbitconfig-h" title="Permalink to this headline">¶</a></h3>
+<p>The following options are configurable at compile time through <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code>:</p>
+<p>| Configuration option | Brief Description |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_ALLOCATOR</span></code> | Enables or disables the MicroBitHeapAllocator for <code class="docutils literal"><span class="pre">uBit</span></code> based builds. |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_BLOCK_SIZE</span></code> | The Block size used by the heap allocator in bytes. |
+| <code class="docutils literal"><span class="pre">MICROBIT_NESTED_HEAP_SIZE</span></code> | The proportion of SRAM available on the mbed heap to reserve for the micro:bit heap. |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_REUSE_SD</span></code> | If set to &#8216;1&#8217;, any unused areas of the Soft Device GATT table will be automatically reused as heap memory. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SD_GATT_TABLE_SIZE</span></code> | The amount of memory (bytes) to dedicate to the SoftDevice GATT table. |
+| <code class="docutils literal"><span class="pre">SYSTEM_TICK_PERIOD_MS</span></code> | The default scheduling quantum |
+| <code class="docutils literal"><span class="pre">EVENT_LISTENER_DEFAUT_FLAGS</span></code> | The default threading mode used when a <code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> listener is created. |
+| <code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_MAX_QUEUE_DEPTH</span></code> | Maximum event queue depth. If a queue exceeds this depth, further events will be dropped. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SYSTEM_COMPONENTS</span></code> | The maximum size of the interrupt callback list. |
+| <code class="docutils literal"><span class="pre">MICROBIT_IDLE_COMPONENTS</span></code> | The maximum size of the idle callback list. |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_ENABLED</span></code> | Enable/Disable Bluetooth during normal operation. If disabled, no Bluetooth communication is possible, but radio functionality is made possible, and an additional 8K of SRAM is released|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_PAIRING_MODE</span></code> | Enable/Disable Bluetooth pairing mode with A+B / reset at power up|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_PRIVATE_ADDRESSES</span></code> | Enable/Disable the use of private resolvable addresses. <strong>This is known to be a feature that suffers compatibility issues with many Bluetooth central devices.</strong> |
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_OPEN</span></code> | Enable/Disable Bluetooth security entirely. Open Bluetooth links are not secure, but are highly useful during the development of Bluetooth services|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_SECURITY_LEVEL</span></code> | Define the default, global Bluetooth security requirements for MicroBit Bluetooth services|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_WHITELIST</span></code> | Enable/Disable the use of Bluetooth whitelisting.|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_ADVERTISING_TIMEOUT</span></code> | Define the period of time for which the Bluetooth stack will advertise (seconds).|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_DEFAULT_TX_POWER</span></code> | Defines default power level of the Bluetooth radio transmitter.|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_DFU_SERVICE</span></code> | Enable/Disable Bluetooth Service: MicroBitDFU. This allows over the air programming during normal operation.|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_EVENT_SERVICE</span></code> | Enable/Disable Bluetooth Service: MicroBitEventService. This allows routing of events from the micro:bit message bus over Bluetooth.|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_DEVICE_INFORMATION_SERVICE</span></code> | Enable/Disable Bluetooth Service: MicroBitDeviceInformationService. This enables the standard Bluetooth device information service.|
+| <code class="docutils literal"><span class="pre">MICROBIT_BLE_EDDYSTONE_URL</span></code> | Enable/Disable Eddystone URL support. Enabling this enables you to broadcast a physical web url from the microbit |
+| <code class="docutils literal"><span class="pre">USE_ACCEL_LSB</span></code> | Enable 10 bit sampling on the accelerometer. By default, a more efficient 8 bit sampling if used.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_TYPE</span></code> | Selects the default matrix configuration for the display driver.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_MINIMUM_BRIGHTNESS</span></code> | Selects the minimum permissible brightness level for the device.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_MAXIMUM_BRIGHTNESS</span></code> | Selects the maximum permissible brightness level for the device.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DISPLAY_DEFAULT_BRIGHTNESS</span></code> | Selects the default brightness level for the device.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_SCROLL_SPEED</span></code> | Selects the time taken to scroll a single pixel, in milliseconds.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_SCROLL_STRIDE</span></code> | Selects the number of pixels a scroll will move in each quantum.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_PRINT_SPEED</span></code> | Selects the time each character will be shown on the display during print operations, in milliseconds.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_SERIAL_MODE</span></code> | Configures the default serial mode used by serial read and send calls.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DEFAULT_PULLMODE</span></code> | Define the default mode in which the digital input pins are configured. Valid options are PullDown, PullUp and PullNone.|
+| <code class="docutils literal"><span class="pre">MICROBIT_PANIC_HEAP_FULL</span></code> | Enable this to invoke a panic on out of memory conditions.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DBG</span></code> | Enable this to route debug messages through the USB serial interface.|
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_DBG</span></code> | Enable this to receive detailed diagnostic messages from the heap allocator via the USB serial interface.|
+| <code class="docutils literal"><span class="pre">MICROBIT_DAL_VERSION</span></code> | Define the default version information of the runtime.|</p>
+<p>There are also some constants that define the geometry of the micro:bit memory</p>
+<p>!!! warning
+Only change these if you really know what you are doing!</p>
+<p>| Configuration option | Brief Description |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| <code class="docutils literal"><span class="pre">MICROBIT_SRAM_BASE</span></code> |  The start address of usable RAM memory. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SRAM_END</span></code> |  The end address of usable RAM memory. |
+| <code class="docutils literal"><span class="pre">MICROBIT_SD_LIMIT</span></code> |  The end address of RAM memory reserved for Soft Device (Nordic&#8217;s Bluetooth stack). |
+| <code class="docutils literal"><span class="pre">MICROBIT_SD_GATT_TABLE_START</span></code> |  The start address of the Bluetooth GATT table in RAM. |
+| <code class="docutils literal"><span class="pre">CORTEX_M0_STACK_BASE</span></code> | The memory address of the top of the system stack. |
+| <code class="docutils literal"><span class="pre">MICROBIT_STACK_SIZE</span></code> | Amount of memory reserved for the stack (in bytes). |
+| <code class="docutils literal"><span class="pre">MICROBIT_HEAP_END</span></code> | The end address of the mbed heap space |</p>
+</div>
+<div class="section" id="compile-time-options-with-yotta">
+<span id="compile-time-options-with-yotta"></span><h3>Compile Time Options with Yotta<a class="headerlink" href="#compile-time-options-with-yotta" title="Permalink to this headline">¶</a></h3>
+<p>Rather than edit the <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code> file to change the default behaviour of the runtime, if you are using
+<code class="docutils literal"><span class="pre">yotta</span></code>, you can also provide a <code class="docutils literal"><span class="pre">config.json</span></code> in your project.</p>
+<p>Here&#8217;s a <code class="docutils literal"><span class="pre">config.json</span></code>, using all available configuration options, that matches the default values specified in <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;microbit-dal&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;bluetooth&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;pairing_mode&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;private_addressing&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;open&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;whitelist&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;advertising_timeout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;tx_power&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;dfu_service&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;event_service&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;device_info_service&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;eddystone_url&quot;</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;reuse_sd&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;default_pullmode&quot;</span><span class="p">:</span><span class="s2">&quot;PullDown&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;gatt_table_size&quot;</span><span class="p">:</span> <span class="s2">&quot;0x300&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;heap_allocator&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;nested_heap_proportion&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+        <span class="nt">&quot;system_tick_period&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="nt">&quot;system_components&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nt">&quot;idle_components&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="nt">&quot;use_accel_lsb&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;min_display_brightness&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;max_display_brightness&quot;</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span>
+        <span class="nt">&quot;display_scroll_speed&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+        <span class="nt">&quot;display_scroll_stride&quot;</span><span class="p">:</span> <span class="mi">-1</span><span class="p">,</span>
+        <span class="nt">&quot;display_print_speed&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+        <span class="nt">&quot;panic_on_heap_full&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;debug&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;heap_debug&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;stack_size&quot;</span><span class="p">:</span><span class="mi">2048</span><span class="p">,</span>
+        <span class="nt">&quot;sram_base&quot;</span><span class="p">:</span><span class="s2">&quot;0x20000008&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sram_end&quot;</span><span class="p">:</span><span class="s2">&quot;0x20004000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sd_limit&quot;</span><span class="p">:</span><span class="s2">&quot;0x20002000&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;gatt_table_start&quot;</span><span class="p">:</span><span class="s2">&quot;0x20001900&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It should be noted that <strong>all</strong> of the above options are optional, and will revert to their default values
+if not specified. This means that we can also provide a subset of these options, to configure specific
+parts of the runtime:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;microbit-dal&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;bluetooth&quot;</span><span class="p">:{</span>
+            <span class="nt">&quot;open&quot;</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;debug&quot;</span><span class="p">:</span><span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Additionally, the options provided through <code class="docutils literal"><span class="pre">config.json</span></code> intuitively map onto the <code class="docutils literal"><span class="pre">#defines</span></code>
+listed in <code class="docutils literal"><span class="pre">MicroBitConfig.h</span></code></p>
+<p>An example of <code class="docutils literal"><span class="pre">config.json</span></code> in operation is available at the <a class="reference external" href="https://github.com/lancaster-university/microbit-samples">microbit-samples</a> GitHub repository.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Advanced Features of the Runtime</a><ul>
+<li><a class="reference internal" href="#using-components-directly">Using Components Directly</a></li>
+<li><a class="reference internal" href="#system-components">System Components</a></li>
+<li><a class="reference internal" href="#initialising-the-message-bus">Initialising the Message Bus</a></li>
+<li><a class="reference internal" href="#initialising-the-fiber-scheduler">Initialising the Fiber Scheduler</a></li>
+<li><a class="reference internal" href="#initialising-the-heap-allocator">Initialising the Heap Allocator</a></li>
+<li><a class="reference internal" href="#compile-time-configuration-options">Compile Time Configuration Options</a><ul>
+<li><a class="reference internal" href="#compile-time-options-with-microbitconfig-h">Compile Time Options with MicroBitConfig.h</a></li>
+<li><a class="reference internal" href="#compile-time-options-with-yotta">Compile Time Options with Yotta</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/advanced_en.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/advanced_en.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

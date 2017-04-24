@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.i2c</p>
+<p>##Overview</p>
+<p>i2c is a very common, widely used protocol for communicating with other devices
+over a wire. i2c uses a very simple addressing scheme to access these other
+devices.</p>
+<p>Onboard the micro:bit itself there are two components which use i2c bus as a communication
+mechanism, the <a class="reference external" href="accelerometer.md">accelerometer</a> and the <a class="reference external" href="compass.md">compass</a>.</p>
+<p>As well as being used internally, the i2c bus is exposed on two edge connector
+pins, P19 and P20. This means other accessories that use i2c to communicate
+can be used in conjunction with the micro:bit.</p>
+<p>##Message Bus ID</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>##Message Bus Events</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitI2C&#8221;})
+##Constructor
+<br/>
+####MicroBitI2C( <div style='color:#a71d5d; display:inline-block'>PinName</div> sda,  <div style='color:#a71d5d; display:inline-block'>PinName</div> scl)
+#####Description
+Constructor.</p>
+<p>Create an instance of  MicroBitI2C  for I2C communication.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>PinName</div> sda - the Pin to be used for SDA</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>PinName</div> scl - the Pin to be used for SCL</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitI2C</span> <span class="nf">i2c</span><span class="p">(</span><span class="n">I2C_SDA0</span><span class="p">,</span> <span class="n">I2C_SCL0</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+This class presents a wrapped mbed call to capture failed I2C operations caused by a known silicon bug in the nrf51822. Attempts to automatically reset and restart the I2C hardware if this case is detected.</p>
+<p>##read
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>read</div>( <div style='color:#a71d5d; display:inline-block'>int</div> address,  <div style='color:#a71d5d; display:inline-block'>char *</div> data,  <div style='color:#a71d5d; display:inline-block'>int</div> length)
+#####Description
+Performs a complete read transaction. The bottom bit of the address is forced to 1 to indicate a read.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> address - 8-bit I2C slave address [ addr | 1 ]</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char \*</div> data - A pointer to a byte buffer used for storing retrieved data.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> length - Number of bytes to read.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR if an unresolved read failure is detected.
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>read</div>( <div style='color:#a71d5d; display:inline-block'>int</div> address,  <div style='color:#a71d5d; display:inline-block'>char *</div> data,  <div style='color:#a71d5d; display:inline-block'>int</div> length,  <div style='color:#a71d5d; display:inline-block'>bool</div> repeated)
+#####Description
+Performs a complete read transaction. The bottom bit of the address is forced to 1 to indicate a read.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> address - 8-bit I2C slave address [ addr | 1 ]</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char \*</div> data - A pointer to a byte buffer used for storing retrieved data.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> length - Number of bytes to read.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>bool</div> repeated - if true, stop is not sent at the end. Defaults to false.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR if an unresolved read failure is detected.
+##write
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>write</div>( <div style='color:#a71d5d; display:inline-block'>int</div> address,  <div style='color:#a71d5d; display:inline-block'>const char *</div> data,  <div style='color:#a71d5d; display:inline-block'>int</div> length)
+#####Description
+Performs a complete write transaction. The bottom bit of the address is forced to 0 to indicate a write.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> address - 8-bit I2C slave address [ addr | 0 ]</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> data - A pointer to a byte buffer containing the data to write.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> length - Number of bytes to write</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR if an unresolved write failure is detected.
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>write</div>( <div style='color:#a71d5d; display:inline-block'>int</div> address,  <div style='color:#a71d5d; display:inline-block'>const char *</div> data,  <div style='color:#a71d5d; display:inline-block'>int</div> length,  <div style='color:#a71d5d; display:inline-block'>bool</div> repeated)
+#####Description
+Performs a complete write transaction. The bottom bit of the address is forced to 0 to indicate a write.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> address - 8-bit I2C slave address [ addr | 0 ]</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> data - A pointer to a byte buffer containing the data to write.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> length - Number of bytes to write</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>bool</div> repeated - if true, stop is not sent at the end. Defaults to false.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_I2C_ERROR if an unresolved write failure is detected.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitI2C&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/i2c.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/i2c.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

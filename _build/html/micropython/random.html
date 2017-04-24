@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Random &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="random">
+<h1>Random<a class="headerlink" href="#random" title="Permalink to this headline">¶</a></h1>
+<p>Sometimes you want to leave things to chance, or mix it up a little: you want
+the device to act randomly.</p>
+<p>MicroPython comes with a <code class="docutils literal"><span class="pre">random</span></code> module to make it easy to introduce chance
+and a little chaos into your code. For example, here&#8217;s how to scroll a random
+name across the display:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Mary&quot;</span><span class="p">,</span> <span class="s2">&quot;Yolanda&quot;</span><span class="p">,</span> <span class="s2">&quot;Damien&quot;</span><span class="p">,</span> <span class="s2">&quot;Alia&quot;</span><span class="p">,</span> <span class="s2">&quot;Kushal&quot;</span><span class="p">,</span> <span class="s2">&quot;Mei Xiu&quot;</span><span class="p">,</span> <span class="s2">&quot;Zoltan&quot;</span> <span class="p">]</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">names</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The list (<code class="docutils literal"><span class="pre">names</span></code>) contains seven names defined as strings of characters.
+The final line is <em>nested</em> (the &#8220;onion&#8221; effect introduced earlier): the
+<code class="docutils literal"><span class="pre">random.choice</span></code> method takes the <code class="docutils literal"><span class="pre">names</span></code> list as an argument and returns
+an item chosen at random. This item (the randomly chosen name) is the argument
+for <code class="docutils literal"><span class="pre">display.scroll</span></code>.</p>
+<p>Can you modify the list to include your own set of names?</p>
+<div class="section" id="random-numbers">
+<h2>Random Numbers<a class="headerlink" href="#random-numbers" title="Permalink to this headline">¶</a></h2>
+<p>Random numbers are very useful. They&#8217;re common in games. Why else do we have
+dice?</p>
+<p>MicroPython comes with several useful random number methods. Here&#8217;s how to
+make a simple dice:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Every time the device is reset it displays a number between 1 and 6. You&#8217;re
+starting to get familiar with <em>nesting</em>, so it&#8217;s important to note that
+<code class="docutils literal"><span class="pre">random.randint</span></code> returns a whole number between the two arguments, inclusive
+(a whole number is also called an integer - hence the name of the method).
+Notice that because <code class="docutils literal"><span class="pre">display.show</span></code> expects a character then we use the
+<code class="docutils literal"><span class="pre">str</span></code> function to turn the numeric value into a character (we turn, for
+example, <code class="docutils literal"><span class="pre">6</span></code> into <code class="docutils literal"><span class="pre">&quot;6&quot;</span></code>).</p>
+<p>If you know you&#8217;ll always want a number between <code class="docutils literal"><span class="pre">0</span></code> and <code class="docutils literal"><span class="pre">N</span></code> then use the
+<code class="docutils literal"><span class="pre">random.randrange</span></code> method. If you give it a single argument it&#8217;ll return
+random integers up to, but not including, the value of the argument <code class="docutils literal"><span class="pre">N</span></code>
+(this is different to the behaviour of <code class="docutils literal"><span class="pre">random.randint</span></code>).</p>
+<p>Sometimes you need numbers with a decimal point in them. These are called
+<em>floating point</em> numbers and it&#8217;s possible to generate such a number with the
+<code class="docutils literal"><span class="pre">random.random</span></code> method. This only returns values between <code class="docutils literal"><span class="pre">0.0</span></code> and <code class="docutils literal"><span class="pre">1.0</span></code>
+inclusive. If you need larger random floating point numbers add the results
+of <code class="docutils literal"><span class="pre">random.randrange</span></code> and <code class="docutils literal"><span class="pre">random.random</span></code> like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">answer</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">answer</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="seeds-of-chaos">
+<h2>Seeds of Chaos<a class="headerlink" href="#seeds-of-chaos" title="Permalink to this headline">¶</a></h2>
+<p>The random number generators used by computers are not truly random. They just
+give random like results given a starting <em>seed</em> value. The seed is often
+generated from random-ish values such as the current time and/or readings from
+sensors such as the thermometers built into chips.</p>
+<p>Sometimes you want to have repeatable random-ish behaviour: a source of
+randomness that is reproducible. It&#8217;s like saying that you need the same five
+random values each time you throw a dice.</p>
+<p>This is easy to achieve by setting the <em>seed</em> value. Given a known seed the
+random number generator will create the same set of random numbers. The seed is
+set with <code class="docutils literal"><span class="pre">random.seed</span></code> and any whole number (integer). This version of the
+dice program always produces the same results:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1337</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">button_a</span><span class="o">.</span><span class="n">was_pressed</span><span class="p">():</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Can you work out why this program needs us to press button A instead of reset
+the device as in the first dice example..?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Random</a><ul>
+<li><a class="reference internal" href="#random-numbers">Random Numbers</a></li>
+<li><a class="reference internal" href="#seeds-of-chaos">Seeds of Chaos</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/random.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/random.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

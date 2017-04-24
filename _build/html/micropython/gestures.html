@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Gestures &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="gestures">
+<h1>Gestures<a class="headerlink" href="#gestures" title="Permalink to this headline">¶</a></h1>
+<p>The really interesting side-effect of having an accelerometer is gesture
+detection. If you move your BBC micro:bit in a certain way (as a gesture) then
+MicroPython is able to detect this.</p>
+<p>MicroPython is able to recognise the following gestures: <code class="docutils literal"><span class="pre">up</span></code>, <code class="docutils literal"><span class="pre">down</span></code>,
+<code class="docutils literal"><span class="pre">left</span></code>, <code class="docutils literal"><span class="pre">right</span></code>, <code class="docutils literal"><span class="pre">face</span> <span class="pre">up</span></code>, <code class="docutils literal"><span class="pre">face</span> <span class="pre">down</span></code>, <code class="docutils literal"><span class="pre">freefall</span></code>, <code class="docutils literal"><span class="pre">3g</span></code>, <code class="docutils literal"><span class="pre">6g</span></code>,
+<code class="docutils literal"><span class="pre">8g</span></code>, <code class="docutils literal"><span class="pre">shake</span></code>. Gestures are always represented as strings. While most of
+the names should be obvious, the <code class="docutils literal"><span class="pre">3g</span></code>, <code class="docutils literal"><span class="pre">6g</span></code> and <code class="docutils literal"><span class="pre">8g</span></code> gestures apply when
+the device encounters these levels of g-force (like when an astronaut is
+launched into space).</p>
+<p>To get the current gesture use the <code class="docutils literal"><span class="pre">accelerometer.current_gesture</span></code> method.
+Its result is going to be one of the named gestures listed above. For example,
+this program will only make your device happy if it is face up:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">gesture</span> <span class="o">=</span> <span class="n">accelerometer</span><span class="o">.</span><span class="n">current_gesture</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gesture</span> <span class="o">==</span> <span class="s2">&quot;face up&quot;</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">HAPPY</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ANGRY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once again, because we want the device to react to changing circumstances we
+use a <code class="docutils literal"><span class="pre">while</span></code> loop. Within the <em>scope</em> of the loop the current gesture is
+read and put into <code class="docutils literal"><span class="pre">gesture</span></code>. The <code class="docutils literal"><span class="pre">if</span></code> conditional checks if <code class="docutils literal"><span class="pre">gesture</span></code> is
+equal to <code class="docutils literal"><span class="pre">&quot;face</span> <span class="pre">up&quot;</span></code> (Python uses <code class="docutils literal"><span class="pre">==</span></code> to test for equality, a single
+equals sign <code class="docutils literal"><span class="pre">=</span></code> is used for assignment - just like how we assign the gesture
+reading to the <code class="docutils literal"><span class="pre">gesture</span></code> object). If the gesture is equal to <code class="docutils literal"><span class="pre">&quot;face</span> <span class="pre">up&quot;</span></code>
+then use the display to show a happy face. Otherwise, the device is made to
+look angry!</p>
+<div class="section" id="magic-8">
+<h2>Magic-8<a class="headerlink" href="#magic-8" title="Permalink to this headline">¶</a></h2>
+<p>A Magic-8 ball is a toy first invented in the 1950s. The idea is to ask
+it a yes/no question, shake it and wait for it to reveal the truth. It&#8217;s rather
+easy to turn into a program:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">answers</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;It is certain&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;It is decidedly so&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Without a doubt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Yes, definitely&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;You may rely on it&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;As I see it, yes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Most likely&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Outlook good&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Yes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Signs point to yes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Reply hazy try again&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Ask again later&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Better not tell you now&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Cannot predict now&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Concentrate and ask again&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Don&#39;t count on it&quot;</span>
+    <span class="s2">&quot;My reply is no&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;My sources say no&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Outlook not so good&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Very doubtful&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;8&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">accelerometer</span><span class="o">.</span><span class="n">was_gesture</span><span class="p">(</span><span class="s2">&quot;shake&quot;</span><span class="p">):</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">answers</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Most of the program is a list called <code class="docutils literal"><span class="pre">answers</span></code>. The actual game is in the
+<code class="docutils literal"><span class="pre">while</span></code> loop at the end.</p>
+<p>The default state of the game is to show the character <code class="docutils literal"><span class="pre">&quot;8&quot;</span></code>. However, the
+program needs to detect if it has been shaken. The <code class="docutils literal"><span class="pre">was_gesture</span></code> method uses
+its argument (in this case, the string <code class="docutils literal"><span class="pre">&quot;shake&quot;</span></code> because we want to detect
+a shake) to return a <code class="docutils literal"><span class="pre">True</span></code> / <code class="docutils literal"><span class="pre">False</span></code> response. If the device was shaken
+the <code class="docutils literal"><span class="pre">if</span></code> conditional drops into its block of code where it clears the screen,
+waits for a second (so the device appears to be thinking about your question)
+and displays a randomly chosen answer.</p>
+<p>Why not ask it if this is the greatest program ever written? What could you do
+to &#8220;cheat&#8221; and make the answer always positive or negative? (Hint: use the
+buttons.)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Gestures</a><ul>
+<li><a class="reference internal" href="#magic-8">Magic-8</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/gestures.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/gestures.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Capabilities &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.radio</p>
+<p>##Overview</p>
+<p>The central processor unit (CPU) on the micro:bit is a Nordic Semiconductor <a class="reference external" href="../resources/datasheets/nRF51822.pdf">nRF51822</a>. In addition to being a general purpose
+computer processor, this chip also contains a built-in 2.4GHz radio module.  This radio can be configured in a number of
+ways, and is primarily designed to run the Bluetooth Low Energy (BLE) protocol. However, it can also be placed into a much
+simpler mode of operation based that allows simple, direct micro:bit to micro:bit communication.</p>
+<p>The <code class="docutils literal"><span class="pre">MicroBitRadio</span></code> component is made up of three classes - <code class="docutils literal"><span class="pre">MicroBitRadio</span></code>, <a class="reference external" href="radioevent.md"><code class="docutils literal"><span class="pre">MicroBitRadioEvent</span></code></a> and <a class="reference external" href="radiodatagram.md"><code class="docutils literal"><span class="pre">MicroBitRadioDatagram</span></code></a>. Together,
+these provide the ability to send general purpose data packets from one micro:bit to another, and to extend a message bus to span multiple micro:bits...
+so if you raise an event on one micro:bit, you can receive it on another using the normal <a class="reference external" href="messageBus.md">listen</a> mechanism!</p>
+<p>!!! note
+It is not currently possible to run the <code class="docutils literal"><span class="pre">MicroBitRadio</span></code> component and Bluetooth Low Energy (BLE) at the same time. If you want to use the <code class="docutils literal"><span class="pre">MicroBitRadio</span></code> functionality, you need to disable the BLE stack on your micro:bit by compiling the runtime with <code class="docutils literal"><span class="pre">#define</span> <span class="pre">MICROBIT_BLE_ENABLED</span> <span class="pre">0</span></code> in your <code class="docutils literal"><span class="pre">inc/MicroBitConfig.h</span></code> file.</p>
+<div class="section" id="capabilities">
+<span id="capabilities"></span><h1>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h1>
+<p>This component provides a very easy to use, flexible, broadcast radio channel. Anything you send from one micro:bit, can be received by any other micro:bits nearby.
+It is designed to provide a powerful but simple introduction to the world of wireless communications, and can let you create a whole range of applications from
+building your own friend detectors to creating remote control cars.</p>
+<p>A key principle of this component is <strong>privacy</strong>, which is built in from the ground up. So, when you send any data, there is nothing inherent in this protocol
+which can be used to identify you or your micro:bit. All devices look identical. Therefore, if you want to be able to identify yourself, you need to add this to your own data.</p>
+<p><img alt="MicroBitRadio Principles" src="../../_images/radio1.png" /></p>
+<p>| Capability | Brief Description |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| Frequency | 1MHz narrowband, typically 2.407 GHz. Use configurable in the 2.400 GHz - 2.499 GHz band. |
+| Channel Rate | 1Mbps. |
+| Maximum Transfer Unit | Typically 32 bytes, but reconfigurable in code up to 1024 bytes. |
+| Addressing | All devices share the same address to guarantee user privacy. |
+| Encryption | None. User level encryption (or BLE) should be considered if secture channels are required. |
+| Meshing | None. (yet!) |
+| Error Detection | 16 bit hardware CRC. |
+| Transmisson Power| Eight user configurable settings from 0 (-30dbm) to 7 (+4dbm). |
+| Transmisson Range| Approx. 20m at 0dbm. |</p>
+</div>
+<div class="section" id="using-microbitradio">
+<span id="using-microbitradio"></span><h1>Using MicroBitRadio<a class="headerlink" href="#using-microbitradio" title="Permalink to this headline">¶</a></h1>
+<p>To write your radio enabled applications, you will likely want to use either the <a class="reference external" href="radiodatagram.md"><code class="docutils literal"><span class="pre">MicroBitRadioDatagram</span></code></a> class, or the <a class="reference external" href="radioevent.md"><code class="docutils literal"><span class="pre">MicroBitRadioEvent</span></code></a> class.</p>
+<p>Both of these are created for you as part of the standard uBit object, so this is a choice, not a compromise! :-)</p>
+<div class="section" id="microbitradiodatagram">
+<span id="microbitradiodatagram"></span><h2><a class="reference external" href="radiodatagram.md">MicroBitRadioDatagram</a><a class="headerlink" href="#microbitradiodatagram" title="Permalink to this headline">¶</a></h2>
+<p>This is the most flexible way to use the radio, and lets you easily send and receive up to 32 bytes of data at a time.
+This data can be provided as array of bytes, a text string, or <a class="reference external" href="../data-types/packetbuffer.md"><code class="docutils literal"><span class="pre">PacketBuffer</span></code></a>.</p>
+<p>You can send a packet at any time using the <code class="docutils literal"><span class="pre">uBit.radio.datagram.send</span></code> function.</p>
+<p>Any other micro:bits in range will detect the transmitted packet, and make the packet available through the
+<code class="docutils literal"><span class="pre">uBit.radio.datagram.recv</span></code> function.</p>
+<p>Any micro:bits receiving a datagram packet will also raise a <code class="docutils literal"><span class="pre">MICROBIT_RADIO_EVT_DATAGRAM</span></code> event to indicate
+that some data is ready to be read.</p>
+<p>For example, imagine you were creating a simple remote control car with one micro:bit acting as a remote controller, and another connected to some servos on the car.</p>
+<p>You might decide that simply sending a <code class="docutils literal"><span class="pre">1</span></code> means turn left, and a <code class="docutils literal"><span class="pre">2</span></code> means turn right, so you may write a program like this for the remote control:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonA</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">);</span>
+
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonB</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">);</span>
+
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>...and one like this for the remote control car:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onData</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ManagedString</span> <span class="n">s</span> <span class="o">=</span> <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">&quot;1&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setServoValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">&quot;2&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setServoValue</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_RADIO</span><span class="p">,</span> <span class="n">MICROBIT_RADIO_EVT_DATAGRAM</span><span class="p">,</span> <span class="n">onData</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-packetbuffers">
+<span id="using-packetbuffers"></span><h2>Using PacketBuffers<a class="headerlink" href="#using-packetbuffers" title="Permalink to this headline">¶</a></h2>
+<p>If you prefer to send a raw series of bytes rather than a text string (which is much more common in communication networks), you can use the <a class="reference external" href="../data-types/packetbuffer.md"><code class="docutils literal"><span class="pre">PacketBuffer</span></code></a> type.
+This gives total freedom over the data being shared. Simply create a <a class="reference external" href="../data-types/packetbuffer.md"><code class="docutils literal"><span class="pre">PacketBuffer</span></code></a> of the size you need, and you can read or write data using standard C
+array syntax.</p>
+<p>For example, here is an similar program using a <a class="reference external" href="../data-types/packetbuffer.md"><code class="docutils literal"><span class="pre">PacketBuffer</span></code></a>:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="c1">// Create a packet containing just a single byte.</span>
+    <span class="n">PacketBuffer</span> <span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonA</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonB</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+        <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>...and one like this for the remote control car:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onData</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">PacketBuffer</span> <span class="n">p</span> <span class="o">=</span> <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setServoValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setServoValue</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_RADIO</span><span class="p">,</span> <span class="n">MICROBIT_RADIO_EVT_DATAGRAM</span><span class="p">,</span> <span class="n">onData</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="microbitradioevent">
+<span id="microbitradioevent"></span><h2><a class="reference external" href="radioevent.md">MicroBitRadioEvent</a><a class="headerlink" href="#microbitradioevent" title="Permalink to this headline">¶</a></h2>
+<p>It is also possible to transparently send and receive events over the <code class="docutils literal"><span class="pre">MicroBitRadio</span></code> channel. This can provide very simple and easy to integrate
+support for event driven applications. Once configured, an event raised on one micro:bit can be detected on another - in the just the same way as
+a local event such as a button click.</p>
+<p>To use this functionality, all that is needed is to register the event codes that you would like to be sent over the radio, then write event handlers
+for the message bus as with all other events. See the documentation for the <a class="reference external" href="messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> for details of how to write
+event handlers.</p>
+<p>For example, if you wanted to share an event SOMETHING with another micro:bit whenever ButtonA is pressed, you might write code like this on the sending micro:bit:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="cp">#define MY_APP_ID           4000</span>
+<span class="cp">#define SOMETHING           1</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="c1">// Ensure the radio is listening out to forward our events</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MY_APP_ID</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">);</span>
+
+    <span class="c1">// Just for varierty, this time we&#39;ll periodically check to see if a button if pressed.</span>
+    <span class="c1">// We can, of course, use an event handler for this too.</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonA</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">MicroBitEvent</span><span class="p">(</span><span class="n">MY_APP_ID</span><span class="p">,</span> <span class="n">SOMETHING</span><span class="p">);</span>
+
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>...and on the micro:bits wanting to receive the event:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="cp">#define MY_APP_ID           4000</span>
+<span class="cp">#define SOMETHING           1</span>
+
+<span class="kt">void</span> <span class="nf">onSomething</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="s">&quot;Something!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MY_APP_ID</span><span class="p">,</span> <span class="n">SOMETHING</span><span class="p">,</span> <span class="n">onSomething</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-groups">
+<span id="defining-groups"></span><h2>Defining Groups<a class="headerlink" href="#defining-groups" title="Permalink to this headline">¶</a></h2>
+<p>It is easy to imagine situations where you would like to have different groups of micro:bits communicating independently.</p>
+<p>For example, consider a classroom where 8 groups of four children are working on different
+projects - it would not be very useful if packets sent by one group interfered with the other groups!</p>
+<p>To address this, the <code class="docutils literal"><span class="pre">MicroBitRadio</span></code> allows users to define a <strong>group</strong> to which their micro:bit belongs.</p>
+<p>micro:bits can only ever be a member of one group at a time, and any packets sent will only be received by other micro:bits in the same group.</p>
+<p>Groups are simply numbers, and a micro:bit&#8217;s group can be set at anytime by the programmer through the <code class="docutils literal"><span class="pre">setGroup</span></code> function. If a group is not specified, the default group of 0 will be used.</p>
+<p>For example:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">setGroup</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>##Message Bus ID</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ID_RADIO | 29 |
+| MICROBIT_ID_RADIO_DATA_READY | 30 |</p>
+<p>##Message Bus Events</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_RADIO_EVT_DATAGRAM | 1 |</p>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitRadio&#8221;})
+##Constructor
+<br/>
+####MicroBitRadio()
+#####Description
+Constructor.</p>
+<p>Initialise the  MicroBitRadio .</p>
+<p>!!! note
+This class is demand activated, as a result most resources are only committed if send/recv or event registrations calls are made.</p>
+<p><br/>
+####MicroBitRadio( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)
+#####Description
+Constructor.</p>
+<p>Initialise the  MicroBitRadio .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id</div></blockquote>
+<p>!!! note
+This class is demand activated, as a result most resources are only committed if send/recv or event registrations calls are made.</p>
+<p>##setTransmitPower
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setTransmitPower</div>( <div style='color:#a71d5d; display:inline-block'>int</div> power)
+#####Description
+Change the output power level of the transmitter to the given value.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> power - a value in the range 0..7, where 0 is the lowest power and 7 is the highest.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the value is out of range.
+##setFrequencyBand
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setFrequencyBand</div>( <div style='color:#a71d5d; display:inline-block'>int</div> band)
+#####Description
+Change the transmission and reception band of the radio to the given channel</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> band - a frequency band in the range 0 - 100. Each step is 1MHz wide, based at 2400MHz.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the value is out of range, or MICROBIT_NOT_SUPPORTED if the BLE stack is running.
+##getRxBuf
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>FrameBuffer</div> <div style='color:#795da3; display:inline-block'>getRxBuf</div>()
+#####Description
+Retrieve a pointer to the currently allocated receive buffer. This is the area of memory actively being used by the radio hardware to store incoming data.</p>
+<p>#####Returns
+a pointer to the current receive buffer.
+##queueRxBuf
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>queueRxBuf</div>()
+#####Description
+Attempt to queue a buffer received by the radio hardware, if sufficient space is available.</p>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_NO_RESOURCES if a replacement receiver buffer could not be allocated (either by policy or memory exhaustion).
+##setRSSI
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setRSSI</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t</div> rssi)
+#####Description
+Sets the RSSI for the most recent packet.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t</div> rssi - the new rssi value.</div></blockquote>
+<p>!!! note
+should only be called from RADIO_IRQHandler...</p>
+<p>##getRSSI
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getRSSI</div>()
+#####Description
+Retrieves the current RSSI for the most recent packet.</p>
+<p>#####Returns
+the most recent RSSI value or MICROBIT_NOT_SUPPORTED if the BLE stack is running.
+##enable
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>enable</div>()
+#####Description
+Initialises the radio for use as a multipoint sender/receiver</p>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_NOT_SUPPORTED if the BLE stack is running.
+##disable
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>disable</div>()
+#####Description
+Disables the radio for use as a multipoint sender/receiver.</p>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_NOT_SUPPORTED if the BLE stack is running.
+##setGroup
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setGroup</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t</div> group)
+#####Description
+Sets the radio to listen to packets sent with the given group id.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t</div> group - The group to join. A micro:bit can only listen to one group ID at any time.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_NOT_SUPPORTED if the BLE stack is running.
+##dataReady
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>dataReady</div>()
+#####Description
+Determines the number of packets ready to be processed.</p>
+<p>#####Returns
+The number of packets in the receive buffer.
+##recv
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>FrameBuffer</div> <div style='color:#795da3; display:inline-block'>recv</div>()
+#####Description
+Retrieves the next packet from the receive buffer. If a data packet is available, then it will be returned immediately to the caller. This call will also dequeue the buffer.</p>
+<p>#####Returns
+The buffer containing the the packet. If no data is available, NULL is returned.</p>
+<p>!!! note
+Once  recv()  has been called, it is the callers responsibility to delete the buffer when appropriate.</p>
+<p>##send
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>send</div>( <div style='color:#a71d5d; display:inline-block'>FrameBuffer  *</div> buffer)
+#####Description
+Transmits the given buffer onto the broadcast radio. The call will wait until the transmission of the packet has completed before returning.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>FrameBuffer  \*</div> buffer</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_NOT_SUPPORTED if the BLE stack is running.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitRadio&#8221;})</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Capabilities</a></li>
+<li><a class="reference internal" href="#using-microbitradio">Using MicroBitRadio</a><ul>
+<li><a class="reference internal" href="#microbitradiodatagram">MicroBitRadioDatagram</a></li>
+<li><a class="reference internal" href="#using-packetbuffers">Using PacketBuffers</a></li>
+<li><a class="reference internal" href="#microbitradioevent">MicroBitRadioEvent</a></li>
+<li><a class="reference internal" href="#defining-groups">Defining Groups</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/radio.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/radio.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Buttons &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="buttons">
+<h1>Buttons<a class="headerlink" href="#buttons" title="Permalink to this headline">¶</a></h1>
+<p>So far we have created code that makes the device do something. This is called
+<em>output</em>. However, we also need the device to react to things. Such things are
+called <em>inputs</em>.</p>
+<p>It&#8217;s easy to remember: output is what the device puts out to the world
+whereas input is what goes into the device for it to process.</p>
+<p>The most obvious means of input on the micro:bit are its two buttons, labelled
+<code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>. Somehow, we need MicroPython to react to button presses.</p>
+<p>This is remarkably simple:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">sleep</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">button_a</span><span class="o">.</span><span class="n">get_presses</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>All this script does is sleep for ten thousand milliseconds (i.e. 10 seconds)
+and then scrolls the number of times you pressed button <code class="docutils literal"><span class="pre">A</span></code>. That&#8217;s it!</p>
+<p>While it&#8217;s a pretty useless script, it introduces a couple of interesting new
+ideas:</p>
+<ol class="arabic simple">
+<li>The <code class="docutils literal"><span class="pre">sleep</span></code> <em>function</em> will make the micro:bit sleep for a certain number
+of milliseconds. If you want a pause in your program, this is how to do it.
+A <em>function</em> is just like a <em>method</em>, but it isn&#8217;t attached by a dot to an
+<em>object</em>.</li>
+<li>There is an object called <code class="docutils literal"><span class="pre">button_a</span></code> and it allows you to get the number
+of times it has been pressed with the <code class="docutils literal"><span class="pre">get_presses</span></code> <em>method</em>.</li>
+</ol>
+<p>Since <code class="docutils literal"><span class="pre">get_presses</span></code> gives a numeric value and <code class="docutils literal"><span class="pre">display.scroll</span></code> only
+displays characters, we need to convert the numeric value into a string of
+characters. We do this with the <code class="docutils literal"><span class="pre">str</span></code> function (short for &#8220;string&#8221; ~ it
+converts things into strings of characters).</p>
+<p>The third line is a bit like an onion. If the parenthesis are the
+onion skins then you&#8217;ll notice that <code class="docutils literal"><span class="pre">display.scroll</span></code> contains <code class="docutils literal"><span class="pre">str</span></code> that
+itself contains <code class="docutils literal"><span class="pre">button_a.get_presses</span></code>. Python attempts to work out the
+inner-most answer first before starting on the next layer out. This is called
+<em>nesting</em> - the coding equivalent of a Russian Matrioshka doll.</p>
+<img alt="micropython/matrioshka.jpg" src="micropython/matrioshka.jpg" />
+<p>Let&#8217;s pretend you&#8217;ve pressed the button 10 times. Here&#8217;s how Python works out
+what&#8217;s happening on the third line:</p>
+<p>Python sees the complete line and gets the value of <code class="docutils literal"><span class="pre">get_presses</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">button_a</span><span class="o">.</span><span class="n">get_presses</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>Now that Python knows how many button presses there have been, it converts the
+numeric value into a string of characters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Finally, Python knows what to scroll across the display:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>While this might seem like a lot of work, MicroPython makes this happen
+extraordinarily fast.</p>
+<div class="section" id="event-loops">
+<h2>Event Loops<a class="headerlink" href="#event-loops" title="Permalink to this headline">¶</a></h2>
+<p>Often you need your program to hang around waiting for something to happen. To
+do this you make it loop around a piece of code that defines how to react to
+certain expected events such as a button press.</p>
+<p>To make loops in Python you use the <code class="docutils literal"><span class="pre">while</span></code> keyword. It checks if something
+is <code class="docutils literal"><span class="pre">True</span></code>. If it is, it runs a <em>block of code</em> called the <em>body</em> of the loop.
+If it isn&#8217;t, it breaks out of the loop (ignoring the body) and the rest of the
+program can continue.</p>
+<p>Python makes it easy to define blocks of code. Say I have a to-do list written
+on a piece of paper. It probably looks something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Shopping</span>
+<span class="n">Fix</span> <span class="n">broken</span> <span class="n">gutter</span>
+<span class="n">Mow</span> <span class="n">the</span> <span class="n">lawn</span>
+</pre></div>
+</div>
+<p>If I wanted to break down my to-do list a bit further, I might write something
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Shopping</span><span class="p">:</span>
+    <span class="n">Eggs</span>
+    <span class="n">Bacon</span>
+    <span class="n">Tomatoes</span>
+<span class="n">Fix</span> <span class="n">broken</span> <span class="n">gutter</span><span class="p">:</span>
+    <span class="n">Borrow</span> <span class="n">ladder</span> <span class="kn">from</span> <span class="nn">next</span> <span class="n">door</span>
+    <span class="n">Find</span> <span class="n">hammer</span> <span class="ow">and</span> <span class="n">nails</span>
+    <span class="n">Return</span> <span class="n">ladder</span>
+<span class="n">Mow</span> <span class="n">the</span> <span class="n">lawn</span><span class="p">:</span>
+    <span class="n">Check</span> <span class="n">lawn</span> <span class="n">around</span> <span class="n">pond</span> <span class="k">for</span> <span class="n">frogs</span>
+    <span class="n">Check</span> <span class="n">mower</span> <span class="n">fuel</span> <span class="n">level</span>
+</pre></div>
+</div>
+<p>It&#8217;s obvious that the main tasks are broken down into sub-tasks that are
+<em>indented</em> underneath the main task to which they are related. So <code class="docutils literal"><span class="pre">Eggs</span></code>,
+<code class="docutils literal"><span class="pre">Bacon</span></code> and <code class="docutils literal"><span class="pre">Tomatoes</span></code> are obviously related to <code class="docutils literal"><span class="pre">Shopping</span></code>. By indenting
+things we make it easy to see, at a glance, how the tasks relate to each other.</p>
+<p>This is called <em>nesting</em>. We use nesting to define blocks of code like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="n">running_time</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">:</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ASLEEP</span><span class="p">)</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">SURPRISED</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">running_time</span></code> function returns the number of milliseconds since the
+device started.</p>
+<p>The <code class="docutils literal"><span class="pre">while</span> <span class="pre">running_time()</span> <span class="pre">&lt;</span> <span class="pre">10000:</span></code> line checks if the running time is less
+than 10000 milliseconds (i.e. 10 seconds). If it is, <em>and this is where we can
+see scoping in action</em>, then it&#8217;ll display <code class="docutils literal"><span class="pre">Image.ASLEEP</span></code>. Notice how this is
+indented underneath the <code class="docutils literal"><span class="pre">while</span></code> statement <em>just like in our to-do list</em>.</p>
+<p>Obviously, if the running time is equal to or greater than 10000 milliseconds
+then the display will show <code class="docutils literal"><span class="pre">Image.SURPRISED</span></code>. Why? Because the <code class="docutils literal"><span class="pre">while</span></code>
+condition will be False (<code class="docutils literal"><span class="pre">running_time</span></code> is no longer <code class="docutils literal"><span class="pre">&lt;</span> <span class="pre">10000</span></code>). In that
+case the loop is finished and the program will continue after the <code class="docutils literal"><span class="pre">while</span></code>
+loop&#8217;s block of code. It&#8217;ll look like your device is asleep for 10
+seconds before waking up with a surprised look on its face.</p>
+<p>Try it!</p>
+</div>
+<div class="section" id="handling-an-event">
+<h2>Handling an Event<a class="headerlink" href="#handling-an-event" title="Permalink to this headline">¶</a></h2>
+<p>If we want MicroPython to react to button press events we should put it into
+an infinite loop and check if the button <code class="docutils literal"><span class="pre">is_pressed</span></code>.</p>
+<p>An infinite loop is easy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Do stuff</span>
+</pre></div>
+</div>
+<p>(Remember, <code class="docutils literal"><span class="pre">while</span></code> checks if something is <code class="docutils literal"><span class="pre">True</span></code> to work out if it should
+run its block of code. Since <code class="docutils literal"><span class="pre">True</span></code> is obviously <code class="docutils literal"><span class="pre">True</span></code> for all time, you
+get an infinite loop!)</p>
+<p>Let&#8217;s make a very simple cyber-pet. It&#8217;s always sad unless you&#8217;re pressing
+button <code class="docutils literal"><span class="pre">A</span></code>. If you press button <code class="docutils literal"><span class="pre">B</span></code> it dies. (I realise this isn&#8217;t a very
+pleasant game, so perhaps you can figure out how to improve it.):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">button_a</span><span class="o">.</span><span class="n">is_pressed</span><span class="p">():</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">HAPPY</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">button_b</span><span class="o">.</span><span class="n">is_pressed</span><span class="p">():</span>
+        <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">SAD</span><span class="p">)</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Can you see how we check what buttons are pressed? We used <code class="docutils literal"><span class="pre">if</span></code>,
+<code class="docutils literal"><span class="pre">elif</span></code> (short for &#8220;else if&#8221;) and <code class="docutils literal"><span class="pre">else</span></code>. These are called <em>conditionals</em>
+and work like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">something</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># do one thing</span>
+<span class="k">elif</span> <span class="n">some</span> <span class="n">other</span> <span class="n">thing</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># do another thing</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># do yet another thing.</span>
+</pre></div>
+</div>
+<p>This is remarkably similar to English!</p>
+<p>The <code class="docutils literal"><span class="pre">is_pressed</span></code> method only produces two results: <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code>.
+If you&#8217;re pressing the button it returns <code class="docutils literal"><span class="pre">True</span></code>, otherwise it returns
+<code class="docutils literal"><span class="pre">False</span></code>. The code above is saying, in English, &#8220;for ever and ever, if
+button A is pressed then show a happy face, else if button B is pressed break
+out of the loop, otherwise display a sad face.&#8221; We break out of the loop (stop
+the program running for ever and ever) with the <code class="docutils literal"><span class="pre">break</span></code> statement.</p>
+<p>At the very end, when the cyber-pet is dead, we <code class="docutils literal"><span class="pre">clear</span></code> the display.</p>
+<p>Can you think of ways to make this game less tragic? How would you check if
+<em>both</em> buttons are pressed? (Hint: Python has <code class="docutils literal"><span class="pre">and</span></code>, <code class="docutils literal"><span class="pre">or</span></code> and <code class="docutils literal"><span class="pre">not</span></code>
+logical operators to help check multiple truth statements (things that
+produce either <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code> results).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Buttons</a><ul>
+<li><a class="reference internal" href="#event-loops">Event Loops</a></li>
+<li><a class="reference internal" href="#handling-an-event">Handling an Event</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/buttons.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/buttons.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

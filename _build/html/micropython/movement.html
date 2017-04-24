@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Movement &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="movement">
+<h1>Movement<a class="headerlink" href="#movement" title="Permalink to this headline">¶</a></h1>
+<p>Your BBC micro:bit comes with an accelerometer. It measures movement along
+three axes:</p>
+<ul class="simple">
+<li>X - tilting from left to right.</li>
+<li>Y - tilting forwards and backwards.</li>
+<li>Z - moving up and down.</li>
+</ul>
+<p>There is a method for each axis that returns a positive or negative number
+indicating a measurement in milli-g&#8217;s. When the reading is 0 you are &#8220;level&#8221;
+along that particular axis.</p>
+<p>For example, here&#8217;s a very simple spirit-level that uses <code class="docutils literal"><span class="pre">get_x</span></code> to measure
+how level the device is along the X axis:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">reading</span> <span class="o">=</span> <span class="n">accelerometer</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">reading</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">reading</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">20</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you hold the device flat it should display <code class="docutils literal"><span class="pre">-</span></code>; however, rotate it left or
+right and it&#8217;ll show <code class="docutils literal"><span class="pre">L</span></code> and <code class="docutils literal"><span class="pre">R</span></code> respectively.</p>
+<p>We want the device to constantly react to change, so we use an
+infinite <code class="docutils literal"><span class="pre">while</span></code> loop. The first thing to happen <em>within the body of the
+loop</em> is a measurement along the X axis which is called <code class="docutils literal"><span class="pre">reading</span></code>. Because
+the accelerometer is <em>so</em> sensitive I&#8217;ve made level +/-20 in range. It&#8217;s why
+the <code class="docutils literal"><span class="pre">if</span></code> and <code class="docutils literal"><span class="pre">elif</span></code> conditionals check for <code class="docutils literal"><span class="pre">&gt;</span> <span class="pre">20</span></code> and <code class="docutils literal"><span class="pre">&lt;</span> <span class="pre">-20</span></code>. The
+<code class="docutils literal"><span class="pre">else</span></code> statement means that if the <code class="docutils literal"><span class="pre">reading</span></code> is between -20 and 20 then
+we consider it level. For each of these conditions we use the display to show
+the appropriate character.</p>
+<p>There is also a <code class="docutils literal"><span class="pre">get_y</span></code> method for the Y axis and a <code class="docutils literal"><span class="pre">get_z</span></code> method for the
+Z axis.</p>
+<p>If you&#8217;ve ever wondered how a mobile phone knows which up to show the images on
+its screen, it&#8217;s because it uses an accelerometer in exactly the same way as
+the program above. Game controllers also contain accelerometers to help you
+steer and move around in games.</p>
+<div class="section" id="musical-mayhem">
+<h2>Musical Mayhem<a class="headerlink" href="#musical-mayhem" title="Permalink to this headline">¶</a></h2>
+<p>One of the most wonderful aspects of MicroPython on the BBC micro:bit is how it
+lets you easily link different capabilities of the device together. For
+example, let&#8217;s turn it into a musical instrument (of sorts).</p>
+<p>Connect a speaker as you did in the music tutorial. Use crocodile clips to
+attach pin 0 and GND to the positive and negative inputs on the speaker - it
+doesn&#8217;t matter which way round they are connected to the speaker.</p>
+<img alt="micropython/pin0-gnd.png" src="micropython/pin0-gnd.png" />
+<p>What happens if we take the readings from the accelerometer and play them as
+pitches? Let&#8217;s find out:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">music</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">music</span><span class="o">.</span><span class="n">pitch</span><span class="p">(</span><span class="n">accelerometer</span><span class="o">.</span><span class="n">get_y</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The key line is at the end and remarkably simple. We <em>nest</em> the reading from
+the Y axis as the frequency to feed into the <code class="docutils literal"><span class="pre">music.pitch</span></code> method. We only
+let it play for 10 milliseconds because we want the tone to change quickly as
+the device is tipped. Because the device is in an infinite <code class="docutils literal"><span class="pre">while</span></code> loop it
+is constantly reacting to changes in the Y axis measurement.</p>
+<p>That&#8217;s it!</p>
+<p>Tip the device forwards and backwards. If the reading along the Y axis is
+positive it&#8217;ll change the pitch of the tone played by the micro:bit.</p>
+<p>Imagine a whole symphony orchestra of these devices. Can you play a tune? How
+would you improve the program to make the micro:bit sound more musical?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Movement</a><ul>
+<li><a class="reference internal" href="#musical-mayhem">Musical Mayhem</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/movement.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/movement.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Yotta &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="yotta">
+<span id="yotta"></span><h1>Yotta<a class="headerlink" href="#yotta" title="Permalink to this headline">¶</a></h1>
+<p>The micro:bit DAL is built on top of <a class="reference external" href="http://mbed.com">ARM mbed</a> and hence uses <a class="reference external" href="http://yotta.mbed.com">yotta</a> as an offline build system.</p>
+<p>When using <code class="docutils literal"><span class="pre">yotta</span></code> to build micro:bit projects there are currently two supported toolchains:</p>
+<ul class="simple">
+<li>GCC</li>
+<li>ARMCC</li>
+</ul>
+<div class="section" id="installation-on-windows">
+<span id="installation-on-windows"></span><h2>Installation on Windows<a class="headerlink" href="#installation-on-windows" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-yotta-and-dependencies">
+<span id="install-yotta-and-dependencies"></span><h3>Install yotta and dependencies<a class="headerlink" href="#install-yotta-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to get <code class="docutils literal"><span class="pre">yotta</span></code> and its dependencies onto your machine, to do this follow the install guide <a class="reference external" href="http://docs.yottabuild.org/#installing">here</a>.</p>
+<p>For the micro:bit targets you currently still need the <code class="docutils literal"><span class="pre">srecord</span></code> tools, which can be installed on <strong>Windows</strong> from <a class="reference external" href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code class="docutils literal"><span class="pre">srecord</span></code> is used to create the final binaries for the micro:bit so is an essential dependency.</p>
+</div>
+<div class="section" id="fetch-the-example-project">
+<span id="fetch-the-example-project"></span><h3>Fetch the example project<a class="headerlink" href="#fetch-the-example-project" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/lancaster-university/microbit-samples
+<span class="nb">cd</span> microbit-samples
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-your-yotta-target">
+<span id="set-your-yotta-target"></span><h3>Set your yotta target<a class="headerlink" href="#set-your-yotta-target" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal"><span class="pre">yotta</span></code> target contains the information required by <code class="docutils literal"><span class="pre">yotta</span></code> in order to build a project for a specific combination of hardware. This includes the type of compiler. The microbit projects can build with both <code class="docutils literal"><span class="pre">armcc</span></code> and <code class="docutils literal"><span class="pre">gcc</span></code>, but as it gets installed with the <code class="docutils literal"><span class="pre">yotta</span></code> installer, we&#8217;ll use <code class="docutils literal"><span class="pre">gcc</span></code> by default and choose a micro:bit specific target that knows about the hardware on the board.</p>
+<p>You can use either <code class="docutils literal"><span class="pre">yotta</span></code> or <code class="docutils literal"><span class="pre">yt</span></code>, which is far easier to type!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">target</span> <span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>!!! note
+In microbit-samples this target will be configured by default.</p>
+<p>You only need to set the target once per project. All future <code class="docutils literal"><span class="pre">yotta</span></code> commands will use this target information (for example, when resolving dependencies).</p>
+<div class="section" id="build-the-project">
+<span id="build-the-project"></span><h4>Build the project<a class="headerlink" href="#build-the-project" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="flash-your-micro-bit">
+<span id="flash-your-micro-bit"></span><h3>Flash your micro:bit<a class="headerlink" href="#flash-your-micro-bit" title="Permalink to this headline">¶</a></h3>
+<p>The final step is to check your hex works.</p>
+<p>The <code class="docutils literal"><span class="pre">yt</span> <span class="pre">build</span></code> command will place files in <code class="docutils literal"><span class="pre">/build/&lt;TARGET_NAME&gt;/source</span></code>. The file you will need to flash will be microbit-combined.hex.  Simply drag and drop the hex onto the MICROBIT usb device.</p>
+<p>In the case of our example, using <code class="docutils literal"><span class="pre">bbc-microbit-classic-gcc</span></code> we could flash the micro:bit (assuming it is plugged in and mounted at <code class="docutils literal"><span class="pre">E:</span></code>) as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">copy</span> <span class="n">build</span>\<span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>\<span class="n">source</span>\<span class="n">microbit</span><span class="o">-</span><span class="n">samples</span><span class="o">-</span><span class="n">combined</span><span class="o">.</span><span class="n">hex</span> <span class="n">E</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>The expected result will be that the micro:bit will scroll <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span> <span class="pre">:)</span></code> on its display.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="installation-on-mac-osx">
+<span id="installation-on-mac-osx"></span><h2>Installation on Mac OSX<a class="headerlink" href="#installation-on-mac-osx" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-yotta-and-dependencies">
+<span id="id1"></span><h3>Install yotta and dependencies<a class="headerlink" href="#install-yotta-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to get <code class="docutils literal"><span class="pre">yotta</span></code> and its dependencies onto your machine, to do this follow the install guide <a class="reference external" href="http://docs.yottabuild.org/#installing">here</a>.</p>
+<p>For the micro:bit targets you currently still need the <code class="docutils literal"><span class="pre">srecord</span></code> tools, which can be installed on <strong>Mac OSX</strong> using
+<a class="reference external" href="http://brew.sh/">brew</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">srecord</span>
+</pre></div>
+</div>
+<p>You can also install it manually from <a class="reference external" href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code class="docutils literal"><span class="pre">srecord</span></code> is used to create the final binaries for the micro:bit so is an essential dependency.</p>
+</div>
+<div class="section" id="fetch-the-example-project">
+<span id="id2"></span><h3>Fetch the example project<a class="headerlink" href="#fetch-the-example-project" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/lancaster-university/microbit-samples
+<span class="nb">cd</span> microbit-samples
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-your-yotta-target">
+<span id="id3"></span><h3>Set your yotta target<a class="headerlink" href="#set-your-yotta-target" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal"><span class="pre">yotta</span></code> target contains the information required by <code class="docutils literal"><span class="pre">yotta</span></code> in order to build a project for a specific combination of hardware. This includes the type of compiler. The microbit projects can build with both <code class="docutils literal"><span class="pre">armcc</span></code> and <code class="docutils literal"><span class="pre">gcc</span></code>, but as it gets installed with the <code class="docutils literal"><span class="pre">yotta</span></code> installer, we&#8217;ll use <code class="docutils literal"><span class="pre">gcc</span></code> by default and choose a micro:bit specific target that knows about the hardware on the board.</p>
+<p>You can use either <code class="docutils literal"><span class="pre">yotta</span></code> or <code class="docutils literal"><span class="pre">yt</span></code>, which is far easier to type!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">target</span> <span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>!!! note
+In microbit-samples this target will be configured by default.</p>
+<p>You only need to set the target once per project. All future <code class="docutils literal"><span class="pre">yotta</span></code> commands will use this target information (for example, when resolving dependencies).</p>
+<div class="section" id="build-the-project">
+<span id="id4"></span><h4>Build the project<a class="headerlink" href="#build-the-project" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="flash-your-micro-bit">
+<span id="id5"></span><h3>Flash your micro:bit<a class="headerlink" href="#flash-your-micro-bit" title="Permalink to this headline">¶</a></h3>
+<p>The final step is to check your hex works.</p>
+<p>The <code class="docutils literal"><span class="pre">yt</span> <span class="pre">build</span></code> command will place files in <code class="docutils literal"><span class="pre">/build/&lt;TARGET_NAME&gt;/source</span></code>. The file you will need to flash will be <code class="docutils literal"><span class="pre">microbit-samples-combined.hex</span></code>. Simply drag and drop the hex onto the MICROBIT usb device.</p>
+<p>In the case of our example, using <code class="docutils literal"><span class="pre">bbc-microbit-classic-gcc</span></code> we could flash the micro:bit (assuming it is plugged in and mounted at <code class="docutils literal"><span class="pre">/Volumes/&quot;MICROBIT&quot;</span></code>) as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">microbit</span><span class="o">-</span><span class="n">samples</span><span class="o">-</span><span class="n">combined</span><span class="o">.</span><span class="n">hex</span> <span class="o">/</span><span class="n">Volumes</span><span class="o">/</span><span class="s2">&quot;MICROBIT&quot;</span>
+</pre></div>
+</div>
+<p>The expected result will be that the micro:bit will scroll <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span> <span class="pre">:)</span></code> on its display.</p>
+<p>!!!note
+Note that if you&#8217;d like to copy the file from the command line, you can use the following command in any <code class="docutils literal"><span class="pre">yotta</span></code> project to do so, though it assumes you have only one micro:bit plugged in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>```
+cp build/$(yt --plain target | head -n 1 | cut -f 1 -d&#39; &#39;)/source/$(yt --plain ls | head -n 1 | cut -f 1 -d&#39; &#39;)-combined.hex  /Volumes/&quot;MICROBIT&quot;
+```
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="installation-on-linux">
+<span id="installation-on-linux"></span><h2>Installation on Linux<a class="headerlink" href="#installation-on-linux" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-yotta-and-dependencies">
+<span id="id6"></span><h3>Install yotta and dependencies<a class="headerlink" href="#install-yotta-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to get <code class="docutils literal"><span class="pre">yotta</span></code> and its dependencies onto your machine, to do this follow the install guide <a class="reference external" href="http://docs.yottabuild.org/#installing">here</a>.</p>
+<p>For the micro:bit targets you currently still need the <code class="docutils literal"><span class="pre">srecord</span></code> tools, which can be installed on <strong>Ubuntu</strong> using</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">srecord</span>
+</pre></div>
+</div>
+<p>You can also install it manually from <a class="reference external" href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code class="docutils literal"><span class="pre">srecord</span></code> is used to create the final binaries for the micro:bit so is an essential dependency.</p>
+</div>
+<div class="section" id="fetch-the-example-project">
+<span id="id7"></span><h3>Fetch the example project<a class="headerlink" href="#fetch-the-example-project" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/lancaster-university/microbit-samples
+<span class="nb">cd</span> microbit-samples
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-your-yotta-target">
+<span id="id8"></span><h3>Set your yotta target<a class="headerlink" href="#set-your-yotta-target" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal"><span class="pre">yotta</span></code> target contains the information required by <code class="docutils literal"><span class="pre">yotta</span></code> in order to build a project for a specific combination of hardware. This includes the type of compiler. The microbit projects can build with both <code class="docutils literal"><span class="pre">armcc</span></code> and <code class="docutils literal"><span class="pre">gcc</span></code>, but as it gets installed with the <code class="docutils literal"><span class="pre">yotta</span></code> installer, we&#8217;ll use <code class="docutils literal"><span class="pre">gcc</span></code> by default and choose a micro:bit specific target that knows about the hardware on the board.</p>
+<p>You can use either <code class="docutils literal"><span class="pre">yotta</span></code> or <code class="docutils literal"><span class="pre">yt</span></code>, which is far easier to type!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">target</span> <span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>!!! note
+In microbit-samples this target will be configured by default.</p>
+<p>You only need to set the target once per project. All future <code class="docutils literal"><span class="pre">yotta</span></code> commands will use this target information (for example, when resolving dependencies).</p>
+<div class="section" id="build-the-project">
+<span id="id9"></span><h4>Build the project<a class="headerlink" href="#build-the-project" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="flash-your-micro-bit">
+<span id="id10"></span><h3>Flash your micro:bit<a class="headerlink" href="#flash-your-micro-bit" title="Permalink to this headline">¶</a></h3>
+<p>The final step is to check your hex works.</p>
+<p>The <code class="docutils literal"><span class="pre">yt</span> <span class="pre">build</span></code> command will place files in <code class="docutils literal"><span class="pre">/build/&lt;TARGET_NAME&gt;/source</span></code>. The file you will need to flash will be <code class="docutils literal"><span class="pre">microbit-samples-combined.hex</span></code>. Simply drag and drop the hex onto the MICROBIT usb device.</p>
+<p>In the case of our example, using <code class="docutils literal"><span class="pre">bbc-microbit-classic-gcc</span></code> we could flash the micro:bit (assuming it is plugged in and mounted at <code class="docutils literal"><span class="pre">/media/MICROBIT</span></code>) as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">microbit</span><span class="o">-</span><span class="n">samples</span><span class="o">-</span><span class="n">combined</span><span class="o">.</span><span class="n">hex</span> <span class="o">/</span><span class="n">media</span><span class="o">/</span><span class="n">MICROBIT</span>
+</pre></div>
+</div>
+<p>The expected result will be that the micro:bit will scroll <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span> <span class="pre">:)</span></code> on its display.</p>
+<p>!!!note
+Note that if you&#8217;d like to copy the file from the command line, you can use the following command in any <code class="docutils literal"><span class="pre">yotta</span></code> project to do so, though it assumes you have only one micro:bit plugged in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>```
+cp build/$(yt --plain target | head -n 1 | cut -f 1 -d&#39; &#39;)/source/$(yt --plain ls | head -n 1 | cut -f 1 -d&#39; &#39;)-combined.hex /media/MICROBIT/
+```
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Yotta</a><ul>
+<li><a class="reference internal" href="#installation-on-windows">Installation on Windows</a><ul>
+<li><a class="reference internal" href="#install-yotta-and-dependencies">Install yotta and dependencies</a></li>
+<li><a class="reference internal" href="#fetch-the-example-project">Fetch the example project</a></li>
+<li><a class="reference internal" href="#set-your-yotta-target">Set your yotta target</a><ul>
+<li><a class="reference internal" href="#build-the-project">Build the project</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flash-your-micro-bit">Flash your micro:bit</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation-on-mac-osx">Installation on Mac OSX</a><ul>
+<li><a class="reference internal" href="#install-yotta-and-dependencies">Install yotta and dependencies</a></li>
+<li><a class="reference internal" href="#fetch-the-example-project">Fetch the example project</a></li>
+<li><a class="reference internal" href="#set-your-yotta-target">Set your yotta target</a><ul>
+<li><a class="reference internal" href="#build-the-project">Build the project</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flash-your-micro-bit">Flash your micro:bit</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation-on-linux">Installation on Linux</a><ul>
+<li><a class="reference internal" href="#install-yotta-and-dependencies">Install yotta and dependencies</a></li>
+<li><a class="reference internal" href="#fetch-the-example-project">Fetch the example project</a></li>
+<li><a class="reference internal" href="#set-your-yotta-target">Set your yotta target</a><ul>
+<li><a class="reference internal" href="#build-the-project">Build the project</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flash-your-micro-bit">Flash your micro:bit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/offline-toolchains_en.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/offline-toolchains_en.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

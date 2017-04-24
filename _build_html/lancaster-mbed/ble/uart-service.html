@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bluetooth UART Service &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bluetooth-uart-service">
+<span id="bluetooth-uart-service"></span><h1>Bluetooth UART Service<a class="headerlink" href="#bluetooth-uart-service" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<span id="introduction"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This Bluetooth Low Energy (BLE) service is an optional part of the standard bluetooth profile for the micro:bit. It is a passive service, that can operate transparently in the background as your main program is running. It provides a form of serial data communications capability over Bluetooth low energy and can be used to exchange arbitrary sequences of bytes in either direction between micro:bit and connected peer.</p>
+</div>
+<div class="section" id="enabling-and-using-the-service">
+<span id="enabling-and-using-the-service"></span><h2>Enabling and Using the Service<a class="headerlink" href="#enabling-and-using-the-service" title="Permalink to this headline">¶</a></h2>
+<p>This service is disabled by default. To enable the service, create an instance of this class in your program at any time after the uBit object has been initialised. Send data from the micro:bit to the connected peer at any time using one of the send methods of the MicroBitUARTService class. To receive data from the connected peer use one of several methods such as readUntil which blocks until a specified delimiter value is received and then returns all previous octets in the receive buffer. Consult the API for details.</p>
+<p>Note that it may make sense to coordinate use of the UART service with the state of the Bluetooth connection, only reading or sending serial data when there is an active Bluetooth connection. Two micro:bit message bus events are provided for this purpose. A full example appears below.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitUARTService</span> <span class="o">*</span><span class="n">uart</span><span class="p">;</span>   
+</pre></div>
+</div>
+<p>!!! note
+Using Bluetooth services is memory hungry. By default, some of the memory normally used by Nordic&#8217;s Bluetooth protocol stack (known as a SoftDevice), is reclaimed by the micro:bit runtime as general purpose memory for your applications. if you enable more Bluetooth services, then you may need to provide more memory back to Soft Device to ensure proper operation. If after enabling this service your Bluetooth application cannot access the service reliably, you should consider increasing the value of MICROBIT_SD_GATT_TABLE_SIZE in your inc/MicroBitConfig.h. The more service you add, the larger this will need to be, up to the limit defined in MicroBitConfig.h.</p>
+</div>
+<div class="section" id="bluetooth-service-specification">
+<span id="bluetooth-service-specification"></span><h2>Bluetooth Service Specification<a class="headerlink" href="#bluetooth-service-specification" title="Permalink to this headline">¶</a></h2>
+<p>Please see the <a class="reference external" href="../resources/bluetooth/microbit-profile-V1.9-Level-2.pdf">micro:bit Bluetooth profile specification</a>.</p>
+</div>
+<div class="section" id="example-micro-bit-application-animal-vegetable-mineral-game">
+<span id="example-micro-bit-application-animal-vegetable-mineral-game"></span><h2>Example micro:bit application - Animal Vegetable Mineral game<a class="headerlink" href="#example-micro-bit-application-animal-vegetable-mineral-game" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;MicroBitSamples.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;MicroBitUARTService.h&quot;</span><span class="cp"></span>
+<span class="n">MicroBit</span> <span class="n">uBit</span><span class="p">;</span>
+<span class="n">MicroBitUARTService</span> <span class="o">*</span><span class="n">uart</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">connected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onConnected</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;C&quot;</span><span class="p">);</span>
+    
+    <span class="n">connected</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    
+    <span class="c1">// my client will send ASCII strings terminated with the colon character</span>
+    <span class="n">ManagedString</span> <span class="n">eom</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">);</span>
+    
+    <span class="k">while</span> <span class="p">(</span><span class="n">connected</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ManagedString</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">uart</span><span class="o">-&gt;</span><span class="n">readUntil</span><span class="p">(</span><span class="n">eom</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">onDisconnected</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;D&quot;</span><span class="p">);</span>
+    <span class="n">connected</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">connected</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;NC&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">uart</span><span class="o">-&gt;</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;YES&quot;</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;YES&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">onButtonB</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">connected</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;NC&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">uart</span><span class="o">-&gt;</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;NO&quot;</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;NO&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">onButtonAB</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">connected</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;NC&quot;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">uart</span><span class="o">-&gt;</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;GOT IT!!&quot;</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;GOT IT!!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/*</span>
+<span class="cm">Recommend disabling the DFU and Event services in MicroBitConfig.h since they are not needed here:</span>
+
+<span class="cm">#ifndef MICROBIT_BLE_DFU_SERVICE</span>
+<span class="cm">#define MICROBIT_BLE_DFU_SERVICE                0</span>
+<span class="cm">#endif</span>
+
+<span class="cm">#ifndef MICROBIT_BLE_EVENT_SERVICE</span>
+<span class="cm">#define MICROBIT_BLE_EVENT_SERVICE              0</span>
+<span class="cm">#endif</span>
+<span class="cm">*/</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Initialise the micro:bit runtime.</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+    <span class="c1">// listen for Bluetooth connection state changes</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BLE</span><span class="p">,</span> <span class="n">MICROBIT_BLE_EVT_CONNECTED</span><span class="p">,</span> <span class="n">onConnected</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BLE</span><span class="p">,</span> <span class="n">MICROBIT_BLE_EVT_DISCONNECTED</span><span class="p">,</span> <span class="n">onDisconnected</span><span class="p">);</span>
+
+    <span class="c1">// listen for user button interactions</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_B</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonB</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_AB</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonAB</span><span class="p">);</span>
+
+       
+    <span class="c1">// Note GATT table size increased from default in MicroBitConfig.h</span>
+    <span class="c1">// #define MICROBIT_SD_GATT_TABLE_SIZE             0x500</span>
+    <span class="n">uart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MicroBitUARTService</span><span class="p">(</span><span class="o">*</span><span class="n">uBit</span><span class="p">.</span><span class="n">ble</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span> 
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;AVM&quot;</span><span class="p">);</span>
+
+    <span class="c1">// If main exits, there may still be other fibers running or registered event handlers etc.</span>
+    <span class="c1">// Simply release this fiber, which will mean we enter the scheduler. Worse case, we then</span>
+    <span class="c1">// sit in the idle task forever, in a power efficient sleep.</span>
+    <span class="n">release_fiber</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Known Issue</strong> In the onConnected event handler method, the call to ManagedString msg = uart-&gt;readUntil(eom); blocks until the specified end of message character is received. This prevents the event handler from exiting. Under normal circumstances this is fine. If however the connected application loses its connection and then reconnects, the onConnected method will not execute and therefore the &#8216;connected&#8217; variable which tracks the Bluetooth connection state will not update. The micro:bit application will now behave as though it is not in a connection and therefore functions such as sending text by pressing a button will not work. In this situation the user should simply reset their micro:bit and reconnect their smartphone application. An API which allows serial reads to unblock or perhaps threads to be terminated is under consideration for a future release of the micro:bit runtime.</p>
+</div>
+<div class="section" id="example-applications-for-android-ios-android">
+<span id="example-applications-for-android-ios-android"></span><h2>Example Applications for Android/IOS/Android<a class="headerlink" href="#example-applications-for-android-ios-android" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-procedures">
+<span id="general-procedures"></span><h3>General Procedures<a class="headerlink" href="#general-procedures" title="Permalink to this headline">¶</a></h3>
+<p>A connected peer such as a smartphone application can transmit data to the micro:bit, up to a maximum of 20 octets at a time by writing to the RX Characteristic. Either of the Write Request or Write Command (i.e. write with no response) PDUs may be used by the client.</p>
+<p>See the profile page and profile reference documentation UUID details.</p>
+</div>
+<div class="section" id="android">
+<span id="android"></span><h3>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
+<p><img src="../../resources/bluetooth/uart_demo.png" alt="UART Demo"></p>
+<div class="section" id="android-bluetooth-apis">
+<span id="android-bluetooth-apis"></span><h4>Android Bluetooth APIs<a class="headerlink" href="#android-bluetooth-apis" title="Permalink to this headline">¶</a></h4>
+<p>Android developers should make themselves familiar with the <a class="reference external" href="http://developer.android.com/guide/topics/connectivity/bluetooth-le.html">Android Bluetooth low energy APIs</a></p>
+</div>
+<div class="section" id="microbit-ble-demo-android">
+<span id="microbit-ble-demo-android"></span><h4>microbit-ble-demo-android<a class="headerlink" href="#microbit-ble-demo-android" title="Permalink to this headline">¶</a></h4>
+<p>The open source microbit-ble-demo-android application contains a demonstration of the micro:bit Bluetooth UART service in the form of a guessing game called Animal Vegetable Mineral. The main body of code for this demonstration can be found in ui.UartAvmActivity.java except for the Bluetooth operations themselves which are in bluetooth.BleAdapterService which acts as a kind of higher level Bluetooth API for activities to use without needing to directly concern themselves too closely with the Android APIs themselves. In most cases, operations are asynchronous so that the activity code initiates a Bluetooth operation by calling one of the methods in bluetooth.BleAdapterService (e.g. readCharacteristic(....) ) and later receives a message containing the result of the operation from this object via a Handler object. The message is examined in the Handler code and acted upon.</p>
+<p>Key parts of the magnetometer demonstration in this application are explained next.</p>
+</div>
+<div class="section" id="in-bluetooth-bleadapterservice">
+<span id="in-bluetooth-bleadapterservice"></span><h4>In bluetooth.BleAdapterService<a class="headerlink" href="#in-bluetooth-bleadapterservice" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">UARTSERVICE_SERVICE_UUID</span> <span class="o">=</span> <span class="s">&quot;6E400001B5A3F393E0A9E50E24DCCA9E&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">UART_RX_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;6E400002B5A3F393E0A9E50E24DCCA9E&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">UART_TX_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;6E400003B5A3F393E0A9E50E24DCCA9E&quot;</span><span class="o">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-ui-uartavmactivity">
+<span id="in-ui-uartavmactivity"></span><h4>In ui.UartAvmActivity<a class="headerlink" href="#in-ui-uartavmactivity" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// enabling indications on the UART TX characteristic</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">setIndicationsState</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">UARTSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">UART_TX_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="kc">true</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">showMsg</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">htmlColorGreen</span><span class="o">(</span><span class="s">&quot;UART TX indications ON&quot;</span><span class="o">));</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">showMsg</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">htmlColorRed</span><span class="o">(</span><span class="s">&quot;Failed to set UART TX indications ON&quot;</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// handling indications</span>
+<span class="k">case</span> <span class="n">BleAdapterService</span><span class="o">.</span><span class="na">NOTIFICATION_OR_INDICATION_RECEIVED</span><span class="o">:</span>
+    <span class="n">bundle</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+    <span class="n">service_uuid</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PARCEL_SERVICE_UUID</span><span class="o">);</span>
+    <span class="n">characteristic_uuid</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PARCEL_CHARACTERISTIC_UUID</span><span class="o">);</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getByteArray</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PARCEL_VALUE</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">characteristic_uuid</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">((</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">UART_TX_CHARACTERISTIC_UUID</span><span class="o">))))</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">ascii</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">ascii</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">b</span><span class="o">,</span><span class="s">&quot;US-ASCII&quot;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">showMsg</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">htmlColorGreen</span><span class="o">(</span><span class="s">&quot;Could not convert TX data to ASCII&quot;</span><span class="o">));</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">ascii</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">AVM_CORRECT_RESPONSE</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">showAnswer</span><span class="o">(</span><span class="n">ascii</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">showAnswer</span><span class="o">(</span><span class="n">ascii</span><span class="o">+</span><span class="s">&quot; You only needed &quot;</span><span class="o">+</span><span class="n">guess_count</span><span class="o">+</span><span class="s">&quot; guesses!&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">break</span><span class="o">;</span> 
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// sending data to the micro:bit by writing to the RX Characteristic</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSendText</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">EditText</span> <span class="n">text</span> <span class="o">=</span> <span class="o">(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">UartAvmActivity</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">avm_question_text</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">question</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span><span class="o">;</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">ascii_bytes</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;US-ASCII&quot;</span><span class="o">);</span>
+        <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">UARTSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">UART_RX_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">ascii_bytes</span><span class="o">);</span>
+        <span class="n">guess_count</span><span class="o">++;</span>
+        <span class="n">showGuessCount</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="n">showMsg</span><span class="o">(</span><span class="s">&quot;Unable to convert text to ASCII bytes&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="video-demonstration">
+<span id="video-demonstration"></span><h4>Video Demonstration<a class="headerlink" href="#video-demonstration" title="Permalink to this headline">¶</a></h4>
+<iframe src="https://player.vimeo.com/video/164622668" width="750" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> </div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bluetooth UART Service</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#enabling-and-using-the-service">Enabling and Using the Service</a></li>
+<li><a class="reference internal" href="#bluetooth-service-specification">Bluetooth Service Specification</a></li>
+<li><a class="reference internal" href="#example-micro-bit-application-animal-vegetable-mineral-game">Example micro:bit application - Animal Vegetable Mineral game</a></li>
+<li><a class="reference internal" href="#example-applications-for-android-ios-android">Example Applications for Android/IOS/Android</a><ul>
+<li><a class="reference internal" href="#general-procedures">General Procedures</a></li>
+<li><a class="reference internal" href="#android">Android</a><ul>
+<li><a class="reference internal" href="#android-bluetooth-apis">Android Bluetooth APIs</a></li>
+<li><a class="reference internal" href="#microbit-ble-demo-android">microbit-ble-demo-android</a></li>
+<li><a class="reference internal" href="#in-bluetooth-bleadapterservice">In bluetooth.BleAdapterService</a></li>
+<li><a class="reference internal" href="#in-ui-uartavmactivity">In ui.UartAvmActivity</a></li>
+<li><a class="reference internal" href="#video-demonstration">Video Demonstration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ble/uart-service.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ble/uart-service.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
