@@ -620,14 +620,8 @@
 <p>Note that specific event ID values including any special values such as those which may represent wild cards are not defined here. The micro:bit run time documentation should be consulted for this information.</p>
 <p>Multiple events of different types may be notified to the client or micro:bit at the same time.</p>
 <p>Event data is encoded as an array of structs each encoding an event of a given type together with an associated value. Event Type and Event Value are both defined as uint16 and therefore the length of this array will always be a multiple of 4.</p>
-<table>
-<thead>
-<tr>
-<th>struct event {  uint16 event_type;  uint16 event_value;};</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<p>| struct event {  uint16 event_type;  uint16 event_value;}; |
+| &mdash; |</p>
 <p>event_type and event_value are each encoded in little endian format.</p>
 <p>The Event Service has four characteristics in total:</p>
 <p><strong>micro:bit Requirements</strong> is a variable length list of event data structures which indicates the types of client event, potentially with a specific value which the micro:bit wishes to be informed of when they occur. The client should read this characteristic when it first connects to the micro:bit. It may also subscribe to notifications to that it can be informed if the value of this characteristic is changed by the micro:bit firmware.</p>
