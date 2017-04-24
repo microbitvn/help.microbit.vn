@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.storage</p>
+<p>##Overview</p>
+<p><code class="docutils literal"><span class="pre">MicroBitStorage</span></code> provides a simple way to store data on the micro:bit that persists
+through power cycles. It currently takes the form of a key value store which contains
+a number of key value pairs.</p>
+<p>If a user wanted to determine if a micro:bit has just been flashed over USB they
+could simply write the following:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+    <span class="n">KeyValuePair</span><span class="o">*</span> <span class="n">firstTime</span> <span class="o">=</span> <span class="n">uBit</span><span class="p">.</span><span class="n">storage</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;boot&quot;</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">stored</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">firstTime</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//this is the first boot after a flash. Store a value!</span>
+        <span class="n">stored</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">storage</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="s">&quot;boot&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">stored</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;Stored!&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">//this is not the first boot, scroll our stored value.</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stored</span><span class="p">,</span> <span class="n">firstTime</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+        <span class="k">delete</span> <span class="n">firstTime</span><span class="p">;</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">stored</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>###What is flash memory?
+The micro:bit has 256 kB flash memory and 16 kB random access memory (RAM). Flash memory
+is <em>non-volatile</em>, which essentially means that data is not forgotten when the device
+is powered off, this is the technology that many USB sticks use.</p>
+<p>The alternative, Random Access Memory (also known as <em>volatile</em> memory), cannot be persisted through power cycling the device as its
+operation relies upon maintaining a constant supply of power.</p>
+<p>Therefore, <code class="docutils literal"><span class="pre">MicroBitStorage</span></code> utilises the <em>non-volatile</em> nature of flash memory, to
+store its data. This class is utilised by the <a class="reference external" href="compass.md">compass</a>, <a class="reference external" href="compass.md">accelerometer</a>
+and <a class="reference external" href="blemanager.md">bleManager</a> to improve the user experience by persisting calibration
+and bonding data.</p>
+<p>###Operations</p>
+<p>You can <code class="docutils literal"><span class="pre">put()</span></code>, <code class="docutils literal"><span class="pre">get()</span></code> and <code class="docutils literal"><span class="pre">remove()</span></code> key value pairs from the store.</p>
+<p>Key Value pairs have a fixed length key of <code class="docutils literal"><span class="pre">16</span> <span class="pre">bytes</span></code>, and a fixed length value of
+<code class="docutils literal"><span class="pre">32</span> <span class="pre">bytes</span></code>. This class only populates a single block (<code class="docutils literal"><span class="pre">1024</span> <span class="pre">bytes</span></code>) in its current state,
+which means that <strong>21</strong> Key Value pairs can be stored.</p>
+<p>##Message Bus ID</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>##Message Bus Events</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitStorage&#8221;})
+##Constructor
+<br/>
+####MicroBitStorage()
+#####Description
+Default constructor.</p>
+<p>Creates an instance of  MicroBitStorage  which acts like a  KeyValueStore  that allows the retrieval, addition and deletion of KeyValuePairs.</p>
+<p>##writeBytes
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>writeBytes</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t *</div> buffer,  <div style='color:#a71d5d; display:inline-block'>uint32_t</div> address,  <div style='color:#a71d5d; display:inline-block'>int</div> length)
+#####Description
+Writes the given number of bytes to the address specified.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t \*</div> buffer - the data to write.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint32_t</div> address - the location in memory to write to.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> length - the number of bytes to write.</div></blockquote>
+<p>!!! note
+currently not implemented.</p>
+<p>##flashPageErase
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>flashPageErase</div>( <div style='color:#a71d5d; display:inline-block'>uint32_t *</div> page_address)
+#####Description
+Method for erasing a page in flash.</p>
+<p>page_address</p>
+<p>Address of the first word in the page to be erased.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint32_t \*</div> page_address - Address of the first word in the page to be erased. </div></blockquote>
+<p>##flashWordWrite
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>flashWordWrite</div>( <div style='color:#a71d5d; display:inline-block'>uint32_t *</div> address,  <div style='color:#a71d5d; display:inline-block'>uint32_t</div> value)
+#####Description
+Method for writing a word of data in flash with a value.</p>
+<p>address</p>
+<p>Address of the word to change.</p>
+<p>value</p>
+<p>Value to be written to flash.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint32_t \*</div> address - Address of the word to change.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint32_t</div> value - Value to be written to flash. </div></blockquote>
+<p>##put
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>put</div>( <div style='color:#a71d5d; display:inline-block'>const char *</div> key,  <div style='color:#a71d5d; display:inline-block'>uint8_t *</div> data,  <div style='color:#a71d5d; display:inline-block'>int</div> dataSize)
+#####Description
+Places a given key, and it&#8217;s corresponding value into flash at the earliest available point.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> key - the unique name that should be used as an identifier for the given data. The key is presumed to be null terminated.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t \*</div> data - a pointer to the beginning of the data to be persisted.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> dataSize - the size of the data to be persisted</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_INVALID_PARAMETER if the key or size is too large, MICROBIT_NO_RESOURCES if the storage page is full
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>put</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> key,  <div style='color:#a71d5d; display:inline-block'>uint8_t *</div> data,  <div style='color:#a71d5d; display:inline-block'>int</div> dataSize)
+#####Description
+Places a given key, and it&#8217;s corresponding value into flash at the earliest available point.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> key - the unique name that should be used as an identifier for the given data.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t \*</div> data - a pointer to the beginning of the data to be persisted.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> dataSize - the size of the data to be persisted</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, MICROBIT_INVALID_PARAMETER if the key or size is too large, MICROBIT_NO_RESOURCES if the storage page is full
+##get
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>KeyValuePair</div> <div style='color:#795da3; display:inline-block'>get</div>( <div style='color:#a71d5d; display:inline-block'>const char *</div> key)
+#####Description
+Retreives a  KeyValuePair  identified by a given key.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> key - the unique name used to identify a  KeyValuePair  in flash.</div></blockquote>
+<p>#####Returns
+a pointer to a heap allocated  KeyValuePair  struct, this pointer will be NULL if the key was not found in storage.</p>
+<p>!!! note
+it is up to the user to free memory after use.</p>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>KeyValuePair</div> <div style='color:#795da3; display:inline-block'>get</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> key)
+#####Description
+Retreives a  KeyValuePair  identified by a given key.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> key - the unique name used to identify a  KeyValuePair  in flash.</div></blockquote>
+<p>#####Returns
+a pointer to a heap allocated  KeyValuePair  struct, this pointer will be NULL if the key was not found in storage.</p>
+<p>!!! note
+it is up to the user to free memory after use.</p>
+<p>##remove
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>remove</div>( <div style='color:#a71d5d; display:inline-block'>const char *</div> key)
+#####Description
+Removes a  KeyValuePair  identified by a given key.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> key - the unique name used to identify a  KeyValuePair  in flash.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_NO_DATA if the given key was not found in flash.
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>remove</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> key)
+#####Description
+Removes a  KeyValuePair  identified by a given key.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> key - the unique name used to identify a  KeyValuePair  in flash.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_NO_DATA if the given key was not found in flash.
+##size
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>size</div>()
+#####Description
+The size of the flash based  KeyValueStore .</p>
+<p>#####Returns
+the number of entries in the key value store</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitStorage&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/storage.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/storage.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

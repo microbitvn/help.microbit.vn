@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Next Steps &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#Introduction</p>
+<p>The micro:bit runtime provides an easy to use environment for programming the BBC micro:bit
+in the C/C++ language, written by Lancaster University. It contains device drivers for all the hardware capabilities of the micro:bit,
+and also a suite of runtime mechanisms to make programming the micro:bit easier and more flexible. These
+range from control of the LED matrix display to peer-to-peer radio communication and secure
+Bluetooth Low Energy services. The micro:bit runtime is proudly built on the <a class="reference external" href="https://www.mbed.com">ARM mbed</a>
+and <a class="reference external" href="http://www.nordicsemi.com">Nordic nrf51</a> platforms.</p>
+<p>In addition to supporting development in C/C++, the runtime is also designed specifically to support
+higher level languages provided by our partners that target the micro:bit. It is currently used as a support library for all the
+languages on the BBC <a class="reference external" href="http://www.microbit.co.uk">www.microbit.co.uk</a> website, including the Microsoft Block Editor, Microsoft Touch Develop, Code Kingdom&#8217;s
+JavaScript and Micropython languages.</p>
+<p>On these pages you will find guidance on how to start using the runtime in C/C++, summaries of all the
+components that make up the system and a full set of API documentation (the functions you can use to control the micro:bit).</p>
+<p>Just to show how easy it is to get started, view a <a href="#next-steps">sample program</a>.</p>
+<p>#Getting Started</p>
+<p>Developing with the micro:bit runtime is simple, and there are multiple ways to create programs for your device.</p>
+<div class="col-sm-6">
+    <center>
+        <h3 id="online-environments">Online development</h3>
+    </center>
+    <p>
+        A basic quick start guide to getting an example project building in an
+        online programming environment.
+    </p>
+    <p>
+        <center>
+            <a href="online-toolchains" class="btn btn-lg btn-outline">
+                Online development tools
+            </a>
+        </center>
+    </p>
+</div>
+<div class="col-sm-6">
+    <center>
+        <h3 id="offline-environments">Offline development</h3>
+    </center>
+    <p>
+        A full guide to installing offline development tools, and a tutorial on getting
+        an example project building.
+    </p>
+    <p>
+        <center>
+            <a href="offline-toolchains" class="btn btn-lg btn-outline">
+                Offline development tools
+            </a>
+        </center>
+    </p>
+</div><div class="section" id="next-steps">
+<span id="next-steps"></span><h1>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h1>
+<p>After you&#8217;ve chosen your development environment, the next step is obvious: <strong>PROGRAM</strong>!</p>
+<p>Here is some sample code to get you started:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span> <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO WORLD!&quot;</span><span class="p">);</span>
+
+    <span class="n">release_fiber</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="what-is-ubit">
+<span id="what-is-ubit"></span><h2>What is uBit?<a class="headerlink" href="#what-is-ubit" title="Permalink to this headline">¶</a></h2>
+<p>uBit is an instance of the <a class="reference external" href="ubit.md">MicroBit</a> class which provides a really simple way to interact
+with the various components on the micro:bit itself.</p>
+<p>This simplicity can be seen with this line of code:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO WORLD!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This line scrolls the text <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span></code> across the micro:bit&#8217;s display.</p>
+<div class="section" id="initialisation">
+<span id="initialisation"></span><h3>Initialisation<a class="headerlink" href="#initialisation" title="Permalink to this headline">¶</a></h3>
+<p>In the above example, there is a line used to initialise the uBit object:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>In this call the scheduler, memory allocator and Bluetooth stack are initialised.</p>
+<p>!!!note
+This line is omitted in all examples you will find on this site simply to avoid
+repetition!</p>
+</div>
+</div>
+<div class="section" id="what-is-a-fiber-and-why-do-we-release-it">
+<span id="what-is-a-fiber-and-why-do-we-release-it"></span><h2>What is a fiber and why do we release it?<a class="headerlink" href="#what-is-a-fiber-and-why-do-we-release-it" title="Permalink to this headline">¶</a></h2>
+<p>Fibers are lightweight threads used by the runtime to perform operations asynchronously.</p>
+<p>The function call <code class="docutils literal"><span class="pre">release_fiber();</span></code> is recommended at the end of main to release the main fiber, and enter
+the scheduler indefinitely as you may have other fibers running elsewhere in the code.
+It also means that the processor will enter a power efficient sleep if there are
+no other processes running.</p>
+<p>If this line is omitted, your program will cease all execution.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Next Steps</a><ul>
+<li><a class="reference internal" href="#what-is-ubit">What is uBit?</a><ul>
+<li><a class="reference internal" href="#initialisation">Initialisation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-is-a-fiber-and-why-do-we-release-it">What is a fiber and why do we release it?</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/index_en.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/index_en.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

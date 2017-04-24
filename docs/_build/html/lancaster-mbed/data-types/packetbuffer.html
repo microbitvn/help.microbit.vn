@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creating PacketBuffers &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#PacketBuffer</p>
+<p>##Overview</p>
+<p>The <a class="reference external" href="../ubit/radio.md">MicroBitRadio</a> class provides direct micro:bit to micro:bit communication.</p>
+<p>It is often beneficial in both wired and wireless communication protocols to send
+and receive data in a raw format, viewed as an ordered sequence of bytes.</p>
+<p>This class provides a basic set of functions for the creation, manipulation and
+accessing of a managed type for byte arrays used to hold network data packets.</p>
+<p>!!! note
+This is a <strong>managed type</strong>. This means that it will automatically use and release memory as needed. There is no need for you to explicitly free or release memory when your done - the memory will be freed as soon as the last piece of code stops using the data.</p>
+<div class="section" id="creating-packetbuffers">
+<span id="creating-packetbuffers"></span><h1>Creating PacketBuffers<a class="headerlink" href="#creating-packetbuffers" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">PacketBuffer</span></code>s are simple to create - just create them like a variable, and provide the size (in bytes) of the buffer you want to create.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">PacketBuffer</span> <span class="nf">b</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Alternatively, if you already have an array of bytes allocated, then you can simply refer to that using a slightly different form:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">uint8_t</span> <span class="n">data</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span>
+<span class="n">PacketBuffer</span> <span class="nf">b</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="manipulating-packetbuffers">
+<span id="manipulating-packetbuffers"></span><h1>Manipulating PacketBuffers<a class="headerlink" href="#manipulating-packetbuffers" title="Permalink to this headline">¶</a></h1>
+<p>Once created, the data inside <code class="docutils literal"><span class="pre">PacketBuffer</span></code>s can be freely changed at any time. The simplest way to do this is through the array operators <code class="docutils literal"><span class="pre">[</span></code> and <code class="docutils literal"><span class="pre">]</span></code>.</p>
+<p>You can read or write bytes to the buffer by simply dereferencing it with square bracket.</p>
+<p>For example: to create, set and send a PacketBuffer on the micro:bit radio, you could do the following:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">PacketBuffer</span> <span class="nf">b</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">PacketBuffer</span></code>s can also be assigned a value:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">PacketBuffer</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If you need more granular access, the <code class="docutils literal"><span class="pre">getBytes</span></code> function provides direct access to the memory buffer, presented as a byte array:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">PacketBuffer</span> <span class="nf">b</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+<span class="kt">uint8_t</span> <span class="o">*</span><span class="n">buf</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">getBytes</span><span class="p">();</span>
+
+<span class="n">memcpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&quot;HI&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Finally, it is also possible to extract the received signal strength of a packet from a <code class="docutils literal"><span class="pre">PacketBuffer</span></code>.</p>
+<p>This can provide both a rough indication of the reliability of the link, and a crude but moderately effective mechanism to estimate the distance between two micro:bits.</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">PacketBuffer</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span>
+
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">getRSSI</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;ManagedString&#8221;})
+##Constructor
+<br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>StringData  *</div> ptr)
+#####Description
+Constructor. Create a managed string from a specially prepared string literal.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>StringData  \*</div> ptr - The literal - first two bytes should be 0xff, then the length in little endian, then the literal. The literal has to be 4-byte aligned.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">hello</span><span class="p">[]</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">aligned</span> <span class="p">(</span><span class="mi">4</span><span class="p">)))</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\xff\xff\x05\x00</span><span class="s">&quot;</span> <span class="s">&quot;Hello&quot;</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">((</span><span class="n">StringData</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">hello</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##leakData
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>StringData</div> <div style='color:#795da3; display:inline-block'>leakData</div>()
+#####Description
+Get current ptr, do not decr() it, and set the current instance to empty string.</p>
+<p>This is to be used by specialized runtimes which pass  StringData  around.</p>
+<p>##Constructor
+<br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const char *</div> str)
+#####Description
+Constructor.</p>
+<p>Create a managed string from a pointer to an 8-bit character buffer.</p>
+<p>The buffer is copied to ensure safe memory management (the supplied character buffer may be declared on the stack for instance).</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> str - The character array on which to base the new  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const int</div> value)
+#####Description
+Constructor.</p>
+<p>Create a managed string from a given integer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int</div> value - The integer from which to create the  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const char</div> value)
+#####Description
+Constructor. Create a managed string from a given char.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char</div> value - The character from which to create the  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> buffer)
+#####Description
+Constructor. Create a  ManagedString  from a  PacketBuffer . All bytes in the  PacketBuffer  are added to the  ManagedString .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> buffer - The PacktBuffer from which to create the  ManagedString .</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="n">s</span> <span class="o">=</span> <span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const char *</div> str,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> length)
+#####Description
+Constructor. Create a  ManagedString  from a pointer to an 8-bit character buffer of a given length.</p>
+<p>The buffer is copied to ensure sane memory management (the supplied character buffer may be declared on the stack for instance).</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> str - The character array on which to base the new  ManagedString .</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int16_t</div> length - The length of the character array</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Copy constructor. Makes a new  ManagedString  identical to the one supplied.</p>
+<p>Shares the character buffer and reference count with the supplied  ManagedString .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to copy.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####ManagedString()
+#####Description
+Default constructor.</p>
+<p>Create an empty  ManagedString .</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##operator=
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>operator=</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Copy assign operation.</p>
+<p>Called when one  ManagedString  is assigned the value of another.</p>
+<p>If the  ManagedString  being assigned is already referring to a character buffer, decrement the reference count and free up the buffer as necessary.</p>
+<p>Then, update our character buffer to refer to that of the supplied  ManagedString , and increase its reference count.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to copy.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;efgh&quot;</span><span class="p">);</span> 
+ <span class="n">p</span> <span class="o">=</span> <span class="n">s</span> <span class="c1">// p now points to s, s&#39; ref is incremented </span>
+</pre></div>
+</div>
+<p>##operator==
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator==</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Equality operation.</p>
+<p>Called when one  ManagedString  is tested to be equal to another using the &#8216;==&#8217; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  ManagedString  is identical to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;efgh&quot;</span><span class="p">);</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">s</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;We are the same!&quot;</span><span class="p">);</span> 
+ <span class="k">else</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;We are different!&quot;</span><span class="p">);</span> <span class="c1">//p is not equal to s - this will be called </span>
+</pre></div>
+</div>
+<p>##operator&lt;
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator&lt;</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Inequality operation.</p>
+<p>Called when one  ManagedString  is tested to be less than another using the &#8216;&lt;&#8216; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  ManagedString  is alphabetically less than to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">);</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;a is before b!&quot;</span><span class="p">);</span> <span class="c1">//a is before b </span>
+ <span class="k">else</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;b is before a!&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##operator&gt;
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator&gt;</div>( <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &amp;</div> s)
+#####Description
+Inequality operation.</p>
+<p>Called when one  ManagedString  is tested to be greater than another using the &#8216;&gt;&#8217; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  ManagedString  &</div> s - The  ManagedString  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  ManagedString  is alphabetically greater than to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">);</span> 
+ <span class="n">ManagedString</span> <span class="nf">p</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">);</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">&gt;</span><span class="n">a</span><span class="p">)</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;b is after a!&quot;</span><span class="p">);</span> <span class="c1">//b is after a </span>
+ <span class="k">else</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;a is after b!&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##substring
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>substring</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> start,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> length)
+#####Description
+Extracts a  ManagedString  from this string, at the position provided.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> start - The index of the first character to extract, indexed from zero.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> length - The number of characters to extract from the start position</div></blockquote>
+<p>#####Returns
+a  ManagedString  representing the requested substring.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcdefg&quot;</span><span class="p">);</span> 
+ 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="c1">// displays &quot;ab&quot; </span>
+</pre></div>
+</div>
+<p>##charAt
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>char</div> <div style='color:#795da3; display:inline-block'>charAt</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> index)
+#####Description
+Provides a character value at a given position in the string, indexed from zero.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> index - The position of the character to return.</div></blockquote>
+<p>#####Returns
+the character at posisiton index, zero if index is invalid.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">charAt</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1">// scrolls &quot;b&quot; </span>
+</pre></div>
+</div>
+<p>##toCharArray
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>const char *</div> <div style='color:#795da3; display:inline-block'>toCharArray</div>()
+#####Description
+Provides an immutable 8 bit wide character buffer representing this string.</p>
+<p>#####Returns
+a pointer to the character buffer.
+##length
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int16_t</div> <div style='color:#795da3; display:inline-block'>length</div>()
+#####Description
+Determines the length of this  ManagedString  in characters.</p>
+<p>#####Returns
+the length of the string in characters.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">ManagedString</span> <span class="nf">s</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">);</span> 
+ 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">())</span> <span class="c1">// scrolls &quot;4&quot; </span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;ManagedString&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Creating PacketBuffers</a></li>
+<li><a class="reference internal" href="#manipulating-packetbuffers">Manipulating PacketBuffers</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/data-types/packetbuffer.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/data-types/packetbuffer.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

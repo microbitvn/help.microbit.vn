@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.radio.event</p>
+<p>##Overview</p>
+<p>It is also possible to transparently send and receive events over the <code class="docutils literal"><span class="pre">MicroBitRadio</span></code> channel. This can provide very simple and easy to integrate
+support for event driven applications. Once configured, an event raised on one micro:bit can be detected on another - in the just the same way as
+a local event such as a button click.</p>
+<p>To use this functionality, all that is needed is to register the event codes that you would like to be sent over the radio, then write event handlers
+for the message bus as with all other events. See the documentation for the <a class="reference external" href="messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a> for details of how to write
+event handlers.</p>
+<p>For example, if you wanted to share an event SOMETHING with another micro:bit whenever ButtonA is pressed, you might write code like this on the sending micro:bit:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#define MY_APP_ID           4000</span>
+<span class="cp">#define SOMETHING           1</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="c1">// Ensure the radio is listening out to forward our events</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MY_APP_ID</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonA</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">MicroBitEvent</span><span class="p">(</span><span class="n">MY_APP_ID</span><span class="p">,</span> <span class="n">SOMETHING</span><span class="p">);</span>
+
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>...and on the micro:bits wanting to receive the event:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#define MY_APP_ID           4000</span>
+<span class="cp">#define SOMETHING           1</span>
+
+<span class="kt">void</span> <span class="nf">onSomething</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scrollAsync</span><span class="p">(</span><span class="s">&quot;Something!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MY_APP_ID</span><span class="p">,</span> <span class="n">SOMETHING</span><span class="p">,</span> <span class="n">onSomething</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>##Message Bus ID</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>##Message Bus Events</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitRadioEvent&#8221;})
+##Constructor
+<br/>
+####MicroBitRadioEvent( <div style='color:#a71d5d; display:inline-block'>MicroBitRadio  &amp;</div> r)
+#####Description
+Constructor.</p>
+<p>Creates an instance of  MicroBitRadioEvent  which offers the ability to extend the micro:bit&#8217;s default  EventModel  to other micro:bits in the vicinity.</p>
+<p>r</p>
+<p>The underlying radio module used to send and receive data.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitRadio  &</div> r - The underlying radio module used to send and receive data. </div></blockquote>
+<p>##listen
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>listen</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value)
+#####Description
+Associates the given event with the radio channel.</p>
+<p>Once registered, all events matching the given registration sent to this micro:bit&#8217;s default  EventModel  will be automatically retransmitted on the radio.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the event to register.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - the value of the event to register.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_NO_RESOURCES if no default  EventModel  is available.</p>
+<p>!!! note
+The wildcards MICROBIT_ID_ANY and MICROBIT_EVT_ANY can also be in place of the id and value fields.</p>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>listen</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value,  <div style='color:#a71d5d; display:inline-block'>EventModel  &amp;</div> eventBus)
+#####Description
+Associates the given event with the radio channel.</p>
+<p>Once registered, all events matching the given registration sent to the given  EventModel  will be automatically retransmitted on the radio.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the events to register.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - the value of the event to register.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>EventModel  &</div> eventBus - The  EventModel  to listen for events on.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success.</p>
+<p>!!! note
+The wildcards MICROBIT_ID_ANY and MICROBIT_EVT_ANY can also be in place of the id and value fields.</p>
+<p>##ignore
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>ignore</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value)
+#####Description
+Disassociates the given event with the radio channel.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the events to deregister.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - The value of the event to deregister.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the default message bus does not exist.</p>
+<p>!!! note
+MICROBIT_EVT_ANY can be used to deregister all event values matching the given id.</p>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>ignore</div>( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value,  <div style='color:#a71d5d; display:inline-block'>EventModel  &amp;</div> eventBus)
+#####Description
+Disassociates the given events with the radio channel.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - The id of the events to deregister.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - The value of the event to deregister.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>EventModel  &</div> eventBus - The  EventModel  to deregister on.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success.</p>
+<p>!!! note
+MICROBIT_EVT_ANY can be used to deregister all event values matching the given id.</p>
+<p>##packetReceived
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>packetReceived</div>()
+#####Description
+Protocol handler callback. This is called when the radio receives a packet marked as using the event protocol.</p>
+<p>This function process this packet, and fires the event contained inside onto the default  EventModel .</p>
+<p>##eventReceived
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>eventReceived</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> e)
+#####Description
+Event handler callback. This is called whenever an event is received matching one of those registered through the registerEvent() method described above. Upon receiving such an event, it is wrapped into a radio packet and transmitted to any other micro:bits in the same group.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> e</div></blockquote>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitRadioEvent&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/radioevent.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/radioevent.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

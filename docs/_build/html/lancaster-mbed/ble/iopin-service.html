@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bluetooth IO Pin Service &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bluetooth-io-pin-service">
+<span id="bluetooth-io-pin-service"></span><h1>Bluetooth IO Pin Service<a class="headerlink" href="#bluetooth-io-pin-service" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<span id="introduction"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This Bluetooth service is an optional part of the standard bluetooth profile for the micro:bit. It is a passive service, that can operate transparently in the
+background as your main program is running. It provides the ability to read and write digital and analog values from/to any of the pins exposed on the micro:bit edge connector, including the 3 main ring ports.
+This data can be transparently read and written by a connected Bluetooth master device such as a smartphone. You do not need to explicitly address an API on the service to achieve this.</p>
+</div>
+<div class="section" id="enabling-the-service">
+<span id="enabling-the-service"></span><h2>Enabling the Service<a class="headerlink" href="#enabling-the-service" title="Permalink to this headline">¶</a></h2>
+<p>This service is disabled by default. To enable the service, simply create an instance of this class in your program, at any time after the uBit object has been initialised:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span>    <span class="k">new</span> <span class="nf">MicroBitIOPinService</span><span class="p">(</span><span class="o">*</span><span class="n">uBit</span><span class="p">.</span><span class="n">ble</span><span class="p">,</span> <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>!!! note
+Using Bluetooth services is memory hungry. By default, some of the memory normally used by Nordic&#8217;s Bluetooth protocol stack (known as a SoftDevice), is reclaimed by the micro:bit runtime as general purpose memory for your applications. if you enable more Bluetooth services, then you may need to provide more memory back to Soft Device to ensure proper operation. If after enabling this service your Bluetooth application cannot access the service reliably, you should consider increasing the value of MICROBIT_SD_GATT_TABLE_SIZE in your inc/MicroBitConfig.h. The more service you add, the larger this will need to be, up to the limit defined in MicroBitConfig.h.</p>
+</div>
+<div class="section" id="bluetooth-service-specification">
+<span id="bluetooth-service-specification"></span><h2>Bluetooth Service Specification<a class="headerlink" href="#bluetooth-service-specification" title="Permalink to this headline">¶</a></h2>
+<p>Please see the <a class="reference external" href="../resources/bluetooth/microbit-profile-V1.9-Level-2.pdf">micro:bit Bluetooth profile specification</a>.</p>
+</div>
+<div class="section" id="example-applications-for-android-ios-android">
+<span id="example-applications-for-android-ios-android"></span><h2>Example Applications for Android/IOS/Android<a class="headerlink" href="#example-applications-for-android-ios-android" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-procedures">
+<span id="general-procedures"></span><h3>General Procedures<a class="headerlink" href="#general-procedures" title="Permalink to this headline">¶</a></h3>
+<p>Applications should first configure the pins they wish to work with over Bluetooth. Configuration involves specifying that a pin is to be used for digital I/O or analogue I/O and that it is to be used for input or for output. These two types of configuration are handled by two characteristics in the IO Pin Service namely Pin AD Configuration and Pin IO Configuration.</p>
+<p>The Pin AD Configuration characteristic contains A bit mask (32 bit) which defines which inputs will be read. If the Pin AD Configuration bit mask is also set the pin will be read as an analogue input, if not it will be read as a digital input.</p>
+<p>Note that in practice, setting a pin&#8217;s mask bit means that it will be read by the micro:bit runtime and, if notifications have been enabled on the Pin Data characteristic, data read will be transmitted to the connected Bluetooth peer device in a Pin Data notification. If the pin&#8217;s bit is clear, it  simply means that it will not be read by the micro:bit runtime.By default, pins are configured for output.</p>
+<p>The Pin Data characteristic  is used to read values from one or more pins concurrently via Bluetooth read operations or write data to pins using Bluetooth writes. Notifications are also supported as a means of receiving input data. See the reference documentation for further information.</p>
+<p>The PWM Control characteristic allows a client to use up to 2 micro:bit pins at a time for PWM output and to set the period and value of the pin(s). This is useful for applications such as the analogue control of LEDs and simple audio tone generation. Note that not all pins support PWM on micro:bit.</p>
+<p>!!! note
+If PWM is used for the generation of audio tones via speakers or similar, then tones will not sound as &#8220;clean and pure&#8221; as they would if the pins were set to the same period and value directly on a micro:bit which has Bluetooth disabled. This is due to a combination of factors including the fact that PWM on micro:bit is implemented partly in software and the Nordic Semiconductor Bluetooth stack takes priority with respect to interrupts.</p>
+</div>
+<div class="section" id="android">
+<span id="android"></span><h3>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
+<p><img src="../../resources/bluetooth/io_pin_demo.png" alt="IO Pin Demo"></p>
+<div class="section" id="android-bluetooth-apis">
+<span id="android-bluetooth-apis"></span><h4>Android Bluetooth APIs<a class="headerlink" href="#android-bluetooth-apis" title="Permalink to this headline">¶</a></h4>
+<p>Android developers should make themselves familiar with the <a class="reference external" href="http://developer.android.com/guide/topics/connectivity/bluetooth-le.html">Android Bluetooth low energy APIs</a></p>
+</div>
+<div class="section" id="microbit-ble-demo-android">
+<span id="microbit-ble-demo-android"></span><h4>microbit-ble-demo-android<a class="headerlink" href="#microbit-ble-demo-android" title="Permalink to this headline">¶</a></h4>
+<p>The open source microbit-ble-demo-android application contains a demonstration of the micro:bit Bluetooth IO Pin service which involves switching a connected LED on and off from a smartphone over Bluetooth. The main body of code for this demonstration can be found in ui.IoDigitalOutputActivity.java except for the Bluetooth operations themselves which are in bluetooth.BleAdapterService which acts as a kind of higher level Bluetooth API for activities to use without needing to directly concern themselves too closely with the Android APIs themselves. In most cases, operations are asynchronous so that the activity code initiates a Bluetooth operation by calling one of the methods in bluetooth.BleAdapterService (e.g. readCharacteristic(....) ) and later receives a message containing the result of the operation from this object via a Handler object. The message is examined in the Handler code and acted upon.</p>
+<p>Key parts of the IO Pin demonstration in this application are explained next.</p>
+</div>
+<div class="section" id="in-bluetooth-bleadapterservice">
+<span id="in-bluetooth-bleadapterservice"></span><h4>In bluetooth.BleAdapterService<a class="headerlink" href="#in-bluetooth-bleadapterservice" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">IOPINSERVICE_SERVICE_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D127B251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">PINDATA_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D8D00251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">PINADCONFIGURATION_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D5899251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">PINIOCONFIGURATION_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95DB9FE251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-ui-iopindigitaloutputactivity">
+<span id="in-ui-iopindigitaloutputactivity"></span><h4>In ui.IoPinDigitalOutputActivity<a class="headerlink" href="#in-ui-iopindigitaloutputactivity" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// Configure pin 0</span>
+<span class="c1">//   Digital</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">ad_flags</span> <span class="o">=</span> <span class="o">{</span><span class="mh">0x00</span><span class="o">};</span>
+<span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span>
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">IOPINSERVICE_SERVICE_UUID</span><span class="o">),</span> 
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PINADCONFIGURATION_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">ad_flags</span><span class="o">)</span>
+                    
+<span class="c1">//   Output</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">io_flags_out</span> <span class="o">=</span> <span class="o">{</span><span class="mh">0x00</span><span class="o">};</span>
+<span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span>
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">IOPINSERVICE_SERVICE_UUID</span><span class="o">),</span> 
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PINIOCONFIGURATION_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">io_flags_out</span><span class="o">);</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// toggling the LED state when the user touches the graphical button on the screen</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTouch</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">,</span> <span class="n">MotionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">==</span> <span class="n">led_switch</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">on</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">switch_off_pin_0</span> <span class="o">=</span> <span class="o">{</span><span class="mh">0x00</span><span class="o">,</span> <span class="mh">0x00</span><span class="o">};</span>
+            <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">IOPINSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PINDATA_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">switch_off_pin_0</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">switch_on_pin_0</span> <span class="o">=</span> <span class="o">{</span><span class="mh">0x00</span><span class="o">,</span> <span class="mh">0x01</span><span class="o">};</span>
+            <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">IOPINSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PINDATA_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">switch_on_pin_0</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="video-demonstration-starts-at-3-49">
+<span id="video-demonstration-starts-at-3-49"></span><h4>Video Demonstration - starts at 3:49<a class="headerlink" href="#video-demonstration-starts-at-3-49" title="Permalink to this headline">¶</a></h4>
+<iframe src="https://player.vimeo.com/video/153078747" width="750" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bluetooth IO Pin Service</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#enabling-the-service">Enabling the Service</a></li>
+<li><a class="reference internal" href="#bluetooth-service-specification">Bluetooth Service Specification</a></li>
+<li><a class="reference internal" href="#example-applications-for-android-ios-android">Example Applications for Android/IOS/Android</a><ul>
+<li><a class="reference internal" href="#general-procedures">General Procedures</a></li>
+<li><a class="reference internal" href="#android">Android</a><ul>
+<li><a class="reference internal" href="#android-bluetooth-apis">Android Bluetooth APIs</a></li>
+<li><a class="reference internal" href="#microbit-ble-demo-android">microbit-ble-demo-android</a></li>
+<li><a class="reference internal" href="#in-bluetooth-bleadapterservice">In bluetooth.BleAdapterService</a></li>
+<li><a class="reference internal" href="#in-ui-iopindigitaloutputactivity">In ui.IoPinDigitalOutputActivity</a></li>
+<li><a class="reference internal" href="#video-demonstration-starts-at-3-49">Video Demonstration - starts at 3:49</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ble/iopin-service.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ble/iopin-service.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

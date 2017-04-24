@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.buttonAB</p>
+<p>##Overview</p>
+<p>A <code class="docutils literal"><span class="pre">MicroBitMultiButton</span></code> mirrors the state of two <a class="reference external" href="button.md"><code class="docutils literal"><span class="pre">MicroBitButton</span></code></a>s
+using the message bus eventing mechanism. It provides a similar API and emits
+the same events as as a <a class="reference external" href="button.md"><code class="docutils literal"><span class="pre">MicroBitButton</span></code></a>.</p>
+<p>##Message Bus ID
+| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ID_BUTTON_AB | 26 |</p>
+<p>##Message Bus Events</p>
+<p>| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_BUTTON_EVT_DOWN | 1 |
+| MICROBIT_BUTTON_EVT_UP | 2 |
+| MICROBIT_BUTTON_EVT_CLICK | 3 |
+| MICROBIT_BUTTON_EVT_LONG_CLICK | 4 |
+| MICROBIT_BUTTON_EVT_HOLD | 5 |
+| MICROBIT_BUTTON_EVT_DOUBLE_CLICK | 6 |</p>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitMultiButton&#8221;})
+##Constructor
+<br/>
+####MicroBitMultiButton( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> button1,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> button2,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id)
+#####Description
+Constructor.</p>
+<p>Create a representation of a virtual button, that generates events based upon the combination of two given buttons.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> button1 - the unique ID of the first button to watch.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> button2 - the unique ID of the second button to watch.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> id - the unique  EventModel  id of this  MicroBitMultiButton  instance.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">multiButton</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_ID_BUTTON_B</span><span class="p">,</span> <span class="n">MICROBIT_ID_BUTTON_AB</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##isPressed
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>isPressed</div>()
+#####Description
+Tests if this  MicroBitMultiButton  instance is virtually pressed.</p>
+<p>#####Returns
+1 if both physical buttons are pressed simultaneously.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">if</span><span class="p">(</span><span class="n">buttonAB</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span> 
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;Pressed!&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##setEventConfiguration
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>setEventConfiguration</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitButtonEventConfiguration</div> config)
+#####Description
+Changes the event configuration of this button to the given MicroBitButtonEventConfiguration. All subsequent events generated by this button will then be informed by this configuration.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitButtonEventConfiguration</div> config - The new configuration for this button. Legal values are MICROBIT_BUTTON_ALL_EVENTS or MICROBIT_BUTTON_SIMPLE_EVENTS.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// Configure a button to generate all possible events. </span>
+ <span class="n">buttonAB</span><span class="p">.</span><span class="n">setEventConfiguration</span><span class="p">(</span><span class="n">MICROBIT_BUTTON_ALL_EVENTS</span><span class="p">);</span> 
+ 
+ <span class="c1">// Configure a button to suppress MICROBIT_BUTTON_EVT_CLICK and MICROBIT_BUTTON_EVT_LONG_CLICK events. </span>
+ <span class="n">buttonAB</span><span class="p">.</span><span class="n">setEventConfiguration</span><span class="p">(</span><span class="n">MICROBIT_BUTTON_SIMPLE_EVENTS</span><span class="p">);</span> 
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitMultiButton&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/multibutton.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/multibutton.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

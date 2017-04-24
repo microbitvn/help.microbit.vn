@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bluetooth Event Service &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bluetooth-event-service">
+<span id="bluetooth-event-service"></span><h1>Bluetooth Event Service<a class="headerlink" href="#bluetooth-event-service" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<span id="introduction"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This Bluetooth service is an optional part of the standard Bluetooth profile for the micro:bit. It is a passive service, that can operate transparently in the
+background as your main program is running. This service extends the microBitMessageBus over Bluetooth, so that standard MicroBitEvents raised on the device can be transmitted transparently over
+Bluetooth and received and processed by connected Bluetooth master device such as a smartphone.  You do not need to explicitly address and API on the service to achieve this.</p>
+</div>
+<div class="section" id="enabling-the-service">
+<span id="enabling-the-service"></span><h2>Enabling the Service<a class="headerlink" href="#enabling-the-service" title="Permalink to this headline">¶</a></h2>
+<p>This service is enabled by default.</p>
+</div>
+<div class="section" id="bluetooth-service-specification">
+<span id="bluetooth-service-specification"></span><h2>Bluetooth Service Specification<a class="headerlink" href="#bluetooth-service-specification" title="Permalink to this headline">¶</a></h2>
+<p>Please see the <a class="reference external" href="../resources/bluetooth/microbit-profile-V1.9-Level-2.pdf">micro:bit Bluetooth profile specification</a>.</p>
+</div>
+<div class="section" id="example-applications-for-android-ios-android">
+<span id="example-applications-for-android-ios-android"></span><h2>Example Applications for Android/IOS/Android<a class="headerlink" href="#example-applications-for-android-ios-android" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-procedures">
+<span id="general-procedures"></span><h3>General Procedures<a class="headerlink" href="#general-procedures" title="Permalink to this headline">¶</a></h3>
+<p>micro:bit uses an event bus which relays event objects from system components which generate them to other system components which have registered an interest in events of a given type. This principle and capability has been extended to remote devices connected over Bluetooth. Connected clients can indicate the types of event they are interested in and be informed via Bluetooth notifications as and when such events occur. Similarly, micro:bit application code can inform a connected client of events which might happen in or be observed by an application running on the connected device (the client application) and be informed when they occur via Bluetooth write operations.</p>
+<p>Event objects consist of a short (2 octets) type and a short (2 octets) value.</p>
+<p>When either client application or micro:bit code registers an interest in an event type it may register for all events of that type regardless of the associated value or may specify a particular value which must accompany that event type for it to be of interest.</p>
+<p>The Microbit Requirements characteristic allows micro:bit code to inform the client application of a list of one or more event types/values it wants to be informed about if they arise. For example if a client application monitors for incoming SMS messages and defines receipt of an SMS message to be event type 1234 then a micro:bit application could inform the client application it wants to be told when an SMS has been received by declaring its interest in event type 1234 in its MicrobitRequirements characteristic.</p>
+<p>The Client Requirements characteristic has a similar purpose but is the mechanism the client application uses to tell the micro:bit application what events it is interested in. Should they arise and notifications have been enabled on the MicrobitEvent characteristic, the client application will receive a Bluetooth notification containing the event object. A micro:bit application which monitors temperature and notifies a smartphone application when the temperature falls below a specified limit or rises above another threshold could use events to notify the client application when either of these things happens.</p>
+<p>The MicroBit Event characteristic is used to convey events which have happened on the micro:bit to the connected client. Notifications are normally used but the most recent events for which the client registered can be determined by reading the characteristic value at any time.</p>
+<p>The Client Event characteristic is used to convey events which have happened on the client device to the micro:bit. This is achieved through the client application writing one or more events to the characteristic value.</p>
+<p>See the profile page and profile reference documentation for data format and UUID details.</p>
+</div>
+<div class="section" id="android">
+<span id="android"></span><h3>Android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h3>
+<p><img src="../../resources/bluetooth/event_demo.png" alt="Event Demo"></p>
+<div class="section" id="android-bluetooth-apis">
+<span id="android-bluetooth-apis"></span><h4>Android Bluetooth APIs<a class="headerlink" href="#android-bluetooth-apis" title="Permalink to this headline">¶</a></h4>
+<p>Android developers should make themselves familiar with the <a class="reference external" href="http://developer.android.com/guide/topics/connectivity/bluetooth-le.html">Android Bluetooth low energy APIs</a></p>
+</div>
+<div class="section" id="microbit-ble-demo-android">
+<span id="microbit-ble-demo-android"></span><h4>microbit-ble-demo-android<a class="headerlink" href="#microbit-ble-demo-android" title="Permalink to this headline">¶</a></h4>
+<p>The open source microbit-ble-demo-android application contains a number of demonstrations of the micro:bit Bluetooth event service including Temperature Alarm and Squirrel Counter. The main body of code for the temperature alarm demonstration can be found in ui.TemperatureAlarmActivity.java except for the Bluetooth operations themselves which are in bluetooth.BleAdapterService which acts as a kind of higher level Bluetooth API for activities to use without needing to directly concern themselves too closely with the Android APIs themselves. In most cases, operations are asynchronous so that the activity code initiates a Bluetooth operation by calling one of the methods in bluetooth.BleAdapterService (e.g. readCharacteristic(....) ) and later receives a message containing the result of the operation from this object via a Handler object. The message is examined in the Handler code and acted upon.</p>
+<p>Key parts of the temperature alarm demonstration in this application are explained next.</p>
+</div>
+<div class="section" id="in-bluetooth-bleadapterservice">
+<span id="in-bluetooth-bleadapterservice"></span><h4>In bluetooth.BleAdapterService<a class="headerlink" href="#in-bluetooth-bleadapterservice" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">EVENTSERVICE_SERVICE_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D93AF251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">MICROBITREQUIREMENTS_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95DB84C251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">MICROBITEVENT_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D9775251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">CLIENTREQUIREMENTS_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D23C4251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">CLIENTEVENT_CHARACTERISTIC_UUID</span> <span class="o">=</span> <span class="s">&quot;E95D5404251D470AA062FA1922DFA9A8&quot;</span><span class="o">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-ui-temperaturealarmactivity">
+<span id="in-ui-temperaturealarmactivity"></span><h4>In ui.TemperatureAlarmActivity<a class="headerlink" href="#in-ui-temperaturealarmactivity" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// event variables and values</span>
+<span class="kd">private</span> <span class="kt">byte</span> <span class="n">upper_limit</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">byte</span> <span class="n">lower_limit</span><span class="o">;</span>
+
+<span class="c1">// LE here means Little Endian btw</span>
+
+<span class="c1">// micro:bit event codes:</span>
+<span class="c1">// 9000 = 0x2823 (LE) = temperature alarm. Value=0 means OK, 1 means cold, 2 means hot</span>
+
+<span class="c1">// client event codes:</span>
+<span class="c1">// 9001=0x2923 (LE) = set lower limit, value is the limit value in celsius</span>
+<span class="c1">// 9002=0x2A23 (LE) = set upper limit, value is the limit value in celsius</span>
+
+<span class="kd">private</span> <span class="kt">byte</span> <span class="o">[]</span> <span class="n">event_set_lower</span> <span class="o">=</span> <span class="o">{</span> <span class="mh">0x29</span><span class="o">,</span> <span class="mh">0x23</span><span class="o">,</span> <span class="mh">0x00</span><span class="o">,</span> <span class="mh">0x00</span><span class="o">};</span> <span class="c1">// event 9001</span>
+<span class="kd">private</span> <span class="kt">byte</span> <span class="o">[]</span> <span class="n">event_set_upper</span> <span class="o">=</span> <span class="o">{</span> <span class="mh">0x2A</span><span class="o">,</span> <span class="mh">0x23</span><span class="o">,</span> <span class="mh">0x00</span><span class="o">,</span> <span class="mh">0x00</span><span class="o">};</span> <span class="c1">// event 9002</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// enabling microbit event notifications</span>
+<span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">setNotificationsState</span><span class="o">(</span>
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">EVENTSERVICE_SERVICE_UUID</span><span class="o">),</span> 
+                    <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">MICROBITEVENT_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="kc">true</span><span class="o">)</span>                    
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">short</span> <span class="n">MICROBIT_EVENT_TYPE_TEMPERATURE_ALARM</span> <span class="o">=</span> <span class="mi">9000</span><span class="o">;</span>
+<span class="kt">short</span> <span class="n">MICROBIT_EVENT_VALUE_ANY</span> <span class="o">=</span> <span class="mo">0000</span><span class="o">;</span>
+<span class="c1">// informing micro:bit of the types of event we want to be informed about</span>
+<span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">EVENTSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">CLIENTREQUIREMENTS_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">leBytesFromTwoShorts</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">MICROBIT_EVENT_TYPE_TEMPERATURE_ALARM</span><span class="o">,</span><span class="n">Constants</span><span class="o">.</span><span class="na">MICROBIT_EVENT_VALUE_ANY</span><span class="o">));</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// setting the upper and lower temperature limits </span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setUpperLimit</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// set the value part of this event data</span>
+    <span class="n">event_set_upper</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getUpper_temperature_limit</span><span class="o">();</span>
+    <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">EVENTSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">CLIENTEVENT_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">event_set_upper</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setLowerLimit</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// set the value part of this event data</span>
+    <span class="n">event_set_lower</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getLower_temperature_limit</span><span class="o">();</span>
+    <span class="n">bluetooth_le_adapter</span><span class="o">.</span><span class="na">writeCharacteristic</span><span class="o">(</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">EVENTSERVICE_SERVICE_UUID</span><span class="o">),</span> <span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">CLIENTEVENT_CHARACTERISTIC_UUID</span><span class="o">),</span> <span class="n">event_set_lower</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// handling a MicrobitEvent notification indicating a temperature alarm of &quot;too hot&quot; or &quot;too cold&quot;</span>
+<span class="k">case</span> <span class="n">BleAdapterService</span><span class="o">.</span><span class="na">NOTIFICATION_RECEIVED</span><span class="o">:</span>
+    <span class="n">bundle</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+    <span class="n">service_uuid</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PARCEL_SERVICE_UUID</span><span class="o">);</span>
+    <span class="n">characteristic_uuid</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PARCEL_CHARACTERISTIC_UUID</span><span class="o">);</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getByteArray</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">PARCEL_VALUE</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">characteristic_uuid</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">((</span><span class="n">Utility</span><span class="o">.</span><span class="na">normaliseUUID</span><span class="o">(</span><span class="n">BleAdapterService</span><span class="o">.</span><span class="na">MICROBITEVENT_CHARACTERISTIC_UUID</span><span class="o">))))</span> <span class="o">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">event_bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">value_bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">event_bytes</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="n">value_bytes</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="kt">short</span> <span class="n">event</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="na">shortFromLittleEndianBytes</span><span class="o">(</span><span class="n">event_bytes</span><span class="o">);</span>
+        <span class="kt">short</span> <span class="n">value</span> <span class="o">=</span> <span class="n">Utility</span><span class="o">.</span><span class="na">shortFromLittleEndianBytes</span><span class="o">(</span><span class="n">value_bytes</span><span class="o">);</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">TAG</span><span class="o">,</span> <span class="s">&quot;Temperature Alarm received: event=&quot;</span> <span class="o">+</span> <span class="n">event</span> <span class="o">+</span> <span class="s">&quot; value=&quot;</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">event</span> <span class="o">==</span> <span class="n">Constants</span><span class="o">.</span><span class="na">MICROBIT_EVENT_TYPE_TEMPERATURE_ALARM</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">setAlarmImage</span><span class="o">(</span><span class="n">alarm_image</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+            <span class="n">setAlarmMessage</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">break</span><span class="o">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="video-demonstrations">
+<span id="video-demonstrations"></span><h4>Video Demonstrations<a class="headerlink" href="#video-demonstrations" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="temperature-alarm">
+<span id="temperature-alarm"></span><h5>Temperature Alarm<a class="headerlink" href="#temperature-alarm" title="Permalink to this headline">¶</a></h5>
+<iframe src="https://player.vimeo.com/video/153072501" width="750" height="422" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+<div class="section" id="buggy-remote-control">
+<span id="buggy-remote-control"></span><h5>Buggy Remote Control<a class="headerlink" href="#buggy-remote-control" title="Permalink to this headline">¶</a></h5>
+<iframe allowfullscreen="" frameborder="0" height="422" mozallowfullscreen="" src="https://player.vimeo.com/video/162680772" webkitallowfullscreen="" width="750"></iframe><div class="section" id="micro-bit-code-for-the-buggy-controller">
+<span id="micro-bit-code-for-the-buggy-controller"></span><h6>micro:bit code for the buggy controller<a class="headerlink" href="#micro-bit-code-for-the-buggy-controller" title="Permalink to this headline">¶</a></h6>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm">The MIT License (MIT)</span>
+
+<span class="cm">Copyright (c) 2016 British Broadcasting Corporation.</span>
+<span class="cm">This software is provided by Lancaster University by arrangement with the BBC.</span>
+
+<span class="cm">Permission is hereby granted, free of charge, to any person obtaining a</span>
+<span class="cm">copy of this software and associated documentation files (the &quot;Software&quot;),</span>
+<span class="cm">to deal in the Software without restriction, including without limitation</span>
+<span class="cm">the rights to use, copy, modify, merge, publish, distribute, sublicense,</span>
+<span class="cm">and/or sell copies of the Software, and to permit persons to whom the</span>
+<span class="cm">Software is furnished to do so, subject to the following conditions:</span>
+
+<span class="cm">The above copyright notice and this permission notice shall be included in</span>
+<span class="cm">all copies or substantial portions of the Software.</span>
+
+<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="cm">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="cm">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="cm">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="cm">LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER</span>
+<span class="cm">DEALINGS IN THE SOFTWARE.</span>
+<span class="cm">*/</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;MicroBitSamples.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#ifdef MICROBIT_GAMEPAD</span>
+
+<span class="n">MicroBit</span> <span class="n">uBit</span><span class="p">;</span>
+
+<span class="cp">#define MES_DPAD_CONTROLLER                 1104</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_UP_ON             1</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_UP_OFF            2</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_DOWN_ON           3</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_DOWN_OFF          4</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_LEFT_ON           5</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_LEFT_OFF          6</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_RIGHT_ON          7</span>
+<span class="cp">#define MES_DPAD_1_BUTTON_RIGHT_OFF         8</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_UP_ON             9</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_UP_OFF            10</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_DOWN_ON           11</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_DOWN_OFF          12</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_LEFT_ON           13</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_LEFT_OFF          14</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_RIGHT_ON          15</span>
+<span class="cp">#define MES_DPAD_2_BUTTON_RIGHT_OFF         16</span>
+
+<span class="kt">int</span> <span class="n">pin0</span><span class="p">,</span> <span class="n">pin8</span><span class="p">,</span> <span class="n">pin12</span><span class="p">,</span> <span class="n">pin16</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">drive</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onControllerEvent</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MES_DPAD_2_BUTTON_UP_ON</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">pin12</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">pin16</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="n">drive</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MES_DPAD_2_BUTTON_UP_OFF</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">pin12</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">pin16</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="n">drive</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="k">if</span> <span class="p">(</span><span class="n">drive</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MES_DPAD_1_BUTTON_LEFT_ON</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">pin12</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">pin16</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MES_DPAD_1_BUTTON_RIGHT_ON</span><span class="p">)</span> <span class="p">{</span>
+              <span class="n">pin12</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+              <span class="n">pin16</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MES_DPAD_1_BUTTON_LEFT_OFF</span> <span class="o">||</span> <span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MES_DPAD_1_BUTTON_RIGHT_OFF</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="n">pin12</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                  <span class="n">pin16</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setDigitalValue</span><span class="p">(</span><span class="n">pin0</span><span class="p">);</span>
+  <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P8</span><span class="p">.</span><span class="n">setDigitalValue</span><span class="p">(</span><span class="n">pin8</span><span class="p">);</span>
+  <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P12</span><span class="p">.</span><span class="n">setDigitalValue</span><span class="p">(</span><span class="n">pin12</span><span class="p">);</span>
+  <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P16</span><span class="p">.</span><span class="n">setDigitalValue</span><span class="p">(</span><span class="n">pin16</span><span class="p">);</span>
+  
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Initialise the micro:bit runtime.</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;BUGGY!&quot;</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MES_DPAD_CONTROLLER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">onControllerEvent</span><span class="p">);</span> 
+
+    <span class="c1">// If main exits, there may still be other fibers running or registered event handlers etc.</span>
+    <span class="c1">// Simply release this fiber, which will mean we enter the scheduler. Worse case, we then</span>
+    <span class="c1">// sit in the idle task forever, in a power efficient sleep.</span>
+    <span class="n">release_fiber</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bluetooth Event Service</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#enabling-the-service">Enabling the Service</a></li>
+<li><a class="reference internal" href="#bluetooth-service-specification">Bluetooth Service Specification</a></li>
+<li><a class="reference internal" href="#example-applications-for-android-ios-android">Example Applications for Android/IOS/Android</a><ul>
+<li><a class="reference internal" href="#general-procedures">General Procedures</a></li>
+<li><a class="reference internal" href="#android">Android</a><ul>
+<li><a class="reference internal" href="#android-bluetooth-apis">Android Bluetooth APIs</a></li>
+<li><a class="reference internal" href="#microbit-ble-demo-android">microbit-ble-demo-android</a></li>
+<li><a class="reference internal" href="#in-bluetooth-bleadapterservice">In bluetooth.BleAdapterService</a></li>
+<li><a class="reference internal" href="#in-ui-temperaturealarmactivity">In ui.TemperatureAlarmActivity</a></li>
+<li><a class="reference internal" href="#video-demonstrations">Video Demonstrations</a><ul>
+<li><a class="reference internal" href="#temperature-alarm">Temperature Alarm</a></li>
+<li><a class="reference internal" href="#buggy-remote-control">Buggy Remote Control</a><ul>
+<li><a class="reference internal" href="#micro-bit-code-for-the-buggy-controller">micro:bit code for the buggy controller</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ble/event-service.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ble/event-service.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

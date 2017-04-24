@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Hello, World! &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="hello-world">
+<span id="hello-world"></span><h1>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h1>
+<p>Cách thông thường để bắt đầu lập trình bằng một ngôn ngữ mới là ra lệnh cho
+máy tính của bạn hiển thị, &#8220;Hello, World! &#8221;.</p>
+<p><img alt="" src="../_images/scroll-hello1.gif" /></p>
+<p>Thật dễ dàng với MicroPython:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Mỗi dòng lệnh thực thi một điều đặc biệt nào đó. Dòng lệnh đầu tiên:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>... ra lệnh cho MicroPython lấy tất cả những thứ cần thiết để làm việc với BBC
+micro:bit. Tất cả các thứ này nằm trong một mô-đun gọi là <code class="docutils literal"><span class="pre">microbit</span></code> (một mô-đun
+là một thư viện của mã có trước đó). Khi bạn <code class="docutils literal"><span class="pre">import</span></code> (nhập) một cái gì đó tức là bạn đang cho
+MicroPython biết rằng bạn muốn sử dụng nó, và ký hiệu <code class="docutils literal"><span class="pre">*</span></code> là cách Python nói
+<em>mọi thứ</em>. Vì vậy, <code class="docutils literal"><span class="pre">from</span> <span class="pre">microbit</span> <span class="pre">import</span> <span class="pre">*</span></code> trong tiếng Việt có nghĩa là, &#8220;Tôi muốn có thể
+sử dụng mọi thứ từ thư viện mã lệnh của microbit&#8221;.</p>
+<p>Dòng lệnh thứ hai:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">scroll</span> <span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>...ra lệnh cho MicroPython hãy sử dụng màn hình để di chuyển chuỗi các ký tự
+&#8220;Hello, World!&#8221;. Phần <code class="docutils literal"><span class="pre">display</span></code> của dòng lệnh đó là một <em>object</em> từ mô-đun
+<code class="docutils literal"><span class="pre">microbit</span></code> đại diện hiển thị vật lý của thiết bị (chúng ta khai báo là
+&#8220;object&#8221;thay vì &#8221; thingy&#8221;, &#8220;whatsit&#8221; hoặc &#8220;doodah&#8221;). Chúng ta có thể ra lệnh cho màn hình
+làm một vài điều với một dấu chấm <code class="docutils literal"><span class="pre">.</span></code> theo sau bởi những gì trông giống như một lệnh (thực tế
+chúng ta gọi là một <em>method</em>). Trong trường hợp này, chúng tôi đang sử dụng phương pháp
+<code class="docutils literal"><span class="pre">scroll</span></code> (<code class="docutils literal"><span class="pre">cuộn</span></code>). Vì <code class="docutils literal"><span class="pre">scroll</span></code> cần phải biết những kí tự gì để di chuyển
+đi ngang qua màn hình hiển thị nên chúng ta khai báo chúng giữa dấu nháy kép (<code class="docutils literal"><span class="pre">&quot;</span></code>)
+bên trong dấu ngoặc đơn (<code class="docutils literal"><span class="pre">(</span></code> và <code class="docutils literal"><span class="pre">)</span></code>). Chúng được gọi là các <em>argument</em> (đối số). Vì vậy,
+<code class="docutils literal"><span class="pre">display.scroll(&quot;Hello,</span> <span class="pre">World!&quot;)</span></code>trong tiếng Việt có nghĩa là, &#8220;Tôi muốn bạn sử dụng
+màn hình để di chuyển dòng chữ &#8220;Hello, World!&#8216;&#8221;. Nếu một method (phương pháp) không cần bất kỳ
+đối số nào chúng ta cần khai báo rõ ràng bằng cách sử dụng dấu ngoặc đơn trống như thế này: <code class="docutils literal"><span class="pre">()</span></code>.</p>
+<p>Sao chép file lệnh &#8220;Hello, World! &#8221; vào chương trình soạn thảo của bạn và ghi (flash) nó vào thiết bị.
+Bạn có thể tìm ra cách thay đổi tin báo không? Bạn có thể ra lệnh cho nó nói xin chào bạn không?
+Ví dụ, tôi có thể làm cho nó nói &#8220;Hello, Nicholas! &#8221;. Dưới đây là một manh mối, bạn cần phải
+thay đổi đối số của phương pháp cuộn.</p>
+<p>!!! warning &#8220;Cảnh báo&#8221;</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Nó có thể không hoạt động. :-)
+
+Đây là nơi mọi thứ trở nên thú vị và MicroPython cố gắng để hữu dụng. Nếu
+gặp lỗi nó sẽ đưa ra một tin báo hữu ích trên màn hình hiển thị
+của micro:bit. Nếu có thể, nó sẽ cho bạn biết dòng số mấy xuất hiện lỗi.
+
+Python kỳ vọng bạn gõ ** CHÍNH XÁC** cái mình muốn. Ví dụ,
+``Microbit``,``microbit`` và ``microBit`` tất cả đều khác nhau đối với
+Python. Nếu MicroPython than phiền ``NameError`` (Sai tên) có thể 
+bởi vì bạn đã gõ cái gì đó không chính xác. Giống như sự khác biệt
+giữa việc đề cập đến &quot;Nicholas &quot; và &quot;Nicolas&quot; vậy. Họ là hai người khác nhau
+nhưng tên của họ rất giống nhau.
+
+Nếu MicroPython than phiền ``SyntaxError`` đơn giản là bạn đã gõ mã
+theo cách mà MicroPython không thể hiểu. Hãy kiểm tra bạn không thiếu bất kỳ 
+ký tự đặc biệt nào như ``&quot;`` hoặc ``:``. Điều đó giống như đặt dấu chấm. vào
+giữa câu vậy. Thật khó để hiểu ý bạn muốn nói chính xác là gì.
+
+Microbit có thể ngừng đáp ứng: bạn không thể flash mã mới vào hoặc
+nhập lệnh vào REPL. Nếu điều này xảy ra, hãy thử cấp nguồn điện lại cho nó. Bằng
+cách, tháo cáp USB (và cáp pin nếu nó được kết nối), sau đó cắm
+cáp lại. Bạn có thể cũng cần phải thoát và khởi động lại chương trình
+soạn thảo lệnh.
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/helloworld_vi.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/helloworld_vi.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

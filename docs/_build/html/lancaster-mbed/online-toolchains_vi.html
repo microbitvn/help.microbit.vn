@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mbed &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#Môi trường lập trình C/C++ trên web có hỗ trợ bộ runtime</p>
+<p>| Trình biên dịch online | Mô tả |
+| &#8212; |&#8212;&#8212;&#8212;&#8212;-|
+| <a class="reference external" href="#mbed"><img alt="ARM mbed" src="../_images/mbed.png" /></a> | ARM mbed có một môi trường phát triển tích hợp (IDE) online để phát triển code với C/C++ tại địa chỉ <a class="reference external" href="http://developer.mbed.org">http://developer.mbed.org</a>. Nó cho phép dùng miễn phí và bo BBC micro:bit là một trong các nền tảng được hỗ trợ chính thức. Trình online IDE này cung cấp một giao diện đơn giản để viết, biên dịch và chia sẻ các dự án kiểu như micro:bit DAL, dựa trên bộ phát triển <a class="reference external" href="https://github.com/mbedmicro/mbed">mbed SDK</a>. |</p>
+<p>#Các bạn của chúng tôi cũng dùng bộ runtime</p>
+<p>| Ngôn ngữ lập trình | Mô tả |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| <div class="img-icon"><a class="reference external" href="https://codethemicrobit.com/"><img alt="Microsoft PXT" src="../_images/pxt.svg" /></a></div> | Bộ Microsoft Programming Experience Toolkit (PXT) cung cấp một trải nghiệm lập trình dựa trên JavaScript. Trải nghiệm này có đủ cấp độ được xây dựng sẵn, từ bộ soạn thảo đơn giản dựa theo các khối, đến trình soạn thảo bằng văn bản trong trình duyệt web với chức năng tự động hoàn thiện từ (auto-completion) và tự động sửa lỗi mạnh mẽ, cho đến hẳn một môi trường phát triển chuyên nghiệp, Visual Studio Code. |
+| <div class="img-icon"><a class="reference external" href="https://www.microbit.co.uk/create-code"><img alt="Microsoft Touch Develop" src="../_images/touchdevelop.png" /></a> </div> | Với giao diện chạm của nó, Touch Develop được thiết kế cho các thiết bị di động với màn hình chạm. Nó cũng có thể được dùng với một máy tính PC, bàn phím và con chuột. Touch Develop giới thiệu một ngôn ngữ kịch bản kiểu tĩnh với bộ soạn thảo hướng theo cú pháp (syntax-directed). Nó có thể được dùng để tạo ra các apps trên web có thể chạy trên bất cứ nền tảng nào. |
+| <div class="img-icon"><a class="reference external" href="https://www.microbit.co.uk/create-code"><img alt="Microsoft Block Editor" src="../_images/blocks.png" /></a></div> | Chương trình Block Editor là một trình soạn thảo bằng đồ họa và thích hợp để giới thiệu về lập trình cấu trúc bằng các khối lệnh kéo thả có thể tự bám (snap) vào nhau. Bạn cũng có thể chuyển đổi một kịch bản Block Editor sang một đoạn mã Touch Develop để giúp chuyển tiếp sang kiểu lập trình bằng văn bản. |
+| <div class="img-icon"><a class="reference external" href="https://www.microbit.co.uk/create-code"><img alt="Code Kingdoms JavaScript" src="../_images/codekingdoms.png" /></a></div> | Code Kingdoms là một bộ soạn thảo đồ họa JavaScript. Nó có giao diện kéo thả nên dễ học đối với người mới bắt đầu. Bạn cũng có thể thay đổi từ trình soạn thảo đồ họa sang một trình soạn thảo dùng văn bản để giúp việc chuyển tiếp sang lập trình bằng văn bản khi kỹ năng lập trình của người học tiến bộ lên. |
+| <div class="img-icon"><a class="reference external" href="https://www.microbit.co.uk/create-code"><img alt="MicroPython" src="../_images/python.png" /></a></div> | MicroPython là một bộ soạn thảo hoàn toàn bằng văn bản, perfect cho ai muốn đẩy kỹ năng lập trình của họ tiến xa thêm. Một bộ &#8216;snippets&#8217; chọn lọc được cung cấp để giúp việc điền đầy đủ lệnh (auto-complete) cho các tác vụ khó hơn, và một kho các hình ảnh và âm nhạc được tạo sẵn để giúp bạn trong khi lập trình. |</p>
+<div class="section" id="mbed">
+<span id="mbed"></span><h1>mbed<a class="headerlink" href="#mbed" title="Permalink to this headline">¶</a></h1>
+<p>ARM mbed có một môi trường phát triển tích hợp (IDE) online để phát triển code với C/C++ tại địa chỉ <a class="reference external" href="http://developer.mbed.org">http://developer.mbed.org</a>. Nó cho phép dùng miễn phí và bo BBC micro:bit là một trong các nền tảng được hỗ trợ chính thức.</p>
+<p>Trình online IDE này cung cấp một giao diện đơn giản để viết, biên dịch và chia sẻ các dự án kiểu như micro:bit DAL, dựa trên bộ phát triển <a class="reference external" href="https://github.com/mbedmicro/mbed">mbed SDK</a>.</p>
+<p><img alt="ảnh màn hình bộ biên dịch online mbed.org" src="../_images/mbed-compiler.png" /></p>
+<div class="section" id="bat-dau-voi-mbed-org">
+<span id="bat-dau-voi-mbed-org"></span><h2>Bắt đầu với mbed.org<a class="headerlink" href="#bat-dau-voi-mbed-org" title="Permalink to this headline">¶</a></h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/L5TcmFFD0iw?list=PLiVCejcvpsetJ1n9nRXzLWvE4dp4RwGOf" frameborder="0" allowfullscreen></iframe></div>
+<div class="section" id="hello-world-tren-mbed-org">
+<span id="hello-world-tren-mbed-org"></span><h2>Hello World trên mbed.org<a class="headerlink" href="#hello-world-tren-mbed-org" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>Tạo một tài khoản trên trang <a class="reference external" href="https://developer.mbed.org/account/signup">developer.mbed.org</a>.</li>
+<li>Vào trang <a class="reference external" href="https://developer.mbed.org/platforms/Microbit/">nền tảng micro:bit</a> và <em>thêm bo mạch micro:bit vào trình biên dịch của bạn</em> bằng cách click vào nút &#8220;Add to your mbed compiler&#8221; ở thanh công cụ bên tay phải.</li>
+<li>Đến trang của dự án <a class="reference external" href="https://developer.mbed.org/teams/Lancaster-University/code/microbit-samples/?platform=Microbit">microbit-samples</a>, và click vào nút <code class="docutils literal"><span class="pre">Import</span> <span class="pre">this</span> <span class="pre">program</span></code> cho dự án đó. Môi trường phát triển online IDE sẽ mở ra.</li>
+<li>Hoàn tất việc nhập vào dự án, rồi chọn nó ở thanh công cụ bên cạnh và click vào nút <code class="docutils literal"><span class="pre">Compile</span></code>. Việc biên dịch chương trình sẽ bắt đầu. Lần biên dịch đầu tiên sẽ tốn nhiều thời gian hơn những lần tiếp theo.</li>
+<li>Trình duyệt web của bạn sẽ hỏi bạn để tải về một tập tin. Lưu tập tin này vào máy tính của bạn, rồi kéo thả nó vào thư mục của bo mạch micro:bit. Quá trình sao chép sẽ làm cho đèn LED màu cam ở mặt sau micro:bit nhấp nháy; nó sẽ ngưng nháy khi chương trình đã được tải xuống bo mạch thành công.</li>
+<li>Khi việc sao chép kết thúc, ổ đĩa micro:bit sẽ khởi động lại và ngắt kết nối khỏi máy tính của bạn. Vào thời điểm này, chương trình của bạn bắt đầu chạy!</li>
+</ol>
+<p>Có một hướng dẫn cụ thể hơn để sử dụng micro:bit trong mbed trên trang <a class="reference external" href="https://developer.mbed.org/teams/Lancaster-University/wiki/MicrobitGettingStarted">wiki về mbed của Đại học Lancaster</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">mbed</a><ul>
+<li><a class="reference internal" href="#bat-dau-voi-mbed-org">Bắt đầu với mbed.org</a></li>
+<li><a class="reference internal" href="#hello-world-tren-mbed-org">Hello World trên mbed.org</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/online-toolchains_vi.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/online-toolchains_vi.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
