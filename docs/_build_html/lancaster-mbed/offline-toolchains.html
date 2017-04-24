@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Yotta &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="yotta">
+<span id="yotta"></span><h1>Yotta<a class="headerlink" href="#yotta" title="Permalink to this headline">¶</a></h1>
+<p>Phần mềm micro:bit DAL được xây dựng dựa trên <a class="reference external" href="http://mbed.com">ARM mbed</a> nên sử dụng <a class="reference external" href="http://yotta.mbed.com">yotta</a> làm hệ thống xây dựng chương trình offline.</p>
+<p>Khi sử dụng <code class="docutils literal"><span class="pre">yotta</span></code> để xây dựng dự án cho micro:bit, hiện nay có hai bộ công cụ (toolchain) hỗ trợ:</p>
+<ul class="simple">
+<li>GCC</li>
+<li>ARMCC</li>
+</ul>
+<div class="section" id="cai-dat-tren-windows">
+<span id="cai-dat-tren-windows"></span><h2>Cài đặt trên Windows<a class="headerlink" href="#cai-dat-tren-windows" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cai-dat-yotta-va-cac-goi-phu-thuoc">
+<span id="cai-dat-yotta-va-cac-goi-phu-thuoc"></span><h3>Cài đặt yotta và các gói phụ thuộc<a class="headerlink" href="#cai-dat-yotta-va-cac-goi-phu-thuoc" title="Permalink to this headline">¶</a></h3>
+<p>Bước đầu tiên là lấy <code class="docutils literal"><span class="pre">yotta</span></code> và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt <a class="reference external" href="http://docs/yottabuild.org/#installing">ở đây</a>.</p>
+<p>Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ <code class="docutils literal"><span class="pre">srecord</span></code>, có thể cài đặt được trên <strong>Windows</strong> từ <a class="reference external" href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code class="docutils literal"><span class="pre">srecord</span></code> được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản.</p>
+</div>
+<div class="section" id="lay-ve-du-an-mau">
+<span id="lay-ve-du-an-mau"></span><h3>Lấy về dự án mẫu<a class="headerlink" href="#lay-ve-du-an-mau" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/lancaster-university/microbit-samples
+<span class="nb">cd</span> microbit-samples
+</pre></div>
+</div>
+</div>
+<div class="section" id="chon-thiet-bi-dich-cho-yotta">
+<span id="chon-thiet-bi-dich-cho-yotta"></span><h3>Chọn thiết bị đích cho yotta<a class="headerlink" href="#chon-thiet-bi-dich-cho-yotta" title="Permalink to this headline">¶</a></h3>
+<p>Một cái đích (target) cho <code class="docutils literal"><span class="pre">yotta</span></code> bao gồm thông tin mà <code class="docutils literal"><span class="pre">yotta</span></code> cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả <code class="docutils literal"><span class="pre">armcc</span></code> lẫn <code class="docutils literal"><span class="pre">gcc</span></code>, nhưng do <code class="docutils literal"><span class="pre">gcc</span></code> được cài đặt sẵn với chương trình cài đặt <code class="docutils literal"><span class="pre">yotta</span></code> nên chúng ta sẽ dùng <code class="docutils literal"><span class="pre">gcc</span></code> làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch.</p>
+<p>Bạn có thể dùng hoặc <code class="docutils literal"><span class="pre">yotta</span></code> hoặc <code class="docutils literal"><span class="pre">yt</span></code>, để gõ dễ hơn!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">target</span> <span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>!!! note &#8220;Lưu ý&#8221;
+Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định.</p>
+<p>Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh <code class="docutils literal"><span class="pre">yotta</span></code> sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc).</p>
+<div class="section" id="bien-dich-du-an">
+<span id="bien-dich-du-an"></span><h4>Biên dịch dự án<a class="headerlink" href="#bien-dich-du-an" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ghi-len-bo-micro-bit-cua-ban">
+<span id="ghi-len-bo-micro-bit-cua-ban"></span><h3>Ghi lên bo micro:bit của bạn<a class="headerlink" href="#ghi-len-bo-micro-bit-cua-ban" title="Permalink to this headline">¶</a></h3>
+<p>Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không.</p>
+<p>Lệnh <code class="docutils literal"><span class="pre">yt</span> <span class="pre">build</span></code> sẽ đặt các tập tin trong <code class="docutils literal"><span class="pre">/build/&lt;TÊN_THIẾT_BỊ_ĐÍCH&gt;/source</span></code>. Tập tin bạn cần để ghi vào bo mạch là <code class="docutils literal"><span class="pre">microbit-combined.hex</span></code>. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT.</p>
+<p>Trong trường hợp ví dụ này, sử dụng <code class="docutils literal"><span class="pre">bbc-microbit-classic-gcc</span></code> chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính và là ổ đĩa <code class="docutils literal"><span class="pre">E:</span></code>) như sau:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">copy</span> <span class="n">build</span>\<span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>\<span class="n">source</span>\<span class="n">microbit</span><span class="o">-</span><span class="n">samples</span><span class="o">-</span><span class="n">combined</span><span class="o">.</span><span class="n">hex</span> <span class="n">E</span><span class="p">:</span>
+</pre></div>
+</div>
+<p>Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span> <span class="pre">:)</span></code> trên màn hình của nó.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="cai-dat-tren-mac-osx">
+<span id="cai-dat-tren-mac-osx"></span><h2>Cài đặt trên Mac OSX<a class="headerlink" href="#cai-dat-tren-mac-osx" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cai-dat-yotta-va-cac-goi-phu-thuoc">
+<span id="id1"></span><h3>Cài đặt yotta và các gói phụ thuộc<a class="headerlink" href="#cai-dat-yotta-va-cac-goi-phu-thuoc" title="Permalink to this headline">¶</a></h3>
+<p>Bước đầu tiên là lấy <code class="docutils literal"><span class="pre">yotta</span></code> và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt <a class="reference external" href="http://docs/yottabuild.org/#installing">ở đây</a>.</p>
+<p>Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ <code class="docutils literal"><span class="pre">srecord</span></code>, có thể cài đặt được trên ** Mac OSX ** sử dụng <a class="reference external" href="http://brew.sh/">brew</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">srecord</span>
+</pre></div>
+</div>
+<p>Bạn cũng có thể cài đặt nó bằng tay từ <a class="reference external" href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code class="docutils literal"><span class="pre">srecord</span></code> được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản.</p>
+</div>
+<div class="section" id="lay-ve-du-an-mau">
+<span id="id2"></span><h3>Lấy về dự án mẫu<a class="headerlink" href="#lay-ve-du-an-mau" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/lancaster-university/microbit-samples
+<span class="nb">cd</span> microbit-samples
+</pre></div>
+</div>
+</div>
+<div class="section" id="chon-thiet-bi-dich-cho-yotta">
+<span id="id3"></span><h3>Chọn thiết bị đích cho yotta<a class="headerlink" href="#chon-thiet-bi-dich-cho-yotta" title="Permalink to this headline">¶</a></h3>
+<p>Một cái đích (target) cho <code class="docutils literal"><span class="pre">yotta</span></code> bao gồm thông tin mà <code class="docutils literal"><span class="pre">yotta</span></code> cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả <code class="docutils literal"><span class="pre">armcc</span></code> lẫn <code class="docutils literal"><span class="pre">gcc</span></code>, nhưng do <code class="docutils literal"><span class="pre">gcc</span></code> được cài đặt sẵn với chương trình cài đặt <code class="docutils literal"><span class="pre">yotta</span></code> nên chúng ta sẽ dùng <code class="docutils literal"><span class="pre">gcc</span></code> làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch.</p>
+<p>Bạn có thể dùng hoặc <code class="docutils literal"><span class="pre">yotta</span></code> hoặc <code class="docutils literal"><span class="pre">yt</span></code>, để gõ dễ hơn!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">target</span> <span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>!!! note &#8220;Lưu ý&#8221;
+Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định.</p>
+<p>Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh <code class="docutils literal"><span class="pre">yotta</span></code> sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc).</p>
+<div class="section" id="bien-dich-du-an">
+<span id="id4"></span><h4>Biên dịch dự án<a class="headerlink" href="#bien-dich-du-an" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ghi-len-bo-micro-bit-cua-ban">
+<span id="id5"></span><h3>Ghi lên bo micro:bit của bạn<a class="headerlink" href="#ghi-len-bo-micro-bit-cua-ban" title="Permalink to this headline">¶</a></h3>
+<p>Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không.</p>
+<p>Lệnh <code class="docutils literal"><span class="pre">yt</span> <span class="pre">build</span></code> sẽ đặt các tập tin trong <code class="docutils literal"><span class="pre">/build/&lt;TÊN_THIẾT_BỊ_ĐÍCH&gt;/source</span></code>. Tập tin bạn cần để ghi vào bo mạch là <code class="docutils literal"><span class="pre">microbit-combined.hex</span></code>. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT.</p>
+<p>Trong trường hợp ví dụ này, sử dụng <code class="docutils literal"><span class="pre">bbc-microbit-classic-gcc</span></code> chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính ở đường dẫn <code class="docutils literal"><span class="pre">/Volumes/&quot;MICROBIT&quot;</span></code>) như sau:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">microbit</span><span class="o">-</span><span class="n">samples</span><span class="o">-</span><span class="n">combined</span><span class="o">.</span><span class="n">hex</span> <span class="o">/</span><span class="n">Volumes</span><span class="o">/</span><span class="s2">&quot;MICROBIT&quot;</span>
+</pre></div>
+</div>
+<p>Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span> <span class="pre">:)</span></code> trên màn hình của nó.</p>
+<p>!!! note &#8220;Lưu ý&#8221;
+Lưu ý rằng nếu bạn muốn sao chép các tập tin từ dòng lệnh, bạn có thể sử dụng lệnh sau đây trong bất kỳ dự án &#8216;yotta` nào, với điều kiện bạn cắm vào máy chỉ một bo micro:bit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>```
+cp build/$(yt --plain target | head -n 1 | cut -f 1 -d&#39; &#39;)/source/$(yt --plain ls | head -n 1 | cut -f 1 -d&#39; &#39;)-combined.hex  /Volumes/&quot;MICROBIT&quot;
+```
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="cai-dat-tren-linux">
+<span id="cai-dat-tren-linux"></span><h2>Cài đặt trên Linux<a class="headerlink" href="#cai-dat-tren-linux" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cai-dat-yotta-va-cac-goi-phu-thuoc">
+<span id="id6"></span><h3>Cài đặt yotta và các gói phụ thuộc<a class="headerlink" href="#cai-dat-yotta-va-cac-goi-phu-thuoc" title="Permalink to this headline">¶</a></h3>
+<p>Bước đầu tiên là lấy <code class="docutils literal"><span class="pre">yotta</span></code> và các gói phụ thuộc về máy của bạn, để làm việc này bạn hãy làm theo hướng dẫn cài đặt <a class="reference external" href="http://docs/yottabuild.org/#installing">ở đây</a>.</p>
+<p>Để dùng micro:bit làm thiết bị đích, bạn còn cần thêm công cụ <code class="docutils literal"><span class="pre">srecord</span></code>, có thể cài đặt được trên <strong>Ubuntu</strong> sử dụng:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">srecord</span>
+</pre></div>
+</div>
+<p>Bạn cũng có thể cài đặt nó bằng tay từ <a class="reference external" href="http://srecord.sourceforge.net/">sourceforge</a>.</p>
+<p><code class="docutils literal"><span class="pre">srecord</span></code> được dùng để tạo ra chương trình cuối cùng chạy được cho micro:bit nên nó là một gói phụ thuộc cơ bản.</p>
+</div>
+<div class="section" id="lay-ve-du-an-mau">
+<span id="id7"></span><h3>Lấy về dự án mẫu<a class="headerlink" href="#lay-ve-du-an-mau" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/lancaster-university/microbit-samples
+<span class="nb">cd</span> microbit-samples
+</pre></div>
+</div>
+</div>
+<div class="section" id="chon-thiet-bi-dich-cho-yotta">
+<span id="id8"></span><h3>Chọn thiết bị đích cho yotta<a class="headerlink" href="#chon-thiet-bi-dich-cho-yotta" title="Permalink to this headline">¶</a></h3>
+<p>Một cái đích (target) cho <code class="docutils literal"><span class="pre">yotta</span></code> bao gồm thông tin mà <code class="docutils literal"><span class="pre">yotta</span></code> cần để xây dựng một dự án từ một bộ phần cứng cụ thể. Thông tin này cũng gồm loại trình biên dịch. Các dự án micro:bit có thể được biên dịch với cả <code class="docutils literal"><span class="pre">armcc</span></code> lẫn <code class="docutils literal"><span class="pre">gcc</span></code>, nhưng do <code class="docutils literal"><span class="pre">gcc</span></code> được cài đặt sẵn với chương trình cài đặt <code class="docutils literal"><span class="pre">yotta</span></code> nên chúng ta sẽ dùng <code class="docutils literal"><span class="pre">gcc</span></code> làm mặc định và chọn một cái đích cụ thể là micro:bit có các thông tin về phần cứng trên bo mạch.</p>
+<p>Bạn có thể dùng hoặc <code class="docutils literal"><span class="pre">yotta</span></code> hoặc <code class="docutils literal"><span class="pre">yt</span></code>, để gõ dễ hơn!</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">target</span> <span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>!!! note &#8220;Lưu ý&#8221;
+Trong microbit-samples cái đích này (micro:bit) được chỉnh mặc định.</p>
+<p>Bạn chỉ cần cài đặt thiết bị đích (target) một lần cho mỗi dự án. Tất cả các lệnh <code class="docutils literal"><span class="pre">yotta</span></code> sau đó sẽ sử dụng thông tin của đích này (ví dụ, khi tìm kiếm các gói phụ thuộc).</p>
+<div class="section" id="bien-dich-du-an">
+<span id="id9"></span><h4>Biên dịch dự án<a class="headerlink" href="#bien-dich-du-an" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ghi-len-bo-micro-bit-cua-ban">
+<span id="id10"></span><h3>Ghi lên bo micro:bit của bạn<a class="headerlink" href="#ghi-len-bo-micro-bit-cua-ban" title="Permalink to this headline">¶</a></h3>
+<p>Bước cuối cùng là kiểm tra xem chương trình hex của bạn có chạy không.</p>
+<p>Lệnh <code class="docutils literal"><span class="pre">yt</span> <span class="pre">build</span></code> sẽ đặt các tập tin trong <code class="docutils literal"><span class="pre">/build/&lt;TÊN_THIẾT_BỊ_ĐÍCH&gt;/source</span></code>. Tập tin bạn cần để ghi vào bo mạch là <code class="docutils literal"><span class="pre">microbit-combined.hex</span></code>. Chỉ cần kéo và thả tập tin hex vào ổ đĩa USB MICROBIT.</p>
+<p>Trong trường hợp ví dụ này, sử dụng <code class="docutils literal"><span class="pre">bbc-microbit-classic-gcc</span></code> chúng ta có thể ghi vào micro:bit (giả sử nó đã được gắn vào máy tính ở đường dẫn <code class="docutils literal"><span class="pre">/media/MICROBIT</span></code>) như sau:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">bbc</span><span class="o">-</span><span class="n">microbit</span><span class="o">-</span><span class="n">classic</span><span class="o">-</span><span class="n">gcc</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">microbit</span><span class="o">-</span><span class="n">samples</span><span class="o">-</span><span class="n">combined</span><span class="o">.</span><span class="n">hex</span> <span class="o">/</span><span class="n">media</span><span class="o">/</span><span class="n">MICROBIT</span>
+</pre></div>
+</div>
+<p>Kết quả mong đợi là bo micro:bit sẽ chạy ngang dòng chữ <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span> <span class="pre">:)</span></code> trên màn hình của nó.</p>
+<p>!!! note &#8220;Lưu ý&#8221;
+Lưu ý rằng nếu bạn muốn sao chép các tập tin từ dòng lệnh, bạn có thể sử dụng lệnh sau đây trong bất kỳ dự án &#8216;yotta` nào, với điều kiện bạn cắm vào máy chỉ một bo micro:bit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>```
+cp build/$(yt --plain target | head -n 1 | cut -f 1 -d&#39; &#39;)/source/$(yt --plain ls | head -n 1 | cut -f 1 -d&#39; &#39;)-combined.hex /media/MICROBIT/
+```
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Yotta</a><ul>
+<li><a class="reference internal" href="#cai-dat-tren-windows">Cài đặt trên Windows</a><ul>
+<li><a class="reference internal" href="#cai-dat-yotta-va-cac-goi-phu-thuoc">Cài đặt yotta và các gói phụ thuộc</a></li>
+<li><a class="reference internal" href="#lay-ve-du-an-mau">Lấy về dự án mẫu</a></li>
+<li><a class="reference internal" href="#chon-thiet-bi-dich-cho-yotta">Chọn thiết bị đích cho yotta</a><ul>
+<li><a class="reference internal" href="#bien-dich-du-an">Biên dịch dự án</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ghi-len-bo-micro-bit-cua-ban">Ghi lên bo micro:bit của bạn</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cai-dat-tren-mac-osx">Cài đặt trên Mac OSX</a><ul>
+<li><a class="reference internal" href="#cai-dat-yotta-va-cac-goi-phu-thuoc">Cài đặt yotta và các gói phụ thuộc</a></li>
+<li><a class="reference internal" href="#lay-ve-du-an-mau">Lấy về dự án mẫu</a></li>
+<li><a class="reference internal" href="#chon-thiet-bi-dich-cho-yotta">Chọn thiết bị đích cho yotta</a><ul>
+<li><a class="reference internal" href="#bien-dich-du-an">Biên dịch dự án</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ghi-len-bo-micro-bit-cua-ban">Ghi lên bo micro:bit của bạn</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cai-dat-tren-linux">Cài đặt trên Linux</a><ul>
+<li><a class="reference internal" href="#cai-dat-yotta-va-cac-goi-phu-thuoc">Cài đặt yotta và các gói phụ thuộc</a></li>
+<li><a class="reference internal" href="#lay-ve-du-an-mau">Lấy về dự án mẫu</a></li>
+<li><a class="reference internal" href="#chon-thiet-bi-dich-cho-yotta">Chọn thiết bị đích cho yotta</a><ul>
+<li><a class="reference internal" href="#bien-dich-du-an">Biên dịch dự án</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ghi-len-bo-micro-bit-cua-ban">Ghi lên bo micro:bit của bạn</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/offline-toolchains.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/offline-toolchains.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

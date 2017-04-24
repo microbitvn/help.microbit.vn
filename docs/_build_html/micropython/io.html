@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Input/Output &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="input-output">
+<h1>Input/Output<a class="headerlink" href="#input-output" title="Permalink to this headline">¶</a></h1>
+<p>There are strips of metal along the bottom edge of the BBC micro:bit that make
+it look as if the device has teeth. These are the input/output pins (or I/O pins
+for short).</p>
+<img alt="micropython/blue-microbit.png" src="micropython/blue-microbit.png" />
+<p>Some of the pins are bigger than others so it&#8217;s possible to attach crocodile
+clips to them. These are the ones labelled 0, 1, 2, 3V and GND (computers
+always start counting from zero). If you attach an edge connector board to the
+device it&#8217;s possible to plug in wires connected to the other (smaller) pins.</p>
+<p>Each pin on the BBC micro:bit is represented by an <em>object</em> called <code class="docutils literal"><span class="pre">pinN</span></code>
+where <code class="docutils literal"><span class="pre">N</span></code> is the pin number. So, for example, to do things with the pin
+labelled with a 0 (zero), use the object called <code class="docutils literal"><span class="pre">pin0</span></code>.</p>
+<p>Simple!</p>
+<p>These objects have various <em>methods</em> associated with them depending upon what
+the specific pin is capable of.</p>
+<div class="section" id="ticklish-python">
+<h2>Ticklish Python<a class="headerlink" href="#ticklish-python" title="Permalink to this headline">¶</a></h2>
+<p>The simplest example of input via the pins is a check to see if they are
+touched. So, you can tickle your device to make it laugh like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">pin0</span><span class="o">.</span><span class="n">is_touched</span><span class="p">():</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">HAPPY</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">SAD</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With one hand, hold your device by the GND pin. Then, with your other hand,
+touch (or tickle) the 0 (zero) pin. You should see the display change from
+grumpy to happy!</p>
+<p>This is a form of very basic input measurement. However, the fun really starts
+when you plug in circuits and other devices via the pins.</p>
+</div>
+<div class="section" id="bleeps-and-bloops">
+<h2>Bleeps and Bloops<a class="headerlink" href="#bleeps-and-bloops" title="Permalink to this headline">¶</a></h2>
+<p>The simplest thing we can attach to the device is a Piezo buzzer. We&#8217;re going
+to use it for output.</p>
+<img alt="micropython/piezo_buzzer.jpg" src="micropython/piezo_buzzer.jpg" />
+<p>These small devices play a high-pitched bleep when connected to a circuit. To
+attach one to your BBC micro:bit you should attach crocodile clips to pin 0 and
+GND (as shown below).</p>
+<img alt="micropython/pin0-gnd.png" src="micropython/pin0-gnd.png" />
+<p>The wire from pin 0 should be attached to the positive connector on the buzzer
+and the wire from GND to the negative connector.</p>
+<p>The following program will cause the buzzer to make a sound:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">pin0</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is fun for about 5 seconds and then you&#8217;ll want to make the horrible
+squeaking stop. Let&#8217;s improve our example and make the device bleep:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">pin0</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">pin0</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">480</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Can you work out how this script works? Remember that <code class="docutils literal"><span class="pre">1</span></code> is &#8220;on&#8221; and <code class="docutils literal"><span class="pre">0</span></code>
+is &#8220;off&#8221; in the digital world.</p>
+<p>The device is put into an infinite loop and immediately switches pin 0 on. This
+causes the buzzer to emit a beep. While the buzzer is beeping, the device
+sleeps for twenty milliseconds and then switches pin 0 off. This gives the
+effect of a short bleep. Finally, the device sleeps for 480 milliseconds before
+looping back and starting all over again. This means you&#8217;ll get two bleeps per
+second (one every 500 milliseconds).</p>
+<p>We&#8217;ve made a very simple metronome!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Input/Output</a><ul>
+<li><a class="reference internal" href="#ticklish-python">Ticklish Python</a></li>
+<li><a class="reference internal" href="#bleeps-and-bloops">Bleeps and Bloops</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/io.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/io.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

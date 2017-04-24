@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#MicroBitImage</p>
+<div class="section" id="overview">
+<span id="overview"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">MicroBitImage</span></code> represents a bitmap picture.</p>
+<p>Images can be of any size, and each pixel on the image has an individual brightness value in the range 0 - 255.</p>
+<p>Once created, this class also provides functions to undertake graphical operations on that image, including setting pixels, clearing the image, pasting one
+image onto another at a given position, shifting the content of an image and comparing and copying images.</p>
+<p>It is designed to work with the <a class="reference external" href="../ubit/display.md"><code class="docutils literal"><span class="pre">MicroBitDisplay</span></code></a> class to allow the creation of animations and visual effects.</p>
+<p>!!! note
+This is a <strong>managed type</strong>. This means that it will automatically use and release memory as needed. There is no need for you to explicitly free or release memory when your done - the memory will be freed as soon as the last piece of code stops using the data.</p>
+</div>
+<div class="section" id="creating-images">
+<span id="creating-images"></span><h1>Creating Images<a class="headerlink" href="#creating-images" title="Permalink to this headline">¶</a></h1>
+<p>Images are easy to create - just create them like a variable, but provide the details requested in one of the constructor function shown below. This may sound complex, but is quite simple when you get used to it. For example, to create
+a blank, 2x2 image:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">image</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also create one from a text string that represents the pixel values that you want. This is a really easy way to create icons and emojis in your code.</p>
+<p>The string constructor for a <code class="docutils literal"><span class="pre">MicroBitImage</span></code> takes the form of a series of comma separate values. Each value is the brightness of a pixel, starting at the top left of your image and working
+to the right. Whenever you put a newline character <code class="docutils literal"><span class="pre">\n</span></code> in your string, this moves onto a new line of pixels.</p>
+<p>So to create a 3x3 image that is a picture of a cross, you might write:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">cross</span><span class="p">(</span><span class="s">&quot;0,255,0</span><span class="se">\n</span><span class="s">255,255,255</span><span class="se">\n</span><span class="s">0,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="manipulating-images">
+<span id="manipulating-images"></span><h1>Manipulating Images<a class="headerlink" href="#manipulating-images" title="Permalink to this headline">¶</a></h1>
+<p>Once you have created an image, you can use any of the functions listed in the API below to change that image. For example, you can use <code class="docutils literal"><span class="pre">setPixelValue</span></code> to change an individual pixel.</p>
+<p>In the example below, you can see how to change the centre pixel in our cross image
+created earlier:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">cross</span><span class="p">.</span><span class="n">setPixelValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>!!!note
+Co-ordinates are indexed from zero, with the origin (0,0) being at the top left of the image.</p>
+<p>You can print characters onto an image...</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">image</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">image</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="sc">&#39;J&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also paste the content of one image onto another - either at the origin, or somewhere else:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">image</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">image</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">cross</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">image</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">image</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">cross</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and of course, you can display your image on the LEDs using the <a class="reference external" href="../ubit/display.md"><code class="docutils literal"><span class="pre">MicroBitDisplay</span></code></a> class:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">image</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="n">image</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">cross</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparing-and-assigning-images">
+<span id="comparing-and-assigning-images"></span><h1>Comparing and Assigning Images<a class="headerlink" href="#comparing-and-assigning-images" title="Permalink to this headline">¶</a></h1>
+<p>MicroBitImage is a <strong>managed type</strong>, so you can pass images as parameters to functions, store then and assign them to other variables without having to worry about memory leaks.</p>
+<p>The type will count the number of times it is used, and will delete itself as soon as your image is not used anymore.</p>
+<p>You can assign images just like any other variable. So this is perfectly permitted, and memory safe:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">cross</span><span class="p">(</span><span class="s">&quot;0,255,0</span><span class="se">\n</span><span class="s">255,255,255</span><span class="se">\n</span><span class="s">0,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">MicroBitImage</span> <span class="n">img</span><span class="p">;</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cross</span><span class="p">;</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>As is this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">doSomething</span><span class="p">(</span><span class="n">MicroBitImage</span> <span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">MicroBitImage</span> <span class="n">cross</span><span class="p">(</span><span class="s">&quot;0,255,0</span><span class="se">\n</span><span class="s">255,255,255</span><span class="se">\n</span><span class="s">0,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+    <span class="n">doSomething</span><span class="p">(</span><span class="n">cross</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also compare images:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitImage</span> <span class="nf">cross</span><span class="p">(</span><span class="s">&quot;0,255,0</span><span class="se">\n</span><span class="s">255,255,255</span><span class="se">\n</span><span class="s">0,255,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">MicroBitImage</span> <span class="n">img</span><span class="p">;</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cross</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">img</span> <span class="o">==</span> <span class="n">cross</span><span class="p">)</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;SAME!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="storing-images-in-flash-memory">
+<span id="storing-images-in-flash-memory"></span><h1>Storing Images in Flash Memory<a class="headerlink" href="#storing-images-in-flash-memory" title="Permalink to this headline">¶</a></h1>
+<p>The micro:bit is a <strong>very</strong> constrained device in terms of Random Access Memory (RAM). Unlike modern PCs that typically have over 4 Gigabytes of RAM (around four thousand million bytes!), the micro:bit has only 16 Kilobytes (16 thousand bytes!), and if you take a look at the memory map, you will see most of this is already committed to running the Bluetooth stack.</p>
+<p>By default, any <code class="docutils literal"><span class="pre">MicroBitImage</span></code> you create will be stored in this precious RAM, so that you have the ability to change it. However, it is not uncommon to have read-only images. in this case, we can store the image in FLASH memory (the same place as your program), of which the micro:bit has 256 Kilobytes.</p>
+<p>Should you want to create an store a constant image in flash, you can do so using the following constructor, it is a little more complicated, but can save you memory:</p>
+<ul class="simple">
+<li>The array of bytes should always start with 0xff, 0xff - which tell the runtime that this image is stored in FLASH memory.</li>
+<li>The next number should be the width in pixels, followed by a zero.</li>
+<li>The next number should be the height in pixels, followed by a zero.</li>
+<li>The following bytes are then individual pixel brightness values, starting at the top left, then working left to right, top to bottom until the bottom right corner is reached.</li>
+</ul>
+<p>!!! note
+If you create an image this way, none of the functions to change the content will work on that image (e.g. <code class="docutils literal"><span class="pre">setPixelValue</span></code>, <code class="docutils literal"><span class="pre">paste</span></code>, etc).</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span>    <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">aligned</span> <span class="p">(</span><span class="mi">4</span><span class="p">)))</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
+
+    <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">((</span><span class="n">ImageData</span><span class="o">*</span><span class="p">)</span><span class="n">heart</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">animate</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitImage&#8221;})
+##leakData
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>ImageData</div> <div style='color:#795da3; display:inline-block'>leakData</div>()
+#####Description
+Get current ptr, do not decr() it, and set the current instance to empty image.</p>
+<p>This is to be used by specialized runtimes which pass  ImageData  around.</p>
+<p>##getBitmap
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>uint8_t *</div> <div style='color:#795da3; display:inline-block'>getBitmap</div>()
+#####Description
+Return a 2D array representing the bitmap image.</p>
+<p>##Constructor
+<br/>
+####MicroBitImage( <div style='color:#a71d5d; display:inline-block'>ImageData  *</div> ptr)
+#####Description
+Constructor. Create an image from a specially prepared constant array, with no copying. Will call ptr-&gt;incr().</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ImageData  \*</div> ptr - The literal - first two bytes should be 0xff, then width, 0, height, 0, and the bitmap. Width and height are 16 bit. The literal has to be 4-byte aligned.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">static</span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">aligned</span> <span class="p">(</span><span class="mi">4</span><span class="p">)))</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">((</span><span class="n">ImageData</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">heart</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitImage()
+#####Description
+Default Constructor. Creates a new reference to the empty  MicroBitImage  bitmap</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">();</span> <span class="c1">//an empty image instance </span>
+</pre></div>
+</div>
+<p><br/>
+####MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image)
+#####Description
+Copy Constructor. Add ourselves as a reference to an existing  MicroBitImage .</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> image - The  MicroBitImage  to reference.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;0,1,0,1,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> 
+ <span class="n">MicroBitImage</span> <span class="nf">i2</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="c1">//points to i </span>
+</pre></div>
+</div>
+<p><br/>
+####MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const char *</div> s)
+#####Description
+Constructor. Create a blank bitmap representation of a given size.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const char \*</div> s - A text based representation of the image given whitespace delimited numeric values.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// 5x5 image </span>
+</pre></div>
+</div>
+<p><br/>
+####MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> y)
+#####Description
+Constructor. Create a blank bitmap representation of a given size.</p>
+<p>x</p>
+<p>the width of the image.</p>
+<p>y</p>
+<p>the height of the image.</p>
+<p>Bitmap buffer is linear, with 8 bits per pixel, row by row, top to bottom with no word alignment. Stride is therefore the image width in pixels. in where w and h are width and height respectively, the layout is therefore:</p>
+<p>|[0,0]...[w,o][1,0]...[w,1] ... [[w,h]</p>
+<p>A copy of the image is made in RAM, as images are mutable.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int16_t</div> x - the width of the image.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int16_t</div> y - the height of the image.</div></blockquote>
+<p><br/>
+####MicroBitImage( <div style='color:#a71d5d; display:inline-block'>const int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>const int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>const uint8_t *</div> bitmap)
+#####Description
+Constructor. Create a bitmap representation of a given size, based on a given buffer.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int16_t</div> x - the width of the image.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const int16_t</div> y - the height of the image.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const uint8_t \*</div> bitmap - a 2D array representing the image.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##operator=
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>operator=</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> i)
+#####Description
+Copy assign operation.</p>
+<p>Called when one  MicroBitImage  is assigned the value of another using the &#8216;=&#8217; operator.</p>
+<p>Decrement our reference count and free up the buffer as necessary.</p>
+<p>Then, update our buffer to refer to that of the supplied  MicroBitImage , and increase its reference count.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> i</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">MicroBitImage</span> <span class="nf">i1</span><span class="p">();</span> 
+ <span class="n">i1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// i1 now references i </span>
+</pre></div>
+</div>
+<p>##operator==
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>operator==</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> i)
+#####Description
+Equality operation.</p>
+<p>Called when one  MicroBitImage  is tested to be equal to another using the &#8216;==&#8217; operator.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> i - The  MicroBitImage  to test ourselves against.</div></blockquote>
+<p>#####Returns
+true if this  MicroBitImage  is identical to the one supplied, false otherwise.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitDisplay</span> <span class="n">display</span><span class="p">;</span> 
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">();</span> 
+ <span class="n">MicroBitImage</span> <span class="nf">i1</span><span class="p">();</span> 
+ 
+ <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">i1</span><span class="p">)</span> <span class="c1">//will be true </span>
+ <span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;true&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##clear
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>clear</div>()
+#####Description
+Resets all pixels in this image to 0.</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// 5x5 image </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span> 
+</pre></div>
+</div>
+<p>##setPixelValue
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>setPixelValue</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>uint8_t</div> value)
+#####Description
+Sets the pixel at the given co-ordinates to a given value.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The co-ordinate of the pixel to change.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The co-ordinate of the pixel to change.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t</div> value - The new value of the pixel (the brightness level 0-255)</div></blockquote>
+<p>#####Returns
+MICROBIT_OK, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// 5x5 image </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">setPixelValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+all coordinates originate from the top left of an image.</p>
+<p>##getPixelValue
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getPixelValue</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y)
+#####Description
+Retrieves the value of a given pixel.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The x co-ordinate of the pixel to read. Must be within the dimensions of the image.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The y co-ordinate of the pixel to read. Must be within the dimensions of the image.</div></blockquote>
+<p>#####Returns
+The value assigned to the given pixel location (the brightness level 0-255), or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="s">&quot;0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">1,0,1,0,1</span><span class="se">\n</span><span class="s">0,1,0,1,0</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// 5x5 image </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">getPixelValue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> <span class="c1">//should be 0; </span>
+</pre></div>
+</div>
+<p>##printImage
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>printImage</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>const uint8_t *</div> bitmap)
+#####Description
+Replaces the content of this image with that of a given 2D array representing the image.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - the width of the image. Must be within the dimensions of the image.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> y - the width of the image. Must be within the dimensions of the image.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const uint8_t \*</div> bitmap - a 2D array representing the image.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">();</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">printImage</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>!!! note
+all coordinates originate from the top left of an image.</p>
+<p>##paste
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image)
+#####Description
+Pastes a given bitmap at the given co-ordinates.</p>
+<p>Any pixels in the relevant area of this image are replaced.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> image - The  MicroBitImage  to paste.</div></blockquote>
+<p>#####Returns
+The number of pixels written.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> <span class="c1">// a big heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// a small heart </span>
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x)
+#####Description
+Pastes a given bitmap at the given co-ordinates.</p>
+<p>Any pixels in the relevant area of this image are replaced.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> image - The  MicroBitImage  to paste.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The leftmost X co-ordinate in this image where the given image should be pasted. Defaults to 0.</div></blockquote>
+<p>#####Returns
+The number of pixels written.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> <span class="c1">// a big heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// a small heart </span>
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y)
+#####Description
+Pastes a given bitmap at the given co-ordinates.</p>
+<p>Any pixels in the relevant area of this image are replaced.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> image - The  MicroBitImage  to paste.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The leftmost X co-ordinate in this image where the given image should be pasted. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The uppermost Y co-ordinate in this image where the given image should be pasted. Defaults to 0.</div></blockquote>
+<p>#####Returns
+The number of pixels written.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> <span class="c1">// a big heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// a small heart </span>
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>paste</div>( <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &amp;</div> image,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y,  <div style='color:#a71d5d; display:inline-block'>uint8_t</div> alpha)
+#####Description
+Pastes a given bitmap at the given co-ordinates.</p>
+<p>Any pixels in the relevant area of this image are replaced.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>const  MicroBitImage  &</div> image - The  MicroBitImage  to paste.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The leftmost X co-ordinate in this image where the given image should be pasted. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The uppermost Y co-ordinate in this image where the given image should be pasted. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t</div> alpha - set to 1 if transparency clear pixels in given image should be treated as transparent. Set to 0 otherwise. Defaults to 0.</div></blockquote>
+<p>#####Returns
+The number of pixels written.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> <span class="c1">// a big heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">paste</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// a small heart </span>
+</pre></div>
+</div>
+<p>##print
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c)
+#####Description
+Prints a character to the display at the given location</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x)
+#####Description
+Prints a character to the display at the given location</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The x co-ordinate of on the image to place the top left of the character. Defaults to 0.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>print</div>( <div style='color:#a71d5d; display:inline-block'>char</div> c,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> x,  <div style='color:#a71d5d; display:inline-block'>int16_t</div> y)
+#####Description
+Prints a character to the display at the given location</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>char</div> c - The character to display.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> x - The x co-ordinate of on the image to place the top left of the character. Defaults to 0.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> y - The y co-ordinate of on the image to place the top left of the character. Defaults to 0.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##shiftLeft
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftLeft</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)
+#####Description
+Shifts the pixels in this Image a given number of pixels to the left.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> <span class="c1">// a big heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">shiftLeft</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// a small heart </span>
+</pre></div>
+</div>
+<p>##shiftRight
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftRight</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)
+#####Description
+Shifts the pixels in this Image a given number of pixels to the right.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> <span class="c1">// a big heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">shiftLeft</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// a small heart </span>
+ <span class="n">i</span><span class="p">.</span><span class="n">shiftRight</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// a big heart </span>
+</pre></div>
+</div>
+<p>##shiftUp
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftUp</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)
+#####Description
+Shifts the pixels in this Image a given number of pixels to upward.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">shiftUp</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##shiftDown
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>shiftDown</div>( <div style='color:#a71d5d; display:inline-block'>int16_t</div> n)
+#####Description
+Shifts the pixels in this Image a given number of pixels to downward.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int16_t</div> n - The number of pixels to shift.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">shiftDown</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p>##getWidth
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getWidth</div>()
+#####Description
+Gets the width of this image.</p>
+<p>#####Returns
+The width of this image.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">getWidth</span><span class="p">();</span> <span class="c1">// equals 10... </span>
+</pre></div>
+</div>
+<p>##getHeight
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getHeight</div>()
+#####Description
+Gets the height of this image.</p>
+<p>#####Returns
+The height of this image.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">getHeight</span><span class="p">();</span> <span class="c1">// equals 5... </span>
+</pre></div>
+</div>
+<p>##getSize
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>getSize</div>()
+#####Description
+Gets number of bytes in the bitmap, ie., width * height.</p>
+<p>#####Returns
+The size of the bitmap.
+#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">getSize</span><span class="p">();</span> <span class="c1">// equals 50... </span>
+</pre></div>
+</div>
+<p>##toString
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>ManagedString</div> <div style='color:#795da3; display:inline-block'>toString</div>()
+#####Description
+Converts the bitmap to a csv  ManagedString .</p>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">uBit</span><span class="p">.</span><span class="n">serial</span><span class="p">.</span><span class="n">printString</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">toString</span><span class="p">());</span> <span class="c1">// &quot;0,1,0,1,0,0,0,0,0,0\n...&quot; </span>
+</pre></div>
+</div>
+<p>##crop
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>crop</div>( <div style='color:#a71d5d; display:inline-block'>int</div> startx,  <div style='color:#a71d5d; display:inline-block'>int</div> starty,  <div style='color:#a71d5d; display:inline-block'>int</div> finx,  <div style='color:#a71d5d; display:inline-block'>int</div> finy)
+#####Description
+Crops the image to the given dimensions.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> startx - the location to start the crop in the x-axis</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> starty - the location to start the crop in the y-axis</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> finx</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> finy</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="k">const</span> <span class="kt">uint8_t</span> <span class="n">heart</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span> <span class="c1">// a cute heart </span>
+ <span class="n">MicroBitImage</span> <span class="nf">i</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">heart</span><span class="p">);</span> 
+ <span class="n">i</span><span class="p">.</span><span class="n">crop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span> <span class="c1">// &quot;0,1\n1,1\n&quot; </span>
+</pre></div>
+</div>
+<p>##isReadOnly
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>bool</div> <div style='color:#795da3; display:inline-block'>isReadOnly</div>()
+#####Description
+Check if image is read-only (i.e., residing in flash).</p>
+<p>##clone
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>MicroBitImage</div> <div style='color:#795da3; display:inline-block'>clone</div>()
+#####Description
+Create a copy of the image bitmap. Used particularly, when  isReadOnly()  is true.</p>
+<p>#####Returns
+an instance of  MicroBitImage  which can be modified independently of the current instance</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitImage&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Overview</a></li>
+<li><a class="reference internal" href="#creating-images">Creating Images</a></li>
+<li><a class="reference internal" href="#manipulating-images">Manipulating Images</a></li>
+<li><a class="reference internal" href="#comparing-and-assigning-images">Comparing and Assigning Images</a></li>
+<li><a class="reference internal" href="#storing-images-in-flash-memory">Storing Images in Flash Memory</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/data-types/image.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/data-types/image.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Hello, World! &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="hello-world">
+<h1>Hello, World!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h1>
+<p>The traditional way to start programming in a new language is to get your
+computer to say, &#8220;Hello, World!&#8221;.</p>
+<img alt="micropython/../scroll-hello.gif" src="micropython/../scroll-hello.gif" />
+<p>This is easy with MicroPython:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each line does something special. The first line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>...tells MicroPython to get all the stuff it needs to work with the BBC
+micro:bit. All this stuff is in a module called <code class="docutils literal"><span class="pre">microbit</span></code> (a module
+is a library of pre-existing code). When you <code class="docutils literal"><span class="pre">import</span></code> something you&#8217;re telling
+MicroPython that you want to use it, and <code class="docutils literal"><span class="pre">*</span></code> is Python&#8217;s way to say
+<em>everything</em>. So, <code class="docutils literal"><span class="pre">from</span> <span class="pre">microbit</span> <span class="pre">import</span> <span class="pre">*</span></code> means, in English, &#8220;I want to be
+able to use everything from the microbit code library&#8221;.</p>
+<p>The second line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>...tells MicroPython to use the display to scroll the string of characters
+&#8220;Hello, World!&#8221;. The <code class="docutils literal"><span class="pre">display</span></code> part of that line is an <em>object</em> from the
+<code class="docutils literal"><span class="pre">microbit</span></code> module that represents the device&#8217;s physical display (we say
+&#8220;object&#8221; instead of &#8220;thingy&#8221;, &#8220;whatsit&#8221; or &#8220;doodah&#8221;). We can tell the display
+to do things with a full-stop <code class="docutils literal"><span class="pre">.</span></code> followed by what looks like a command (in
+fact it&#8217;s something we call a <em>method</em>). In this case we&#8217;re using the
+<code class="docutils literal"><span class="pre">scroll</span></code> method. Since <code class="docutils literal"><span class="pre">scroll</span></code> needs to know what characters to scroll
+across the physical display we specify them between double quotes (<code class="docutils literal"><span class="pre">&quot;</span></code>)
+within parenthesis (<code class="docutils literal"><span class="pre">(</span></code> and <code class="docutils literal"><span class="pre">)</span></code>). These are called the <em>arguments</em>. So,
+<code class="docutils literal"><span class="pre">display.scroll(&quot;Hello,</span> <span class="pre">World!&quot;)</span></code> means, in English, &#8220;I want you to use the
+display to scroll the text &#8216;Hello, World!&#8217;&#8221;. If a method doesn&#8217;t need any
+arguments we make this clear by using empty parenthesis like this: <code class="docutils literal"><span class="pre">()</span></code>.</p>
+<p>Copy the &#8220;Hello, World!&#8221; code into your editor and flash it onto the device.
+Can you work out how to change the message? Can you make it say hello to you?
+For example, I might make it say &#8220;Hello, Nicholas!&#8221;. Here&#8217;s a clue, you need to
+change the scroll method&#8217;s argument.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Cảnh báo</p>
+<p>It may not work. :-)</p>
+<p>This is where things get fun and MicroPython tries to be helpful. If
+it encounters an error it will scroll a helpful message on the micro:bit&#8217;s
+display. If it can, it will tell you the line number for where the error
+can be found.</p>
+<p>Python expects you to type <strong>EXACTLY</strong> the right thing. So, for instance,
+<code class="docutils literal"><span class="pre">Microbit</span></code>, <code class="docutils literal"><span class="pre">microbit</span></code> and <code class="docutils literal"><span class="pre">microBit</span></code> are all different things to
+Python. If MicroPython complains about a <code class="docutils literal"><span class="pre">NameError</span></code> it&#8217;s probably
+because you&#8217;ve typed something inaccurately. It&#8217;s like the difference
+between referring to &#8220;Nicholas&#8221; and &#8220;Nicolas&#8221;. They&#8217;re two different people
+but their names look very similar.</p>
+<p>If MicroPython complains about a <code class="docutils literal"><span class="pre">SyntaxError</span></code> you&#8217;ve simply typed code
+in a way that MicroPython can&#8217;t understand. Check you&#8217;re not missing any
+special characters like <code class="docutils literal"><span class="pre">&quot;</span></code> or <code class="docutils literal"><span class="pre">:</span></code>. It&#8217;s like putting. a full stop in
+the middle of a sentence. It&#8217;s hard to understand exactly what you mean.</p>
+<p class="last">Your microbit may stop responding: you cannot flash new code to it or
+enter commands into the REPL. If this happens, try power cycling it. That
+is, unplug the USB cable (and battery cable if it&#8217;s connected), then plug
+the cable back in again. You may also need to quit and re-start your code
+editor application.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/hello.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/hello.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

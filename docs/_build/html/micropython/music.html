@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Music &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="music">
+<h1>Music<a class="headerlink" href="#music" title="Permalink to this headline">¶</a></h1>
+<p>MicroPython on the BBC micro:bit comes with a powerful music and sound module.
+It&#8217;s very easy to generate bleeps and bloops from the device <em>if you attach a
+speaker</em>. Use crocodile clips to attach pin 0 and GND to the positive and
+negative inputs on the speaker - it doesn&#8217;t matter which way round they are
+connected to the speaker.</p>
+<img alt="micropython/pin0-gnd.png" src="micropython/pin0-gnd.png" />
+<div class="admonition note">
+<p class="first admonition-title">Ghi chú</p>
+<p class="last">Do not attempt this with a Piezo buzzer - such buzzers are only able to
+play a single tone.</p>
+</div>
+<p>Let&#8217;s play some music:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">music</span>
+
+<span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">music</span><span class="o">.</span><span class="n">NYAN</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice that we import the <code class="docutils literal"><span class="pre">music</span></code> module. It contains methods used to make
+and control sound.</p>
+<p>MicroPython has quite a lot of built-in melodies. Here&#8217;s a complete list:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">music.DADADADUM</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.ENTERTAINER</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.PRELUDE</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.ODE</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.NYAN</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.RINGTONE</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.FUNK</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.BLUES</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.BIRTHDAY</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.WEDDING</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.FUNERAL</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.PUNCHLINE</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.PYTHON</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.BADDY</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.CHASE</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.BA_DING</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.WAWAWAWAA</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.JUMP_UP</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.JUMP_DOWN</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.POWER_UP</span></code></li>
+<li><code class="docutils literal"><span class="pre">music.POWER_DOWN</span></code></li>
+</ul>
+<p>Take the example code and change the melody. Which one is your favourite? How
+would you use such tunes as signals or cues?</p>
+<div class="section" id="wolfgang-amadeus-microbit">
+<h2>Wolfgang Amadeus Microbit<a class="headerlink" href="#wolfgang-amadeus-microbit" title="Permalink to this headline">¶</a></h2>
+<p>Creating your own tunes is easy!</p>
+<p>Each note has a name (like <code class="docutils literal"><span class="pre">C#</span></code> or <code class="docutils literal"><span class="pre">F</span></code>), an octave (telling MicroPython how
+high or low the note should be played) and a duration (how
+long it lasts through time). Octaves are indicated by a number ~ 0 is the
+lowest octave, 4 contains middle C and 8 is about as high as you&#8217;ll ever need
+unless you&#8217;re making music for dogs. Durations are also expressed as numbers.
+The higher the value of the duration the longer it will last. Such
+values are related to each other - for instance, a duration of <code class="docutils literal"><span class="pre">4</span></code> will last
+twice as long as a duration <code class="docutils literal"><span class="pre">2</span></code> (and so on). If you use the note name <code class="docutils literal"><span class="pre">R</span></code>
+then MicroPython will play a rest (i.e. silence) for the specified duration.</p>
+<p>Each note is expressed as a string of characters like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">NOTE</span><span class="p">[</span><span class="n">octave</span><span class="p">][:</span><span class="n">duration</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For example, <code class="docutils literal"><span class="pre">&quot;A1:4&quot;</span></code> refers to the note named <code class="docutils literal"><span class="pre">A</span></code> in octave number <code class="docutils literal"><span class="pre">1</span></code>
+to be played for a duration of <code class="docutils literal"><span class="pre">4</span></code>.</p>
+<p>Make a list of notes to create a melody (it&#8217;s equivalent to creating an
+animation with a list of images). For example, here&#8217;s how to make MicroPython
+play opening of &#8220;Frere Jaques&#8221;:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">music</span>
+
+<span class="n">tune</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;C4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;D4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;E4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;C4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;C4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;D4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;E4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;C4:4&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;E4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;F4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;G4:8&quot;</span><span class="p">,</span> <span class="s2">&quot;E4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;F4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;G4:8&quot;</span><span class="p">]</span>
+<span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tune</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Ghi chú</p>
+<p>MicroPython helps you to simplify such melodies. It&#8217;ll remember the octave
+and duration values until you next change them. As a result, the example
+above can be re-written as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">music</span>
+
+<span class="n">tune</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;C4:4&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G:8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;E:4&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G:8&quot;</span><span class="p">]</span>
+<span class="n">music</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tune</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">Notice how the octave and duration values only change when they have to.
+It&#8217;s a lot less typing and simpler to read.</p>
+</div>
+</div>
+<div class="section" id="sound-effects">
+<h2>Sound Effects<a class="headerlink" href="#sound-effects" title="Permalink to this headline">¶</a></h2>
+<p>MicroPython lets you make tones that are not musical notes. For example, here&#8217;s
+how to create a Police siren effect:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">music</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">freq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">880</span><span class="p">,</span> <span class="mi">1760</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>
+        <span class="n">music</span><span class="o">.</span><span class="n">pitch</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">freq</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1760</span><span class="p">,</span> <span class="mi">880</span><span class="p">,</span> <span class="o">-</span><span class="mi">16</span><span class="p">):</span>
+        <span class="n">music</span><span class="o">.</span><span class="n">pitch</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice how the <code class="docutils literal"><span class="pre">music.pitch</span></code> <em>method</em> is used in this instance. It expects a
+frequency. For example, the frequency of <code class="docutils literal"><span class="pre">440</span></code> is the same as a concert <code class="docutils literal"><span class="pre">A</span></code>
+used to tune a symphony orchestra.</p>
+<p>In the example above the <code class="docutils literal"><span class="pre">range</span></code> function is used to generate ranges of
+numeric values. These numbers are used to define the pitch of the tone. The
+three arguments for the <code class="docutils literal"><span class="pre">range</span></code> function are the start value, end value and
+step size. Therefore, the first use of <code class="docutils literal"><span class="pre">range</span></code> is saying, in English, &#8220;create
+a range of numbers between 880 and 1760 in steps of 16&#8221;. The second use of
+<code class="docutils literal"><span class="pre">range</span></code> is saying, &#8220;create a range of values between 1760 and 880 in steps of
+-16&#8221;. This is how we get a range of frequencies that go up and down in pitch
+like a siren.</p>
+<p>Because the siren should last forever it&#8217;s wrapped in an infinite <code class="docutils literal"><span class="pre">while</span></code>
+loop.</p>
+<p>Importantly, we have introduced a new sort of a loop inside the <code class="docutils literal"><span class="pre">while</span></code>
+loop: the <code class="docutils literal"><span class="pre">for</span></code> loop. In English it&#8217;s like saying, &#8220;for each item in some
+collection, do some activity with it&#8221;. Specifically in the example above, it&#8217;s
+saying, &#8220;for each frequency in the specified range of frequencies, play the
+pitch of that frequency for 6 milliseconds&#8221;. Notice how the thing to do for
+each item in a for loop is indented (as discussed earlier) so Python knows
+exactly which code to run to handle the individual items.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Music</a><ul>
+<li><a class="reference internal" href="#wolfgang-amadeus-microbit">Wolfgang Amadeus Microbit</a></li>
+<li><a class="reference internal" href="#sound-effects">Sound Effects</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/music.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/music.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

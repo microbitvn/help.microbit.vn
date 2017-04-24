@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Registering an event handler &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.messageBus</p>
+<p>##Overview</p>
+<p>The micro:bit has an eventing model that can notify user code when specific things happen on the micro:bit.</p>
+<p>For example, the <a class="reference external" href="accelerometer.md"><code class="docutils literal"><span class="pre">MicroBitAccelerometer</span></code></a> will raise events to indicate that the
+micro:bit has be been shaken, or is in freefall. <a class="reference external" href="button.md"><code class="docutils literal"><span class="pre">MicroBitButton</span></code></a> will send events on a range of button up, down, click and hold events.</p>
+<p>Programmers are also free (in fact, encouraged!) to send their own events whenever they feel it would be useful.</p>
+<div class="section" id="registering-an-event-handler">
+<span id="registering-an-event-handler"></span><h1>Registering an event handler<a class="headerlink" href="#registering-an-event-handler" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> records which events your program is interested in, and delivers those <code class="docutils literal"><span class="pre">MicroBitEvent</span></code>s to your program as they occur
+through a defined <strong>event handler</strong>.</p>
+<p>This is achieved through the <code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> <code class="docutils literal"><span class="pre">listen</span></code> function. This lets you attach a callback
+to a function when a specified event (or events) occur.</p>
+<p>You can also control the queuing and threading model used for your callback function on a per event handler basis.</p>
+<p>This may sound complex at first, but it is actually very simple. For example, to find out when button A is clicked, write some code like this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+
+    <span class="c1">// We don&#39;t want to drop out of main!</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now, whenever the <code class="docutils literal"><span class="pre">MICROBIT_BUTTON_EVT_CLICK</span></code> event is raise by <code class="docutils literal"><span class="pre">MICROBIT_ID_BUTTON_A</span></code>, your code inside function <code class="docutils literal"><span class="pre">onButtonA</span></code> will be automatically run.</p>
+<p>You can call listen as many times as you want to attached functions to each of the events that are useful for your program.</p>
+<p>##Wildcard Events
+Sometimes though, you want to capture all events generated by some component. For example, you might want to know when any changes in a button has happened.</p>
+<p>In this case, there is a special event value called <code class="docutils literal"><span class="pre">MICROBIT_EVT_ANY</span></code>. If you call listen with this value, then ALL events from the given source component will be delivered to your function.</p>
+<p>You can find out which ones by looking at the <code class="docutils literal"><span class="pre">MicroBitEvent</span></code> delivered to your function - it contains the source and value variable of the event.</p>
+<p>For example, you could write a program like this:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;CLICK&quot;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">MICROBIT_BUTTON_EVT_DOWN</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;DOWN&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+
+    <span class="c1">// We don&#39;t want to drop out of main!</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you <em>REALLY</em> want even more events, there is also a <code class="docutils literal"><span class="pre">MICROBIT_ID_ANY</span></code> source, that allows you to attach a function to event generated from any component.</p>
+<p>Use this sparingly though, as this could be quite a lot of events!</p>
+<p>The following code would attach the <code class="docutils literal"><span class="pre">onEvent</span></code> function to receive all the events from the whole runtime:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onEvent</span><span class="p">(</span><span class="n">MicroBitEvent</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;SOMETHING HAPPENED!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_ANY</span><span class="p">,</span> <span class="n">MICROBIT_EVT_ANY</span><span class="p">,</span> <span class="n">onEvent</span><span class="p">);</span>
+
+    <span class="c1">// We don&#39;t want to drop out of main!</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="defining-a-threading-mode">
+<span id="defining-a-threading-mode"></span><h1>Defining a Threading Mode<a class="headerlink" href="#defining-a-threading-mode" title="Permalink to this headline">¶</a></h1>
+<p>Whenever you register a listener, you may choose the threading mode used with that handler. Every event handler can have its own threading mode, that defines when your handler
+will be executed, and how it will react to receiving multiple events.</p>
+<p>There are four permissible modes for event handlers. These are:</p>
+<p>| Threading mode | Brief Description |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MESSAGE_BUS_LISTENER_IMMEDIATE | Handler is called directly from the code raising the event. Event handler is <em>not</em> permitted to block. |
+| MESSAGE_BUS_LISTENER_DROP_IF_BUSY | Handler is executed through its own fiber. If another event arrives whilst the previous event is still being processed, the new event will be silently dropped. |
+| MESSAGE_BUS_LISTENER_QUEUE_IF_BUSY | Handler is executed though its own fiber. If another event arrives, it is queued, and the event handler will immediately be called again once processing is complete. (default) |
+| MESSAGE_BUS_LISTENER_REENTRANT | Every event is executed in its own fiber. if another event arrives, it is handled concurrently in its own fiber. |</p>
+<p>These various modes provide great flexibility in how the runtime can be used to support higher level languages and applications. For example, <code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_IMMEDIATE</span></code> is ideal for very simple, lightweight handlers, as this will provide very timely response to events with a low processing overhead. However, it is easy to cause side effects on other parts of the code if it does not return promptly.
+<code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_DROP_IF_BUSY</span></code> provide semantics identical to the Scratch programming language, and can be used to build easy to understand, asynchronous environments.</p>
+<p><code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_QUEUE_IF_BUSY</span></code> provides similar semantics, but with tolerance to avoiding loss of high frequency events.</p>
+<p><code class="docutils literal"><span class="pre">MESSAGE_BUS_LISTENER_REENTRANT</span></code> provides guaranteed causal ordering and improved concurrency, but at the cost of additional complexity and RAM.</p>
+<p>You can define the threading mode you want to use on a per event handler basis as an optional final parameter to the listen function:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span>    <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="n">pressed</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">onButtonA</span><span class="p">(</span><span class="n">MicroBitEvent</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">pressed</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">,</span> <span class="n">MESSAGE_BUS_LISTENER_IMMEDIATE</span><span class="p">);</span>
+
+    <span class="c1">// We don&#39;t want to drop out of main!</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pressed</span><span class="p">)</span>
+            <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;Pressed!&quot;</span><span class="p">);</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>##C++ Event Handlers</p>
+<p>It is also possible to write event handlers as C++ member functions. If you don&#8217;t know what this means, then don&#8217;t worry, as that also means you won&#8217;t need it. :-)</p>
+<p>For those programmers who do like to write C++, you can use a variation of the <code class="docutils literal"><span class="pre">listen</span></code> function to register your member function event handler.</p>
+<p>This takes the same form as the examples above, but with an additional parameter to specify the object to call the method on. You are also required to specify your event handler using legal C++ syntax.</p>
+<p>For example, you can write code like this to register an event handler in your own class:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MyCoolObject</span><span class="o">::</span><span class="n">onButtonPressed</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">MyCoolObject</span><span class="o">::</span><span class="n">MyCoolObject</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">MyCoolObject</span><span class="o">::</span><span class="n">onButtonPressed</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Again, it is also possible to a threading mode as an optional final parameter:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MyCoolObject</span><span class="o">::</span><span class="n">onButtonPressed</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">MyCoolObject</span><span class="o">::</span><span class="n">MyCoolObject</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">MyCoolObject</span><span class="o">::</span><span class="n">onButtonPressed</span><span class="p">,</span> <span class="n">MESSAGE_BUS_LISTENER_IMMEDIATE</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-event-handlers">
+<span id="removing-event-handlers"></span><h1>Removing Event Handlers<a class="headerlink" href="#removing-event-handlers" title="Permalink to this headline">¶</a></h1>
+<p>Event handlers can be dynamically removed from the message bus as well as added. To do this, use the <code class="docutils literal"><span class="pre">ignore</span></code> function. This takes precisely the same parameters as the
+listen function, except that the threading mode argument is never used.</p>
+<p>For example, to remove the event handlers shown above:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">ignore</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">onButtonA</span><span class="p">);</span>
+<span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">ignore</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">MyCoolObject</span><span class="o">::</span><span class="n">onButtonPressed</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>##Message Bus ID
+| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| MICROBIT_ID_MESSAGE_BUS_LISTENER | 1021 |</p>
+<p>The message bus will send a <code class="docutils literal"><span class="pre">MICROBIT_ID_MESSAGE_BUS_LISTENER</span></code> event whenever a new listener is added to the message bus.</p>
+<p>This event allows other parts of the system to detect when interactions are taking place with a component. This is primarily used as a power management mechanism - allowing on demand activation of hardware when necessary.</p>
+<p>##Message Bus Events
+| Constant | Value |
+| &#8212;&#8212;&#8212;&#8212;- |&#8212;&#8212;&#8212;&#8212;-|
+| Message Bus ID of listener | 1-65535 |</p>
+<p>##API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitMessageBus&#8221;})
+##Constructor
+<br/>
+####MicroBitMessageBus()
+#####Description
+Default constructor.</p>
+<p>Adds itself as a fiber component, and also configures itself to be the default  EventModel  if defaultEventBus is NULL.</p>
+<p>##send
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>send</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> evt)
+#####Description
+Queues the given event to be sent to all registered recipients.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitEvent</div> evt - The event to send.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="n">MicroBitMessageBus</span> <span class="n">bus</span><span class="p">;</span> 
+ 
+ <span class="c1">// Creates and sends the MicroBitEvent using bus. </span>
+ <span class="n">MicrobitEvent</span> <span class="nf">evt</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">);</span> 
+ 
+ <span class="c1">// Creates the MicrobitEvent, but delays the sending of that event. </span>
+ <span class="n">MicrobitEvent</span> <span class="nf">evt1</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span> <span class="n">CREATE_ONLY</span><span class="p">);</span> 
+ 
+ <span class="n">bus</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">evt1</span><span class="p">);</span> 
+ 
+ <span class="c1">// This has the same effect! </span>
+ <span class="n">evt1</span><span class="p">.</span><span class="n">fire</span><span class="p">()</span> 
+</pre></div>
+</div>
+<p>##process
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>process</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitEvent  &amp;</div> evt)
+#####Description
+Internal function, used to deliver the given event to all relevant recipients. Normally, this is called once an event has been removed from the event queue.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitEvent  &</div> evt - The event to send.</div></blockquote>
+<p>#####Returns
+1 if all matching listeners were processed, 0 if further processing is required.</p>
+<p>!!! note
+It is recommended that all external code uses the  send()  function instead of this function, or the constructors provided by MicrobitEvent.</p>
+<p><br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>process</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitEvent  &amp;</div> evt,  <div style='color:#a71d5d; display:inline-block'>bool</div> urgent)
+#####Description
+Internal function, used to deliver the given event to all relevant recipients. Normally, this is called once an event has been removed from the event queue.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitEvent  &</div> evt - The event to send.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>bool</div> urgent - The type of listeners to process (optional). If set to true, only listeners defined as urgent and non-blocking will be processed otherwise, all other (standard) listeners will be processed. Defaults to false.</div></blockquote>
+<p>#####Returns
+1 if all matching listeners were processed, 0 if further processing is required.</p>
+<p>!!! note
+It is recommended that all external code uses the  send()  function instead of this function, or the constructors provided by MicrobitEvent.</p>
+<p>##elementAt
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>MicroBitListener</div> <div style='color:#795da3; display:inline-block'>elementAt</div>( <div style='color:#a71d5d; display:inline-block'>int</div> n)
+#####Description
+Returns the microBitListener with the given position in our list.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> n - The position in the list to return.</div></blockquote>
+<p>#####Returns
+the  MicroBitListener  at postion n in the list, or NULL if the position is invalid.
+##add
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>add</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitListener  *</div> newListener)
+#####Description
+Add the given  MicroBitListener  to the list of event handlers, unconditionally.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitListener  \*</div> newListener</div></blockquote>
+<p>#####Returns
+MICROBIT_OK if the listener is valid, MICROBIT_INVALID_PARAMETER otherwise.
+##remove
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>remove</div>( <div style='color:#a71d5d; display:inline-block'>MicroBitListener  *</div> newListener)
+#####Description
+Remove the given  MicroBitListener  from the list of event handlers.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitListener  \*</div> newListener</div></blockquote>
+<p>#####Returns
+MICROBIT_OK if the listener is valid, MICROBIT_INVALID_PARAMETER otherwise.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitMessageBus&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Registering an event handler</a></li>
+<li><a class="reference internal" href="#defining-a-threading-mode">Defining a Threading Mode</a></li>
+<li><a class="reference internal" href="#removing-event-handlers">Removing Event Handlers</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/messageBus.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/messageBus.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

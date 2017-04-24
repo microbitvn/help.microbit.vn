@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Creating Events &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#MicroBitEvent</p>
+<p>##Overview</p>
+<p>Computer programs execute sequentially - one line after another, following the logic of the program you have written.
+Sometimes though, we want to be able to determine <em>when</em> something has happened, and write some code to decide what should
+happen in that case. For example, maybe you want to know when a button has been pressed, when your micro:bit has been shaken,
+or when some data has been sent to you over the micro:bit radio. For these sorts of cases, we create a <code class="docutils literal"><span class="pre">MicroBitEvent</span></code>.</p>
+<div class="section" id="creating-events">
+<span id="creating-events"></span><h1>Creating Events<a class="headerlink" href="#creating-events" title="Permalink to this headline">¶</a></h1>
+<p>Many components will raise events when interesting things occur. For example, <a class="reference external" href="../ubit/accelerometer.md">&#8216;MicroBitAccelerometer&#8217;</a> will raise events to indicate that the
+micro:bit has be been shaken, or is in freefall and <a class="reference external" href="../ubit/button.md">&#8216;MicroBitButton&#8217;</a> will send events on a range of button up, down, click and hold events.
+Programmers are also free to send their own events whenever they feel it would be useful. <code class="docutils literal"><span class="pre">MicroBitEvent</span></code>s are <em>very</em> simple, and consist of
+only two numbers:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">source</span></code> - A number identifying the component that created the event.</li>
+<li><code class="docutils literal"><span class="pre">value</span></code> - A number unique to the source that identifies the event.</li>
+</ul>
+<p>The documentation for each component defines its event source, and all the events it may generate, and also gives a name to these
+event values. For example, take a look at the <a class="reference external" href="../ubit/button.md">button documentation</a> to see that the source MICROBIT_ID_BUTTON_A has the value &#8216;1&#8217;,
+and an event MICROBIT_BUTTON_EVT_CLICK with the value &#8216;3&#8217; is generated when a button is clicked.</p>
+<p>Creating an event is easy - just create a MicroBitEvent with the <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">value</span></code> you need, and the runtime takes care of the rest:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">MicroBitEvent</span><span class="p">(</span><span class="n">MICROBIT_ID_BUTTON_A</span><span class="p">,</span> <span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Feel free to create your own events lke this too. Just try to avoid using any source ID that is already used by the runtime! :-)
+See the <a class="reference external" href="../ubit/messageBus.md">messageBus</a> page for a complete table of the reserved source IDs.</p>
+</div>
+<div class="section" id="detecting-events">
+<span id="detecting-events"></span><h1>Detecting Events<a class="headerlink" href="#detecting-events" title="Permalink to this headline">¶</a></h1>
+<p>The micro:bit runtime has a component called the <a class="reference external" href="../ubit/messageBus.md"><code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code></a>, and its job is remember which events your program is interested in, and
+to deliver <code class="docutils literal"><span class="pre">MicroBitEvent</span></code>s to your program as they occur.</p>
+<p>To find out when an event happens, you need to create a function in your program,
+then tell the message bus which event you want to attach this function to. This is known as writing an <strong>event handler</strong>.</p>
+<p>You write an event handler through the <code class="docutils literal"><span class="pre">MicroBitMessageBus</span></code> <a class="reference external" href="../ubit/messageBus.md">listen</a> function.</p>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitEvent&#8221;})
+##Constructor
+<br/>
+####MicroBitEvent( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> source,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value)
+#####Description
+Constructor.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> source</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - A component specific code indicating the cause of the event.</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// Create and launch an event using the default configuration </span>
+ <span class="n">MicrobitEvent</span> <span class="nf">evt</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">);</span> 
+ 
+ <span class="c1">// Create an event only, do not fire onto an EventModel. </span>
+ <span class="n">MicrobitEvent</span> <span class="nf">evt</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span><span class="n">CREATE_AND_FIRE</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitEvent( <div style='color:#a71d5d; display:inline-block'>uint16_t</div> source,  <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value,  <div style='color:#a71d5d; display:inline-block'>MicroBitEventLaunchMode</div> mode)
+#####Description
+Constructor.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> source</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint16_t</div> value - A component specific code indicating the cause of the event.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitEventLaunchMode</div> mode - Optional definition of how the event should be processed after construction (if at all): CREATE_ONLY:  MicroBitEvent  is initialised, and no further processing takes place. CREATE_AND_FIRE:  MicroBitEvent  is initialised, and its event handlers are immediately fired (not suitable for use in interrupts!).</div></blockquote>
+<p>#####Example</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span> <span class="c1">// Create and launch an event using the default configuration </span>
+ <span class="n">MicrobitEvent</span> <span class="nf">evt</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">);</span> 
+ 
+ <span class="c1">// Create an event only, do not fire onto an EventModel. </span>
+ <span class="n">MicrobitEvent</span> <span class="nf">evt</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">MICROBIT_BUTTON_EVT_CLICK</span><span class="p">,</span><span class="n">CREATE_AND_FIRE</span><span class="p">);</span> 
+</pre></div>
+</div>
+<p><br/>
+####MicroBitEvent()
+#####Description
+Default constructor - initialises all values, and sets timestamp to the current time.</p>
+<p>##fire
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>fire</div>()
+#####Description
+Fires this  MicroBitEvent  onto the Default  EventModel , or a custom one!</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitEvent&#8221;})</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Creating Events</a></li>
+<li><a class="reference internal" href="#detecting-events">Detecting Events</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/data-types/event.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/data-types/event.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

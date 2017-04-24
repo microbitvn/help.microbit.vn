@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Các bước kế tiếp &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#Giới thiệu</p>
+<p>Bộ lệnh micro:bit runtime cung cấp một môi trường dễ sử dụng để lập trình
+cho BBC micro:bit bằng ngôn ngữ C/C++, viết bởi trường đại học Lancaster. Nó
+bao gồm các thư viện drivers cho tất cả các chức năng phần cứng của
+micro:bit, và cũng là một bộ các cơ chế thực thi (runtime) để giúp việc lập
+trình micro:bit được dễ hơn và uyển chuyển hơn. Chúng bao gồm từ việc đều
+khiển một màn hình LED ma trận đến truyền tín hiệu radio ngang cấp
+(peer-to-peer) và các dịch vụ Bluetooth năng lượng thấp (BLE) có bảo mật. Bộ
+lệnh micro:bit runtime tự hào được xây dựng trên các nền tảng <a class="reference external" href="https://www.mbed.com">ARM
+mbed</a>  và <a class="reference external" href="http://www.nordicsemi.com">Nordic nrf51</a>.</p>
+<p>Ngoài việc hỗ trợ phát triển bằng C/C++, bộ lệnh này cũng được thiết kế đặc
+biệt để hỗ trợ các ngôn ngữ lập trình cấp cao do các đối tác của chúng tôi
+phát triển cho micro:bit. Nó đang được dùng như một thư viện hỗ trợ cho tất
+cả các ngôn ngữ lập trình trên trang web BBC
+<a class="reference external" href="http://www.microbit.co.uk">www.microbit.co.uk</a>, bao gồm các ngôn ngữ
+Microsoft Block Editor, Microsoft Touch Develop, Code Kingdom&#8217;s JavaScript
+và Micropython.</p>
+<p>Trên các trang này, bạn sẽ tìm thấy hướng dẫn làm thế nào để bắt đầu sử dụng
+bộ lệnh runtime trong C/C++, tóm tắt của tất cả các thành phần cấu tạo nên
+hệ thống, và một bộ tài liệu đầy đủ về các API (các hàm mà bạn có thể dùng
+để điều khiển micro:bit).</p>
+<p>Để thử thấy việc bắt tay vào dễ như thế nào, hãy xem một <a
+href="#next-steps">chương trình mẫu</a>.</p>
+<p>#Bắt đầu tìm hiểu</p>
+<p>Viết chương trình với micro:bit runtime thật đơn giản, sau đây là những cách
+khác nhau để tạo ra các chương trình cho thiết bị của bạn.</p>
+<div class="col-sm-6">
+    <center>
+        <h3 id="online-environments">Viết chương trình online</h3>
+    </center>
+    <p>
+        Một bản hướng dẫn cơ bản để xây dựng một dự án
+        trong môi trường lập trình online.
+    </p>
+    <p>
+        <center>
+            <a href="online-toolchains" class="btn btn-lg btn-outline">
+                Các công cụ phát triển online
+            </a>
+        </center>
+    </p>
+</div>
+<div class="col-sm-6">
+    <center>
+        <h3 id="offline-environments">Viết chương trình offline</h3>
+    </center>
+    <p>
+        Một bản hướng dẫn đầy đủ để cài đặt các công cụ phát triển chương trình trên máy tính, và một tutorial để
+        xây dựng một dự án làm ví dụ.
+    </p>
+    <p>
+        <center>
+            <a href="offline-toolchains" class="btn btn-lg btn-outline">
+                Các công cụ phát triển offline
+            </a>
+        </center>
+    </p>
+</div><div class="section" id="cac-buoc-ke-tiep">
+<span id="cac-buoc-ke-tiep"></span><h1>Các bước kế tiếp<a class="headerlink" href="#cac-buoc-ke-tiep" title="Permalink to this headline">¶</a></h1>
+<p>Sau khi bạn đã chọn môi trường phát triển chương trình, bước kế tiếp phải
+là: <strong>LẬP TRÌNH</strong>!</p>
+<p>Đây là vài đoạn code mẫu để bạn bắt đầu:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;MicroBit.h&quot;</span><span class="cp"></span>
+
+<span class="n">MicroBit</span> <span class="n">uBit</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+
+    <span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO WORLD!&quot;</span><span class="p">);</span>
+
+    <span class="n">release_fiber</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="ubit-la-gi">
+<span id="ubit-la-gi"></span><h2>uBit là gì?<a class="headerlink" href="#ubit-la-gi" title="Permalink to this headline">¶</a></h2>
+<p>uBit là một bản hiện thực hóa lớp <a class="reference external" href="ubit.md">MicroBit</a> để cung cấp một cách
+thật sự đơn giản nhằm tương tác với các thành phần khác nhau trên mạch
+micro:bit.</p>
+<p>Sự đơn giản có thể thấy qua một dòng lệnh này:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">scroll</span><span class="p">(</span><span class="s">&quot;HELLO WORLD!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Dòng lệnh này chạy chữ <code class="docutils literal"><span class="pre">HELLO</span> <span class="pre">WORLD!</span></code> ngang màn hình của micro:bit.</p>
+<div class="section" id="khoi-tao">
+<span id="khoi-tao"></span><h3>Khởi tạo<a class="headerlink" href="#khoi-tao" title="Permalink to this headline">¶</a></h3>
+<p>Trong ví dụ trên, có một dòng lệnh dùng để khởi tạo một đối tượng uBit:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">uBit</span><span class="p">.</span><span class="n">init</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Trong lệnh gọi đến trình xếp lịch (scheduler) này, chương trình cấp phát bộ
+nhớ và ngăn xếp Bluetooth được khởi tạo.</p>
+<p>!!!note &#8220;Lưu ý&#8221;
+Dòng này được xóa đi trong tất cả các ví dụ bạn sẽ thấy trên trang web này, chỉ để tránh
+lặp lại!</p>
+</div>
+</div>
+<div class="section" id="fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no">
+<span id="fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no"></span><h2>&#8220;fiber&#8221; là gì và tại sao chúng ta giải phóng nó?<a class="headerlink" href="#fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no" title="Permalink to this headline">¶</a></h2>
+<p>&#8220;Fiber&#8221; là các luồng hạng nhẹ, được dùng bởi bộ runtime để thực hiện các tác
+vụ không đồng bộ.</p>
+<p>Một hàm gọi <code class="docutils literal"><span class="pre">release_fiber();</span></code> được khuyên dùng khi kết thúc chương trình
+chính để giải phóng cái fiber chính, và nhảy vào chương trình xếp lịch vô
+thời hạn như bạn có thể thấy các fiber khác chạy ở đâu đó trong chương
+trình. Nó cũng có nghĩa là bộ xử lý sẽ nhảy vào một chế độ ngủ để tiết kiệm
+năng lượng, khi không có tiến trình nào đang chạy.</p>
+<p>Nếu dòng này bị bỏ đi, chương trình của bạn sẽ ngừng thực  hiện mọi tác vụ.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Các bước kế tiếp</a><ul>
+<li><a class="reference internal" href="#ubit-la-gi">uBit là gì?</a><ul>
+<li><a class="reference internal" href="#khoi-tao">Khởi tạo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fiber-la-gi-va-tai-sao-chung-ta-giai-phong-no">&#8220;fiber&#8221; là gì và tại sao chúng ta giải phóng nó?</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/lancaster-mbed/index.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/lancaster-mbed/index.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

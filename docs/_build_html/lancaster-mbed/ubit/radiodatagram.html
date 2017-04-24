@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p>#uBit.radio.datagram</p>
+<p>##Overview</p>
+<p>This is the most flexible way to use the radio, and lets you easily send and receive up to 32 bytes of data at a time.
+This data can be provided as array of bytes, a text string, or <a class="reference external" href="../data-types/packetbuffer.md"><code class="docutils literal"><span class="pre">PacketBuffer</span></code></a>.</p>
+<p>You can send a packet at any time using the <code class="docutils literal"><span class="pre">uBit.radio.datagram.send</span></code> function.</p>
+<p>Any other micro:bits in range will detect the transmitted packet, and make the packet available through the
+<code class="docutils literal"><span class="pre">uBit.radio.datagram.recv</span></code> function.</p>
+<p>Any micro:bits receiving a datagram packet will also raise a <code class="docutils literal"><span class="pre">MICROBIT_RADIO_EVT_DATAGRAM</span></code> event to indicate
+that some data is ready to be read.</p>
+<p>For example, imagine you were creating a simple remote control car with one micro:bit acting as a remote controller, and another connected to some servos on the car.</p>
+<p>You might decide that simply sending a <code class="docutils literal"><span class="pre">1</span></code> means turn left, and a <code class="docutils literal"><span class="pre">2</span></code> means turn right, so you may write a program like this for the remote control:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonA</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">);</span>
+
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">uBit</span><span class="p">.</span><span class="n">buttonB</span><span class="p">.</span><span class="n">isPressed</span><span class="p">())</span>
+            <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="s">&quot;2&quot;</span><span class="p">);</span>
+
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>...and one like this for the remote control car:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">onData</span><span class="p">(</span><span class="n">MicroBitEvent</span> <span class="n">e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">ManagedString</span> <span class="n">s</span> <span class="o">=</span> <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">datagram</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">&quot;1&quot;</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setServoValue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">&quot;2&quot;</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">P0</span><span class="p">.</span><span class="n">setServoValue</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">messageBus</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">MICROBIT_ID_RADIO</span><span class="p">,</span> <span class="n">MICROBIT_RADIO_EVT_DATAGRAM</span><span class="p">,</span> <span class="n">onData</span><span class="p">);</span>
+    <span class="n">uBit</span><span class="p">.</span><span class="n">radio</span><span class="p">.</span><span class="n">enable</span><span class="p">();</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">uBit</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>##Message Bus ID</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>##Message Bus Events</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>#API
+[comment]: &lt;&gt; ({&#8220;className&#8221;:&#8221;MicroBitRadioDatagram&#8221;})
+##Constructor
+<br/>
+####MicroBitRadioDatagram( <div style='color:#a71d5d; display:inline-block'>MicroBitRadio  &amp;</div> r)
+#####Description
+Constructor.</p>
+<p>Creates an instance of a  MicroBitRadioDatagram  which offers the ability to broadcast simple text or binary messages to other micro:bits in the vicinity</p>
+<p>r</p>
+<p>The underlying radio module used to send and receive data.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>MicroBitRadio  &</div> r - The underlying radio module used to send and receive data. </div></blockquote>
+<p>##recv
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>recv</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t *</div> buf,  <div style='color:#a71d5d; display:inline-block'>int</div> len)
+#####Description
+Retrieves packet payload data into the given buffer.</p>
+<p>If a data packet is already available, then it will be returned immediately to the caller. If no data is available then MICROBIT_INVALID_PARAMETER is returned.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t \*</div> buf - A pointer to a valid memory location where the received data is to be stored</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> len - The maximum amount of data that can safely be stored in 'buf'</div></blockquote>
+<p>#####Returns
+The length of the data stored, or MICROBIT_INVALID_PARAMETER if no data is available, or the memory regions provided are invalid.
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> <div style='color:#795da3; display:inline-block'>recv</div>()
+#####Description
+Retreives packet payload data into the given buffer.</p>
+<p>If a data packet is already available, then it will be returned immediately to the caller in the form of a  PacketBuffer .</p>
+<p>#####Returns
+the data received, or an empty  PacketBuffer  if no data is available.
+##send
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>send</div>( <div style='color:#a71d5d; display:inline-block'>uint8_t *</div> buffer,  <div style='color:#a71d5d; display:inline-block'>int</div> len)
+#####Description
+Transmits the given buffer onto the broadcast radio.</p>
+<p>This is a synchronous call that will wait until the transmission of the packet has completed before returning.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>uint8_t \*</div> buffer - The packet contents to transmit.</div></blockquote>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>int</div> len - The number of bytes to transmit.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the buffer is invalid, or the number of bytes to transmit is greater than  MICROBIT_RADIO_MAX_PACKET_SIZE + MICROBIT_RADIO_HEADER_SIZE .
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>send</div>( <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> data)
+#####Description
+Transmits the given string onto the broadcast radio.</p>
+<p>This is a synchronous call that will wait until the transmission of the packet has completed before returning.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>PacketBuffer</div> data - The packet contents to transmit.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the buffer is invalid, or the number of bytes to transmit is greater than  MICROBIT_RADIO_MAX_PACKET_SIZE + MICROBIT_RADIO_HEADER_SIZE .
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>int</div> <div style='color:#795da3; display:inline-block'>send</div>( <div style='color:#a71d5d; display:inline-block'>ManagedString</div> data)
+#####Description
+Transmits the given string onto the broadcast radio.</p>
+<p>This is a synchronous call that will wait until the transmission of the packet has completed before returning.</p>
+<p>#####Parameters</p>
+<blockquote>
+<div> <div style='color:#a71d5d; display:inline-block'>ManagedString</div> data - The packet contents to transmit.</div></blockquote>
+<p>#####Returns
+MICROBIT_OK on success, or MICROBIT_INVALID_PARAMETER if the buffer is invalid, or the number of bytes to transmit is greater than  MICROBIT_RADIO_MAX_PACKET_SIZE + MICROBIT_RADIO_HEADER_SIZE .
+##packetReceived
+<br/>
+####<div style='color:#a71d5d; display:inline-block'>void</div> <div style='color:#795da3; display:inline-block'>packetReceived</div>()
+#####Description
+Protocol handler callback. This is called when the radio receives a packet marked as a datagram.</p>
+<p>This function process this packet, and queues it for user reception.</p>
+<hr class="docutils" />
+<p>[comment]: &lt;&gt; ({&#8220;end&#8221;:&#8221;MicroBitRadioDatagram&#8221;})</p>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/lancaster-mbed/ubit/radiodatagram.md.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/lancaster-mbed/ubit/radiodatagram.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

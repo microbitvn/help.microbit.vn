@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Network &#8212; Tài liệu Microbit.vn help </title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Tìm Kiếm" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="network">
+<h1>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h1>
+<p>It is possible to connect devices together to send and receive
+messages to and from each other. This is called a network. A network of
+interconnected networks is called an internet. The Internet is an internet
+of all the internets.</p>
+<p>Networking is hard and this is reflected in the program described below.
+However, the beautiful thing about this project is it contains all the common
+aspects of network programming you need to know about. It&#8217;s also remarkably
+simple and fun.</p>
+<p>But first, let&#8217;s set the scene...</p>
+<div class="section" id="connection">
+<h2>Connection<a class="headerlink" href="#connection" title="Permalink to this headline">¶</a></h2>
+<p>Imagine a network as a series of layers. At the very bottom is the most
+fundamental aspect of communication: there needs to be some sort of way for
+a signal to get from one device to the other. Sometimes this is done via a
+radio connection, but in this example we&#8217;re simply going to use two wires.</p>
+<img alt="micropython/network.png" src="micropython/network.png" />
+<p>It is upon this foundation that we can build all the other layers in the
+<em>network stack</em>.</p>
+<p>As the diagram shows, blue and red micro:bits are connected via crocodile
+leads. Both use pin 1 for output and pin 2 for input. The output from one
+device is connected to the input on the other. It&#8217;s a bit like knowing which
+way round to hold a telephone handset - one end has a microphone (the input)
+and the other a speaker (the output). The recording of your voice via your
+microphone is played out of the other person&#8217;s speaker. If you hold the
+phone the wrong way up, you&#8217;ll get strange results!</p>
+<p>It&#8217;s exactly the same in this instance: you must connect the wires properly!</p>
+</div>
+<div class="section" id="signal">
+<h2>Signal<a class="headerlink" href="#signal" title="Permalink to this headline">¶</a></h2>
+<p>The next layer in the <em>network stack</em> is the signal. Often this will depend
+upon the characteristics of the connection. In our example it&#8217;s simply
+digital on and off signals sent down the wires via the IO pins.</p>
+<p>If you remember, it&#8217;s possible to use the IO pins like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pin1</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># switch the signal on</span>
+<span class="n">pin1</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># switch the signal off</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">pin2</span><span class="o">.</span><span class="n">read_digital</span><span class="p">()</span>  <span class="c1"># read the value of the signal (either 1 or 0)</span>
+</pre></div>
+</div>
+<p>The next step involves describing how to use and handle a signal. For that we
+need a...</p>
+</div>
+<div class="section" id="protocol">
+<h2>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<p>If you ever meet the Queen there are expectations about how you ought to
+behave. For example, when she arrives you may bow or curtsey, if she offers her
+hand politely shake it, refer to her as &#8220;your majesty&#8221; and thereafter as
+&#8220;ma&#8217;am&#8221; and so on. This set of rules is called the royal protocol. A protocol
+explains how to behave given a specific situation (such as meeting the
+Queen). A protocol is pre-defined to ensure everyone understands what&#8217;s going
+on before a given situation arises.</p>
+<img alt="micropython/queen.jpg" src="micropython/queen.jpg" />
+<p>It is for this reason that we define and use protocols for communicating
+messages via a computer network. Computers need to agree before hand how to
+send and receive messages. Perhaps the best known protocol is the
+hypertext transfer protocol (HTTP) used by the world wide web.</p>
+<p>Another famous protocol for sending messages (that pre-dates computers) is
+Morse code. It defines how to send character-based messages via on/off signals
+of long or short durations. Often such signals are played as bleeps. Long
+durations are called dashes (<code class="docutils literal"><span class="pre">-</span></code>) whereas short durations are dots (<code class="docutils literal"><span class="pre">.</span></code>).
+By combining dashes and dots Morse defines a way to send characters. For
+example, here&#8217;s how the standard Morse alphabet is defined:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">.-</span>    <span class="n">A</span>     <span class="o">---</span>   <span class="n">J</span>     <span class="o">...</span>   <span class="n">S</span>     <span class="o">.----</span>  <span class="mi">1</span>      <span class="o">----.</span>  <span class="mi">9</span>
+<span class="o">-...</span>  <span class="n">B</span>     <span class="o">-.-</span>   <span class="n">K</span>     <span class="o">-</span>     <span class="n">T</span>     <span class="o">..---</span>  <span class="mi">2</span>      <span class="o">-----</span>  <span class="mi">0</span>
+<span class="o">-.-.</span>  <span class="n">C</span>     <span class="o">.-..</span>  <span class="n">L</span>     <span class="o">..-</span>   <span class="n">U</span>     <span class="o">...--</span>  <span class="mi">3</span>
+<span class="o">-..</span>   <span class="n">D</span>     <span class="o">--</span>    <span class="n">M</span>     <span class="o">...-</span>  <span class="n">V</span>     <span class="o">....-</span>  <span class="mi">4</span>
+<span class="o">.</span>     <span class="n">E</span>     <span class="o">-.</span>    <span class="n">N</span>     <span class="o">.--</span>   <span class="n">W</span>     <span class="o">.....</span>  <span class="mi">5</span>
+<span class="o">..-.</span>  <span class="n">F</span>     <span class="o">---</span>   <span class="n">O</span>     <span class="o">-..-</span>  <span class="n">X</span>     <span class="o">-....</span>  <span class="mi">6</span>
+<span class="o">--.</span>   <span class="n">G</span>     <span class="o">.--.</span>  <span class="n">P</span>     <span class="o">-.--</span>  <span class="n">Y</span>     <span class="o">--...</span>  <span class="mi">7</span>
+<span class="o">....</span>  <span class="n">H</span>     <span class="o">--.-</span>  <span class="n">Q</span>     <span class="o">--..</span>  <span class="n">Z</span>     <span class="o">---..</span>  <span class="mi">8</span>
+<span class="o">..</span>    <span class="n">I</span>     <span class="o">.-.</span>   <span class="n">R</span>
+</pre></div>
+</div>
+<p>Given the chart above, to send the character &#8220;H&#8221; the signal is switched on four
+times for a short duration, indicating four dots (<code class="docutils literal"><span class="pre">....</span></code>). For the letter
+&#8220;L&#8221; the signal is also switched on four times, but the second signal has a
+longer duration (<code class="docutils literal"><span class="pre">.-..</span></code>).</p>
+<p>Obviously, the timing of the signal is important: we need to tell a dot from a
+dash. That&#8217;s another point of a protocol, to agree such things so everyone&#8217;s
+implementation of the protocol will work with everyone elses. In this instance
+we&#8217;ll just say that:</p>
+<ul class="simple">
+<li>A signal with a duration less than 250 milliseconds is a dot.</li>
+<li>A signal with a duration from 250 milliseconds to less than 500 milliseconds is a dash.</li>
+<li>Any other duration of signal is ignored.</li>
+<li>A pause / gap in the signal of greater than 500 milliseconds indicates the end of a character.</li>
+</ul>
+<p>In this way, the sending of a letter &#8220;H&#8221; is defined as four &#8220;on&#8221; signals that
+last no longer than 250 milliseconds each, followed by a pause of greater than
+500 milliseconds (indicating the end of the character).</p>
+</div>
+<div class="section" id="message">
+<h2>Message<a class="headerlink" href="#message" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;re finally at a stage where we can build a message - a message that actually
+means something to us humans. This is the top-most layer of our <em>network
+stack</em>.</p>
+<p>Using the protocol defined above I can send the following sequence of signals
+down the physical wire to the other micro:bit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...././.-../.-../---/.--/---/.-./.-../-..</span>
+</pre></div>
+</div>
+<p>Can you work out what it says?</p>
+</div>
+<div class="section" id="application">
+<h2>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s all very well having a network stack, but you also need a way to
+interact with it - some form of application to send and receive messages.
+While HTTP is interesting <em>most</em> people don&#8217;t know about it and let their
+web-browser handle it - the underlying <em>network stack</em> of the world wide web
+is hidden (as it should be).</p>
+<p>So, what sort of application should we write for the BBC micro:bit? How should
+it work, from the user&#8217;s point of view?</p>
+<p>Obviously, to send a message you should be able to input dots and dashes (we
+can use button A for that). If we want to see the message we sent or just
+received we should be able to trigger it to scroll across the display (we can
+use button B for that). Finally, this being Morse code, if a speaker is
+attached, we should be able to play the beeps as a form of aural feedback while
+the user is entering their message.</p>
+</div>
+<div class="section" id="the-end-result">
+<h2>The End Result<a class="headerlink" href="#the-end-result" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s the program, in all its glory and annotated with plenty of comments so
+you can see what&#8217;s going on:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">microbit</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">music</span>
+
+
+<span class="c1"># A lookup table of morse codes and associated characters.</span>
+<span class="n">MORSE_CODE_LOOKUP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;.-&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-...&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-.-.&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-..&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.&quot;</span><span class="p">:</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;..-.&quot;</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--.&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;....&quot;</span><span class="p">:</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;..&quot;</span><span class="p">:</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.---&quot;</span><span class="p">:</span> <span class="s2">&quot;J&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-.-&quot;</span><span class="p">:</span> <span class="s2">&quot;K&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.-..&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-.&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;---&quot;</span><span class="p">:</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.--.&quot;</span><span class="p">:</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--.-&quot;</span><span class="p">:</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.-.&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;..-&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;...-&quot;</span><span class="p">:</span> <span class="s2">&quot;V&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.--&quot;</span><span class="p">:</span> <span class="s2">&quot;W&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-..-&quot;</span><span class="p">:</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-.--&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--..&quot;</span><span class="p">:</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.----&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;..---&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;...--&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;....-&quot;</span><span class="p">:</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;.....&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-....&quot;</span><span class="p">:</span> <span class="s2">&quot;6&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--...&quot;</span><span class="p">:</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;---..&quot;</span><span class="p">:</span> <span class="s2">&quot;8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;----.&quot;</span><span class="p">:</span> <span class="s2">&quot;9&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-----&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">buffer</span><span class="p">):</span>
+    <span class="c1"># Attempts to get the buffer of Morse code data from the lookup table. If</span>
+    <span class="c1"># it&#39;s not there, just return a full stop.</span>
+    <span class="k">return</span> <span class="n">MORSE_CODE_LOOKUP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># How to display a single dot.</span>
+<span class="n">DOT</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+            <span class="s2">&quot;00000:&quot;</span>
+            <span class="s2">&quot;00900:&quot;</span>
+            <span class="s2">&quot;00000:&quot;</span>
+            <span class="s2">&quot;00000:&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># How to display a single dash.</span>
+<span class="n">DASH</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="s2">&quot;00000:&quot;</span>
+             <span class="s2">&quot;00000:&quot;</span>
+             <span class="s2">&quot;09990:&quot;</span>
+             <span class="s2">&quot;00000:&quot;</span>
+             <span class="s2">&quot;00000:&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># To create a DOT you need to hold the button for less than 250ms.</span>
+<span class="n">DOT_THRESHOLD</span> <span class="o">=</span> <span class="mi">250</span>
+<span class="c1"># To create a DASH you need to hold the button for less than 500ms.</span>
+<span class="n">DASH_THRESHOLD</span> <span class="o">=</span> <span class="mi">500</span>
+
+
+<span class="c1"># Holds the incoming Morse signals.</span>
+<span class="n">buffer</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="c1"># Holds the translated Morse as characters.</span>
+<span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="c1"># The time from which the device has been waiting for the next keypress.</span>
+<span class="n">started_to_wait</span> <span class="o">=</span> <span class="n">running_time</span><span class="p">()</span>
+
+
+<span class="c1"># Put the device in a loop to wait for and react to key presses.</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># Work out how long the device has been waiting for a keypress.</span>
+    <span class="n">waiting</span> <span class="o">=</span> <span class="n">running_time</span><span class="p">()</span> <span class="o">-</span> <span class="n">started_to_wait</span>
+    <span class="c1"># Reset the timestamp for the key_down_time.</span>
+    <span class="n">key_down_time</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># If button_a is held down, then...</span>
+    <span class="k">while</span> <span class="n">button_a</span><span class="o">.</span><span class="n">is_pressed</span><span class="p">():</span>
+        <span class="c1"># Play a beep - this is Morse code y&#39;know ;-)</span>
+        <span class="n">music</span><span class="o">.</span><span class="n">pitch</span><span class="p">(</span><span class="mi">880</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="c1"># Set pin1 (output) to &quot;on&quot;</span>
+        <span class="n">pin1</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># ...and if there&#39;s not a key_down_time then set it to now!</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key_down_time</span><span class="p">:</span>
+            <span class="n">key_down_time</span> <span class="o">=</span> <span class="n">running_time</span><span class="p">()</span>
+    <span class="c1"># Alternatively, if pin2 (input) is getting a signal, pretend it&#39;s a</span>
+    <span class="c1"># button_a key press...</span>
+    <span class="k">while</span> <span class="n">pin2</span><span class="o">.</span><span class="n">read_digital</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key_down_time</span><span class="p">:</span>
+            <span class="n">key_down_time</span> <span class="o">=</span> <span class="n">running_time</span><span class="p">()</span>
+    <span class="c1"># Get the current time and call it key_up_time.</span>
+    <span class="n">key_up_time</span> <span class="o">=</span> <span class="n">running_time</span><span class="p">()</span>
+    <span class="c1"># Set pin1 (output) to &quot;off&quot;</span>
+    <span class="n">pin1</span><span class="o">.</span><span class="n">write_digital</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># If there&#39;s a key_down_time (created when button_a was first pressed</span>
+    <span class="c1"># down).</span>
+    <span class="k">if</span> <span class="n">key_down_time</span><span class="p">:</span>
+        <span class="c1"># ... then work out for how long it was pressed.</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="n">key_up_time</span> <span class="o">-</span> <span class="n">key_down_time</span>
+        <span class="c1"># If the duration is less than the max length for a &quot;dot&quot; press...</span>
+        <span class="k">if</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="n">DOT_THRESHOLD</span><span class="p">:</span>
+            <span class="c1"># ... then add a dot to the buffer containing incoming Morse codes</span>
+            <span class="c1"># and display a dot on the display.</span>
+            <span class="n">buffer</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+            <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">DOT</span><span class="p">)</span>
+        <span class="c1"># Else, if the duration is less than the max length for a &quot;dash&quot;</span>
+        <span class="c1"># press... (but longer than that for a DOT ~ handled above)</span>
+        <span class="k">elif</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="n">DASH_THRESHOLD</span><span class="p">:</span>
+            <span class="c1"># ... then add a dash to the buffer and display a dash.</span>
+            <span class="n">buffer</span> <span class="o">+=</span> <span class="s1">&#39;-&#39;</span>
+            <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">DASH</span><span class="p">)</span>
+        <span class="c1"># Otherwise, any other sort of keypress duration is ignored (this isn&#39;t</span>
+        <span class="c1"># needed, but added for &quot;understandability&quot;).</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="c1"># The button press has been handled, so reset the time from which the</span>
+        <span class="c1"># device is starting to wait for a  button press.</span>
+        <span class="n">started_to_wait</span> <span class="o">=</span> <span class="n">running_time</span><span class="p">()</span>
+    <span class="c1"># Otherwise, there hasn&#39;t been a button_a press during this cycle of the</span>
+    <span class="c1"># loop, so check there&#39;s not been a pause to indicate an end of the</span>
+    <span class="c1"># incoming Morse code character. The pause must be longer than a DASH</span>
+    <span class="c1"># code&#39;s duration.</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">waiting</span> <span class="o">&gt;</span> <span class="n">DASH_THRESHOLD</span><span class="p">:</span>
+        <span class="c1"># There is a buffer and it&#39;s reached the end of a code so...</span>
+        <span class="c1"># Decode the incoming buffer.</span>
+        <span class="n">character</span> <span class="o">=</span> <span class="n">decode</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+        <span class="c1"># Reset the buffer to empty.</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># Show the decoded character.</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+        <span class="c1"># Add the character to the message.</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="n">character</span>
+    <span class="c1"># Finally, if button_b was pressed while all the above was going on...</span>
+    <span class="k">if</span> <span class="n">button_b</span><span class="o">.</span><span class="n">was_pressed</span><span class="p">():</span>
+        <span class="c1"># ... display the message,</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">scroll</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="c1"># then reset it to empty (ready for a new message).</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>How would you improve it? Can you change the definition of a dot and a dash so
+speedy Morse code users can use it? What happens if both devices are sending at
+the same time? What might you do to handle this situation?</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Mục Lục</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Network</a><ul>
+<li><a class="reference internal" href="#connection">Connection</a></li>
+<li><a class="reference internal" href="#signal">Signal</a></li>
+<li><a class="reference internal" href="#protocol">Protocol</a></li>
+<li><a class="reference internal" href="#message">Message</a></li>
+<li><a class="reference internal" href="#application">Application</a></li>
+<li><a class="reference internal" href="#the-end-result">The End Result</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/micropython/network.rst.txt"
+            rel="nofollow">Hiển thị mã nguồn</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Thực hiện" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Doãn Minh Đăng, Tuấn PM, My Nguyen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/micropython/network.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
